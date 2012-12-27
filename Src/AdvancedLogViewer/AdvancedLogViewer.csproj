@@ -173,11 +173,11 @@
     <Compile Include="UI\ManageContentExtraction.Designer.cs">
       <DependentUpon>ManageContentExtraction.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FilterPopup.cs">
+    <Compile Include="UI\FilterPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\FilterPopup.designer.cs">
-      <DependentUpon>FilterPopup.cs</DependentUpon>
+    <Compile Include="UI\FilterPopUp.designer.cs">
+      <DependentUpon>FilterPopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingsDlg.cs">
       <SubType>Form</SubType>
@@ -259,8 +259,8 @@
     <EmbeddedResource Include="UI\ManageContentExtraction.resx">
       <DependentUpon>ManageContentExtraction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\FilterPopup.resx">
-      <DependentUpon>FilterPopup.cs</DependentUpon>
+    <EmbeddedResource Include="UI\FilterPopUp.resx">
+      <DependentUpon>FilterPopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDlg.resx">
       <DependentUpon>SettingsDlg.cs</DependentUpon>
