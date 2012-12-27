@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<History>
+  <Version version="5.0.1" date="2011-12-16">
+    <BigFeature>Advanced Log Viewer can be PORTABLE! It means you can use it just by copy whole ALV directory without needs to install it. ALV still can be installed, then settings is saved into user's profile directory. When exists folder: "UserData" in ALV directory, all settings is saved there and ALV is run in Portable mode.</BigFeature>
+    <Feature>Possibility to jump to DateTime or Line number in log file by specifying command line arguments of LogViewer. Example: "AdvancedLogViewer.exe "C:\SomeLog.log" 123" will open SomeLog.log and jump there onto line 123.</Feature>
+    <Feature>Automatic update works also in PORTABLE mode. In that case binaries are downloaded, ALV is stopped, updated by new binaries and run again.</Feature>
+    <Change>Changed icon for Fatal log level - now is black with red cross to better distingush betweeen Error and Fatal</Change> 
+  </Version>
+
+  <Version version="4.0.1" date="2011-12-11">
+    <BigFeature>New possibility to Adjust Log Level directly from the Log Viewer. User can select Config files for each Log file. Log Viewer then automatically read associated config file, show current log levels and give possibility to change them easily. This feature is accessible via new icon on the toolbar.</BigFeature>
+    <Change>Changed icons for log level types (warning, error, debug, ...). Each log level has different icon with different color to easily distinguish between them.</Change>
+  </Version>
+
+  <Version version="3.2.4" date="2011-11-13">
+    <Change>Default interval for automatic update check changed from 2 days to 12 hours.</Change>
+    <Change>Few minor UI changes (text corrections, tab order fixed, ...).</Change>
+  </Version>
+
+  <Version version="3.2.3" date="2011-11-08">
+    <Fix>Icons for log item type (the icon on each line like Warning, Information, ...) disappeared.</Fix>
+  </Version>
+
+  <Version version="3.2.2" date="2011-11-07">
+    <Fix>Fixed color highlight with option "Trim text in Class column from left" enabled.</Fix>
+  </Version>
+
+  <Version version="3.2.1" date="2011-11-06">
+    <Feature>When application checks for updates on the web, message in status bar is shown.</Feature>
+    <Feature>New option to trim text in Class column from left instead of right side. When true, right side of class name is always visible. By default is option enabled.</Feature>
+    <Feature>Added possibility to send feedback directly from the application. Now you can send feature request, bug report or anything you want directly from menu: Other -> Send feedback.</Feature>
+    <Fix>When main window was set to "Stay on top", quick filter window was shown under the main window (wasn't visible)</Fix>
+  </Version>
+
+  <Version version="3.1.3" date="2011-10-23">
+    <Fix>Fixed bug when user clicks on "Browse for Logs" in Windows explorer on long path and operating system pass this path as 8+3.</Fix>
+    <Fix>Fixed bug when user clicks on "Browse for Logs" in Windows explorer then list of recent files were not loaded.</Fix>
+    <Feature>Redesigned dialog which informs that New version was found, possibility to show what's new against installed version.</Feature>
+  </Version>
+
+  <Version version="3.1.2" date="2011-10-18">
+    <Fix>Fixed rare bug during saving settings for LogBrower (Exception: value can not be null).</Fix>
+  </Version>
+
+  <Version version="3.1.1" date="2011-10-10">
+    <Feature>Added "Browse for Logs" into Windows Explorer context menu on Folders.</Feature>
+    <Feature>In Browse for Logs added possibility to change root folder and browse any other folder</Feature>
+    <Feature>Browse for Logs is accessible even when no log is opened, in that case dialog with "Select folder to browse" is shown</Feature>
+  </Version>
+
+  <Version version="3.0.2" date="2011-10-04">
+    <Fix>Fixed issue during startup: Scarfsail.Common assembly is old.</Fix>
+  </Version>
+
+  <Version version="3.0.1" date="2011-09-28">
+    <BigFeature>New tool: Browse for logs around current log. Window with tree of logs around currently opened log file. It search for all *.log* files around current log file up to defined Top Level folder (e.g. LogFiles) and show them in tree.</BigFeature>
+    <Feature>In recent files are shown only base log file names. E.g. LogFile.log instead of LogFile.log.1. This can be disabled on Settings dialog. </Feature>
+    <Change>When log part isn't continuous (.log, .log.1, .log.2, ...) and some numbers missing (.log, .log.2, .log.4, ...) those parts are now shown also in log parts list.</Change>
+    <Change>Refactored code responsible for keyboard shortcuts, planned possibility to define own keyboard shortcuts in some future release.</Change>
+    <Feature>Added keyboard shortcut to show List of Recent Files: CTRL + R.</Feature>
+    <Feature>Added keyboard shortcut for Favorive (F) and Auto Refresh (P).</Feature>
+    <Feature>First 9 files in recent files have numbered shortcut (0-9). So when recent file list is shown, just press number which is shown before file name to open that log file.</Feature>
+    <Feature>Added keyboard shortcuts for quick filter popup windows (M for Message, C for Class and so on).</Feature>
+    <Feature>On filter popup window added keyboard shortcut for Enable/Disable filter (ALT+E)</Feature>
+    <Feature>Added list of keyboard shortcuts, it's available under menu: Other -> Keyboard shortcuts</Feature>
+    <Feature>Added possibility to disable remembering of enabled filters for next session. This option is on settings page.</Feature>
+    <Changed>Some icons in toolbar changed.</Changed>   
+    <Fix>Tweaked performance while log is loading.</Fix>
+  </Version>
+  
+  <Version version="2.6.1" date="2011-09-11">
+    <BigFeature>Added possibility to specify Exclude filters and combine them with classic Include filters. Exclude item in filter list has to be prefixed with ~ char. Example: ~ExcludeThisWord. When you want to create include filter with ~ as first character, prefix it with \. eg: \~ThisIsIncludeFilterWith~AsFirstChar</BigFeature>
+    <Feature>Added context menu in Message detail with possibility to set/add current word as message filter.</Feature>
+    <Feature>When Advanced Log Viewer is opened without any log, list of recent log files is shown.</Feature>
+  </Version>
+
+  <Version version="2.5.5" date="2011-09-04">
+    <Feature>Added some logging when application starts to investigate possible issues during app initialization.</Feature>
+    <Feature>Added log format pattern for SWAutomationFramework.log.</Feature>
+    <Change>Changed default value for: "Select previous last item" in settings from True to False.</Change>
+  </Version>
+
+  <Version version="2.5.4" date="2011-04-16">
+    <Fix>Fixed issue with empty lines in filter items. In case there was one empty line, filter shown all items.</Fix>
+    <Change>When filters are disabled and user clicks on some column header to specify and enable filter for that column, filters for other columns are not applied.</Change>
+  </Version>
+
+  <Version version="2.5.3" date="2011-04-11">
+    <Feature>Added possibility to show / hide bottom pane with message content.</Feature>
+    <Feature>Possibility to show list of changes in the application.</Feature>
+    <Feature>When new update is installed, list of changes against previous version is shown.</Feature>
+  </Version>
+
+
+  <Version version="2.5.1" date="2011-03-27">
+    <BigFeature>Message content extractor: Possibility to Save / Open / Copy to clipboard message content. Also possible to specify custom extractors with regex to match and extract message content and execute specific action.</BigFeature>
+    <Fix>Settings UI: Values for automatic updates settings wasn't saved properly to config file.</Fix>
+    <Fix>In case log file is empty, log viewer is still trying to refresh it.</Fix>
+  </Version>
+
+  <Version version="2.4.1" date="2011-03-20">
+    <Feature>Internet updates: Application automatically check for new versions. There is possible to disable automatic checking and check it manually in app menu. In case new version is found, user is informed about that and LogViewer is able to download and apply that update.</Feature>
+    <Feature>Favorites: Possibility to mark log files as Favorites. When file is marked as a Favorite, the file will be always on the top in recent files list with "yellow star" image.</Feature>
+    <Feature>Plugins: When plugin is executed, context of log control is passed to the plugin. In the context are methods to control LogView like is GotoItem.</Feature>
+  </Version>
+  
+  <Version version="2.3.4" date="2011-03-02">
+    <Fix>Exception: "InvalidArgument=Value of '-1' is not valid of 'index'" when logfile was recreated just during refresh.</Fix>
+  </Version>
+  
+  <Version version="2.3.3" date="2010-11-27">
+    <Fix>Exception when log file was recreated and UI was refreshed (automatically or manually) and cursor in listview was on line number which doesn't exists yet in new log file.</Fix>
+  </Version>
+  
+  <Version version="2.3.2" date="2010-11-07">
+    <Feature>Possibility to insert value from currently selected item into filter (useful when user wants to filter by current Thread or Type)</Feature>
+    <Fix>Wrong markers showing when only time filter was enabled</Fix>
+    <Fix>Automatic checking of "Enabled" checkebox in Message filter when user something change (on other filters it worked)</Fix>
+    <Fix>When filter was applied and no item was shown, in detail remained text from previously selected item.</Fix>
+  </Version>
+
+  <Version version="2.3.1" date="2010-11-01">
+    <Feature>New possibility to show only new incomming items (useful for watching live logs) by one click or CTRL+T shortcut</Feature>
+    <Feature>Extended UI for Date filter settings</Feature>
+    <Feature>New settings: Select previous last item and actual last item when auto refresh</Feature>
+    <BigFeature>Possibility to set filter for column directly by clicking on column header</BigFeature>
+    <Feature>Possibility to enable / disable filter for each column</Feature>
+    <Feature>Indication to column header if the column is filtered</Feature>
+    <Feature>Date fitler is autonomous - is enabled / disabled independenly on other filters.</Feature>
+    <Fix>Case when filter was enabled, auto refresh was enabled, auto scroll was enabled and new item appeared but didn't match the filter - cursor jumps to last item anyway. Now jumps to last item only when new item which match the filter appears.</Fix>
+    <Fix>CTRL+O shortcut key</Fix>  
+  </Version>
+
+  <Version version="2.2.3" date="2010-10-13">
+    <Fix>Fixed case when Total Commander isn't installed on the computer at all.</Fix>
+  </Version>
+
+
+  <Version version="2.2.2" date="2010-08-08">
+    <Feature>Settings: Possibility to integrate Advanced Log Viewer to TotalCommander as a file viewer on ALT+F3 keypress.</Feature>
+    <Feature>Settings: When it's first run of the application, settings dialog is shown.</Feature>
+    <Feature>Installer: New checkbox "Launch application" on last installer screen.</Feature>
+    <Feature>Manage filters: Minor facelift changes on UI.</Feature>
+    <Fix>Application: When application is closing and some error appears during saving configuration, there wasn't possible to close application. Now is the error logged and application is closed properly.</Fix>
+    <Fix>Main window: When autorefresh is enabled, last item from previous refresh and last item from current refresh are selected again (it didn't works in few previous versions). So there is again possible to see what was refreshed.</Fix>
+    <Fix>Main window: Selection with SHIFT key allowed to select more than 2 items.</Fix>
+    <Fix>Color highlight: When there isn't some column (e.g. Thread), all items were highlihted</Fix>
+    <Fix>Custom patterns: When number of columns were changed (e.g. Thread was removed or added) exception was raised after click on "Try on current log".</Fix>
+    <Fix>Search: When there wasn't some column (e.g. Thread) exception was raised after click on "Find" button.</Fix>
+  </Version>
+
+
+  <Version version="2.2.0" date="2010-07-18">
+    <Feature>Main window: Possibility to set autorefresh period (minimum is 200 ms).</Feature>
+    <Feature>Manage filters: Added groups of filters (the same as is in manage color highlights dialog).</Feature>
+    <Feature>Main window: When user double clicks on some line, it's the same as click on Bookmark button.</Feature>
+    <Feature>Main window: Added icon for "Auto refresh" button instead of text</Feature>
+    <Feature>Main window: Removed button "Auto scroll", currently is it on settings page and is applied only when "Auto refresh" is enabled.</Feature>
+    <Feature>Main window: Time span between two selected items is shown as hh:mm:ss.fff.</Feature>
+    <Feature>Main window: Two item selection improved - first item always keep selected and as second is always selcted the current.</Feature>
+    <Fix>Main window: When current log file was deleted (e.g. when was rolled out), exception "RetrieveVirtualItem" was raised.</Fix>
+    <Fix>Manage highlights - when dialog was closed by X, current state was saved.</Fix>
+    <Fix>Main window: CTRL+END and CTRL+HOME in the list of logs works correctly now.</Fix>
+  </Version>
+
+  <Version version="2.1.0" date="2010-11-07">
+    <Feature>Main window: When user selects two lines (with CTRL), time span between them is shown in status bar.</Feature>
+    <Feature>Main window: Manage filters and Manage highlights buttons are now represented by an icon instead of text.</Feature>
+    <Feature>Find dialog: All settings in search dialog (last text, checkboxes, ...) are saved to settings file and loaded on next session.</Feature>
+    <Feature>Find dialog: Added possibility to choose if user wants to search from current position or in all items regardless of the current cursor position.</Feature>
+    <Feature>Find dialog: When searched text isn't found for first time from the current position, status text is orange and is possible to search from beginning. When text isn't found from the beginning, status text is red and there is appropriate information about that.</Feature>
+    <Feature>Find dialog: When user search again from beginning / end, main window doesn't blink / refresh anymore.</Feature>
+    <Feature>Manage highlights: Added embedded color grid picker on the form. No need to show color dialog, select color and click OK anymore. Now it could be done by one click.</Feature>
+    <Fix>Main window: When main form is stay on top other windows (like Manage Filters) was shown under main window.</Fix>
+    <Fix>Main window: When user clicks on Bookmark button and current line was already bookmarked, next empty bookmark was set instead of reset bookmark for this line.</Fix>
+    <Fix>Main window: Shortcut CTRL + H to toggle color highlights didn't works.</Fix>
+    <Fix>Main window: When user set / reset filter, last selected item should be selected. When isn't visible, first next item is selected.</Fix>
+    <Fix>Manage highlights: When some text was selected (SelectionLength > 1), colors was saved incorrectly or everything was white.</Fix>
+  </Version>
+
+
+
+  <Version version="2.0.0" date="2010-06-20">
+    <Feature>Main window can "stay on top" (switch is on the toolbar).</Feature>
+    <Feature>Added Settings dialog (available under Other -> Settings)</Feature>
+    <Feature>Ability to set if application will exit when user press ESC key</Feature>
+    <Feature>Added some other settings from main menu</Feature>
+    <Feature>Added bookmarks:
+      - Button available on the toolbar - press the button to assign first free bookmark on current line. Dropdown menu to view all the bookmarks.
+      - Press CTRL + SHIFT + Number to toggle bookmark on current line
+      - Press CTRL + Number to goto bookmark with the number
+      - The bookmark is is shown on appropriate line before DateTime text.
+    </Feature>
+    <Feature>Reworked Find text functionality:
+      - Find function has own window, removed for someone confusing search boxes from main window.
+      - Find dialog isn't modal - when isn't focused, transparency of the window is set to 75%.
+      - Ability to search as Regular Expression !
+      - Ability to search with Case sensitive option
+      - Reworked search algorithm
+      - Two items selection fix (now is selected only item which is found, previously selected item isn't selected henceforth).
+      - When there is nothing found and user select to search from the beginning again and there is still nothing found, original item keep selected.
+      - Searched text is saved into a config file and then offered in combo box on the search dialog.
+    </Feature>
+    <Feature>Few minor UI changes (texts, graphics).</Feature>
+    <Fix>Fixed Jump to item functionality (two items was selected instead of one)</Fix>
+  </Version>
+
+  <Version version="1.8.2" date="2010-06-13">
+    <Feature>Added possibility to show / hide side panel with markers (errors, warnings). It's located under menu: Other -> Show Markers.</Feature>
+    <Feature>Installer shows version of the product in the caption.</Feature>
+    <Fix>When viewed log file is deleted, refresh doesn't show any error message but it cleanup the list of logs and in status bar shows text that file doesn't exists. This could happen during log renaming by log4net and when auto refresh is enabled - before the fix error was appear.</Fix>
+    <Fix>Fixed error with item numbering when log was updated (Error in log: Error while showing markers: System.ArgumentException: An item with the same key has already been added.).</Fix>
+    <Fix>Finally fixed flickering during contents refreshing !!! No more flickering when log is updated, scrolled or the rest of the log is asynchronously loaded.</Fix>
+  </Version>
+
+  <Version version="1.8.1" date="2010-05-30">
+    <Feature>Added logging of the application, you can find logs under: %ProgrammData%\AdvancedLogViewer\Logs\. For each instance of the LogViewer is created one log file whose file name contains process id of the instance.</Feature>
+    <Feature>Removed license confirmation from the installer.</Feature>
+    <Feature>Added version info on welcome page in the installer.</Feature>
+    <Fix>Fixed autoscroll when user clicks on Filter or Color highlights buttons.</Fix>
+  </Version>
+
+  <Version version="1.8.0" date="2010-05-23">
+    <Feature>Added Text Diff feature - now is possible to diff texts between two log items (in defined external diff tool - e.g. p4merge.exe, for configuration goto: Other -> External diff tool settings)</Feature>
+    <Feature>Added custom patterns editor. It's rich GUI where is possible to define custom pattern parsers for log files with ability to preiew edited pattern on current log. (It's located under menu: Other -> Manage parser patterns)</Feature>
+    <Feature>When there si no suitable pattern parser found, pattern editor is shown with ability to preview edited pattern on the the log file for which wasn't found suitable pattern.</Feature>
+    <Fix>Fixed issue when highlighting items without Type or Thread.</Fix>
+    <Fix>Renamed "Live update" to "Auto refresh" (live was confusing, because of live application update over the web).</Fix>
+  </Version>
+
+  <Version version="1.7.0" date="2010-05-16">
+    <Feature>Filenames in patterns now can include wildcards (*) (in previous versions were compared only as "Contains")</Feature>
+    <Feature>Added CustomParserPatterns.def file which is designed for user's pattern definitions. ParserPatterns.def shouldn't be edited by an users, because could be rewritten during application upgrade.</Feature>
+    <Feature>In case there is not suitable parser pattern, appropriate message is shown.</Feature>
+    <Feature>Setting files (Colorhighlight, Settings, Filters, ...) are now in CommonApplicationData\AdvancedLogViewer (Vista/W7: ProgramData\AdvancedLogViewer ; XP/older: Documents and Settings\All Users\Application Data\AdvancedLogViewer) because when UAC is enabled then into Program Files directory (where setting files were in the past) can write only Administrators.</Feature>
+    <Feature>Improved performance for log loading (about 10% since previous version)</Feature>
+    <Feature>Main form is shown on center of the same screen as is the parent application window (Explorer, Total Commander, ...)</Feature>
+    <Feature>Filter is saved after each change and loaded after app start (same as for color highlight definition) .</Feature>
+    <Feature>Color highlighting: Text is now compared for Thread and Type text too.</Feature>
+    <Feature>When filter is enabled, information about shown / total items in status bar is bold.</Feature>
+    <Fix>Fixed issue during log refresh (especially for periodic refresh)</Fix>
+    <Fix>Fixed issue when first line begins with something else than time (e.g. swAlert.log in Orion 2010.1)</Fix>
+    <Fix>Fixed issue with Autorefresh after application start.</Fix>
+  </Version>
+
+  <Version version="1.6.2" date="2010-05-09">
+    <Feature>Simpified UI for managing filters and highlights</Feature>
+    <Feature>Added ability to revert filter (show all what doesn't match current conditionals)</Feature>
+  </Version>
+
+  <Version version="1.6.1" date="2010-04-25">
+    <Feature>Simple installer in WIX</Feature>
+    <Feature>Copy all files to desired folder and create shortcuts in Startmenu.</Feature>
+    <Feature>When you run older version of installation, downgrade is blocked.</Feature>
+    <Feature>When you run newer version of installation, product is automatically updated.</Feature>
+    <Fix>Fixed log merge feature (bad order of logs to merge)</Fix>
+    <Fix>Fixed loading other parts of logs when .LOG file is opened</Fix>
+    <Fix>Some minor UI improvements</Fix>
+    <Fix>Fixed issue with side panel (wrong thread synchronization to UI)</Fix>
+    <Fix>Internal code changes (cleanup, refactoring)</Fix>
+  </Version>
+
+  <Version version="1.5.0" date="2010-03-22">
+    <Feature>New clickable side panel with color markers representing errors and warnings in the log.</Feature>
+    <Feature>Improved performance for showing log type icons</Feature>
+    <Fix>Fixed enabling/disabling buttons after log refresh</Fix>
+  </Version>
+
+  <Version version="1.4.3" date="2010-03-21">
+    <Feature>Merging partial log files (.1, .2, ...) into one file</Feature>
+    <Feature>Show all parts of log files (.1, .2, ...) and open it by one click</Feature>
+    <Feature>New shortcuts: CTRL+Left and CTRL+Right shows previous/following partial log file (.1, .2, ...)</Feature>
+    <Fix>Memory usage is less about 50% for large logs</Fix>
+    <Fix>CPU usage is lower during loading (about 20% faster loading)</Fix>
+    <Fix>Fixed aborting during log file loading</Fix>
+  </Version>
+
+  <Version version="1.3.2" date="2010-03-11">
+    <Feature>Added information when searched text isn't found, possibility to search from start/end of log</Feature>
+    <Fix>Fixed minor issues with autoscroll while loading</Fix>
+    <Fix>Improved loading performance (especially for long inner texts)</Fix>
+  </Version>
+
+  <Version version="1.3.1" date="2010-03-09">
+    <Feature>First public version. No list of changes against previous version.</Feature>
+  </Version>
+  
+</History>

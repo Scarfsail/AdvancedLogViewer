@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <LogAdjusters>
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\NTA\NTA.BusinessLayer.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\NetFlowTrafficAnalysis\NetFlowService.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\OrionWeb.log" ConfigFileName="C:\inetpub\SolarWinds\web.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\AlertService.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\AlertingEngine.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\VIM\VIM.BusinessLayer.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\VIM\SolarWinds.VIM.BusinessLayer.dll.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\BusinessLayerHost.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\SolarWinds.BusinessLayerHost.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\ConfigurationWizard.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\ConfigurationWizard.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\Core.BusinessLayer.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\SolarWinds.Orion.Core.BusinessLayer.dll.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\Core.Jobs.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\SolarWinds.Orion.Core.Jobs.dll.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\Core.Jobs2.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\SolarWinds.Orion.Core.Jobs2.dll.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\LogAdjuster.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\LogAdjuster.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\NPM.BusinessLayer.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\NPM\SolarWinds.NPM.BusinessLayer.dll.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\Orion\OrionServiceManager.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\StopNetPerfMon.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\NTA\NTAJobRemover.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\NetFlowTrafficAnalysis\RemoveJobEngineJobs.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\Logs\NTA\SolarWinds.Netflow.Licensor.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\NetFlowTrafficAnalysis\SolarWinds.Netflow.Licensor.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\JobEngine.v2\Logs\SolarWinds.JobEngineService_v2_2.log" ConfigFileName="%PROGRAMFILES%\Common Files\SolarWinds\JobEngine.v2\SWJobEngineSvc2.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+    <LogAdjuster LogFileName="%COMMONAPPDATA%\Solarwinds\InformationService\v2.0\Orion.InformationService.log" ConfigFileName="%PROGRAMFILES%\SolarWinds\Orion\Information Service\2.0\SolarWinds.InformationService.Service.exe.config" LogLevels="ALL;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL" />
+  </LogAdjusters>
+</Root>

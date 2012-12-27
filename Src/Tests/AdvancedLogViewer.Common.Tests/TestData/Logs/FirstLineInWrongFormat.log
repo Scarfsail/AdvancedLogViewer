@@ -1,0 +1,18 @@
+*** SolarWinds Alerting Engine v2010.1.0.0, .Net Runtime v2.0.50727 ***2010-05-13 14:14:15,967 [MainTaskThread] INFO  All - Alert Engine Starting. Running Version 2010.1.0.0.
+2010-05-13 17:15:58,236 [MainTaskThread] ERROR All - Error in SetupDBConnection System.Data.SqlClient.SqlException: SHUTDOWN is in progress.
+Login failed for user 'SolarWindsNPM'.
+A severe error occurred on the current command.  The results, if any, should be discarded.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at AlertingEngine.SWAlertingEngine.SetupDBConnection(SqlConnection& DBConnection, SqlCommand& DBCommand, SqlDataReader& DBReader)
+2010-05-13 17:15:58,523 [MainTaskThread] ERROR All - Exception in MainTask Loop - Unable to create DB connection sleeping 30 seconds

@@ -1,0 +1,2 @@
+In this folder are saved any configuration files from portable ALV.
+When you delete this folder, configuration will be saved into user's profile folder.

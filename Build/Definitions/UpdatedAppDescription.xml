@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UpdateAppFromZip>
+  <AppDescription 
+  AppName="Advanced Log Viewer"
+  ProcessName="AdvancedLogViewer"
+  AppToLaunch="AdvancedLogViewer.exe"
+  />  
+</UpdateAppFromZip>

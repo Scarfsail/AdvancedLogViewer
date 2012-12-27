@@ -1,0 +1,6 @@
+DiscoveryEngine.log*|{Date} {Time} [{Thread}]: {Message}|yyyy-MM-dd HH:mm:ss,fff
+Debug.log|{Date} {Time}.{Time}:{Message}|M/d/yyyy H:m:s ff
+*Install*|{Date} - {Time} -- {Message}|M-d-yyyy HH:mm:ss
+CustomPropertyEditor.Trace|{Thread}	{Date} {Time} {Message}|MMM-dd HH:mm:ss
+SWAutomationFramework.log*|{Date} {Time} - [{Type} ] - {Class} - {Message}|yyyy-MM-dd HH:mm:ss,fff 
+*|{Date} {Time} [{Thread}] {Type}$Spaces${Class} - {Message}|yyyy-MM-dd HH:mm:ss,fff

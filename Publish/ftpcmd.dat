@@ -1,0 +1,13 @@
+user v008899a
+As19216819
+bin
+cd salplachta.net/WWWRoot/SoftwareUpdates/AdvancedLogViewer/Downloads/
+put ..\Bin\Installer\Release\*.msi
+put ..\Bin\Installer\Release\*.zip
+put ..\Bin\Installer\Release\*.exe
+cd  ..
+put ..\Bin\Release\History.xml
+put AdvancedLogViewer.xml
+
+
+quit

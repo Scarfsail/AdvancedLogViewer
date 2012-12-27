@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define UpgradeCode="{fc546293-3972-4560-a462-20022fb13d90}"?>
+
+<?if $(var.MajorVersionNumber)=""?>
+<?undef MajorVersionNumber?>
+<?define MajorVersionNumber=99?>
+<!-- Default for VS compilation -->
+<?endif?>
+<?if $(var.MinorVersionNumber)=""?>
+<?undef MinorVersionNumber?>
+<?define MinorVersionNumber=0?>
+<!-- Default for VS compilation -->
+<?endif?>
+<?if $(var.BuildNumber)=""?>
+<?undef BuildNumber?>
+<?define BuildNumber=0?>
+<!-- Default for VS compilation -->
+<?endif?>
+<!-- <?if $(var.RevisionVersionNumber)=""?> -->
+<?undef RevisionVersionNumber?>
+<?define RevisionVersionNumber=0?>
+<!-- <?endif?> -->
+
+<?define ProductVersion=$(var.MajorVersionNumber).$(var.MinorVersionNumber).$(var.BuildNumber)?>
+<?define ProductName="Advanced Log Viewer $(var.ProductVersion)" ?>
+<?define Manufacturer="Ondrej Salplachta"?>
+<?define BuildOutputDir=../../bin/$(var.Build)/?>
+
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="200" Compressed="yes" Manufacturer="$(var.Manufacturer)"/>
+
+
+    <Media Id="1" Cabinet="Media.cab" EmbedCab="yes" />
+
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="1.0.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="no" Language="1033" Property="UPGRADEFOUND" />
+      <UpgradeVersion Minimum="$(var.ProductVersion)" IncludeMinimum="no" OnlyDetect="yes" Language="1033" Property="NEWPRODUCTFOUND" />
+    </Upgrade>
+
+    <PropertyRef Id="NETFRAMEWORK35"/>
+    <Condition Message="This application requires .NET Framework 3.5. Please install the .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK35]]>
+    </Condition>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="AdvancedLogViewer">
+          
+          <!--Core-->
+          <Component Id="AdvancedLogViewer.exe" Guid="{B4375FEE-D47F-443c-A333-65CE4F8AF752}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.exe"/>
+          </Component>
+          <Component Id="AdvancedLogViewer.exe.config" Guid="{308E7160-5F03-4a6d-A893-6DA000322D09}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.exe.config"/>
+          </Component>
+          <Component Id="AdvancedLogViewer.Common.dll" Guid="{86E7094D-6249-4632-8356-A9BE2BFFF0E7}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.Common.dll"/>
+          </Component>
+          <Component Id="Scarfsail.Common.dll" Guid="{D7487562-FE2A-4fa5-A1D9-FFCEC9B008BF}">
+            <File Source="$(var.BuildOutputDir)Scarfsail.Common.dll"/>
+          </Component>
+          <Component Id="Scarfsail.SoftwareUpdates.dll" Guid="{D66AEE74-B418-43d1-9CF6-1577B591690E}">
+            <File Source="$(var.BuildOutputDir)Scarfsail.SoftwareUpdates.dll"/>
+          </Component>          
+          <Component Id="XDMessaging.dll" Guid="{63F0672B-BC29-4dd8-8D37-F419E416158B}">
+            <File Source="$(var.BuildOutputDir)XDMessaging.dll"/>
+          </Component>
+          <Component Id="History.xml" Guid="{17D0CFEE-2A76-4ab6-994E-6473CBA1F42D}">
+            <File Source="$(var.BuildOutputDir)History.xml"/>
+          </Component>
+
+          <!--Logging-->
+          <Component Id="Scarfsail.Logging.dll" Guid="{231CAC78-211A-423b-8308-E8EECD63C00A}">
+            <File Source="$(var.BuildOutputDir)Scarfsail.Logging.dll"/>
+          </Component>
+          <Component Id="log4net.dll" Guid="{D3366343-9A1A-4659-B871-FC9D1ABDDE7A}">
+            <File Source="$(var.BuildOutputDir)log4net.dll"/>
+          </Component>
+
+          <!--Data-->
+          <Directory Id="Data" Name="Data">
+            <Component Id="ParserPatterns.def" Guid="{0AD20851-562F-429a-8EBE-1FE718CF81ED}">
+              <File Source="$(var.BuildOutputDir)Data/ParserPatterns.def"/>
+            </Component>
+            <Component Id="SystemLogAdjusters.xml" Guid="{57C9CA70-CC69-4526-A34D-83BC7D17E5EE}">
+              <File Source="$(var.BuildOutputDir)Data/SystemLogAdjusters.xml"/>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <!-- Directory for shurtcuts -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)"/>
+      </Directory>
+    </Directory>
+
+    <!-- Shortcuts -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcuts" Guid="{2B4F2068-EFC9-4B6F-9302-8C06D78FF325}">
+        <Shortcut Id="AdvancedLogViewerShortcut" Name="$(var.ProductName)" Description="Run $(var.ProductName)" Target="[INSTALLLOCATION]AdvancedLogViewer.exe" WorkingDirectory="INSTALLLOCATION"/>
+        <Shortcut Id="UninstallProduct" Name="Uninstall Advanced LogViewer" Description="Uninstalls Advanced Log Viewer" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\AdvancedLogViewer" Name="MainShortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+      <Component Id="ShellContextMenu" Guid="{AE4DCFF3-7DDD-4871-949A-AA7F78F2A97E}">
+        <RegistryKey Root="HKCU" Key="Software\Classes\Folder\Shell\Browse for Logs\command" Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="string" Value='[INSTALLLOCATION]AdvancedLogViewer.exe "%1\\"' KeyPath='yes'/>
+        </RegistryKey>        
+      </Component>
+    </DirectoryRef>
+
+
+    <!--
+    <Component Id ="RegisterFileTypes" Guid="{4B21F105-E930-4D1A-8140-633F28C1642B}">
+      <ProgId Id='AdvancedLogViewer.LOG' Description='LOG file'>
+        <Extension Id='log' ContentType='application/log'>
+          <Verb Id='open' Command='Open' TargetFile='[APPLICATIONFOLDER]AdvancedLogViewer.exe' Argument='"%1"' />
+        </Extension>
+      </ProgId>
+    </Component>
+    -->
+
+
+    <Feature Id="Core" Title="Advanced Log Viewer" Level="1">
+      <!--Core-->
+      <ComponentRef Id="AdvancedLogViewer.exe" />
+      <ComponentRef Id="AdvancedLogViewer.exe.config" />
+      <ComponentRef Id="AdvancedLogViewer.Common.dll" />      
+      <ComponentRef Id="Scarfsail.SoftwareUpdates.dll" />
+      <ComponentRef Id="Scarfsail.Common.dll" />
+      <ComponentRef Id="XDMessaging.dll" />
+      <!--Logging-->
+      <ComponentRef Id="Scarfsail.Logging.dll" />
+      <ComponentRef Id="log4net.dll" />
+
+      <!--Data-->
+      <ComponentRef Id="ParserPatterns.def" />
+      <ComponentRef Id="SystemLogAdjusters.xml" />
+      <ComponentRef Id="History.xml" />
+
+
+      <!--Shortcuts-->
+      <ComponentRef Id="ApplicationShortcuts" />
+      <ComponentRef Id="ShellContextMenu"/>
+      
+      <!--ComponentRef Id="RegisterFileTypes" /-->
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value ="1"></Property>
+    <UI>
+      <UIRef Id="SimpleUI"/>
+      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    
+    <!-- Prevent downgrading -->
+    <CustomAction Id="PreventDowngrading" Error="Newer version already installed." />
+
+    <!-- Sequences -->
+    <InstallExecuteSequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+      <RemoveExistingProducts After="InstallInitialize" />
+    </InstallExecuteSequence>
+
+    <!--Launch application after setup-->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.ProductName)" />
+    <Property Id="WixShellExecTarget" Value="[#AdvancedLogViewer.exe]" />
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+    </InstallUISequence>
+
+  </Product>
+
+</Wix>
