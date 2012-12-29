@@ -574,7 +574,7 @@ namespace AdvancedLogViewer.UI
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new MethodInvoker(() => logParser_LoadingProgress(sender, e)));
+                this.Invoke(new MethodInvoker(() => logParser_LoadingProgress(sender, e)));
             }
             else
             {
@@ -1431,6 +1431,8 @@ namespace AdvancedLogViewer.UI
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.R, () => this.openFileButton.ShowDropDown(), "Show recent files"));
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.B, this.showLogBrowserButton));
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.S, this.exportButton));
+                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Q, this.sqlFilterButton));
+                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.P, manageParsersMenuItem));
 
                 shortcutManager.Add(new ShortcutItem(Keys.F, this.starFileButton));
 

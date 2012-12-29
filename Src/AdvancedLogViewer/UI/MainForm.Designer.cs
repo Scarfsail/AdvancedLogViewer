@@ -50,14 +50,7 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.logViewPanel = new System.Windows.Forms.Panel();
-            this.logListView = new AdvancedLogViewer.UI.Controls.MyListView();
-            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.threadColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.typeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.classColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.messageColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.markersPanelParent = new System.Windows.Forms.Panel();
-            this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.logMessageEdit = new System.Windows.Forms.RichTextBox();
             this.splitter2 = new System.Windows.Forms.Splitter();
@@ -140,6 +133,13 @@
             this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
+            this.logListView = new AdvancedLogViewer.UI.Controls.MyListView();
+            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.threadColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.typeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.classColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.messageColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.logViewContextMenu.SuspendLayout();
             this.messageDetailContextMenu.SuspendLayout();
@@ -308,60 +308,6 @@
             this.logViewPanel.Size = new System.Drawing.Size(1022, 547);
             this.logViewPanel.TabIndex = 8;
             // 
-            // logListView
-            // 
-            this.logListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.dateColumn,
-            this.threadColumn,
-            this.typeColumn,
-            this.classColumn,
-            this.messageColumn});
-            this.logListView.ContextMenuStrip = this.logViewContextMenu;
-            this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logListView.Enabled = false;
-            this.logListView.FullRowSelect = true;
-            this.logListView.HideSelection = false;
-            this.logListView.Location = new System.Drawing.Point(0, 0);
-            this.logListView.Name = "logListView";
-            this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1012, 418);
-            this.logListView.SmallImageList = this.logImageList;
-            this.logListView.TabIndex = 0;
-            this.logListView.UseCompatibleStateImageBehavior = false;
-            this.logListView.View = System.Windows.Forms.View.Details;
-            this.logListView.VirtualMode = true;
-            this.logListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.logListView_ColumnClick);
-            this.logListView.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.logListView_ColumnWidthChanged);
-            this.logListView.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.logListView_DrawColumnHeader);
-            this.logListView.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.logListView_DrawSubItem);
-            this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
-            this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
-            this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
-            this.logListView.DoubleClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
-            // 
-            // dateColumn
-            // 
-            this.dateColumn.Text = "Date";
-            this.dateColumn.Width = 150;
-            // 
-            // threadColumn
-            // 
-            this.threadColumn.Text = "Thread";
-            // 
-            // typeColumn
-            // 
-            this.typeColumn.Text = "Type";
-            // 
-            // classColumn
-            // 
-            this.classColumn.Text = "Class";
-            this.classColumn.Width = 80;
-            // 
-            // messageColumn
-            // 
-            this.messageColumn.Text = "Message";
-            this.messageColumn.Width = 450;
-            // 
             // markersPanelParent
             // 
             this.markersPanelParent.Controls.Add(this.markerPanel);
@@ -371,20 +317,6 @@
             this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.markersPanelParent.Size = new System.Drawing.Size(10, 418);
             this.markersPanelParent.TabIndex = 6;
-            // 
-            // markerPanel
-            // 
-            this.markerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.markerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.markerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.markerPanel.Horizontal = false;
-            this.markerPanel.Location = new System.Drawing.Point(0, 10);
-            this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
-            this.markerPanel.Name = "markerPanel";
-            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 398);
-            this.markerPanel.TabIndex = 6;
-            this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // splitter1
             // 
@@ -742,7 +674,8 @@
             this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.sqlFilterButton.Name = "sqlFilterButton";
             this.sqlFilterButton.Size = new System.Drawing.Size(23, 22);
-            this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit box";
+            this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit. When the edit isn\'t shown, the sql filter isn\'t appl" +
+    "ied.";
             this.sqlFilterButton.Click += new System.EventHandler(this.sqlFilterButton_Click);
             // 
             // enableFiltersButton
@@ -890,6 +823,7 @@
             this.manageParsersMenuItem.Name = "manageParsersMenuItem";
             this.manageParsersMenuItem.Size = new System.Drawing.Size(245, 22);
             this.manageParsersMenuItem.Text = "Manage parser patterns";
+            this.manageParsersMenuItem.ToolTipText = "Shows manager of parser patterns";
             this.manageParsersMenuItem.Click += new System.EventHandler(this.manageParsersMenuItem_Click);
             // 
             // toolStripMenuItem5
@@ -1125,11 +1059,79 @@
             this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
             this.parserPatternToolStripStatus.Text = " ";
             // 
-            // sqlFilterControl1
+            // markerPanel
+            // 
+            this.markerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.markerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.markerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.markerPanel.Horizontal = false;
+            this.markerPanel.Location = new System.Drawing.Point(0, 10);
+            this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
+            this.markerPanel.Name = "markerPanel";
+            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
+            this.markerPanel.Size = new System.Drawing.Size(10, 398);
+            this.markerPanel.TabIndex = 6;
+            this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
+            // 
+            // logListView
+            // 
+            this.logListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.dateColumn,
+            this.threadColumn,
+            this.typeColumn,
+            this.classColumn,
+            this.messageColumn});
+            this.logListView.ContextMenuStrip = this.logViewContextMenu;
+            this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logListView.Enabled = false;
+            this.logListView.FullRowSelect = true;
+            this.logListView.HideSelection = false;
+            this.logListView.Location = new System.Drawing.Point(0, 0);
+            this.logListView.Name = "logListView";
+            this.logListView.OwnerDraw = true;
+            this.logListView.Size = new System.Drawing.Size(1012, 418);
+            this.logListView.SmallImageList = this.logImageList;
+            this.logListView.TabIndex = 0;
+            this.logListView.UseCompatibleStateImageBehavior = false;
+            this.logListView.View = System.Windows.Forms.View.Details;
+            this.logListView.VirtualMode = true;
+            this.logListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.logListView_ColumnClick);
+            this.logListView.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.logListView_ColumnWidthChanged);
+            this.logListView.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.logListView_DrawColumnHeader);
+            this.logListView.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.logListView_DrawSubItem);
+            this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
+            this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
+            this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
+            this.logListView.DoubleClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
+            // 
+            // dateColumn
+            // 
+            this.dateColumn.Text = "Date";
+            this.dateColumn.Width = 150;
+            // 
+            // threadColumn
+            // 
+            this.threadColumn.Text = "Thread";
+            // 
+            // typeColumn
+            // 
+            this.typeColumn.Text = "Type";
+            // 
+            // classColumn
+            // 
+            this.classColumn.Text = "Class";
+            this.classColumn.Width = 80;
+            // 
+            // messageColumn
+            // 
+            this.messageColumn.Text = "Message";
+            this.messageColumn.Width = 450;
+            // 
+            // sqlFilterControl
             // 
             this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
-            this.sqlFilterControl.Name = "sqlFilterControl1";
+            this.sqlFilterControl.Name = "sqlFilterControl";
             this.sqlFilterControl.Size = new System.Drawing.Size(1022, 93);
             this.sqlFilterControl.TabIndex = 0;
             // 

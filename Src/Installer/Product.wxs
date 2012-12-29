@@ -67,6 +67,9 @@
           <Component Id="XDMessaging.dll" Guid="{63F0672B-BC29-4dd8-8D37-F419E416158B}">
             <File Source="$(var.BuildOutputDir)XDMessaging.dll"/>
           </Component>
+          <Component Id="QueryAnythingMerged.dll" Guid="{673C043A-C666-42B4-8F09-43B9E2ABD27E}">
+            <File Source="$(var.BuildOutputDir)QueryAnythingMerged.dll"/>
+          </Component>          
           <Component Id="History.xml" Guid="{17D0CFEE-2A76-4ab6-994E-6473CBA1F42D}">
             <File Source="$(var.BuildOutputDir)History.xml"/>
           </Component>
@@ -132,6 +135,8 @@
       <ComponentRef Id="Scarfsail.SoftwareUpdates.dll" />
       <ComponentRef Id="Scarfsail.Common.dll" />
       <ComponentRef Id="XDMessaging.dll" />
+      <ComponentRef Id="QueryAnythingMerged.dll" />
+      
       <!--Logging-->
       <ComponentRef Id="Scarfsail.Logging.dll" />
       <ComponentRef Id="log4net.dll" />

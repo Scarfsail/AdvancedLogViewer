@@ -53,9 +53,8 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="QueryAnything, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Common\3rdParty\SqlLinq\QueryAnything\bin\Release\QueryAnything.dll</HintPath>
+    <Reference Include="QueryAnythingMerged">
+      <HintPath>..\..\..\Common\3rdParty\SqlLinq\Bin\QueryAnythingMerged.dll</HintPath>
     </Reference>
     <Reference Include="Scarfsail.Logging">
       <HintPath>..\..\..\Common\Scarfsail\Logging\obj\Release\Scarfsail.Logging.dll</HintPath>

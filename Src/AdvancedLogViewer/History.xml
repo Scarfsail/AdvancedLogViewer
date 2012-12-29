@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="7.0.0" date="2012-12-29">
-    <BigFeature>Ability to filter log by condition with SQL syntax, example: Thread = '9' AND Class LIKE 'MyClass' </BigFeature>
+  <Version version="7.0.1" date="2012-12-29">
+    <BigFeature>Ability to filter log by condition with SQL syntax, example: Thread = '9' AND Class LIKE 'MyClass.' </BigFeature>
     <BigFeature><![CDATA[New issue tracker for the ALV instead of reporting issues / feature requests in the forum. Visit <a href="http://git.salplachta.net/advanced-log-viewer/issues"><b>git.salplachta.net/advanced-log-viewer/issues</b></a> to see how the issue tracker looks like.]]></BigFeature>
+    <Fix>Fixed issue with progressive loading - log was always loaded without progressive loading -> log was shown at once which caused long loading times for big logs.</Fix>
+    <Feature>Added new shortcut key to show Parser Manager - CTRL+P</Feature>
   </Version>
 
   <Version version="6.5.2" date="2012-12-12">

@@ -148,7 +148,9 @@ namespace AdvancedLogViewer.Common.Parser
                                     {
                                         nextProgressReportTime = DateTime.Now.AddMilliseconds(2000);
                                         nextProgressReportLine = lineNumber + 10000;
+                                        Monitor.Exit(this.LogEntriesLocker);
                                         this.OnLoadingProgress();
+                                        Monitor.Enter(this.LogEntriesLocker);
                                     }
                                     else
                                     {
