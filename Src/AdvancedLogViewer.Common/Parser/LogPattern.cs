@@ -93,6 +93,17 @@ namespace AdvancedLogViewer.Common.Parser
         public bool ContainsType { get; private set; }
         public bool ContainsClass { get; private set; }
 
+
+        /// <summary>
+        /// Returns list of available columns in LogEntry for SQL quering
+        /// </summary>
+        /// <returns></returns>
+        public List<ColumnDescription> GetAvailableColumns()
+        {
+            return LogEntry.GetAvailableColumns(ContainsThread, ContainsType, ContainsClass);
+        }
+        
+
         public string FileMask
         {
             get

@@ -21,15 +21,15 @@ namespace AdvancedLogViewer.UI.Items
 
             if (LogItem.Thread != null)
                 this.SubItems.Add(LogItem.Thread);      //1
-            if (LogItem.TypeStr != null)
-                this.SubItems.Add(LogItem.TypeStr);        //2
+            if (LogItem.Type != null)
+                this.SubItems.Add(LogItem.Type);        //2
             if (LogItem.Class != null)
                 this.SubItems.Add(LogItem.Class);       //3
 
             this.SubItems.Add(logItem.Message);
             //this.SubItems.Add(logItem.Message.Substring(0, Math.Min(logItem.Message.Length, maxLengthOfMessage)));     //4             
 
-            this.ImageIndex = (int)logItem.Type;
+            this.ImageIndex = (int)logItem.LogType;
 
             if (colorHighlights != null)
             {

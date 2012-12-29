@@ -79,8 +79,8 @@ namespace AdvancedLogViewer.Common.Tests
 
             value = "DEBUG";
             Assert.IsTrue(target.SaveValue(PatternItemType.Type, value));
-            Assert.AreEqual(value, target.TypeStr);
-            Assert.AreEqual(LogType.DEBUG, target.Type);
+            Assert.AreEqual(value, target.Type);
+            Assert.AreEqual(LogType.DEBUG, target.LogType);
 
         }
     }

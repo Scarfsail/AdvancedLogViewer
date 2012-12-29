@@ -49,6 +49,7 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.logViewPanel = new System.Windows.Forms.Panel();
             this.logListView = new AdvancedLogViewer.UI.Controls.MyListView();
             this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.threadColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,6 +60,8 @@
             this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.logMessageEdit = new System.Windows.Forms.RichTextBox();
+            this.splitter2 = new System.Windows.Forms.Splitter();
+            this.sqlFilterPanel = new System.Windows.Forms.Panel();
             this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
@@ -90,6 +93,7 @@
             this.findButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.showOnlyNewItemsButton = new System.Windows.Forms.ToolStripButton();
+            this.sqlFilterButton = new System.Windows.Forms.ToolStripButton();
             this.enableFiltersButton = new System.Windows.Forms.ToolStripButton();
             this.manageFiltersButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -136,10 +140,13 @@
             this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.logViewContextMenu.SuspendLayout();
             this.messageDetailContextMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
+            this.logViewPanel.SuspendLayout();
             this.markersPanelParent.SuspendLayout();
+            this.sqlFilterPanel.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.pluginsContextMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -280,15 +287,26 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.Controls.Add(this.logListView);
-            this.mainPanel.Controls.Add(this.markersPanelParent);
-            this.mainPanel.Controls.Add(this.splitter1);
-            this.mainPanel.Controls.Add(this.logMessageEdit);
+            this.mainPanel.Controls.Add(this.logViewPanel);
+            this.mainPanel.Controls.Add(this.splitter2);
+            this.mainPanel.Controls.Add(this.sqlFilterPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 25);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(1022, 644);
             this.mainPanel.TabIndex = 0;
+            // 
+            // logViewPanel
+            // 
+            this.logViewPanel.Controls.Add(this.logListView);
+            this.logViewPanel.Controls.Add(this.markersPanelParent);
+            this.logViewPanel.Controls.Add(this.splitter1);
+            this.logViewPanel.Controls.Add(this.logMessageEdit);
+            this.logViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logViewPanel.Location = new System.Drawing.Point(0, 97);
+            this.logViewPanel.Name = "logViewPanel";
+            this.logViewPanel.Size = new System.Drawing.Size(1022, 547);
+            this.logViewPanel.TabIndex = 8;
             // 
             // logListView
             // 
@@ -306,7 +324,7 @@
             this.logListView.Location = new System.Drawing.Point(0, 0);
             this.logListView.Name = "logListView";
             this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1012, 515);
+            this.logListView.Size = new System.Drawing.Size(1012, 418);
             this.logListView.SmallImageList = this.logImageList;
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
@@ -351,7 +369,7 @@
             this.markersPanelParent.Location = new System.Drawing.Point(1012, 0);
             this.markersPanelParent.Name = "markersPanelParent";
             this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.markersPanelParent.Size = new System.Drawing.Size(10, 515);
+            this.markersPanelParent.Size = new System.Drawing.Size(10, 418);
             this.markersPanelParent.TabIndex = 6;
             // 
             // markerPanel
@@ -364,14 +382,14 @@
             this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.markerPanel.Name = "markerPanel";
             this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 495);
+            this.markerPanel.Size = new System.Drawing.Size(10, 398);
             this.markerPanel.TabIndex = 6;
             this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 515);
+            this.splitter1.Location = new System.Drawing.Point(0, 418);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(1022, 4);
             this.splitter1.TabIndex = 4;
@@ -384,7 +402,7 @@
             this.logMessageEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.logMessageEdit.Enabled = false;
             this.logMessageEdit.HideSelection = false;
-            this.logMessageEdit.Location = new System.Drawing.Point(0, 519);
+            this.logMessageEdit.Location = new System.Drawing.Point(0, 422);
             this.logMessageEdit.Name = "logMessageEdit";
             this.logMessageEdit.ReadOnly = true;
             this.logMessageEdit.Size = new System.Drawing.Size(1022, 125);
@@ -392,6 +410,26 @@
             this.logMessageEdit.Text = "Open some log first ...";
             this.logMessageEdit.WordWrap = false;
             this.logMessageEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logMessageEdit_KeyDown);
+            // 
+            // splitter2
+            // 
+            this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.splitter2.Location = new System.Drawing.Point(0, 93);
+            this.splitter2.Name = "splitter2";
+            this.splitter2.Size = new System.Drawing.Size(1022, 4);
+            this.splitter2.TabIndex = 8;
+            this.splitter2.TabStop = false;
+            this.splitter2.Visible = false;
+            // 
+            // sqlFilterPanel
+            // 
+            this.sqlFilterPanel.Controls.Add(this.sqlFilterControl);
+            this.sqlFilterPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.sqlFilterPanel.Location = new System.Drawing.Point(0, 0);
+            this.sqlFilterPanel.Name = "sqlFilterPanel";
+            this.sqlFilterPanel.Size = new System.Drawing.Size(1022, 93);
+            this.sqlFilterPanel.TabIndex = 8;
+            this.sqlFilterPanel.Visible = false;
             // 
             // autoRefreshTimer
             // 
@@ -428,6 +466,7 @@
             this.findButton,
             this.toolStripSeparator4,
             this.showOnlyNewItemsButton,
+            this.sqlFilterButton,
             this.enableFiltersButton,
             this.manageFiltersButton,
             this.toolStripSeparator3,
@@ -694,6 +733,17 @@
             this.showOnlyNewItemsButton.ToolTipText = "Show only new log items since now, older items will be hidden.\r\nThis action enabl" +
     "e Date filter and put current time into \'From\' field.";
             this.showOnlyNewItemsButton.Click += new System.EventHandler(this.showOnlyNewItemsButton_Click);
+            // 
+            // sqlFilterButton
+            // 
+            this.sqlFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.sqlFilterButton.Enabled = false;
+            this.sqlFilterButton.Image = global::AdvancedLogViewer.Properties.Resources.SqlFilter;
+            this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sqlFilterButton.Name = "sqlFilterButton";
+            this.sqlFilterButton.Size = new System.Drawing.Size(23, 22);
+            this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit box";
+            this.sqlFilterButton.Click += new System.EventHandler(this.sqlFilterButton_Click);
             // 
             // enableFiltersButton
             // 
@@ -1075,6 +1125,14 @@
             this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
             this.parserPatternToolStripStatus.Text = " ";
             // 
+            // sqlFilterControl1
+            // 
+            this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
+            this.sqlFilterControl.Name = "sqlFilterControl1";
+            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 93);
+            this.sqlFilterControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1097,7 +1155,9 @@
             this.logViewContextMenu.ResumeLayout(false);
             this.messageDetailContextMenu.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
+            this.logViewPanel.ResumeLayout(false);
             this.markersPanelParent.ResumeLayout(false);
+            this.sqlFilterPanel.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.pluginsContextMenu.ResumeLayout(false);
@@ -1216,6 +1276,11 @@
         private System.Windows.Forms.ToolStripStatusLabel logLoadingErrorsStatus;
         private System.Windows.Forms.ToolStripMenuItem showCommandLineParamsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel parserPatternToolStripStatus;
+        private System.Windows.Forms.Panel sqlFilterPanel;
+        private System.Windows.Forms.ToolStripButton sqlFilterButton;
+        private System.Windows.Forms.Panel logViewPanel;
+        private System.Windows.Forms.Splitter splitter2;
+        private Controls.SqlFilterControl sqlFilterControl;
     }
 }
 

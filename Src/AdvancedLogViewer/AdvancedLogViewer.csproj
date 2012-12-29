@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdvancedLogViewer</RootNamespace>
     <AssemblyName>AdvancedLogViewer</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Resources\MainFile32.ico</ApplicationIcon>
     <SccProjectName>
@@ -25,6 +25,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +52,10 @@
     </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="QueryAnything, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Common\3rdParty\SqlLinq\QueryAnything\bin\Release\QueryAnything.dll</HintPath>
     </Reference>
     <Reference Include="Scarfsail.Logging">
       <HintPath>..\..\..\Common\Scarfsail\Logging\obj\Release\Scarfsail.Logging.dll</HintPath>
@@ -148,6 +153,12 @@
     <Compile Include="UI\Controls\Filters\GetDistinctValues.cs" />
     <Compile Include="UI\Controls\MyListView.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\SqlFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\SqlFilterControl.Designer.cs">
+      <DependentUpon>SqlFilterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LogAdjustersDlg.cs">
       <SubType>Form</SubType>
@@ -247,6 +258,9 @@
     <EmbeddedResource Include="UI\Controls\Filters\FilterSettingsDateTime.resx">
       <DependentUpon>FilterSettingsDateTime.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\SqlFilterControl.resx">
+      <DependentUpon>SqlFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LogAdjustersDlg.resx">
       <DependentUpon>LogAdjustersDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,6 +345,7 @@
     <None Include="Service References\SalplachtaNetServices\myservices.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SqlFilter.png" />
     <None Include="Resources\Save.png" />
     <None Include="Resources\ShowHideBottomPane.png" />
     <None Include="Resources\Open.png" />

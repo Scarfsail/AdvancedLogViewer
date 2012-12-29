@@ -27,7 +27,7 @@ namespace AdvancedLogViewer.BL.ColorHighlight
             foreach (ColorHighlightEntry highlight in this.Highlights)
             {
                 if ((logItem.Thread != null && logItem.Thread.IndexOf(highlight.TextToHighlight, StringComparison.OrdinalIgnoreCase) > -1) ||
-                    (logItem.TypeStr != null && logItem.TypeStr.IndexOf(highlight.TextToHighlight, StringComparison.OrdinalIgnoreCase) > -1) ||
+                    (logItem.Type != null && logItem.Type.IndexOf(highlight.TextToHighlight, StringComparison.OrdinalIgnoreCase) > -1) ||
                     (logItem.Message.IndexOf(highlight.TextToHighlight, StringComparison.OrdinalIgnoreCase) > -1))
                 {
                     logItemColor = highlight.HighlightColor;

@@ -207,8 +207,8 @@ namespace AdvancedLogViewer.UI
                             if (SearchText(findWhat, logEntry.Thread, regex, stringComparison) > -1)
                                 found = true;
 
-                        if (!found && (findIn == null || findIn == PatternItemType.Type) && logEntry.TypeStr != null)
-                            if (SearchText(findWhat, logEntry.TypeStr, regex, stringComparison) > -1)
+                        if (!found && (findIn == null || findIn == PatternItemType.Type) && logEntry.Type != null)
+                            if (SearchText(findWhat, logEntry.Type, regex, stringComparison) > -1)
                                 found = true;
 
                         if (!found && (findIn == null || findIn == PatternItemType.Class) && logEntry.Class != null)

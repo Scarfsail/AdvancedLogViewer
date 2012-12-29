@@ -25,7 +25,7 @@ namespace AdvancedLogViewer.Common.Parser
                         this.Thread = value;
                         break;
                     case PatternItemType.Type:
-                        this.TypeStr = value;
+                        this.Type = value;
                         break;
                     case PatternItemType.Class:
                         this.Class = value;
@@ -53,15 +53,15 @@ namespace AdvancedLogViewer.Common.Parser
         
         public string Thread { get; private set; }
         
-        public string TypeStr { get; private set; }
+        public string Type { get; private set; }
         
-        public LogType Type
+        public LogType LogType
         {
             get
             {
                 if (this.logType == LogType.NONE)
                 {
-                    if (String.IsNullOrEmpty(this.TypeStr))
+                    if (String.IsNullOrEmpty(this.Type))
                     {
                         this.logType = LogType.UNKNOWN;
                     }
@@ -69,7 +69,7 @@ namespace AdvancedLogViewer.Common.Parser
                     {
                         try
                         {
-                            this.logType = (LogType)Enum.Parse(typeof(LogType), this.TypeStr);
+                            this.logType = (LogType)Enum.Parse(typeof(LogType), this.Type);
                         }
                         catch
                         {
@@ -99,6 +99,26 @@ namespace AdvancedLogViewer.Common.Parser
 
         /// <summary>Bookmark number. Range: 1..9, when is zero, bookmark isn't set for this item.</summary>
         public int Bookmark { get; set; }
+
+        public static List<ColumnDescription> GetAvailableColumns(bool includeThread, bool includeType, bool includeClass)
+        {
+            var result = new List<ColumnDescription>();
+
+            result.Add(new ColumnDescription("DateText", typeof(string)));
+            result.Add(new ColumnDescription("Date", typeof(DateTime)));
+            if (includeThread)
+                result.Add(new ColumnDescription("Thread", typeof(string)));
+            if (includeType) 
+                result.Add(new ColumnDescription("Type", typeof(string)));
+            if (includeClass) 
+                result.Add(new ColumnDescription("Class", typeof(string)));
+            result.Add(new ColumnDescription("Message", typeof(string)));
+            result.Add(new ColumnDescription("LineInFile", typeof(int)));
+            result.Add(new ColumnDescription("ItemNumber", typeof(int)));
+            result.Add(new ColumnDescription("Bookmark", typeof(int)));
+            
+            return result;
+        }
 
         internal bool ParseDate(string format)
         {

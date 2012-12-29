@@ -325,12 +325,12 @@ namespace AdvancedLogViewer.Common.Parser
 
         public string GetFormattedMessageDetailHeader(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.TypeStr, logEntry.Class);
+            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class);
         }
 
         public string GetFormattedWholeEntry(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.TypeStr, logEntry.Class, logEntry.Message);
+            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message);
         }
         
         protected void OnLoadingProgress()

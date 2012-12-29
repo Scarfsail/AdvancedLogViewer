@@ -50,7 +50,7 @@ namespace AdvancedLogViewer.UI
             filterSettingsDateTime.LoadContent(filter.DateTimeRange, currentLogEntry == null ? DateTime.MinValue : currentLogEntry.Date, null);
 
             filterSettingsThreads.LoadContent(filter.Threads, currentLogEntry == null ? String.Empty : currentLogEntry.Thread, getDistinctValues.Threads);
-            filterSettingsTypes.LoadContent(filter.Types, currentLogEntry == null ? String.Empty : currentLogEntry.TypeStr, getDistinctValues.Types);
+            filterSettingsTypes.LoadContent(filter.Types, currentLogEntry == null ? String.Empty : currentLogEntry.Type, getDistinctValues.Types);
             filterSettingsClasses.LoadContent(filter.Classes, currentLogEntry == null ? String.Empty : currentLogEntry.Class, getDistinctValues.Classes);
 
             filterSettingsMessages.LoadContent(filter.Messages, currentLogEntry == null ? String.Empty : currentLogEntry.Message, null);

@@ -32,7 +32,6 @@ using Scarfsail.Common.UI.Shortcuts;
 using AdvancedLogViewer.BL.LogAdjuster;
 using Scarfsail.Common.BL;
 using System.Text.RegularExpressions;
-using System.Linq.Dynamic;
 
 namespace AdvancedLogViewer.UI
 {
@@ -86,7 +85,7 @@ namespace AdvancedLogViewer.UI
                 this.getDistinctValues = new GetDisctinctValues()
                 {
                     Threads = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Thread).Distinct(new StringIgnoreCaseEqualityComparer())); },
-                    Types = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.TypeStr).Distinct(new StringIgnoreCaseEqualityComparer())); },
+                    Types = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Type).Distinct(new StringIgnoreCaseEqualityComparer())); },
                     Classes = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Class).Distinct(new StringIgnoreCaseEqualityComparer())); }
 
                 };
@@ -242,13 +241,24 @@ namespace AdvancedLogViewer.UI
 
         }
 
+        private bool SqlFilterEnabled
+        {
+            get
+            {
+                return this.sqlFilterPanel.Visible;
+            }
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
             try
             {
-                if (shortcutManager.ProcessKey(keyData))
-                    return true;
+                if (!(SqlFilterEnabled && sqlFilterControl.EditBoxHasFocus))
+                {
+                    if (shortcutManager.ProcessKey(keyData))
+                        return true;
+                }
             }
             catch (Exception Ex)
             {
@@ -358,9 +368,12 @@ namespace AdvancedLogViewer.UI
 
                     this.SetSizes();
                     log.Debug("Columns visibility set");
-                    //File watcher
-                    //this.fileWatcher.Filter = Path.GetFileName(this.fileName);
-                    //this.fileWatcher.Path = this.fileName.Substring(0, this.fileName.Length - this.fileWatcher.Filter.Length);
+
+                    //Set available columns in SQL filter
+                    this.sqlFilterControl.SetAvailableColumns(this.logParser.LogPattern.GetAvailableColumns());
+
+                    //Init SQL filter
+                    sqlFilterControl.Execute += sqlFilterControl_Execute;
 
                     //Caption
                     this.Text = "ALV - " + this.fileName;
@@ -377,6 +390,11 @@ namespace AdvancedLogViewer.UI
             {
                 //this.Cursor = Cursors.Default;
             }
+        }
+
+        void sqlFilterControl_Execute(object sender, EventArgs e)
+        {
+            this.ShowLoadedLog(false);
         }
 
         private void InitLogAdjuster()
@@ -616,6 +634,7 @@ namespace AdvancedLogViewer.UI
                             this.bookmarkButton.Enabled = true;
                             this.manageFiltersButton.Enabled = true;
                             this.enableFiltersButton.Enabled = true;
+                            this.sqlFilterButton.Enabled = true;
                             this.showOnlyNewItemsButton.Enabled = true;
                             this.manageHighlightsButton.Enabled = true;
                             this.enableHighlightsButton.Enabled = true;
@@ -669,6 +688,7 @@ namespace AdvancedLogViewer.UI
                         this.bookmarkButton.Enabled = false;
                         this.manageFiltersButton.Enabled = false;
                         this.enableFiltersButton.Enabled = false;
+                        this.sqlFilterButton.Enabled = false;
                         this.showOnlyNewItemsButton.Enabled = false;
                         this.manageHighlightsButton.Enabled = false;
                         this.enableHighlightsButton.Enabled = false;
@@ -746,40 +766,50 @@ namespace AdvancedLogViewer.UI
 
             lock (this.logParser.LogEntriesLocker)
             {
-                if (!loadingInProgress && FilteringEnabled)
+                bool itemsFiltered = false;
+                IEnumerable<LogEntry> entries = this.logParser.LogEntries;
+                if (!loadingInProgress)
                 {
-                    log.Debug("Filtering enabled");
-                    FilterEntry filter = this.FilterManager.CurrentFilter;
-                    List<KeyValuePair<bool, string>> filterMessages = filter.Messages.GetItemsWithColorHighlights(this.ColorHighlightManager.CurrentGroup.Highlights);
+                    if (SqlFilterEnabled)
+                    {                        
+                        entries = sqlFilterControl.FilterLogEntries(entries, out itemsFiltered);
+                        log.Debug(itemsFiltered ? "SQL Filtering enabled" : "SQL Filtering disabled");
+                    }
 
-                    log.Debug("Building query with filters");
+                    if (FilteringEnabled)
+                    {
+                        itemsFiltered = true;
+                        log.Debug("Filtering enabled");
+                        FilterEntry filter = this.FilterManager.CurrentFilter;
+                        List<KeyValuePair<bool, string>> filterMessages = filter.Messages.GetItemsWithColorHighlights(this.ColorHighlightManager.CurrentGroup.Highlights);
 
-                    bool filtersEnabled = this.enableFiltersButton.Checked;
-                    System.Diagnostics.Stopwatch watch = new Stopwatch();
-                    watch.Start();
-                    /*var query = from logEntry in this.logParser.LogEntries
-                                where (filter.DateTimeRange.Match(logEntry.Date)) &&
-                                            (!filtersEnabled ||
-                                            (
-                                              (filter.Threads.Match(logEntry.Thread)) &&
-                                              (filter.Types.Match(logEntry.TypeStr)) &&
-                                              (filter.Classes.Match(logEntry.Class)) &&
-                                             (filter.Messages.Match(logEntry.Message, filterMessages))
-                                            ))                                        
-                                select logEntry;
-                    */
-                    var query = logParser.LogEntries.AsQueryable().Where("(TypeStr=\"INFO\") AND (Class.Contains(\"Log\"))");
+                        log.Debug("Building query with filters");
 
-                    this.logEntries = query.ToList();
-                    watch.Stop();
+                        bool filtersEnabled = this.enableFiltersButton.Checked;
+                        entries = from logEntry in entries
+                                  where (filter.DateTimeRange.Match(logEntry.Date)) &&
+                                              (!filtersEnabled ||
+                                              (
+                                                (filter.Threads.Match(logEntry.Thread)) &&
+                                                (filter.Types.Match(logEntry.Type)) &&
+                                                (filter.Classes.Match(logEntry.Class)) &&
+                                               (filter.Messages.Match(logEntry.Message, filterMessages))
+                                              ))
+                                  select logEntry;
+                    }
+                }
+
+                this.logEntries = entries.ToList(); //We need to get copy of the logParser's entries to avoid locking during work with the collection
+                if (itemsFiltered)
+                {
                     this.totalItemsStatus.Text = String.Format("Total items: {0} / {1}", this.logEntries.Count, this.logParser.LogEntries.Count);
                     this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Bold);
                     log.Debug("logEntries are filtered now");
+
                 }
                 else
                 {
                     log.Debug("Loading all entries");
-                    this.logEntries = this.logParser.LogEntries.ToList(); //We need to get copy of the logParser's entries to avoid locking during work with the collection
                     this.totalItemsStatus.Text = "Total items: " + this.logEntries.Count.ToString();
                     this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Regular);
                 }
@@ -1189,21 +1219,21 @@ namespace AdvancedLogViewer.UI
                     log.Debug("Showing markers");
 
                     try
-                    {                                                
+                    {
                         Dictionary<int, Color> markers = new Dictionary<int, Color>();
                         for (int i = 0; i < this.logEntries.Count; i++)
                         {
                             LogEntry logEntry = this.logEntries[i];
-                            if (logEntry.Type == LogType.ERROR ||
-                                logEntry.Type == LogType.FATAL ||
-                                logEntry.Type == LogType.WARN)
+                            if (logEntry.LogType == LogType.ERROR ||
+                                logEntry.LogType == LogType.FATAL ||
+                                logEntry.LogType == LogType.WARN)
                             {
-                                markers.Add(i, this.logTypeColors[(int)logEntry.Type]);
+                                markers.Add(i, this.logTypeColors[(int)logEntry.LogType]);
                             }
                         }
 
                         this.markerPanel.ShowMarkers(this.logEntries.Count, markers);
-                        
+
                         log.Debug("Markers are shown");
                     }
                     catch (Exception ex)
@@ -1465,7 +1495,7 @@ namespace AdvancedLogViewer.UI
                 return;
             LogEntry selectedEntry = item.LogItem;
             int selectedIdx = this.logEntries.IndexOf(selectedEntry);
-            
+
             if (selectedIdx < 0)
                 return;
 
@@ -1474,7 +1504,7 @@ namespace AdvancedLogViewer.UI
                 for (int i = selectedIdx + 1; i < this.logEntries.Count; i++)
                 {
                     LogEntry entry = logEntries[i];
-                    if (entry.Type == selectedEntry.Type)
+                    if (entry.LogType == selectedEntry.LogType)
                     {
                         GoToLogItem(entry);
                         break;
@@ -1483,10 +1513,10 @@ namespace AdvancedLogViewer.UI
             }
             else
             {
-                for (int i = selectedIdx - 1; i > -1 ; i--)
+                for (int i = selectedIdx - 1; i > -1; i--)
                 {
                     LogEntry entry = logEntries[i];
-                    if (entry.Type == selectedEntry.Type)
+                    if (entry.LogType == selectedEntry.LogType)
                     {
                         GoToLogItem(entry);
                         break;
@@ -2244,7 +2274,7 @@ namespace AdvancedLogViewer.UI
             }
             if (column == typeColumn)
             {
-                ShowPopupFilterEdit<FilterSettingsText, FilterEntry.FilterItemText, string>(FilterManager.CurrentFilter.Types, selectedLogEntry != null ? selectedLogEntry.TypeStr : String.Empty, column, getDistinctValues.Types);
+                ShowPopupFilterEdit<FilterSettingsText, FilterEntry.FilterItemText, string>(FilterManager.CurrentFilter.Types, selectedLogEntry != null ? selectedLogEntry.Type : String.Empty, column, getDistinctValues.Types);
                 return;
             }
             if (column == classColumn)
@@ -2855,6 +2885,18 @@ ForceParser {0}{0}- Force the parser specified after the colon instead of using 
 ", "\t");
 
             CustomMessageBox.Show(text, "ALV Command line parameters", MessageBoxIcon.Information, new Size(700, 270));
+        }
+
+        private void sqlFilterButton_Click(object sender, EventArgs e)
+        {
+            this.sqlFilterPanel.Visible = !this.sqlFilterPanel.Visible;
+            this.splitter2.Visible = this.sqlFilterPanel.Visible;
+            this.sqlFilterButton.Checked = this.sqlFilterPanel.Visible;
+            if (sqlFilterPanel.Visible)
+            {
+                sqlFilterControl.Focus();
+            }
+            this.ShowLoadedLog(false);
         }
     }
 
