@@ -32,16 +32,17 @@ using Scarfsail.Common.UI.Shortcuts;
 using AdvancedLogViewer.BL.LogAdjuster;
 using Scarfsail.Common.BL;
 using System.Text.RegularExpressions;
+using AdvancedLogViewer.UI.Controls;
 
 namespace AdvancedLogViewer.UI
 {
-    public partial class MainForm : Form, ILogViewControl
+    public partial class MainForm : Form, ILogListViewOwner
     {
         private ShortcutManager shortcutManager = new ShortcutManager();
 
         private CommManager commManager;
 
-        private bool resizingColumns = false;
+
         private string fileName;
         private LogParser logParser = null;
         private List<LogEntry> logEntries;
@@ -58,14 +59,15 @@ namespace AdvancedLogViewer.UI
         private Dictionary<Guid, IAnalyseLogPlugin> plugins;
         private FindTextDlg findDlg;
         private LogBrowserDlg logBrowser;
-        private LogEntry[] bookmarks = new LogEntry[9];
         private ListViewItem prevSelectedListItem;
         private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
         private SoftwareUpdatesClient softwareUpdatesClient;
         private MessageContentExtractor messageContentExtractor;
         private System.Windows.Forms.Timer eraseUpdatesStatusCheckTimer;
-        private GetDisctinctValues getDistinctValues;
+        private GetDistinctValues getDistinctValues;
         private LogPattern forceParser = null;
+        private string lastCompletelyLoadedLogFileName = String.Empty;
+        private bool lastChangeReaded = true;
 
         public bool DontRunApplication = false;
 
@@ -80,9 +82,11 @@ namespace AdvancedLogViewer.UI
 
                 this.settings = AlvSettings.LoadFromFile(Path.Combine(Globals.UserDataDir, "Settings.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
 
+                this.logListView.Init(this);
+
                 this.synchronizeAnotherLogs = new List<Guid>();
 
-                this.getDistinctValues = new GetDisctinctValues()
+                this.getDistinctValues = new GetDistinctValues()
                 {
                     Threads = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Thread).Distinct(new StringIgnoreCaseEqualityComparer())); },
                     Types = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Type).Distinct(new StringIgnoreCaseEqualityComparer())); },
@@ -91,48 +95,6 @@ namespace AdvancedLogViewer.UI
                 };
 
                 this.otherInstancesButton.DropDown.KeyUp += new KeyEventHandler(otherInstancesButtonDropDown_KeyUp);
-
-                //Get icons and colors
-                foreach (LogType logType in Enum.GetValues(typeof(LogType)))
-                {
-                    switch (logType)
-                    {
-                        case LogType.VERBOSE:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Verbose);
-                            this.logTypeColors[(int)logType] = Color.Green;
-                            break;
-                        case LogType.DEBUG:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Debug);
-                            this.logTypeColors[(int)logType] = Color.Gray;
-                            break;
-                        case LogType.INFO:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Info);
-                            this.logTypeColors[(int)logType] = Color.Blue;
-                            break;
-                        case LogType.WARN:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Warn);
-                            this.logTypeColors[(int)logType] = Color.Orange;
-                            break;
-                        case LogType.ERROR:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Error);
-                            this.logTypeColors[(int)logType] = Color.Red;
-                            break;
-                        case LogType.FATAL:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Fatal);
-                            this.logTypeColors[(int)logType] = Color.Red;
-                            break;
-                        case LogType.TRACE:
-                            this.logImageList.Images.Add(logType.ToString(), Resources.LogLevel_Trace);
-                            this.logTypeColors[(int)logType] = Color.Green;
-                            break;
-                        case LogType.UNKNOWN:
-                        case LogType.NONE:
-                            break;
-                        default:
-                            throw new Exception("Unsupported log type: " + logType.ToString());
-                    }
-                }
-                this.logImageList.Images.Add("ALL", Resources.LogLevel_All);
 
                 //Get filename and other parameters from command line parameters
                 if (args.Length == 1 && (args[0].Equals("?") || args[0].Equals("-?") || args[0].Equals("/?")))
@@ -188,1120 +150,6 @@ namespace AdvancedLogViewer.UI
             }
 
             log.Debug("Main form created.");
-        }
-
-        private void ParseAndProcessAppArgs(string[] args, bool appIsInitialized)
-        {
-            if (args.Length > 1)
-            {
-                for (int i = 1; i < args.Length; i++)
-                {
-                    string arg = args[i];
-                    if (arg.StartsWith("ForceParser", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string[] parts = arg.Split(':');
-                        if (parts.Length != 2)
-                            throw new InvalidOperationException("Expected format of ForceParser parameters is: ForceParser:ParserName");
-                        LogPattern pattern = PatternManager.GetPatternByName(parts[1]);
-                        if (pattern == null)
-                            throw new InvalidOperationException(String.Format("Forced parser by ForceParser command line parameter: '{0}' doesn't exist", parts[1]));
-                        this.forceParser = pattern;
-                        args = args.Where((a, idx) => idx != i).ToArray();
-                        break;
-                    }
-                }
-                if (args.Length > 1)
-                {
-                    int line;
-                    if (int.TryParse(args[1], out line))
-                    {
-                        this.goToLineAfterLoad = line;
-                    }
-                    else
-                    {
-                        this.goToDateTimeAfterLoad = DateTime.ParseExact(args[1], CommManager.CommDateFormat, CultureInfo.InvariantCulture);
-                    }
-                }
-            }
-            if (!appIsInitialized)
-                this.fileName = args[0].Replace('"', '\\'); //Will be opened in mainForm_Shown method
-            else
-                this.OpenLog(args[0]);
-        }
-
-
-        void bookmarkMenuItem_Click(object sender, EventArgs e)
-        {
-            ToolStripItem item = sender as ToolStripItem;
-            int bookmarkNumber = this.bookmarkButton.DropDownItems.IndexOf(item) + 1;
-            if (this.bookmarks[bookmarkNumber] == null || this.bookmarks[bookmarkNumber] == this.GetSelectedListItem().LogItem)
-                this.ToggleBookmark(bookmarkNumber);
-            else
-                this.GotoBookmark(bookmarkNumber);
-
-        }
-
-        private bool SqlFilterEnabled
-        {
-            get
-            {
-                return this.sqlFilterPanel.Visible;
-            }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-
-            try
-            {
-                if (!(SqlFilterEnabled && sqlFilterControl.EditBoxHasFocus))
-                {
-                    if (shortcutManager.ProcessKey(keyData))
-                        return true;
-                }
-            }
-            catch (Exception Ex)
-            {
-                this.ShowAndLogError("Key Overrided Events Error:" + Ex.Message);
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-
-        private void ReloadLog()
-        {
-            this.ReloadLog(this.forceParser);
-            this.forceParser = null;
-        }
-
-        private void ReloadLog(LogPattern logPattern)
-        {
-            if (String.IsNullOrEmpty(this.fileName))
-                return;
-
-            if (this.customlogAdjusters == null)
-            {
-                this.customlogAdjusters = LogAdjusters.LoadFromFile(Path.Combine(Globals.UserDataDir, "LogAdjusters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
-                this.systemlogAdjusters = LogAdjusters.LoadFromFile(Path.Combine(Globals.AppDataDir, "SystemLogAdjusters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
-            }
-
-            bool fileIsTheSame = logPattern == null && this.logParser != null && this.logParser.LogFileName == this.fileName;
-
-            if (this.logParser != null && this.logParser.LoadingInProgress && !fileIsTheSame)
-            {
-                this.logParser.LoadingComplete -= logParser_LoadingComplete;
-                this.logParser.LoadingError -= logParser_LoadingError;
-                this.logLoadingErrorsStatus.Text = String.Empty;
-                this.logParser.AbortLoading();
-            }
-
-            if (fileIsTheSame)
-            {
-                this.logParser.LoadingProgress -= logParser_LoadingProgress; //We don't need to update progress for updating same file
-            }
-
-            log.DebugFormat("Reloading log: {0}, Pattern: {1}, FileIsTheSame: {2}", this.fileName, logPattern, fileIsTheSame);
-
-            //this.Cursor = Cursors.WaitCursor;
-            this.openOtherPartsButton.Enabled = false;
-            this.mergeLogPartsButton.Enabled = false;
-
-
-            try
-            {
-                this.loadingStatus.Tag = this.loadingStatus.Text; //Save original text
-
-                this.logLoadingStartTime = DateTime.Now;
-
-                if (!fileIsTheSame)
-                {
-                    this.loadingStatus.Text = "Loading log ...";
-                    if (this.findDlg != null)
-                    {
-                        this.findDlg.Close();
-                    }
-
-                    //Log Parser
-                    if (this.logParser != null)
-                    {
-                        this.logParser.LoadingComplete -= logParser_LoadingComplete;
-                        this.logParser.LoadingProgress -= logParser_LoadingProgress;
-                        this.logParser.LoadingError -= logParser_LoadingError;
-                        this.logLoadingErrorsStatus.Text = String.Empty;
-                    }
-
-                    //Clear current logs
-                    if (this.logEntries != null)
-                    {
-                        this.logListView.VirtualListSize = 0;
-                        this.logEntries.Clear();
-                    }
-
-                    //Init LogAdjuster
-                    this.InitLogAdjuster();
-
-                    this.logParser = new LogParser(this.fileName, logPattern);
-                    this.parserPatternToolStripStatus.Text = "Parser: " + logParser.LogPattern.FileMask;
-
-                    this.logParser.LoadingComplete += new LogParser.LoadingCompleteEventHandler(logParser_LoadingComplete);
-                    this.logParser.LoadingError += new ErrorEventHandler(logParser_LoadingError);
-                    if (!fileIsTheSame)
-                        this.logParser.LoadingProgress += new EventHandler(logParser_LoadingProgress);
-
-
-                    //Set columns visible
-                    log.Debug("Setting columns visibility");
-                    if (!logParser.LogPattern.ContainsThread)
-                        this.logListView.Columns.Remove(threadColumn);
-                    else if (threadColumn.ListView == null)
-                        this.logListView.Columns.Insert(1, threadColumn);
-
-                    if (!logParser.LogPattern.ContainsType)
-                        this.logListView.Columns.Remove(typeColumn);
-                    else if (typeColumn.ListView == null)
-                        this.logListView.Columns.Insert(threadColumn.ListView == null ? 1 : 2, typeColumn);
-
-                    if (!logParser.LogPattern.ContainsClass)
-                        this.logListView.Columns.Remove(classColumn);
-                    else if (classColumn.ListView == null)
-                        this.logListView.Columns.Insert(this.logListView.Columns.Count - 1, classColumn);
-
-                    this.SetSizes();
-                    log.Debug("Columns visibility set");
-
-                    //Init SQL filter
-                    this.sqlFilterControl.SetAvailableColumns(this.logParser.LogPattern.GetAvailableColumns());
-                    sqlFilterControl.Execute += sqlFilterControl_Execute;
-                    this.sqlFilterControl.WhereClause = this.settings.MainFormUI.SqlFilterText;                    
-
-                    //Caption
-                    this.Text = "ALV - " + this.fileName;
-
-
-                    //Comm manager
-                    this.CommManager.CurrentLogFileName = this.fileName;
-                }
-
-                log.Debug("Loading log entries async");
-                logParser.LoadLogEntriesAsync();
-            }
-            finally
-            {
-                //this.Cursor = Cursors.Default;
-            }
-        }
-
-        void sqlFilterControl_Execute(object sender, EventArgs e)
-        {
-            this.ShowLoadedLog(false);
-        }
-
-        private void InitLogAdjuster()
-        {
-            for (int i = this.logAdjusterButton.DropDownItems.IndexOf(this.logAdjusterMenuDivider) - 1; i >= 0; i--)
-            {
-                this.logAdjusterButton.DropDownItems.RemoveAt(i);
-            }
-            this.editConfigFileDirectlyToolStripMenuItem.Visible = false;
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "Select Config file for this Log file to allow log level adjustments ...";
-            this.activeLogAdjuster = null;
-            this.logAdjusterButton.Image = Resources.LogAdjust;
-
-        }
-
-        private void LoadLogAdjuster()
-        {
-            this.activeLogAdjuster = this.customlogAdjusters.GetLogAdjuster(this.logParser.BaseLogFileName);
-
-            if (activeLogAdjuster == null)
-            {
-                this.activeLogAdjuster = this.systemlogAdjusters.GetLogAdjuster(this.logParser.BaseLogFileName);
-
-                if (activeLogAdjuster == null)
-                    return;
-            }
-
-            List<LogAdjuster.Logger> loggers;
-            try
-            {
-                loggers = this.activeLogAdjuster.GetActiveLogLevels();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error while loading Log Adjuster", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            this.editConfigFileDirectlyToolStripMenuItem.Visible = true;
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "Change Config file for this Log file";
-
-            ToolStripDropDownItem parentItem = this.logAdjusterButton;
-            ToolStripDropDownItem additinalLoggersItem = null;
-            Func<int> insertBefore = delegate() { return this.logAdjusterButton.DropDown.Items.IndexOf(logAdjusterMenuDivider); };
-
-            for (int i = 0; i < loggers.Count; i++)
-            {
-                var logger = loggers[i];
-
-                if (i == 1)
-                {
-                    ToolStripMenuItem item = new ToolStripMenuItem("Additional loggers");
-                    this.logAdjusterButton.DropDownItems.Insert(insertBefore(), item);
-                    additinalLoggersItem = item;
-                    insertBefore = delegate() { return -1; };
-                }
-                if (i > 0)
-                {
-                    ToolStripMenuItem item = new ToolStripMenuItem(logger.Name);
-                    additinalLoggersItem.DropDownItems.Add(item);
-                    parentItem = item;
-                }
-
-                foreach (string logLevel in activeLogAdjuster.LogLevelsList)
-                {
-                    CreateLogAdjustMenuItem(parentItem, insertBefore(), logger.Path, logLevel);
-                }
-
-                this.LogAdjusterReflectActiveLogLevel(parentItem, logger.ActiveLevel);
-            }
-        }
-
-        private ToolStripMenuItem CreateLogAdjustMenuItem(ToolStripDropDownItem parentItem, int insertBefore, string path, string logLevel)
-        {
-            ToolStripMenuItem item = new ToolStripMenuItem(logLevel);
-            item.Tag = path;
-            item.Name = "LogAdjust_" + logLevel;
-            item.ToolTipText = "Set log level in Config file for currently opened log file to: " + logLevel;
-            item.Click += new EventHandler(setLogLevelItem_Click);
-
-            int imgIdx;
-            imgIdx = this.logImageList.Images.IndexOfKey(logLevel);
-            if (imgIdx > -1)
-                item.Image = logImageList.Images[imgIdx];
-            else
-                item.Image = Resources.logLevel_Unknown;
-
-            if (insertBefore > -1)
-                parentItem.DropDownItems.Insert(insertBefore, item);
-            else
-                parentItem.DropDownItems.Add(item);
-
-            return item;
-        }
-
-
-        private void LogAdjusterReflectActiveLogLevel(ToolStripDropDownItem parentMenuItem, string logLevel)
-        {
-            ToolStripMenuItem itemToCheck = null;
-
-            for (int i = 0; i < parentMenuItem.DropDownItems.Count; i++)
-            {
-                if (parentMenuItem.DropDownItems[i] == this.logAdjusterMenuDivider)
-                    break;
-
-                ToolStripMenuItem item = parentMenuItem.DropDownItems[i] as ToolStripMenuItem;
-                if (item.Name.Equals("LogAdjust_" + logLevel))
-                {
-                    itemToCheck = item;
-                }
-                else
-                    item.Checked = false;
-            }
-            if (itemToCheck != null)
-            {
-                itemToCheck.Checked = true;
-                parentMenuItem.Image = itemToCheck.Image;
-            }
-            else
-            {
-                //TODO: What to do when log level doesn't exist
-                /*
-                if (itemToCheck == null)
-                    itemToCheck = CreateLogAdjustMenuItem(logLevel);
-                */
-            }
-        }
-
-        void setLogLevelItem_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
-            string requiredLogLevel = item.Text;
-
-            try
-            {
-                activeLogAdjuster.SetActiveLogLevel((string)item.Tag, requiredLogLevel);
-                this.LogAdjusterReflectActiveLogLevel((item.OwnerItem as ToolStripDropDownItem), requiredLogLevel);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error while setting Log Level", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        private void commManager_GoToItemRequest(object sender, GoToItemRequestEventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new MethodInvoker(() => commManager_GoToItemRequest(sender, e)));
-            }
-            else
-            {
-                log.Debug("CommManager: Go to log item: " + e.GoTo.ToString());
-                if (this.WindowState == FormWindowState.Minimized)
-                    this.WindowState = FormWindowState.Normal;
-                this.BringToFront();
-                this.GoToLogItem(e.GoTo, false);
-            }
-        }
-
-        private void logParser_LoadingError(object sender, ErrorEventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new MethodInvoker(() => logParser_LoadingError(sender, e)));
-            }
-            else
-            {
-                string exceptionMessage = e.GetException().Message;
-                log.Error("Erorr while loading log:" + exceptionMessage);
-                this.logLoadingErrorsStatus.Text = exceptionMessage;
-            }
-        }
-
-        private void logParser_LoadingProgress(object sender, EventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(() => logParser_LoadingProgress(sender, e)));
-            }
-            else
-            {
-                log.Debug("Loading in progress event");
-                this.ShowLoadedLog(true);
-            }
-        }
-
-        private string lastCompletelyLoadedLogFileName = String.Empty;
-
-
-        private bool lastChangeReaded = true;
-
-        private void SetChangeReadedStatus(ListViewItem selectedItem)
-        {
-            bool readed = selectedItem != null && selectedItem.Index == this.logListView.VirtualListSize - 1;
-
-            if (lastChangeReaded != readed)
-            {
-                lastChangeReaded = readed;
-                this.lastChangeStatus.Font = new Font(this.lastChangeStatus.Font, lastChangeReaded ? FontStyle.Regular : FontStyle.Bold);
-            }
-        }
-
-
-        private void logParser_LoadingComplete(object sender, LoadingCompleteEventArgs e)
-        {
-            if (this.InvokeRequired)
-            {
-                this.BeginInvoke(new MethodInvoker(() => logParser_LoadingComplete(sender, e)));
-            }
-            else
-            {
-                log.Debug("Loading complete event");
-                this.lastRefreshStatus.Text = "Last refresh: " + DateTime.Now.ToLongTimeString();
-                if (e.LogIsChanged)
-                {
-                    log.Debug("Log is changed, showing log");
-                    if (this.logParser.LogFileExists)
-                    {
-                        this.lastChangeStatus.Text = "Change: " + DateTime.Now.ToLongTimeString();
-
-                        //ListView
-                        this.ShowLoadedLog(false);
-
-                        if (this.lastCompletelyLoadedLogFileName != this.fileName)
-                        {
-                            //Buttons
-                            this.refreshButton.Enabled = true;
-                            this.logAdjusterButton.Enabled = true;
-                            this.openInTextEditorButton.Enabled = true;
-                            this.logLevelAdjustmentSettingsToolStripMenuItem.Enabled = true;
-                            this.exportButton.Enabled = true;
-                            this.starFileButton.Enabled = true;
-                            this.autoRefreshButton.Enabled = true;
-                            this.goToItemButton.Enabled = true;
-                            this.bookmarkButton.Enabled = true;
-                            this.manageFiltersButton.Enabled = true;
-                            this.enableFiltersButton.Enabled = true;
-                            this.sqlFilterButton.Enabled = true;
-                            this.showOnlyNewItemsButton.Enabled = true;
-                            this.manageHighlightsButton.Enabled = true;
-                            this.enableHighlightsButton.Enabled = true;
-                            this.pluginsMenuItem.Enabled = true;
-                            this.textDiffButton.Enabled = true;
-                            this.findButton.Enabled = true;
-                            this.extractMessageContentButton.Enabled = true;
-                            this.logMessageEdit.Enabled = true;
-
-                            //Load file names of other parts of the log
-                            this.openOtherPartsButton.DropDown.Items.Clear();
-                            foreach (string fileName in this.logParser.AllLogPartsFileNames)
-                            {
-                                string onlyFileName = Path.GetFileName(fileName);
-
-                                ToolStripMenuItem openItem = new ToolStripMenuItem(onlyFileName);
-                                openItem.Click += new EventHandler(openOtherLogsItem_Click);
-                                openItem.Tag = fileName;
-                                this.openOtherPartsButton.DropDown.Items.Add(openItem);
-
-                                if (fileName.Equals(this.logParser.LogFileName))
-                                {
-                                    openItem.Enabled = false;
-                                    openItem.Font = new Font(openItem.Font, FontStyle.Bold);
-                                }
-                            }
-
-                            //Load Log Adjuster
-                            this.LoadLogAdjuster();
-
-                            //Add log file name into recent file list
-                            this.settings.RecentFiles.AddFile(this.settings.MainFormUI.AddOnlyBaseNameInRecentList ? this.logParser.BaseLogFileName : this.fileName);
-                            this.LoadRecentFiles();
-
-                            //This log was completely loaded
-                            this.lastCompletelyLoadedLogFileName = this.fileName;
-                        }
-                        else
-                        {
-                            SetChangeReadedStatus(this.GetSelectedListItem());
-                        }
-                    }
-                    else
-                    {
-                        log.Warn("Log file doesn't exist.");
-
-                        this.ShowLoadedLog(false);
-
-                        this.lastChangeStatus.Text = "Log file doesn't exist.";
-                        this.goToItemButton.Enabled = false;
-                        this.bookmarkButton.Enabled = false;
-                        this.manageFiltersButton.Enabled = false;
-                        this.enableFiltersButton.Enabled = false;
-                        this.sqlFilterButton.Enabled = false;
-                        this.showOnlyNewItemsButton.Enabled = false;
-                        this.manageHighlightsButton.Enabled = false;
-                        this.enableHighlightsButton.Enabled = false;
-                        this.pluginsMenuItem.Enabled = false;
-                        this.textDiffButton.Enabled = false;
-                        this.findButton.Enabled = false;
-                    }
-                }
-                else
-                {
-                    log.Debug("Log isn't changed");
-                }
-                this.openOtherPartsButton.Enabled = this.logParser.AllLogPartsFileNames.Count > 0;
-                this.mergeLogPartsButton.Enabled = this.logParser.AllLogPartsFileNames.Count > 0;
-
-                if (e.LogIsChanged)
-                    this.loadingStatus.Text = String.Format("Log loaded in: {0:N} s", (DateTime.Now - logLoadingStartTime).TotalSeconds);
-                else
-                    this.loadingStatus.Text = this.loadingStatus.Tag.ToString();
-            }
-        }
-
-
-        private void LoadRecentFiles()
-        {
-            for (int i = openFileButton.DropDown.Items.Count - 1; i > 1; i--)
-            {
-                openFileButton.DropDown.Items.RemoveAt(i);
-            }
-            this.starFileButton.Image = Resources.Star_Gray;
-            this.starFileButton.Tag = null;
-            int numberShortCut = 0;
-            foreach (string recentFile in this.settings.RecentFiles.FileListFavorites)
-            {
-                string text = numberShortCut < 10 ? numberShortCut++.ToString() + " - " + recentFile : recentFile;
-                var item = new ToolStripMenuItem(text);
-                item.Name = recentFile;
-                item.Click += new EventHandler(recentFileItem_Click);
-                item.Image = Resources.Star_Yellow;
-                item.ImageTransparentColor = Color.Magenta;
-                openFileButton.DropDown.Items.Add(item);
-
-                if (this.fileName != null && this.starFileButton.Tag == null && this.fileName.Equals(recentFile, StringComparison.OrdinalIgnoreCase))
-                {
-                    this.starFileButton.Image = Resources.Star_Yellow;
-                    this.starFileButton.Tag = true;
-                }
-            }
-            if (this.settings.RecentFiles.FileListFavorites.Count > 0 && this.settings.RecentFiles.FileList.Count > 0)
-            {
-                var separator = new ToolStripSeparator();
-                openFileButton.DropDown.Items.Add(separator);
-            }
-            foreach (string recentFile in this.settings.RecentFiles.FileList)
-            {
-                string text = numberShortCut < 10 ? numberShortCut++.ToString() + " - " + recentFile : recentFile;
-                var item = new ToolStripMenuItem(text);
-                item.Name = recentFile;
-                item.Click += new EventHandler(recentFileItem_Click);
-
-                openFileButton.DropDown.Items.Add(item);
-            }
-        }
-
-        private void ShowLoadedLog(bool loadingInProgress)
-        {
-            if (this.logParser == null)
-                return;
-
-            log.Debug("ShowLoadedLog, loading in progress: " + loadingInProgress.ToString());
-            LogListViewItem selListItem = this.GetSelectedListItem();
-            LogEntry prevSelectedItem = selListItem == null ? null : selListItem.LogItem;
-            int prevCountOfShownItems = this.logListView.VirtualListSize;
-            bool lastItemSelected = selListItem != null && selListItem.Index == this.logListView.VirtualListSize - 1;
-
-            lock (this.logParser.LogEntriesLocker)
-            {
-                bool itemsFiltered = false;
-                IEnumerable<LogEntry> entries = this.logParser.LogEntries;
-                if (!loadingInProgress)
-                {
-                    if (SqlFilterEnabled)
-                    {                        
-                        entries = sqlFilterControl.FilterLogEntries(entries, out itemsFiltered);
-                        log.Debug(itemsFiltered ? "SQL Filtering enabled" : "SQL Filtering disabled");
-                    }
-
-                    if (FilteringEnabled)
-                    {
-                        itemsFiltered = true;
-                        log.Debug("Filtering enabled");
-                        FilterEntry filter = this.FilterManager.CurrentFilter;
-                        List<KeyValuePair<bool, string>> filterMessages = filter.Messages.GetItemsWithColorHighlights(this.ColorHighlightManager.CurrentGroup.Highlights);
-
-                        log.Debug("Building query with filters");
-
-                        bool filtersEnabled = this.enableFiltersButton.Checked;
-                        entries = from logEntry in entries
-                                  where (filter.DateTimeRange.Match(logEntry.Date)) &&
-                                              (!filtersEnabled ||
-                                              (
-                                                (filter.Threads.Match(logEntry.Thread)) &&
-                                                (filter.Types.Match(logEntry.Type)) &&
-                                                (filter.Classes.Match(logEntry.Class)) &&
-                                               (filter.Messages.Match(logEntry.Message, filterMessages))
-                                              ))
-                                  select logEntry;
-                    }
-                }
-
-                this.logEntries = entries.ToList(); //We need to get copy of the logParser's entries to avoid locking during work with the collection
-                if (itemsFiltered)
-                {
-                    this.totalItemsStatus.Text = String.Format("Total items: {0} / {1}", this.logEntries.Count, this.logParser.LogEntries.Count);
-                    this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Bold);
-                    log.Debug("logEntries are filtered now");
-
-                }
-                else
-                {
-                    log.Debug("Loading all entries");
-                    this.totalItemsStatus.Text = "Total items: " + this.logEntries.Count.ToString();
-                    this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Regular);
-                }
-            }
-            this.IndicateCurrentFiltersInColumnHeaders();
-
-            //this.SuspendLayout();
-            this.logListView.BeginUpdate();
-            try
-            {
-                this.logListView.VirtualListSize = this.logEntries.Count;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error while setting VirtualListSize: " + ex.ToString());
-            }
-
-
-
-            this.logListView.EndUpdate();
-            //this.ResumeLayout(false);
-
-            this.totalLinesStatus.Text = "Lines: " + this.logParser.LinesCount.ToString();
-
-            if (this.GetSelectedListItem() == null)
-            {
-                GoToLogItem(0, true);
-            }
-
-            if (!loadingInProgress)
-            {
-                log.Debug("Show markers...");
-                this.ShowMarkers();
-
-                if ((!this.logParser.ForcedLogPattern) && (this.logParser.LinesCount > 2) && (this.logParser.LogEntriesCount == 0))
-                {
-                    this.BeginInvoke(new MethodInvoker(delegate
-                    {
-                        ShowAndLogError(@"There is not suitable parser pattern for this log file. Please add appropriate custom pattern in following dialog.");
-
-                        this.manageParsersMenuItem.PerformClick();
-                    }));
-                }
-
-
-                log.Debug("Select some item");
-                if (this.goToLineAfterLoad != null)
-                {
-                    log.Debug("Go to line after load: " + goToLineAfterLoad.Value.ToString());
-                    this.GoToLine(this.goToLineAfterLoad.Value);
-                    this.goToLineAfterLoad = null;
-                }
-                if (this.goToDateTimeAfterLoad != null)
-                {
-                    log.Debug("Go to date after load: " + goToDateTimeAfterLoad.Value.ToString());
-                    this.GoToLogItem(goToDateTimeAfterLoad.Value, false);
-                    this.goToDateTimeAfterLoad = null;
-                }
-                else if (this.autoRefreshButton.Checked && this.settings.MainFormUI.AutoScrollWhenAutoRefresh &&
-                    this.logListView.VirtualListSize > 0 && prevCountOfShownItems != this.logListView.VirtualListSize)
-                {
-                    if (lastItemSelected)
-                    {
-
-                        log.Debug("Autoscroll enabled, going to item: " + (this.logListView.VirtualListSize - 1).ToString());
-                        if (this.settings.MainFormUI.AutoScrollShowTwoItems)
-                        {
-                            if (this.logListView.SelectedIndices.Count == 2) //Hack to always select last from previous refresh and last from current refresh
-                                this.prevSelectedListItem = this.logListView.Items[this.logListView.SelectedIndices[0]];
-                        }
-                        GoToLogItem(this.logListView.VirtualListSize - 1, !this.settings.MainFormUI.AutoScrollShowTwoItems);
-                    }
-                    else
-                    {
-                        log.Debug("Autoscroll enabled, but last item wasn't selected.");
-                    }
-                }
-                else
-                {
-                    if (this.logListView.VirtualListSize == 0 || prevSelectedItem == null)
-                    {
-                        log.Debug("Refreshing message detail");
-                        RefreshMessageDetail(this.GetSelectedListItem(), false);
-                    }
-                    else
-                    {
-                        selListItem = this.GetSelectedListItem();
-                        if (selListItem == null || selListItem.LogItem != prevSelectedItem)
-                        {
-                            log.Debug("Going to previously selected item");
-                            if (!this.GoToLogItem(prevSelectedItem))
-                                this.GoToLogItem(prevSelectedItem.Date, false);
-                        }
-                        else
-                        {
-                            log.Debug("The same item is already selected, refreshing message detail");
-                            RefreshMessageDetail(selListItem, false);
-                        }
-                    }
-                }
-            }
-        }
-
-        private bool FilteringEnabled
-        {
-            get
-            {
-                return this.enableFiltersButton.Checked || this.FilterManager.CurrentFilter.DateTimeRange.Enabled;
-            }
-        }
-
-
-
-        private void RefreshMessageDetail(LogListViewItem listItem, bool forceRefresh)
-        {
-            if (listItem == null)
-            {
-                logMessageEdit.Text = String.Empty;
-                currentItemStatus.Text = String.Empty;
-                currentLineStatus.Text = String.Empty;
-                return;
-            }
-            if (logMessageEdit.Visible)
-            {
-                if (forceRefresh || prevSelectedListItem == null || prevSelectedListItem.Index != listItem.Index)
-                {
-                    LogEntry logEntry = listItem.LogItem;
-                    logMessageEdit.Text = "";
-                    logMessageEdit.SelectionColor = SystemColors.GrayText;
-                    logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
-                    logMessageEdit.SelectionColor = SystemColors.WindowText;
-                    logMessageEdit.AppendText(logEntry.Message);
-
-
-                    if (settings.MainFormUI.EnableHighlights)
-                        ColorHighlightManager.CurrentGroup.HighlightTextInMessageDetail(logMessageEdit);
-
-                    logMessageEdit.SelectionStart = 0;
-                    logMessageEdit.SelectionLength = 0;
-                }
-
-            }
-            currentItemStatus.Text = "Current item: " + (listItem.Index + 1).ToString();
-            currentLineStatus.Text = "Line: " + listItem.LogItem.LineInFile;
-        }
-
-        public void GoToLine(int line)
-        {
-            log.Debug("Go to line: " + line.ToString());
-            if (this.logListView.VirtualListSize == 0)
-                return;
-
-            LogEntry entry = this.logEntries.Find(l => l.LineInFile >= line);
-
-            if (entry != null)
-                this.GoToLogItem(entry);
-            else
-                this.GoToLogItem(this.logEntries.Last());
-        }
-
-
-        public bool GoToLogItem(int index, bool selectOnlyOneItem)
-        {
-            log.Debug("Go to log item: " + index.ToString());
-            if (this.logListView.VirtualListSize == 0)
-                return false;
-
-            if (index >= this.logListView.VirtualListSize)
-                index = this.logListView.VirtualListSize - 1;
-
-            if (index >= this.logEntries.Count)
-                index = this.logEntries.Count - 1;
-
-            if (selectOnlyOneItem)
-            {
-                while (this.logListView.SelectedIndices.Count > 0)
-                {
-                    logListView.Items[logListView.SelectedIndices[0]].Selected = false;
-                }
-            }
-
-            logListView.Items[index].Selected = true;
-            logListView.Items[index].Focused = true;
-            this.logListView.EnsureVisible(index);
-            return true;
-        }
-
-        public void GoToLogItem(DateTime dateTime, bool showErrorWhenNotFound)
-        {
-            log.Debug("Go to log item: " + dateTime.ToString());
-
-            LogEntry logEntry = this.logEntries.FirstOrDefault(l => l.Date >= dateTime);
-
-            if (logEntry != null)
-            {
-                this.GoToLogItem(logEntry);
-            }
-            else
-            {
-                if (showErrorWhenNotFound)
-                    MessageBox.Show(String.Format("Item with date: {0} or higher doesn't exists in current list.", dateTime), "Item not found", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
-
-        public bool GoToLogItem(LogEntry logEntry)
-        {
-            int idx = this.logEntries.IndexOf(logEntry);
-            if (idx == -1)
-                return false;
-
-            this.GoToLogItem(idx, true);
-            return true;
-        }
-
-        private void GotoBookmark(int bookmarkNumber)
-        {
-            if (bookmarkNumber < 1 || bookmarkNumber > this.bookmarks.Length)
-                throw new ArgumentOutOfRangeException("bookmarkNumber", bookmarkNumber, "bookmarkNumber must be between 1 and " + this.bookmarks.Length);
-
-            LogEntry logEntry = this.bookmarks[bookmarkNumber];
-
-            if (logEntry == null)
-            {
-                MessageBox.Show("Bookmark number: " + bookmarkNumber.ToString() + " is not specified." + Environment.NewLine + "Press CTRL + SHIFT + number to set the bookmark on current line", "Bookmark not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                if (!this.GoToLogItem(logEntry))
-                    MessageBox.Show("Bookmark item isn't visible now. Change the filter to make bookmarked item visible and then you can goto the item.", "Bookmark item not visible", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ToggleBookmark(int bookmarkNumber)
-        {
-            if (bookmarkNumber < 1 || bookmarkNumber > this.bookmarks.Length)
-                throw new ArgumentOutOfRangeException("bookmarkNumber", bookmarkNumber, "bookmarkNumber must be between 1 and " + this.bookmarks.Length);
-
-            var selectedItem = this.GetSelectedListItem();
-            if (selectedItem == null)
-                return;
-
-            bool resetBookmark = (selectedItem.LogItem.Bookmark == bookmarkNumber);
-
-            if (this.bookmarks[bookmarkNumber] != null)
-            {
-                SetBookmarkMenuItemText(bookmarkNumber, String.Empty);
-                this.bookmarks[bookmarkNumber].Bookmark = 0;
-                this.bookmarks[bookmarkNumber] = null;
-            }
-
-            if (selectedItem.LogItem.Bookmark > 0)
-            {
-                SetBookmarkMenuItemText(selectedItem.LogItem.Bookmark, String.Empty);
-                this.bookmarks[selectedItem.LogItem.Bookmark] = null;
-                selectedItem.LogItem.Bookmark = 0;
-            }
-
-            if (!resetBookmark)
-            {
-                SetBookmarkMenuItemText(bookmarkNumber, selectedItem.LogItem.DateText);
-                selectedItem.LogItem.Bookmark = bookmarkNumber;
-                this.bookmarks[bookmarkNumber] = selectedItem.LogItem;
-            }
-            this.logListView.Refresh();
-        }
-
-        private void SetSizes()
-        {
-            if (resizingColumns)
-                return;
-
-            resizingColumns = true;
-
-            log.Debug("Setting sizes");
-            this.SuspendLayout();
-
-            int left = 1;
-            const int space = 0;
-
-            dateColumn.Tag = left;
-            left += space + dateColumn.Width;
-
-
-            if (this.threadColumn.ListView != null)
-            {
-                threadColumn.Tag = left;
-                left += space + threadColumn.Width;
-            }
-
-            if (this.typeColumn.ListView != null)
-            {
-                typeColumn.Tag = left;
-                left += space + typeColumn.Width;
-            }
-
-            if (this.classColumn.ListView != null)
-            {
-                classColumn.Tag = left;
-                left += space + classColumn.Width;
-            }
-
-            if (this.messageColumn.ListView != null)
-            {
-                messageColumn.Tag = left;
-                messageColumn.Width = this.logListView.Width - left - SystemInformation.VerticalScrollBarWidth - 5;
-            }
-
-            resizingColumns = false;
-            this.ResumeLayout(false);
-        }
-
-        private LogListViewItem GetSelectedListItem()
-        {
-            return this.GetLogListItem(GetLogListItemType.Selected);
-        }
-
-        private LogListViewItem GetLogListItem(GetLogListItemType type)
-        {
-            int idx;
-            switch (type)
-            {
-                case GetLogListItemType.First:
-                    if (logListView.Items.Count == 0)
-                        idx = -1;
-                    else
-                        idx = 0;
-                    break;
-                case GetLogListItemType.Last:
-                    idx = logListView.Items.Count - 1;
-                    break;
-                case GetLogListItemType.Selected:
-                    if (logListView.SelectedIndices.Count == 0)
-                        idx = -1;
-                    else
-                        idx = logListView.SelectedIndices[logListView.SelectedIndices.Count - 1];
-                    break;
-                default:
-                    throw new NotImplementedException(String.Format("GetLogItemType: {0} isn't implemented.", type));
-            }
-
-            if (idx < 0 || idx >= this.logListView.VirtualListSize || this.logEntries.Count == 0)
-                return null;
-
-            if (idx >= this.logEntries.Count)
-                idx = this.logEntries.Count - 1;
-
-            return logListView.Items[idx] as LogListViewItem;
-        }
-
-        private void GoToSameTimeInAnotherLog(Guid anotherLogID)
-        {
-            LogListViewItem selectedItem = GetSelectedListItem();
-            if (selectedItem == null)
-                return;
-
-            this.CommManager.GoToTimeInAnotherLog(anotherLogID, selectedItem.LogItem.Date);
-        }
-
-        private void ShowPrevLogFilePart()
-        {
-            int idx = this.logParser.AllLogPartsFileNames.IndexOf(this.logParser.LogFileName) - 1;
-            if (idx >= 0)
-            {
-                string prevFileName = this.logParser.AllLogPartsFileNames[idx];
-                this.OpenLog(prevFileName);
-            }
-        }
-
-        private void ShowNextLogFilePart()
-        {
-            int idx = this.logParser.AllLogPartsFileNames.IndexOf(this.logParser.LogFileName) + 1;
-            if (idx < this.logParser.AllLogPartsFileNames.Count)
-            {
-                string nextFileName = this.logParser.AllLogPartsFileNames[idx];
-                this.OpenLog(nextFileName);
-            }
-        }
-        private void OpenLog(string fileName)
-        {
-            this.OpenLog(fileName, true);
-        }
-
-        private void OpenLog(string fileName, bool focusOnListView)
-        {
-            log.Debug("Open log: " + fileName);
-            if (!File.Exists(fileName))
-            {
-                this.ShowAndLogError(String.Format("File: {0} doesn't exists.", fileName));
-                return;
-            }
-
-            this.fileName = fileName;
-            this.logListView.Enabled = true;
-
-            if (focusOnListView)
-                this.logListView.Focus();
-
-            this.ReloadLog();
-        }
-
-        private void ShowMarkers()
-        {
-            if (this.settings.MainFormUI.ShowMarkers)
-            {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
-                {
-                    log.Debug("Showing markers");
-
-                    try
-                    {
-                        Dictionary<int, Color> markers = new Dictionary<int, Color>();
-                        for (int i = 0; i < this.logEntries.Count; i++)
-                        {
-                            LogEntry logEntry = this.logEntries[i];
-                            if (logEntry.LogType == LogType.ERROR ||
-                                logEntry.LogType == LogType.FATAL ||
-                                logEntry.LogType == LogType.WARN)
-                            {
-                                markers.Add(i, this.logTypeColors[(int)logEntry.LogType]);
-                            }
-                        }
-
-                        this.markerPanel.ShowMarkers(this.logEntries.Count, markers);
-
-                        log.Debug("Markers are shown");
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error("Error while showing markers: " + ex.ToString());
-                    }
-                }));
-            }
-            else
-            {
-                log.Debug("Markers panel isn't shown, markers will be not loaded.");
-            }
-        }
-
-        private void TryLogPatternOnCurrentLog(LogPattern logPattern)
-        {
-            this.ReloadLog(logPattern);
-        }
-
-        private void ShowAndLogError(string errorMessage)
-        {
-            log.Error(errorMessage);
-            MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void SetBookmarkMenuItemText(int bookmarkNumber, string text)
-        {
-            ToolStripItem item = this.bookmarkButton.DropDownItems[bookmarkNumber - 1];
-            item.ToolTipText = String.IsNullOrEmpty(text) ? "Click to set bookmark on current line." : "Click to go to this bookmark.";
-            item.Text = "(" + bookmarkNumber.ToString() + ") - " + (String.IsNullOrEmpty(text) ? "Empty" : text);
-        }
-
-        private bool ShowSettingsDialog(string additionalTextInCaption, bool firstTimeShown)
-        {
-            using (SettingsDlg dlg = new SettingsDlg(this.settings, firstTimeShown))
-            {
-                log.Debug("Settings...");
-                if (!String.IsNullOrEmpty(additionalTextInCaption))
-                    dlg.Text += additionalTextInCaption;
-
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    log.Debug("Settings OK");
-
-                    //Reflect settings
-                    this.markersPanelParent.Visible = this.settings.MainFormUI.ShowMarkers;
-                    if (this.settings.MainFormUI.ShowMarkers)
-                        this.ShowMarkers();
-                    this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        private void ShowPopupFilterEdit<TControl, TItem, TContentType>(TItem filterItem, TContentType currentItemValue, ColumnHeader column, Func<List<string>> getDistinctValues)
-            where TControl : FilterSettingsBaseControl<TItem, TContentType>, new()
-            where TItem : FilterEntry.FilterItem
-        {
-
-            Point point = column.ListView.PointToScreen(new Point((int)column.Tag, 23));
-            var dlg = new FilterPopup<TControl, TItem, TContentType>(filterItem, currentItemValue, column.Text.TrimEnd('*'), this, getDistinctValues);
-            dlg.Left = point.X;
-            dlg.Top = point.Y;
-            dlg.Show(this);
-            dlg.FormClosed += new FormClosedEventHandler(filterPopupDialog_FormClosed);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -1415,16 +263,16 @@ namespace AdvancedLogViewer.UI
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Tab, () => switchBetweenAlvInstancesCtrlTab(), "Switch between running ALV instances."));
 
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Home, () => (this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0),
-                    () => this.GoToLogItem(this.GetLogListItem(GetLogListItemType.First).LogItem), "Jump to first log item"));
+                    () => logListView.GoToLogItem(logListView.GetLogListItem(GetLogListItemType.First).LogItem), "Jump to first log item"));
 
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.End, () => (this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0),
-                    () => this.GoToLogItem(this.GetLogListItem(GetLogListItemType.Last).LogItem), "Jump to last log item"));
+                    () => logListView.GoToLogItem(logListView.GetLogListItem(GetLogListItemType.Last).LogItem), "Jump to last log item"));
 
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Left, () => this.ShowPrevLogFilePart(), "Show previous log part (e.g.: log.1, log.2, ...)"));
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Right, () => this.ShowNextLogFilePart(), "Show next log part (e.g.: log.1, log.2, ...)"));
 
-                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Up, () => this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0, () => this.JumpToSameNearestType(false), "Jump to nearest upper row with same Type (Error, Warning, ...) as on currently selected time."));
-                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Down, () => this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0, () => this.JumpToSameNearestType(true), "Jump to nearest lower row with same Type (Error, Warning, ...) as on currently selected time."));
+                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Up, () => this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0, () => logListView.JumpToSameNearestType(false), "Jump to nearest upper row with same Type (Error, Warning, ...) as on currently selected time."));
+                shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.Down, () => this.logEntries != null && this.logListView.Focused && this.logEntries.Count > 0, () => logListView.JumpToSameNearestType(true), "Jump to nearest lower row with same Type (Error, Warning, ...) as on currently selected time."));
 
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.O, () => this.openFileButton.PerformButtonClick(), "Show Open File dialog"));
                 shortcutManager.Add(new ShortcutItem(Keys.Control | Keys.R, () => this.openFileButton.ShowDropDown(), "Show recent files"));
@@ -1455,20 +303,16 @@ namespace AdvancedLogViewer.UI
                 shortcutManager.Add(new ShortcutItem(Keys.Alt | Keys.N, this.openInTextEditorButton));
                 shortcutManager.Add(new ShortcutItem(Keys.Alt | Keys.T, this.openInExternalTextEditorToolStripMenuItem));
 
-                shortcutManager.Add(new ShortcutItem(Keys.D, () => this.showFilterPopup(dateColumn), "Show filter popup for Date column"));
-                shortcutManager.Add(new ShortcutItem(Keys.H, () => this.showFilterPopup(threadColumn), "Show filter popup for tHread column"));
-                shortcutManager.Add(new ShortcutItem(Keys.T, () => this.showFilterPopup(typeColumn), "Show filter popup for Type column"));
-                shortcutManager.Add(new ShortcutItem(Keys.C, () => this.showFilterPopup(classColumn), "Show filter popup for Class column"));
-                shortcutManager.Add(new ShortcutItem(Keys.M, () => this.showFilterPopup(messageColumn), "Show filter popup for Message column"));
+                logListView.RegisterKeyboardShortcuts(shortcutManager);
 
                 shortcutManager.Add(new ShortcutItem(
                     (Keys inputKey) => (((inputKey & Keys.Control) == Keys.Control) && ((inputKey & Keys.Shift) == Keys.Shift) && (GetKeyNumber(inputKey) >= (int)Keys.D1 && GetKeyNumber(inputKey) <= (int)Keys.D9)),
-                    (Keys inputKey) => this.ToggleBookmark(GetKeyNumber(inputKey) - 48),
+                    (Keys inputKey) => logListView.ToggleBookmark(GetKeyNumber(inputKey) - 48),
                     "CTRL + SHIFT + Number", "Toggle the bookmark with appropriate number on current line"));
 
                 shortcutManager.Add(new ShortcutItem(
                     (Keys inputKey) => (((inputKey & Keys.Control) == Keys.Control) && (GetKeyNumber(inputKey) >= (int)Keys.D1 && GetKeyNumber(inputKey) <= (int)Keys.D9)),
-                    (Keys inputKey) => this.GotoBookmark(GetKeyNumber(inputKey) - 48),
+                    (Keys inputKey) => logListView.GotoBookmark(GetKeyNumber(inputKey) - 48),
                     "CTRL + Number", "Goto the bookmark with appropriate number."));
             }
 #if !(DEBUG)
@@ -1483,50 +327,6 @@ namespace AdvancedLogViewer.UI
             log.Debug("Main form shown event finished");
         }
 
-
-        private int GetKeyNumber(Keys keys)
-        {
-            return (int)(keys & (Keys.D0 | Keys.D1 | Keys.D2 | Keys.D3 | Keys.D4 | Keys.D5 | Keys.D6 | Keys.D7 | Keys.D8 | Keys.D9));
-        }
-
-        private void JumpToSameNearestType(bool down)
-        {
-            LogListViewItem item = GetSelectedListItem();
-            if (item == null)
-                return;
-            LogEntry selectedEntry = item.LogItem;
-            int selectedIdx = this.logEntries.IndexOf(selectedEntry);
-
-            if (selectedIdx < 0)
-                return;
-
-            if (down)
-            {
-                for (int i = selectedIdx + 1; i < this.logEntries.Count; i++)
-                {
-                    LogEntry entry = logEntries[i];
-                    if (entry.LogType == selectedEntry.LogType)
-                    {
-                        GoToLogItem(entry);
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = selectedIdx - 1; i > -1; i--)
-                {
-                    LogEntry entry = logEntries[i];
-                    if (entry.LogType == selectedEntry.LogType)
-                    {
-                        GoToLogItem(entry);
-                        break;
-                    }
-                }
-            }
-        }
-
-
         private void DoUpgradeSteps(Version upgradedFrom)
         {
             if (upgradedFrom <= new Version("2.6.1"))
@@ -1540,6 +340,917 @@ namespace AdvancedLogViewer.UI
                 this.settings.Save();
             }
         }
+
+        public Form Form { get { return this; } }
+        public AlvSettings Settings { get { return settings; } }
+        public LogParser LogParser { get { return logParser; } }
+        public List<LogEntry> LogEntries { get { return logEntries; } }
+        public bool FiltersEnabled
+        {
+            get
+            {
+                return this.enableFiltersButton.Checked;
+            }
+            set
+            {
+                this.enableFiltersButton.Checked = value;
+            }
+        }
+
+        private bool SqlFilterEnabled
+        {
+            get
+            {
+                return this.sqlFilterPanel.Visible;
+            }
+        }
+
+
+        public ColorHighlightManager ColorHighlightManager
+        {
+            get
+            {
+                if (this.colorHighlightManager == null)
+                {
+                    this.colorHighlightManager = ColorHighlightManager.LoadFromFile(Path.Combine(Globals.UserDataDir, "ColorHighlights.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
+                }
+                return this.colorHighlightManager;
+            }
+        }
+
+        public FilterManager FilterManager
+        {
+            get
+            {
+                if (this.filterManager == null)
+                {
+                    this.filterManager = FilterManager.LoadFromFile(Path.Combine(Globals.UserDataDir, "Filters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
+                }
+                return this.filterManager;
+            }
+        }
+
+        public GetDistinctValues GetDistinctValues { get { return this.getDistinctValues; } }
+
+        private void ParseAndProcessAppArgs(string[] args, bool appIsInitialized)
+        {
+            if (args.Length > 1)
+            {
+                for (int i = 1; i < args.Length; i++)
+                {
+                    string arg = args[i];
+                    if (arg.StartsWith("ForceParser", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string[] parts = arg.Split(':');
+                        if (parts.Length != 2)
+                            throw new InvalidOperationException("Expected format of ForceParser parameters is: ForceParser:ParserName");
+                        LogPattern pattern = PatternManager.GetPatternByName(parts[1]);
+                        if (pattern == null)
+                            throw new InvalidOperationException(String.Format("Forced parser by ForceParser command line parameter: '{0}' doesn't exist", parts[1]));
+                        this.forceParser = pattern;
+                        args = args.Where((a, idx) => idx != i).ToArray();
+                        break;
+                    }
+                }
+                if (args.Length > 1)
+                {
+                    int line;
+                    if (int.TryParse(args[1], out line))
+                    {
+                        this.goToLineAfterLoad = line;
+                    }
+                    else
+                    {
+                        this.goToDateTimeAfterLoad = DateTime.ParseExact(args[1], CommManager.CommDateFormat, CultureInfo.InvariantCulture);
+                    }
+                }
+            }
+            if (!appIsInitialized)
+                this.fileName = args[0].Replace('"', '\\'); //Will be opened in mainForm_Shown method
+            else
+                this.OpenLog(args[0]);
+        }
+
+
+        void bookmarkMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripItem item = sender as ToolStripItem;
+            int bookmarkNumber = this.bookmarkButton.DropDownItems.IndexOf(item) + 1;
+            logListView.ToggleOrGotoBookmark(bookmarkNumber);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            try
+            {
+                if (!(SqlFilterEnabled && sqlFilterControl.EditBoxHasFocus))
+                {
+                    if (shortcutManager.ProcessKey(keyData))
+                        return true;
+                }
+            }
+            catch (Exception Ex)
+            {
+                this.ShowAndLogError("Key Overrided Events Error:" + Ex.Message);
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+
+        private void ReloadLog()
+        {
+            this.ReloadLog(this.forceParser);
+            this.forceParser = null;
+        }
+
+        private void ReloadLog(LogPattern logPattern)
+        {
+            if (String.IsNullOrEmpty(this.fileName))
+                return;
+
+            if (this.customlogAdjusters == null)
+            {
+                this.customlogAdjusters = LogAdjusters.LoadFromFile(Path.Combine(Globals.UserDataDir, "LogAdjusters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
+                this.systemlogAdjusters = LogAdjusters.LoadFromFile(Path.Combine(Globals.AppDataDir, "SystemLogAdjusters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
+            }
+
+            bool fileIsTheSame = logPattern == null && this.logParser != null && this.logParser.LogFileName == this.fileName;
+
+            if (this.logParser != null && this.logParser.LoadingInProgress && !fileIsTheSame)
+            {
+                this.logParser.LoadingComplete -= logParser_LoadingComplete;
+                this.logParser.LoadingError -= logParser_LoadingError;
+                this.logLoadingErrorsStatus.Text = String.Empty;
+                this.logParser.AbortLoading();
+            }
+
+            if (fileIsTheSame)
+            {
+                this.logParser.LoadingProgress -= logParser_LoadingProgress; //We don't need to update progress for updating same file
+            }
+
+            log.DebugFormat("Reloading log: {0}, Pattern: {1}, FileIsTheSame: {2}", this.fileName, logPattern, fileIsTheSame);
+
+            //this.Cursor = Cursors.WaitCursor;
+            this.openOtherPartsButton.Enabled = false;
+            this.mergeLogPartsButton.Enabled = false;
+
+
+            try
+            {
+                this.loadingStatus.Tag = this.loadingStatus.Text; //Save original text
+
+                this.logLoadingStartTime = DateTime.Now;
+
+                if (!fileIsTheSame)
+                {
+                    this.loadingStatus.Text = "Loading log ...";
+                    if (this.findDlg != null)
+                    {
+                        this.findDlg.Close();
+                    }
+
+                    //Log Parser
+                    if (this.logParser != null)
+                    {
+                        this.logParser.LoadingComplete -= logParser_LoadingComplete;
+                        this.logParser.LoadingProgress -= logParser_LoadingProgress;
+                        this.logParser.LoadingError -= logParser_LoadingError;
+                        this.logLoadingErrorsStatus.Text = String.Empty;
+                    }
+
+                    //Clear current logs
+                    if (this.logEntries != null)
+                    {
+                        this.logListView.VirtualListSize = 0;
+                        this.logEntries.Clear();
+                    }
+
+                    //Init LogAdjuster
+                    this.InitLogAdjuster();
+
+                    this.logParser = new LogParser(this.fileName, logPattern);
+                    this.parserPatternToolStripStatus.Text = "Parser: " + logParser.LogPattern.FileMask;
+
+                    this.logParser.LoadingComplete += new LogParser.LoadingCompleteEventHandler(logParser_LoadingComplete);
+                    this.logParser.LoadingError += new ErrorEventHandler(logParser_LoadingError);
+                    if (!fileIsTheSame)
+                        this.logParser.LoadingProgress += new EventHandler(logParser_LoadingProgress);
+
+                    //Set columns visible
+                    this.logListView.SetColumnsVisibility(logParser);
+
+                    this.logListView.SetColumnSizes();
+                    log.Debug("Columns visibility set");
+
+                    //Init SQL filter
+                    this.sqlFilterControl.SetAvailableColumns(this.logParser.LogPattern.GetAvailableColumns());
+                    sqlFilterControl.Execute += sqlFilterControl_Execute;
+                    this.sqlFilterControl.WhereClause = this.settings.MainFormUI.SqlFilterText;
+
+                    //Caption
+                    this.Text = "ALV - " + this.fileName;
+
+
+                    //Comm manager
+                    this.CommManager.CurrentLogFileName = this.fileName;
+                }
+
+                log.Debug("Loading log entries async");
+                logParser.LoadLogEntriesAsync();
+            }
+            finally
+            {
+                //this.Cursor = Cursors.Default;
+            }
+        }
+
+        void sqlFilterControl_Execute(object sender, EventArgs e)
+        {
+            this.ShowLoadedLog(false);
+        }
+
+        private void InitLogAdjuster()
+        {
+            for (int i = this.logAdjusterButton.DropDownItems.IndexOf(this.logAdjusterMenuDivider) - 1; i >= 0; i--)
+            {
+                this.logAdjusterButton.DropDownItems.RemoveAt(i);
+            }
+            this.editConfigFileDirectlyToolStripMenuItem.Visible = false;
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "Select Config file for this Log file to allow log level adjustments ...";
+            this.activeLogAdjuster = null;
+            this.logAdjusterButton.Image = Resources.LogAdjust;
+
+        }
+
+        private void LoadLogAdjuster()
+        {
+            this.activeLogAdjuster = this.customlogAdjusters.GetLogAdjuster(this.logParser.BaseLogFileName);
+
+            if (activeLogAdjuster == null)
+            {
+                this.activeLogAdjuster = this.systemlogAdjusters.GetLogAdjuster(this.logParser.BaseLogFileName);
+
+                if (activeLogAdjuster == null)
+                    return;
+            }
+
+            List<LogAdjuster.Logger> loggers;
+            try
+            {
+                loggers = this.activeLogAdjuster.GetActiveLogLevels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error while loading Log Adjuster", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this.editConfigFileDirectlyToolStripMenuItem.Visible = true;
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "Change Config file for this Log file";
+
+            ToolStripDropDownItem parentItem = this.logAdjusterButton;
+            ToolStripDropDownItem additinalLoggersItem = null;
+            Func<int> insertBefore = delegate() { return this.logAdjusterButton.DropDown.Items.IndexOf(logAdjusterMenuDivider); };
+
+            for (int i = 0; i < loggers.Count; i++)
+            {
+                var logger = loggers[i];
+
+                if (i == 1)
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem("Additional loggers");
+                    this.logAdjusterButton.DropDownItems.Insert(insertBefore(), item);
+                    additinalLoggersItem = item;
+                    insertBefore = delegate() { return -1; };
+                }
+                if (i > 0)
+                {
+                    ToolStripMenuItem item = new ToolStripMenuItem(logger.Name);
+                    additinalLoggersItem.DropDownItems.Add(item);
+                    parentItem = item;
+                }
+
+                foreach (string logLevel in activeLogAdjuster.LogLevelsList)
+                {
+                    CreateLogAdjustMenuItem(parentItem, insertBefore(), logger.Path, logLevel);
+                }
+
+                this.LogAdjusterReflectActiveLogLevel(parentItem, logger.ActiveLevel);
+            }
+        }
+
+        private ToolStripMenuItem CreateLogAdjustMenuItem(ToolStripDropDownItem parentItem, int insertBefore, string path, string logLevel)
+        {
+            ToolStripMenuItem item = new ToolStripMenuItem(logLevel);
+            item.Tag = path;
+            item.Name = "LogAdjust_" + logLevel;
+            item.ToolTipText = "Set log level in Config file for currently opened log file to: " + logLevel;
+            item.Click += new EventHandler(setLogLevelItem_Click);
+
+            item.Image = logListView.GetImageForLogLevel(logLevel);
+
+            if (insertBefore > -1)
+                parentItem.DropDownItems.Insert(insertBefore, item);
+            else
+                parentItem.DropDownItems.Add(item);
+
+            return item;
+        }
+
+
+        private void LogAdjusterReflectActiveLogLevel(ToolStripDropDownItem parentMenuItem, string logLevel)
+        {
+            ToolStripMenuItem itemToCheck = null;
+
+            for (int i = 0; i < parentMenuItem.DropDownItems.Count; i++)
+            {
+                if (parentMenuItem.DropDownItems[i] == this.logAdjusterMenuDivider)
+                    break;
+
+                ToolStripMenuItem item = parentMenuItem.DropDownItems[i] as ToolStripMenuItem;
+                if (item.Name.Equals("LogAdjust_" + logLevel))
+                {
+                    itemToCheck = item;
+                }
+                else
+                    item.Checked = false;
+            }
+            if (itemToCheck != null)
+            {
+                itemToCheck.Checked = true;
+                parentMenuItem.Image = itemToCheck.Image;
+            }
+            else
+            {
+                //TODO: What to do when log level doesn't exist
+                /*
+                if (itemToCheck == null)
+                    itemToCheck = CreateLogAdjustMenuItem(logLevel);
+                */
+                MessageBox.Show(String.Format("LogLevel: {0} doesn't exist."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void setLogLevelItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            string requiredLogLevel = item.Text;
+
+            try
+            {
+                activeLogAdjuster.SetActiveLogLevel((string)item.Tag, requiredLogLevel);
+                this.LogAdjusterReflectActiveLogLevel((item.OwnerItem as ToolStripDropDownItem), requiredLogLevel);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error while setting Log Level", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void commManager_GoToItemRequest(object sender, GoToItemRequestEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(() => commManager_GoToItemRequest(sender, e)));
+            }
+            else
+            {
+                log.Debug("CommManager: Go to log item: " + e.GoTo.ToString());
+                if (this.WindowState == FormWindowState.Minimized)
+                    this.WindowState = FormWindowState.Normal;
+                this.BringToFront();
+                logListView.GoToLogItem(e.GoTo, false);
+            }
+        }
+
+        private void logParser_LoadingError(object sender, ErrorEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(() => logParser_LoadingError(sender, e)));
+            }
+            else
+            {
+                string exceptionMessage = e.GetException().Message;
+                log.Error("Erorr while loading log:" + exceptionMessage);
+                this.logLoadingErrorsStatus.Text = exceptionMessage;
+            }
+        }
+
+        private void logParser_LoadingProgress(object sender, EventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => logParser_LoadingProgress(sender, e)));
+            }
+            else
+            {
+                log.Debug("Loading in progress event");
+                this.ShowLoadedLog(true);
+            }
+        }
+
+
+        private void logParser_LoadingComplete(object sender, LoadingCompleteEventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new MethodInvoker(() => logParser_LoadingComplete(sender, e)));
+            }
+            else
+            {
+                log.Debug("Loading complete event");
+                this.lastRefreshStatus.Text = "Last refresh: " + DateTime.Now.ToLongTimeString();
+                if (e.LogIsChanged)
+                {
+                    log.Debug("Log is changed, showing log");
+                    if (this.logParser.LogFileExists)
+                    {
+                        this.lastChangeStatus.Text = "Change: " + DateTime.Now.ToLongTimeString();
+
+                        //ListView
+                        this.ShowLoadedLog(false);
+
+                        if (this.lastCompletelyLoadedLogFileName != this.fileName)
+                        {
+                            //Buttons
+                            this.refreshButton.Enabled = true;
+                            this.logAdjusterButton.Enabled = true;
+                            this.openInTextEditorButton.Enabled = true;
+                            this.logLevelAdjustmentSettingsToolStripMenuItem.Enabled = true;
+                            this.exportButton.Enabled = true;
+                            this.starFileButton.Enabled = true;
+                            this.autoRefreshButton.Enabled = true;
+                            this.goToItemButton.Enabled = true;
+                            this.bookmarkButton.Enabled = true;
+                            this.manageFiltersButton.Enabled = true;
+                            this.enableFiltersButton.Enabled = true;
+                            this.sqlFilterButton.Enabled = true;
+                            this.showOnlyNewItemsButton.Enabled = true;
+                            this.manageHighlightsButton.Enabled = true;
+                            this.enableHighlightsButton.Enabled = true;
+                            this.pluginsMenuItem.Enabled = true;
+                            this.textDiffButton.Enabled = true;
+                            this.findButton.Enabled = true;
+                            this.extractMessageContentButton.Enabled = true;
+                            this.logMessageEdit.Enabled = true;
+
+                            //Load file names of other parts of the log
+                            this.openOtherPartsButton.DropDown.Items.Clear();
+                            foreach (string fileName in this.logParser.AllLogPartsFileNames)
+                            {
+                                string onlyFileName = Path.GetFileName(fileName);
+
+                                ToolStripMenuItem openItem = new ToolStripMenuItem(onlyFileName);
+                                openItem.Click += new EventHandler(openOtherLogsItem_Click);
+                                openItem.Tag = fileName;
+                                this.openOtherPartsButton.DropDown.Items.Add(openItem);
+
+                                if (fileName.Equals(this.logParser.LogFileName))
+                                {
+                                    openItem.Enabled = false;
+                                    openItem.Font = new Font(openItem.Font, FontStyle.Bold);
+                                }
+                            }
+
+                            //Load Log Adjuster
+                            this.LoadLogAdjuster();
+
+                            //Add log file name into recent file list
+                            this.settings.RecentFiles.AddFile(this.settings.MainFormUI.AddOnlyBaseNameInRecentList ? this.logParser.BaseLogFileName : this.fileName);
+                            this.LoadRecentFiles();
+
+                            //This log was completely loaded
+                            this.lastCompletelyLoadedLogFileName = this.fileName;
+                        }
+                        else
+                        {
+                            SetChangeReadedStatus(logListView.GetSelectedListItem());
+                        }
+                    }
+                    else
+                    {
+                        log.Warn("Log file doesn't exist.");
+
+                        this.ShowLoadedLog(false);
+
+                        this.lastChangeStatus.Text = "Log file doesn't exist.";
+                        this.goToItemButton.Enabled = false;
+                        this.bookmarkButton.Enabled = false;
+                        this.manageFiltersButton.Enabled = false;
+                        this.enableFiltersButton.Enabled = false;
+                        this.sqlFilterButton.Enabled = false;
+                        this.showOnlyNewItemsButton.Enabled = false;
+                        this.manageHighlightsButton.Enabled = false;
+                        this.enableHighlightsButton.Enabled = false;
+                        this.pluginsMenuItem.Enabled = false;
+                        this.textDiffButton.Enabled = false;
+                        this.findButton.Enabled = false;
+                    }
+                }
+                else
+                {
+                    log.Debug("Log isn't changed");
+                }
+                this.openOtherPartsButton.Enabled = this.logParser.AllLogPartsFileNames.Count > 0;
+                this.mergeLogPartsButton.Enabled = this.logParser.AllLogPartsFileNames.Count > 0;
+
+                if (e.LogIsChanged)
+                    this.loadingStatus.Text = String.Format("Log loaded in: {0:N} s", (DateTime.Now - logLoadingStartTime).TotalSeconds);
+                else
+                    this.loadingStatus.Text = this.loadingStatus.Tag.ToString();
+            }
+        }
+
+        public void ShowLoadedLog(bool loadingInProgress)
+        {
+            if (this.logParser == null)
+                return;
+
+            log.Debug("ShowLoadedLog, loading in progress: " + loadingInProgress.ToString());
+            LogListViewItem selListItem = logListView.GetSelectedListItem();
+            LogEntry prevSelectedItem = selListItem == null ? null : selListItem.LogItem;
+            int prevCountOfShownItems = this.logListView.VirtualListSize;
+            bool lastItemSelected = selListItem != null && selListItem.Index == this.logListView.VirtualListSize - 1;
+
+            lock (this.logParser.LogEntriesLocker)
+            {
+                bool itemsFiltered = false;
+                IEnumerable<LogEntry> entries = this.logParser.LogEntries;
+                if (!loadingInProgress)
+                {
+                    if (SqlFilterEnabled)
+                    {
+                        entries = sqlFilterControl.FilterLogEntries(entries, out itemsFiltered);
+                        log.Debug(itemsFiltered ? "SQL Filtering enabled" : "SQL Filtering disabled");
+                    }
+
+                    if (this.FiltersEnabled || this.FilterManager.CurrentFilter.DateTimeRange.Enabled)
+                    {
+                        itemsFiltered = true;
+                        log.Debug("Filtering enabled");
+                        FilterEntry filter = this.FilterManager.CurrentFilter;
+                        List<KeyValuePair<bool, string>> filterMessages = filter.Messages.GetItemsWithColorHighlights(this.ColorHighlightManager.CurrentGroup.Highlights);
+
+                        log.Debug("Building query with filters");
+
+                        bool filtersEnabled = this.enableFiltersButton.Checked;
+                        entries = from logEntry in entries
+                                  where (filter.DateTimeRange.Match(logEntry.Date)) &&
+                                              (!filtersEnabled ||
+                                              (
+                                                (filter.Threads.Match(logEntry.Thread)) &&
+                                                (filter.Types.Match(logEntry.Type)) &&
+                                                (filter.Classes.Match(logEntry.Class)) &&
+                                               (filter.Messages.Match(logEntry.Message, filterMessages))
+                                              ))
+                                  select logEntry;
+                    }
+                }
+
+                this.logEntries = entries.ToList(); //We need to get copy of the logParser's entries to avoid locking during work with the collection
+                if (itemsFiltered)
+                {
+                    this.totalItemsStatus.Text = String.Format("Total items: {0} / {1}", this.logEntries.Count, this.logParser.LogEntries.Count);
+                    this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Bold);
+                    log.Debug("logEntries are filtered now");
+
+                }
+                else
+                {
+                    log.Debug("Loading all entries");
+                    this.totalItemsStatus.Text = "Total items: " + this.logEntries.Count.ToString();
+                    this.totalItemsStatus.Font = new Font(this.totalItemsStatus.Font, FontStyle.Regular);
+                }
+            }
+            logListView.IndicateCurrentFiltersInColumnHeaders();
+
+            //this.SuspendLayout();
+            this.logListView.BeginUpdate();
+            try
+            {
+                this.logListView.VirtualListSize = this.logEntries.Count;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error while setting VirtualListSize: " + ex.ToString());
+            }
+
+
+
+            this.logListView.EndUpdate();
+            //this.ResumeLayout(false);
+
+            this.totalLinesStatus.Text = "Lines: " + this.logParser.LinesCount.ToString();
+
+            if (logListView.GetSelectedListItem() == null)
+            {
+                logListView.GoToLogItem(0, true);
+            }
+
+            if (!loadingInProgress)
+            {
+                log.Debug("Show markers...");
+                this.ShowMarkers();
+
+                if ((!this.logParser.ForcedLogPattern) && (this.logParser.LinesCount > 2) && (this.logParser.LogEntriesCount == 0))
+                {
+                    this.BeginInvoke(new MethodInvoker(delegate
+                    {
+                        ShowAndLogError(@"There is not suitable parser pattern for this log file. Please add appropriate custom pattern in following dialog.");
+
+                        this.manageParsersMenuItem.PerformClick();
+                    }));
+                }
+
+
+                log.Debug("Select some item");
+                if (this.goToLineAfterLoad != null)
+                {
+                    log.Debug("Go to line after load: " + goToLineAfterLoad.Value.ToString());
+                    logListView.GoToLine(this.goToLineAfterLoad.Value);
+                    this.goToLineAfterLoad = null;
+                }
+                if (this.goToDateTimeAfterLoad != null)
+                {
+                    log.Debug("Go to date after load: " + goToDateTimeAfterLoad.Value.ToString());
+                    logListView.GoToLogItem(goToDateTimeAfterLoad.Value, false);
+                    this.goToDateTimeAfterLoad = null;
+                }
+                else if (this.autoRefreshButton.Checked && this.settings.MainFormUI.AutoScrollWhenAutoRefresh &&
+                    this.logListView.VirtualListSize > 0 && prevCountOfShownItems != this.logListView.VirtualListSize)
+                {
+                    if (lastItemSelected)
+                    {
+
+                        log.Debug("Autoscroll enabled, going to item: " + (this.logListView.VirtualListSize - 1).ToString());
+                        if (this.settings.MainFormUI.AutoScrollShowTwoItems)
+                        {
+                            if (this.logListView.SelectedIndices.Count == 2) //Hack to always select last from previous refresh and last from current refresh
+                                this.prevSelectedListItem = this.logListView.Items[this.logListView.SelectedIndices[0]];
+                        }
+                        logListView.GoToLogItem(this.logListView.VirtualListSize - 1, !this.settings.MainFormUI.AutoScrollShowTwoItems);
+                    }
+                    else
+                    {
+                        log.Debug("Autoscroll enabled, but last item wasn't selected.");
+                    }
+                }
+                else
+                {
+                    if (this.logListView.VirtualListSize == 0 || prevSelectedItem == null)
+                    {
+                        log.Debug("Refreshing message detail");
+                        RefreshMessageDetail(logListView.GetSelectedListItem(), false);
+                    }
+                    else
+                    {
+                        selListItem = logListView.GetSelectedListItem();
+                        if (selListItem == null || selListItem.LogItem != prevSelectedItem)
+                        {
+                            log.Debug("Going to previously selected item");
+                            if (!logListView.GoToLogItem(prevSelectedItem))
+                                logListView.GoToLogItem(prevSelectedItem.Date, false);
+                        }
+                        else
+                        {
+                            log.Debug("The same item is already selected, refreshing message detail");
+                            RefreshMessageDetail(selListItem, false);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetChangeReadedStatus(ListViewItem selectedItem)
+        {
+            bool readed = selectedItem != null && selectedItem.Index == this.logListView.VirtualListSize - 1;
+
+            if (lastChangeReaded != readed)
+            {
+                lastChangeReaded = readed;
+                this.lastChangeStatus.Font = new Font(this.lastChangeStatus.Font, lastChangeReaded ? FontStyle.Regular : FontStyle.Bold);
+            }
+        }
+
+
+        private void LoadRecentFiles()
+        {
+            for (int i = openFileButton.DropDown.Items.Count - 1; i > 1; i--)
+            {
+                openFileButton.DropDown.Items.RemoveAt(i);
+            }
+            this.starFileButton.Image = Resources.Star_Gray;
+            this.starFileButton.Tag = null;
+            int numberShortCut = 0;
+            foreach (string recentFile in this.settings.RecentFiles.FileListFavorites)
+            {
+                string text = numberShortCut < 10 ? numberShortCut++.ToString() + " - " + recentFile : recentFile;
+                var item = new ToolStripMenuItem(text);
+                item.Name = recentFile;
+                item.Click += new EventHandler(recentFileItem_Click);
+                item.Image = Resources.Star_Yellow;
+                item.ImageTransparentColor = Color.Magenta;
+                openFileButton.DropDown.Items.Add(item);
+
+                if (this.fileName != null && this.starFileButton.Tag == null && this.fileName.Equals(recentFile, StringComparison.OrdinalIgnoreCase))
+                {
+                    this.starFileButton.Image = Resources.Star_Yellow;
+                    this.starFileButton.Tag = true;
+                }
+            }
+            if (this.settings.RecentFiles.FileListFavorites.Count > 0 && this.settings.RecentFiles.FileList.Count > 0)
+            {
+                var separator = new ToolStripSeparator();
+                openFileButton.DropDown.Items.Add(separator);
+            }
+            foreach (string recentFile in this.settings.RecentFiles.FileList)
+            {
+                string text = numberShortCut < 10 ? numberShortCut++.ToString() + " - " + recentFile : recentFile;
+                var item = new ToolStripMenuItem(text);
+                item.Name = recentFile;
+                item.Click += new EventHandler(recentFileItem_Click);
+
+                openFileButton.DropDown.Items.Add(item);
+            }
+        }
+
+        
+
+        private void RefreshMessageDetail(LogListViewItem listItem, bool forceRefresh)
+        {
+            if (listItem == null)
+            {
+                logMessageEdit.Text = String.Empty;
+                currentItemStatus.Text = String.Empty;
+                currentLineStatus.Text = String.Empty;
+                return;
+            }
+            if (logMessageEdit.Visible)
+            {
+                if (forceRefresh || prevSelectedListItem == null || prevSelectedListItem.Index != listItem.Index)
+                {
+                    LogEntry logEntry = listItem.LogItem;
+                    logMessageEdit.Text = "";
+                    logMessageEdit.SelectionColor = SystemColors.GrayText;
+                    logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
+                    logMessageEdit.SelectionColor = SystemColors.WindowText;
+                    logMessageEdit.AppendText(logEntry.Message);
+
+
+                    if (settings.MainFormUI.EnableHighlights)
+                        ColorHighlightManager.CurrentGroup.HighlightTextInMessageDetail(logMessageEdit);
+
+                    logMessageEdit.SelectionStart = 0;
+                    logMessageEdit.SelectionLength = 0;
+                }
+
+            }
+            currentItemStatus.Text = "Current item: " + (listItem.Index + 1).ToString();
+            currentLineStatus.Text = "Line: " + listItem.LogItem.LineInFile;
+        }
+
+        private void GoToSameTimeInAnotherLog(Guid anotherLogID)
+        {
+            LogListViewItem selectedItem = logListView.GetSelectedListItem();
+            if (selectedItem == null)
+                return;
+
+            this.CommManager.GoToTimeInAnotherLog(anotherLogID, selectedItem.LogItem.Date);
+        }
+
+        private void ShowPrevLogFilePart()
+        {
+            int idx = this.logParser.AllLogPartsFileNames.IndexOf(this.logParser.LogFileName) - 1;
+            if (idx >= 0)
+            {
+                string prevFileName = this.logParser.AllLogPartsFileNames[idx];
+                this.OpenLog(prevFileName);
+            }
+        }
+
+        private void ShowNextLogFilePart()
+        {
+            int idx = this.logParser.AllLogPartsFileNames.IndexOf(this.logParser.LogFileName) + 1;
+            if (idx < this.logParser.AllLogPartsFileNames.Count)
+            {
+                string nextFileName = this.logParser.AllLogPartsFileNames[idx];
+                this.OpenLog(nextFileName);
+            }
+        }
+        private void OpenLog(string fileName)
+        {
+            this.OpenLog(fileName, true);
+        }
+
+        private void OpenLog(string fileName, bool focusOnListView)
+        {
+            log.Debug("Open log: " + fileName);
+            if (!File.Exists(fileName))
+            {
+                this.ShowAndLogError(String.Format("File: {0} doesn't exists.", fileName));
+                return;
+            }
+
+            this.fileName = fileName;
+            this.logListView.Enabled = true;
+
+            if (focusOnListView)
+                this.logListView.Focus();
+
+            this.ReloadLog();
+        }
+
+        private void ShowMarkers()
+        {
+            if (this.settings.MainFormUI.ShowMarkers)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
+                {
+                    log.Debug("Showing markers");
+
+                    try
+                    {
+                        Dictionary<int, Color> markers = new Dictionary<int, Color>();
+                        for (int i = 0; i < this.logEntries.Count; i++)
+                        {
+                            LogEntry logEntry = this.logEntries[i];
+                            if (logEntry.LogType == LogType.ERROR ||
+                                logEntry.LogType == LogType.FATAL ||
+                                logEntry.LogType == LogType.WARN)
+                            {
+                                markers.Add(i, this.logListView.LogTypeColors[(int)logEntry.LogType]);
+                            }
+                        }
+
+                        this.markerPanel.ShowMarkers(this.logEntries.Count, markers);
+
+                        log.Debug("Markers are shown");
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error("Error while showing markers: " + ex.ToString());
+                    }
+                }));
+            }
+            else
+            {
+                log.Debug("Markers panel isn't shown, markers will be not loaded.");
+            }
+        }
+
+        private void TryLogPatternOnCurrentLog(LogPattern logPattern)
+        {
+            this.ReloadLog(logPattern);
+        }
+
+        private void ShowAndLogError(string errorMessage)
+        {
+            log.Error(errorMessage);
+            MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void SetBookmarkMenuItemText(int bookmarkNumber, string text)
+        {
+            ToolStripItem item = this.bookmarkButton.DropDownItems[bookmarkNumber - 1];
+            item.ToolTipText = String.IsNullOrEmpty(text) ? "Click to set bookmark on current line." : "Click to go to this bookmark.";
+            item.Text = "(" + bookmarkNumber.ToString() + ") - " + (String.IsNullOrEmpty(text) ? "Empty" : text);
+        }
+
+        private bool ShowSettingsDialog(string additionalTextInCaption, bool firstTimeShown)
+        {
+            using (SettingsDlg dlg = new SettingsDlg(this.settings, firstTimeShown))
+            {
+                log.Debug("Settings...");
+                if (!String.IsNullOrEmpty(additionalTextInCaption))
+                    dlg.Text += additionalTextInCaption;
+
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    log.Debug("Settings OK");
+
+                    //Reflect settings
+                    this.markersPanelParent.Visible = this.settings.MainFormUI.ShowMarkers;
+                    if (this.settings.MainFormUI.ShowMarkers)
+                        this.ShowMarkers();
+                    this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        
+        private int GetKeyNumber(Keys keys)
+        {
+            return (int)(keys & (Keys.D0 | Keys.D1 | Keys.D2 | Keys.D3 | Keys.D4 | Keys.D5 | Keys.D6 | Keys.D7 | Keys.D8 | Keys.D9));
+        }
+
 
         private void softwareUpdatesClient_UpdateCheckStarted(object sender, EventArgs e)
         {
@@ -1634,7 +1345,7 @@ namespace AdvancedLogViewer.UI
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            this.SetSizes();
+            this.logListView.SetColumnSizes();
         }
 
         private void MainForm_DragEnter(object sender, DragEventArgs e)
@@ -1784,12 +1495,6 @@ namespace AdvancedLogViewer.UI
                 SetChangeReadedStatus(e.Item);
         }
 
-        private void logListView_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
-        {
-            this.SetSizes();
-        }
-
-
         private void autoRefreshButton_CheckedChanged(object sender, EventArgs e)
         {
             log.Debug("Autorefresh button click");
@@ -1804,7 +1509,7 @@ namespace AdvancedLogViewer.UI
             if (this.settings.MainFormUI.AutoRefresh && this.settings.MainFormUI.AutoScrollWhenAutoRefresh &&
                 logEntriesCount > 0)
             {
-                this.GoToLogItem(logEntriesCount - 1, true);
+                logListView.GoToLogItem(logEntriesCount - 1, true);
             }
         }
 
@@ -1830,7 +1535,7 @@ namespace AdvancedLogViewer.UI
                     }
 
                     logListView.Refresh();
-                    this.RefreshMessageDetail(GetSelectedListItem(), true);
+                    this.RefreshMessageDetail(logListView.GetSelectedListItem(), true);
                 }
             }
         }
@@ -1853,7 +1558,7 @@ namespace AdvancedLogViewer.UI
             }
             log.Debug("Manage filters...");
 
-            using (ManageFilters dlg = new ManageFilters(this.FilterManager, this.logParser.DateIsParsed, this.GetSelectedListItem() == null ? null : this.GetSelectedListItem().LogItem, getDistinctValues))
+            using (ManageFilters dlg = new ManageFilters(this.FilterManager, this.logParser.DateIsParsed, logListView.GetSelectedListItem() == null ? null : logListView.GetSelectedListItem().LogItem, getDistinctValues))
             {
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
@@ -1870,71 +1575,9 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-        private void IndicateCurrentFiltersInColumnHeaders()
-        {
-            char filterChar = '*';
-
-            dateColumn.Text = dateColumn.Text.TrimEnd(filterChar);
-            threadColumn.Text = threadColumn.Text.TrimEnd(filterChar);
-            typeColumn.Text = typeColumn.Text.TrimEnd(filterChar);
-            classColumn.Text = classColumn.Text.TrimEnd(filterChar);
-            messageColumn.Text = messageColumn.Text.TrimEnd(filterChar);
-
-            FilterEntry filter = this.FilterManager.CurrentFilter;
-            if (this.FilteringEnabled)
-            {
-
-                if (filter.DateTimeRange.Enabled)
-                    dateColumn.Text += filterChar;
-
-                if (this.enableFiltersButton.Checked)
-                {
-                    if (filter.Threads.Enabled && filter.Threads.Items.Count > 0)
-                        threadColumn.Text += filterChar;
-
-                    if (filter.Types.Enabled && filter.Types.Items.Count > 0)
-                        typeColumn.Text += filterChar;
-
-                    if (filter.Classes.Enabled && filter.Classes.Items.Count > 0)
-                        classColumn.Text += filterChar;
-
-                    if (filter.Messages.Enabled && filter.Messages.GetItemsWithColorHighlights(this.ColorHighlightManager.CurrentGroup.Highlights).Count > 0)
-                    {
-                        messageColumn.Text += filterChar;
-                    }
-                }
-            }
-        }
-
         private void goToItemButton_Click(object sender, EventArgs e)
         {
-            int itemNumber = 1;
-            DateTime dateTime = DateTime.Now;
-            var selectedItem = this.GetSelectedListItem();
-
-            if (selectedItem != null)
-            {
-                itemNumber = selectedItem.Index + 1;
-                if (logParser.DateIsParsed && selectedItem.LogItem.Date != DateTime.MinValue)
-                    dateTime = selectedItem.LogItem.Date;
-            }
-
-            using (GoToItem dlg = new GoToItem(itemNumber, dateTime, logParser.DateIsParsed))
-            {
-                if (dlg.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (dlg.DateTimeSelected)
-                    {
-                        this.GoToLogItem(dlg.DateTime, true);
-                    }
-                    else
-                    {
-                        this.GoToLogItem(dlg.ItemNumber - 1, true);
-                    }
-
-                    this.logListView.Focus();
-                }
-            }
+            logListView.GotoLogItemWithDialog();
         }
 
         private void goToItemInAnotherLogMenuItem_Click(object sender, EventArgs e)
@@ -1970,7 +1613,7 @@ namespace AdvancedLogViewer.UI
             if (this.openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 this.lastGoToDateFile = this.openFileDialog.FileName;
-                Process.Start(Application.ExecutablePath, String.Format("{0}{1}{0} {0}{2}{0}", '"', this.openFileDialog.FileName, GetSelectedListItem().LogItem.Date.ToString(CommManager.CommDateFormat)));
+                Process.Start(Application.ExecutablePath, String.Format("{0}{1}{0} {0}{2}{0}", '"', this.openFileDialog.FileName, logListView.GetSelectedListItem().LogItem.Date.ToString(CommManager.CommDateFormat)));
             }
         }
 
@@ -1981,7 +1624,7 @@ namespace AdvancedLogViewer.UI
 
         private void logViewContextMenu_Opening(object sender, CancelEventArgs e)
         {
-            if (this.GetSelectedListItem() == null)
+            if (logListView.GetSelectedListItem() == null)
             {
                 e.Cancel = true;
                 return;
@@ -2060,13 +1703,13 @@ namespace AdvancedLogViewer.UI
             this.settings.MainFormUI.EnableHighlights = this.enableHighlightsButton.Checked;
 
             logListView.Refresh();
-            this.RefreshMessageDetail(GetSelectedListItem(), true);
+            this.RefreshMessageDetail(logListView.GetSelectedListItem(), true);
         }
 
 
         private void pluginItem_Click(object sender, EventArgs e)
         {
-            this.plugins[(Guid)(((ToolStripMenuItem)sender).Tag)].Execute(this.logEntries, this, this);
+            this.plugins[(Guid)(((ToolStripMenuItem)sender).Tag)].Execute(this.logEntries, this, this.logListView);
         }
 
         private void removeNonexistingRecentFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2115,7 +1758,7 @@ namespace AdvancedLogViewer.UI
         private void markerPanel_MarkClick(object sender, MarkPanelClickEventArgs e)
         {
             log.Debug("Marker panel click");
-            this.GoToLogItem(e.LineNumber, true);
+            logListView.GoToLogItem(e.LineNumber, true);
         }
 
         private void commManager_AnotherInstanceOpenedLogFile(object sender, AnotherInstanceOpenedLogFileEventArgs e)
@@ -2216,25 +1859,17 @@ namespace AdvancedLogViewer.UI
 
         private void bookmarkButton_ButtonClick(object sender, EventArgs e)
         {
-            LogListViewItem selectedItem = this.GetSelectedListItem();
+            LogListViewItem selectedItem = logListView.GetSelectedListItem();
             if (selectedItem == null)
                 return;
 
             if (selectedItem.LogItem.Bookmark > 0)
             {
-                this.ToggleBookmark(selectedItem.LogItem.Bookmark);
+                logListView.ToggleBookmark(selectedItem.LogItem.Bookmark);
             }
             else
             {
-                for (int i = 1; i <= 9; i++)
-                {
-                    if (this.bookmarks[i] == null)
-                    {
-                        this.ToggleBookmark(i);
-                        return;
-                    }
-                }
-                MessageBox.Show("There are no free bookmarks.", "No free bookmarks", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logListView.SetFirstEmptyBookmark();
             }
         }
 
@@ -2248,50 +1883,6 @@ namespace AdvancedLogViewer.UI
         }
 
 
-        private void logListView_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            if (this.logParser == null)
-                return;
-
-            ColumnHeader column = logListView.Columns[e.Column];
-
-            this.showFilterPopup(column);
-        }
-
-        private void showFilterPopup(ColumnHeader column)
-        {
-            if (this.logParser == null)
-                return;
-
-            LogEntry selectedLogEntry = this.GetSelectedListItem() == null ? null : this.GetSelectedListItem().LogItem;
-
-            if (column == dateColumn)
-            {
-                ShowPopupFilterEdit<FilterSettingsDateTime, FilterEntry.FilterItemDate, DateTime>(FilterManager.CurrentFilter.DateTimeRange, selectedLogEntry != null ? selectedLogEntry.Date : DateTime.MinValue, column, null);
-                return;
-            }
-            if (column == threadColumn)
-            {
-                ShowPopupFilterEdit<FilterSettingsText, FilterEntry.FilterItemText, string>(FilterManager.CurrentFilter.Threads, selectedLogEntry != null ? selectedLogEntry.Thread : String.Empty, column, getDistinctValues.Threads);
-                return;
-            }
-            if (column == typeColumn)
-            {
-                ShowPopupFilterEdit<FilterSettingsText, FilterEntry.FilterItemText, string>(FilterManager.CurrentFilter.Types, selectedLogEntry != null ? selectedLogEntry.Type : String.Empty, column, getDistinctValues.Types);
-                return;
-            }
-            if (column == classColumn)
-            {
-                ShowPopupFilterEdit<FilterSettingsText, FilterEntry.FilterItemText, string>(FilterManager.CurrentFilter.Classes, selectedLogEntry != null ? selectedLogEntry.Class : String.Empty, column, getDistinctValues.Classes);
-                return;
-            }
-            if (column == messageColumn)
-            {
-                ShowPopupFilterEdit<FilterSettingsMessage, FilterEntry.FilterItemMessage, string>(FilterManager.CurrentFilter.Messages, selectedLogEntry != null ? selectedLogEntry.Message : String.Empty, column, null);
-                return;
-            }
-        }
-
         private List<string> GetListOfLogEntriesInLock(Func<List<LogEntry>, IEnumerable<string>> fnc)
         {
             lock (this.logParser.LogEntriesLocker)
@@ -2300,37 +1891,6 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-
-        private void filterPopupDialog_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Form frm = (Form)sender;
-            if (frm.DialogResult == DialogResult.OK)
-            {
-
-                FilterEntry.FilterItem filterItem = ((IFilterPopup)frm).GetFilterItem();
-
-                if (filterItem.GetType() != typeof(FilterEntry.FilterItemDate))
-                {
-                    if (!this.enableFiltersButton.Checked)
-                    {
-                        if (filterItem != filterManager.CurrentFilter.Classes)
-                            filterManager.CurrentFilter.Classes.Enabled = false;
-                        if (filterItem != filterManager.CurrentFilter.Messages)
-                            filterManager.CurrentFilter.Messages.Enabled = false;
-                        if (filterItem != filterManager.CurrentFilter.Threads)
-                            filterManager.CurrentFilter.Threads.Enabled = false;
-                        if (filterItem != filterManager.CurrentFilter.Types)
-                            filterManager.CurrentFilter.Types.Enabled = false;
-
-                        this.enableFiltersButton.Checked = true;
-                        this.settings.MainFormUI.EnableFilter = this.enableFiltersButton.Checked;
-                    }
-                }
-
-                this.FilterManager.Save();
-                this.ShowLoadedLog(false);
-            }
-        }
 
         private void showOnlyNewItemsButton_Click(object sender, EventArgs e)
         {
@@ -2350,34 +1910,8 @@ namespace AdvancedLogViewer.UI
             this.softwareUpdatesClient.CheckForUpdate(false, true, true);
         }
 
-
-        private ColorHighlightManager ColorHighlightManager
-        {
-            get
-            {
-                if (this.colorHighlightManager == null)
-                {
-                    this.colorHighlightManager = ColorHighlightManager.LoadFromFile(Path.Combine(Globals.UserDataDir, "ColorHighlights.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
-                }
-                return this.colorHighlightManager;
-            }
-        }
-
-        private FilterManager FilterManager
-        {
-            get
-            {
-                if (this.filterManager == null)
-                {
-                    this.filterManager = FilterManager.LoadFromFile(Path.Combine(Globals.UserDataDir, "Filters.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
-                }
-                return this.filterManager;
-            }
-        }
-
+        
         private ColorHighlightManager colorHighlightManager;
-
-        Color[] logTypeColors = new Color[Enum.GetValues(typeof(LogType)).Length];
 
 
         private CommManager CommManager
@@ -2411,8 +1945,8 @@ namespace AdvancedLogViewer.UI
                 {
                     this.findDlg = new FindTextDlg(this,
                                                    () => this.logEntries,
-                                                   (GetLogListItemType type) => this.GetLogListItem(type),
-                                                   (int itemIndex) => this.GoToLogItem(itemIndex, true),
+                                                   (GetLogListItemType type) => logListView.GetLogListItem(type),
+                                                   (int itemIndex) => logListView.GoToLogItem(itemIndex, true),
                                                    this.logMessageEdit);
                 }
                 return this.findDlg;
@@ -2461,7 +1995,7 @@ namespace AdvancedLogViewer.UI
 
         private void ExtractSelectedMessage(MessageContentExtractorAction action)
         {
-            LogListViewItem selectedItem = this.GetSelectedListItem();
+            LogListViewItem selectedItem = logListView.GetSelectedListItem();
             if (selectedItem == null)
                 return;
 
@@ -2487,7 +2021,7 @@ namespace AdvancedLogViewer.UI
             {
                 splitter1.Show();
                 logMessageEdit.Show();
-                RefreshMessageDetail(GetSelectedListItem(), true);
+                RefreshMessageDetail(logListView.GetSelectedListItem(), true);
             }
         }
 
@@ -2579,65 +2113,6 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-        private void logListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
-        {
-            e.DrawDefault = true;
-        }
-
-        private void logListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                e.DrawDefault = true;
-            }
-            else
-            {
-                Rectangle recBounds = new Rectangle(e.Bounds.X + 1, e.Bounds.Y + 2, e.Bounds.Width - 1, e.Bounds.Height);
-                if (settings.MainFormUI.TrimClassColumnFromLeft && (e.ColumnIndex == this.classColumn.Index))
-                {
-                    if (e.Item.Selected)
-                    {
-                        if (e.Item.ListView.Focused)
-                        {
-                            e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.HighlightText), TextFormatFlags.Right | TextFormatFlags.NoPrefix);
-                        }
-                        else
-                        {
-                            e.Graphics.FillRectangle(SystemBrushes.ButtonFace, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.WindowText), TextFormatFlags.Right | TextFormatFlags.NoPrefix);
-                        }
-                    }
-                    else
-                    {
-                        e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), e.Bounds);
-                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, TextFormatFlags.Right | TextFormatFlags.NoPrefix);
-                    }
-                }
-                else
-                {
-                    if (e.Item.Selected)
-                    {
-                        if (e.Item.ListView.Focused)
-                        {
-                            e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.HighlightText), TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
-                        }
-                        else
-                        {
-                            e.Graphics.FillRectangle(SystemBrushes.ButtonFace, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.WindowText), TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
-                        }
-                    }
-                    else
-                    {
-                        e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), e.Bounds);
-                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
-                    }
-                }
-            }
-        }
-
         private void sendFeedbackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (FeedbackDlg dlg = new FeedbackDlg())
@@ -2699,7 +2174,7 @@ namespace AdvancedLogViewer.UI
 
         private void openInExternalTextEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LogListViewItem item = GetSelectedListItem();
+            LogListViewItem item = logListView.GetSelectedListItem();
             if (item == null)
                 return;
             OpenLogFileInTextEditor(item.LogItem.LineInFile);
@@ -2911,4 +2386,3 @@ ForceParser {0}{0}- Force the parser specified after the colon instead of using 
         Selected
     }
 }
-

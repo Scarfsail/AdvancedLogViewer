@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AdvancedLogViewer.UI.Controls.Filters
 {
-    public struct GetDisctinctValues
+    public struct GetDistinctValues
     {
         public Func<List<string>> Threads;
         public Func<List<string>> Types;

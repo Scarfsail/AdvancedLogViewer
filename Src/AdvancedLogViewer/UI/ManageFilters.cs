@@ -18,10 +18,10 @@ namespace AdvancedLogViewer.UI
         private FilterManager filterManager;
         private bool loading = false;
         private LogEntry currentLogEntry;
-        private GetDisctinctValues getDistinctValues;
+        private GetDistinctValues getDistinctValues;
         private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
 
-        public ManageFilters(FilterManager filterManager, bool dateTimeFunctionsEnabled, LogEntry currentLogEntry, GetDisctinctValues getDistinctValues)
+        public ManageFilters(FilterManager filterManager, bool dateTimeFunctionsEnabled, LogEntry currentLogEntry, GetDistinctValues getDistinctValues)
         {
             log.Debug("Creating ManageFilters form");
             InitializeComponent();

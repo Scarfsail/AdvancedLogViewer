@@ -39,7 +39,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.openInExternalTextEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logImageList = new System.Windows.Forms.ImageList(this.components);
             this.messageDetailContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.setAsIncludeFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAsExcludeFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,12 +133,7 @@
             this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
-            this.logListView = new AdvancedLogViewer.UI.Controls.MyListView();
-            this.dateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.threadColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.typeColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.classColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.messageColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.logListView = new AdvancedLogViewer.UI.Controls.LogListView();
             this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.logViewContextMenu.SuspendLayout();
             this.messageDetailContextMenu.SuspendLayout();
@@ -218,12 +212,6 @@
             this.openInExternalTextEditorToolStripMenuItem.ToolTipText = "Open the log file in associated text editor and jump to selected line (if is supp" +
     "orted by the configured text editor like is Notepad++).";
             this.openInExternalTextEditorToolStripMenuItem.Click += new System.EventHandler(this.openInExternalTextEditorToolStripMenuItem_Click);
-            // 
-            // logImageList
-            // 
-            this.logImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.logImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.logImageList.TransparentColor = System.Drawing.Color.Magenta;
             // 
             // messageDetailContextMenu
             // 
@@ -1075,57 +1063,19 @@
             // 
             // logListView
             // 
-            this.logListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.dateColumn,
-            this.threadColumn,
-            this.typeColumn,
-            this.classColumn,
-            this.messageColumn});
             this.logListView.ContextMenuStrip = this.logViewContextMenu;
             this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logListView.Enabled = false;
-            this.logListView.FullRowSelect = true;
-            this.logListView.HideSelection = false;
             this.logListView.Location = new System.Drawing.Point(0, 0);
             this.logListView.Name = "logListView";
-            this.logListView.OwnerDraw = true;
             this.logListView.Size = new System.Drawing.Size(1012, 429);
-            this.logListView.SmallImageList = this.logImageList;
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
             this.logListView.View = System.Windows.Forms.View.Details;
-            this.logListView.VirtualMode = true;
-            this.logListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.logListView_ColumnClick);
-            this.logListView.ColumnWidthChanged += new System.Windows.Forms.ColumnWidthChangedEventHandler(this.logListView_ColumnWidthChanged);
-            this.logListView.DrawColumnHeader += new System.Windows.Forms.DrawListViewColumnHeaderEventHandler(this.logListView_DrawColumnHeader);
-            this.logListView.DrawSubItem += new System.Windows.Forms.DrawListViewSubItemEventHandler(this.logListView_DrawSubItem);
             this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
             this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
             this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
             this.logListView.DoubleClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
-            // 
-            // dateColumn
-            // 
-            this.dateColumn.Text = "Date";
-            this.dateColumn.Width = 150;
-            // 
-            // threadColumn
-            // 
-            this.threadColumn.Text = "Thread";
-            // 
-            // typeColumn
-            // 
-            this.typeColumn.Text = "Type";
-            // 
-            // classColumn
-            // 
-            this.classColumn.Text = "Class";
-            this.classColumn.Width = 80;
-            // 
-            // messageColumn
-            // 
-            this.messageColumn.Text = "Message";
-            this.messageColumn.Width = 450;
             // 
             // sqlFilterControl
             // 
@@ -1168,18 +1118,11 @@
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
-        private AdvancedLogViewer.UI.Controls.MyListView logListView;
-        private System.Windows.Forms.ColumnHeader dateColumn;
-        private System.Windows.Forms.ColumnHeader threadColumn;
-        private System.Windows.Forms.ColumnHeader typeColumn;
-        private System.Windows.Forms.ColumnHeader classColumn;
-        private System.Windows.Forms.ColumnHeader messageColumn;
-        private System.Windows.Forms.ImageList logImageList;
+        private AdvancedLogViewer.UI.Controls.LogListView logListView;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Timer autoRefreshTimer;
