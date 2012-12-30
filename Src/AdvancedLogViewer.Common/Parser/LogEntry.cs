@@ -105,7 +105,6 @@ namespace AdvancedLogViewer.Common.Parser
             var result = new List<ColumnDescription>();
 
             result.Add(new ColumnDescription("DateText", typeof(string)));
-            result.Add(new ColumnDescription("Date", typeof(DateTime)));
             if (includeThread)
                 result.Add(new ColumnDescription("Thread", typeof(string)));
             if (includeType) 

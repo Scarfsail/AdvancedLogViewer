@@ -22,6 +22,7 @@ namespace AdvancedLogViewer.BL.Settings
         public bool AddOnlyBaseNameInRecentList { get; set; }
         public bool RememberFiltersEnabled { get; set; }
         public bool TrimClassColumnFromLeft { get; set; }
+        public string SqlFilterText { get; set; }
 
         protected override void LoadData(XElement xmlElement)
         {
@@ -38,6 +39,7 @@ namespace AdvancedLogViewer.BL.Settings
             this.AddOnlyBaseNameInRecentList = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "AddOnlyBaseNameInRecentList", true);
             this.RememberFiltersEnabled = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "RememberFiltersEnabled", false);
             this.TrimClassColumnFromLeft = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "TrimClassColumnFromLeft", true);
+            this.SqlFilterText = GetAttrValue(s => s, xmlElement, "SqlFilterText", String.Empty);
         }
 
         protected override void SaveData(XElement xmlElement)
@@ -56,7 +58,7 @@ namespace AdvancedLogViewer.BL.Settings
             AddAttrValue(xmlElement, "AddOnlyBaseNameInRecentList", AddOnlyBaseNameInRecentList.ToString());
             AddAttrValue(xmlElement, "RememberFiltersEnabled", RememberFiltersEnabled.ToString());
             AddAttrValue(xmlElement, "TrimClassColumnFromLeft", TrimClassColumnFromLeft.ToString());
-
+            AddAttrValue(xmlElement, "SqlFilterText", SqlFilterText);
         }
 
         

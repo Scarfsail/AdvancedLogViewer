@@ -150,6 +150,9 @@
       <DependentUpon>FilterSettingsDateTime.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\Filters\GetDistinctValues.cs" />
+    <Compile Include="UI\Controls\LogListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\MyListView.cs">
       <SubType>Component</SubType>
     </Compile>

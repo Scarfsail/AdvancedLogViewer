@@ -86,6 +86,19 @@ namespace AdvancedLogViewer.UI.Controls
                  "Query isn't modified since last execution.");
         }
 
+        public string WhereClause
+        {
+            get
+            {
+                return this.queryEditor.Text;
+            }
+            set
+            {
+                this.queryEditor.Text = value;
+                this.queryEditor.Highlight();
+            }
+        }
+
         public void SetAvailableColumns(List<ColumnDescription> columns)
         {
             this.availableColumnsListBox.BeginUpdate();

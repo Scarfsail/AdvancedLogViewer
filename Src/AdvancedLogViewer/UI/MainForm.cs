@@ -369,11 +369,10 @@ namespace AdvancedLogViewer.UI
                     this.SetSizes();
                     log.Debug("Columns visibility set");
 
-                    //Set available columns in SQL filter
-                    this.sqlFilterControl.SetAvailableColumns(this.logParser.LogPattern.GetAvailableColumns());
-
                     //Init SQL filter
+                    this.sqlFilterControl.SetAvailableColumns(this.logParser.LogPattern.GetAvailableColumns());
                     sqlFilterControl.Execute += sqlFilterControl_Execute;
+                    this.sqlFilterControl.WhereClause = this.settings.MainFormUI.SqlFilterText;                    
 
                     //Caption
                     this.Text = "ALV - " + this.fileName;
@@ -1677,6 +1676,8 @@ namespace AdvancedLogViewer.UI
                 {
                     logParser.AbortLoading();
                 }
+
+                this.settings.MainFormUI.SqlFilterText = this.sqlFilterControl.WhereClause;
 
                 this.settings.Save();
                 if (this.findDlg != null)

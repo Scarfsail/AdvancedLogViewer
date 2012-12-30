@@ -303,9 +303,9 @@
             this.logViewPanel.Controls.Add(this.splitter1);
             this.logViewPanel.Controls.Add(this.logMessageEdit);
             this.logViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logViewPanel.Location = new System.Drawing.Point(0, 97);
+            this.logViewPanel.Location = new System.Drawing.Point(0, 86);
             this.logViewPanel.Name = "logViewPanel";
-            this.logViewPanel.Size = new System.Drawing.Size(1022, 547);
+            this.logViewPanel.Size = new System.Drawing.Size(1022, 558);
             this.logViewPanel.TabIndex = 8;
             // 
             // markersPanelParent
@@ -315,13 +315,13 @@
             this.markersPanelParent.Location = new System.Drawing.Point(1012, 0);
             this.markersPanelParent.Name = "markersPanelParent";
             this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.markersPanelParent.Size = new System.Drawing.Size(10, 418);
+            this.markersPanelParent.Size = new System.Drawing.Size(10, 429);
             this.markersPanelParent.TabIndex = 6;
             // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 418);
+            this.splitter1.Location = new System.Drawing.Point(0, 429);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(1022, 4);
             this.splitter1.TabIndex = 4;
@@ -334,7 +334,7 @@
             this.logMessageEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.logMessageEdit.Enabled = false;
             this.logMessageEdit.HideSelection = false;
-            this.logMessageEdit.Location = new System.Drawing.Point(0, 422);
+            this.logMessageEdit.Location = new System.Drawing.Point(0, 433);
             this.logMessageEdit.Name = "logMessageEdit";
             this.logMessageEdit.ReadOnly = true;
             this.logMessageEdit.Size = new System.Drawing.Size(1022, 125);
@@ -346,7 +346,7 @@
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter2.Location = new System.Drawing.Point(0, 93);
+            this.splitter2.Location = new System.Drawing.Point(0, 82);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(1022, 4);
             this.splitter2.TabIndex = 8;
@@ -359,7 +359,7 @@
             this.sqlFilterPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.sqlFilterPanel.Location = new System.Drawing.Point(0, 0);
             this.sqlFilterPanel.Name = "sqlFilterPanel";
-            this.sqlFilterPanel.Size = new System.Drawing.Size(1022, 93);
+            this.sqlFilterPanel.Size = new System.Drawing.Size(1022, 82);
             this.sqlFilterPanel.TabIndex = 8;
             this.sqlFilterPanel.Visible = false;
             // 
@@ -1069,7 +1069,7 @@
             this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.markerPanel.Name = "markerPanel";
             this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 398);
+            this.markerPanel.Size = new System.Drawing.Size(10, 409);
             this.markerPanel.TabIndex = 6;
             this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
@@ -1089,7 +1089,7 @@
             this.logListView.Location = new System.Drawing.Point(0, 0);
             this.logListView.Name = "logListView";
             this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1012, 418);
+            this.logListView.Size = new System.Drawing.Size(1012, 429);
             this.logListView.SmallImageList = this.logImageList;
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
@@ -1132,8 +1132,9 @@
             this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
             this.sqlFilterControl.Name = "sqlFilterControl";
-            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 93);
+            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 82);
             this.sqlFilterControl.TabIndex = 0;
+            this.sqlFilterControl.WhereClause = "";
             // 
             // MainForm
             // 
