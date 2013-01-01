@@ -22,8 +22,16 @@ namespace AdvancedLogViewer.UI
     
     public partial class FindTextDlg : Form
     {
-        #region ------------- Public -------------------------
-        //-----------------------------------------------------
+        private GetLogEntries GetLogEntries;
+        private GetLogListItem GetLogItem;
+        private GotoLogItem GoToLogItem;
+        private RichTextBox logMessageEdit;
+        private string logFileName;
+        private FindTextSettings settings;
+        private string prevFindWhat = String.Empty;
+        private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
+
+
         internal FindTextDlg(Form ownerForm, GetLogEntries getLogEntries, GetLogListItem getLogItemFnc, GotoLogItem goToLogItemFnc, RichTextBox logMessageEdit)
         {
             InitializeComponent();
@@ -105,10 +113,6 @@ namespace AdvancedLogViewer.UI
             this.settings.Save();
         }
 
-        #endregion
-
-        #region ------------- Protected -------------------------
-        //-----------------------------------------------------
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -146,11 +150,7 @@ namespace AdvancedLogViewer.UI
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        #endregion
 
-
-        #region ------------- Private methods -----------------
-        //-----------------------------------------------------
 
         private bool Find(bool searchDown, bool thisIsSecondSearch)
         {
@@ -370,10 +370,6 @@ namespace AdvancedLogViewer.UI
             this.findPrevButton.Enabled = (this.findWhatCombo.Text != String.Empty) && (this.searchFromCurrentPositionCheckBox.Checked);
         }
 
-        #endregion
-
-        #region ------------- Form events ---------------------
-        //-----------------------------------------------------
 
         private void FindTextDlg_Load(object sender, EventArgs e)
         {
@@ -456,21 +452,7 @@ namespace AdvancedLogViewer.UI
                     }
         }
 
-        #endregion
 
 
-        #region ------------- Private members -----------------
-        //-----------------------------------------------------
-
-        private GetLogEntries GetLogEntries;
-        private GetLogListItem GetLogItem;
-        private GotoLogItem GoToLogItem;
-        private RichTextBox logMessageEdit;
-        private string logFileName;
-        private FindTextSettings settings;
-        private string prevFindWhat = String.Empty;
-        private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
-
-        #endregion
     }
 }

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="7.0.1" date="2012-12-30">
+  <Version version="7.0.1" date="2013-01-01">
     <BigFeature>Ability to filter log by condition with SQL syntax, example: ((Thread = '9' AND Class LIKE 'MyClass') OR Message LIKE 'Something') </BigFeature>
     <BigFeature><![CDATA[New issue tracker for the ALV instead of reporting issues / feature requests in the forum. Visit <a href="http://git.salplachta.net/advanced-log-viewer/issues"><b>git.salplachta.net/advanced-log-viewer/issues</b></a> to see how the issue tracker looks like.]]></BigFeature>
     <Fix>Fixed issue with progressive loading - log was always loaded without progressive loading -> log was shown at once which caused long loading times for big logs.</Fix>
     <Fix>Fixed few minor issues and typos during code refactoring</Fix>
     <Feature>Added new shortcut key to show Parser Manager - CTRL+P</Feature>
-    <Feature>Project switched from .NET 3.5 to .NET 4.0. So ALV isn't possible to install on machine without .NET 4.0 installed! </Feature>
+    <Feature>Project switched from .NET 3.5 to .NET 4.0. So ALV requires .NET 4.0 to be installed on the machine. </Feature>
     <Feature>Few minor performance improvements by using new .NET 4.0 features. More improvements/using of cool .NET4.0 features is planned for next release(s).</Feature>
   </Version>
 
