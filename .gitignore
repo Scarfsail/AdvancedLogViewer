@@ -3,6 +3,7 @@
 /Src/AdvancedLogBrowser/obj/
 /Src/AdvancedLogViewer/obj/
 /Src/AdvancedLogViewer.Common/obj/
+/Src/AdvancedLogViewer/AdvancedLogViewer.csproj.user
 /Src/Installer/obj/
 /Src/Installer/*.v11.suo
 /Src/Tests/AdvancedLogViewer.Common.Tests/bin/
