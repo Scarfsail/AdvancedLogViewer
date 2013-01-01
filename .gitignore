@@ -1,0 +1,9 @@
+/Bin/
+/Src/*.suo
+/Src/AdvancedLogBrowser/obj/
+/Src/AdvancedLogViewer/obj/
+/Src/AdvancedLogViewer.Common/obj/
+/Src/Installer/obj/
+/Src/Installer/*.v11.suo
+/Src/Tests/AdvancedLogViewer.Common.Tests/bin/
+/Src/Tests/AdvancedLogViewer.Common.Tests/obj/
