@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="7.0.2" date="2013-01-07">
+    <Fix>When correct parser wasn't detected for the log file, whole log file was shown as one line in the ALV instead of showing message about unknown log format with link to parser patterns manager.</Fix>
+  </Version>
   <Version version="7.0.1" date="2013-01-01">
     <BigFeature>Ability to filter log by condition with SQL syntax, example: ((Thread = '9' AND Class LIKE 'MyClass') OR Message LIKE 'Something') </BigFeature>
     <BigFeature><![CDATA[New issue tracker for the ALV instead of reporting issues / feature requests in the forum. Visit <a href="http://git.salplachta.net/advanced-log-viewer/issues"><b>git.salplachta.net/advanced-log-viewer/issues</b></a> to see how the issue tracker looks like.]]></BigFeature>

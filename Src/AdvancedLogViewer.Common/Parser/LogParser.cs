@@ -30,9 +30,10 @@ namespace AdvancedLogViewer.Common.Parser
 
         public delegate void LoadingCompleteEventHandler(object sender, LoadingCompleteEventArgs e);
 
-        public LogParser(string logFileName) : this(logFileName, null)
+        public LogParser(string logFileName)
+            : this(logFileName, null)
         {
-            
+
         }
 
         public LogParser(string logFileName, LogPattern logPattern)
@@ -45,10 +46,10 @@ namespace AdvancedLogViewer.Common.Parser
             this.LogEntriesLocker = new object();
 
             this.AllLogPartsFileNames = new List<string>();
-            this.ForcedLogPattern = logPattern != null; 
+            this.ForcedLogPattern = logPattern != null;
             this.logPattern = logPattern ?? PatternManager.GetPatternForLog(logFileName);
-            
-            
+
+
             log.DebugFormat("LogParsers created for file: {0} , Pattern: {1}", logFileName, this.logPattern);
         }
 
@@ -76,7 +77,7 @@ namespace AdvancedLogViewer.Common.Parser
                 Monitor.Enter(this.LogEntriesLocker);
 
                 this.LoadingInProgress = true;
-                
+
                 this.PopulateOtherLogFileNameParts();
 
                 int lineNumber = 0;
@@ -133,6 +134,7 @@ namespace AdvancedLogViewer.Common.Parser
                             this.cancel = false;
 
                             string line;
+                            bool lineReadedAsNotRecongnized = false;
                             log.Debug("Reading lines ...");
                             while ((line = sr.ReadLine()) != null)
                             {
@@ -194,6 +196,7 @@ namespace AdvancedLogViewer.Common.Parser
 
                                 if (patternFits)
                                 {
+                                    lineReadedAsNotRecongnized = false;
                                     itemNumber++;
                                     //It's new log message
                                     if (currentLogEntry != null && currentLogEntry != logEntryFromPrevLoad)
@@ -210,25 +213,35 @@ namespace AdvancedLogViewer.Common.Parser
                                 {
                                     //It's part of inner message, add it to current log entry
                                     if (currentLogEntry != null)
-                                        messageBuilder.Append(Environment.NewLine + line);
-                                    else
                                     {
-                                        itemNumber++;
-                                        currentLogEntry = new LogEntry();
-                                        foreach (PatternItem patternItem in this.logPattern.PatternItems)
+                                        if (lineReadedAsNotRecongnized)
                                         {
-                                            if (patternItem.ItemType == PatternItemType.Message)
-                                                currentLogEntry.SaveValue(patternItem.ItemType, line);
-                                            else
-                                                currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                            currentLogEntry = null;
                                         }
-
+                                        else
+                                        {
+                                            messageBuilder.Append(Environment.NewLine + line);
+                                        }
                                     }
+                                    else
+                                        if (lineNumber == 1) //It's here only to read some specific log header as a line
+                                        {
+                                            lineReadedAsNotRecongnized = true;
+                                            itemNumber++;
+                                            currentLogEntry = new LogEntry();
+                                            foreach (PatternItem patternItem in this.logPattern.PatternItems)
+                                            {
+                                                if (patternItem.ItemType == PatternItemType.Message)
+                                                    currentLogEntry.SaveValue(patternItem.ItemType, line);
+                                                else
+                                                    currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                            }
+                                        }
                                 }
                             }
 
                             if (currentLogEntry != null && !String.IsNullOrEmpty(currentLogEntry.Message) && currentLogEntry != logEntryFromPrevLoad)
-                            {                                
+                            {
                                 currentLogEntry.SaveValue(PatternItemType.Message, messageBuilder.ToString());
 
                                 LogEntries.Add(currentLogEntry);
@@ -247,10 +260,6 @@ namespace AdvancedLogViewer.Common.Parser
             {
                 if (logIsChanged)
                 {
-                    /*
-                    Thread parseDateThread = new Thread(new ThreadStart(new MethodInvoker(() => ParseDateTimes(this.OnLoadingError))));
-                    parseDateThread.Start();
-                    */
                     ParseDateTimes(this.LogEntries, this.OnLoadingError);
                 }
                 Monitor.Exit(this.LogEntriesLocker);
@@ -260,7 +269,7 @@ namespace AdvancedLogViewer.Common.Parser
                 this.LoadingInProgress = false;
             }
         }
-                
+
         public void AbortLoading()
         {
             log.Debug("Abort loading()");
@@ -272,7 +281,7 @@ namespace AdvancedLogViewer.Common.Parser
         }
 
 
-        
+
         public event EventHandler LoadingProgress;
 
         public event LoadingCompleteEventHandler LoadingComplete;
@@ -282,7 +291,7 @@ namespace AdvancedLogViewer.Common.Parser
 
         /// <summary>File name of parsed log</summary>
         public string LogFileName { get; private set; }
-        
+
         /// <summary>Contains list of all log parts including base log file name (e.g.: x.log, x.log.1, x.log.2, ....).</summary>
         public List<String> AllLogPartsFileNames { get; private set; }
 
@@ -293,7 +302,7 @@ namespace AdvancedLogViewer.Common.Parser
         /// List of log entries. Any manipulation with this object has to be in critical section locked by LogEntriesLocker
         /// </summary>
         public List<LogEntry> LogEntries { get; private set; }
-        
+
         /// <summary>
         /// Locker object which needs to be used in order to work with LogEntries object.
         /// </summary>
@@ -304,7 +313,7 @@ namespace AdvancedLogViewer.Common.Parser
         /// </summary>
         public int LogEntriesCount
         {
-            get 
+            get
             {
                 lock (LogEntriesLocker)
                 {
@@ -314,8 +323,8 @@ namespace AdvancedLogViewer.Common.Parser
         }
 
         public bool LoadingInProgress { get; private set; }
-        
-        public bool DateIsParsed {get; private set; }
+
+        public bool DateIsParsed { get; private set; }
 
         public LogPattern LogPattern { get { return this.logPattern; } }
 
@@ -334,7 +343,7 @@ namespace AdvancedLogViewer.Common.Parser
         {
             return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message);
         }
-        
+
         protected void OnLoadingProgress()
         {
             log.Debug("OnLoadingProgress()");
@@ -344,11 +353,11 @@ namespace AdvancedLogViewer.Common.Parser
 
         protected void OnLoadingComplete(bool logIsChanged)
         {
-            log.Debug("OnLoadingComplete(logIsChanged:"+logIsChanged.ToString()+")");
+            log.Debug("OnLoadingComplete(logIsChanged:" + logIsChanged.ToString() + ")");
             if (this.LoadingComplete != null)
                 this.LoadingComplete(this, new LoadingCompleteEventArgs(logIsChanged));
         }
-        
+
         protected void OnLoadingError(string errorMessage)
         {
             log.Debug("OnLoadingError(errorMessage:" + errorMessage + ")");

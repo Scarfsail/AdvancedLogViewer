@@ -958,7 +958,7 @@ namespace AdvancedLogViewer.UI
 
                 if ((!this.logParser.ForcedLogPattern) && (this.logParser.LinesCount > 2) && (this.logParser.LogEntriesCount == 0))
                 {
-                    this.BeginInvoke(new MethodInvoker(delegate
+                    this.Invoke(new MethodInvoker(delegate
                     {
                         ShowAndLogError(@"There is not suitable parser pattern for this log file. Please add appropriate custom pattern in following dialog.");
 

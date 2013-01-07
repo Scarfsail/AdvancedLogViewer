@@ -93,10 +93,14 @@
     
    
     <Message Text="Building UpdateFromZip app..."/>
-    <FileUpdate Files="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).$(RevisionVersionNumber)"/>
+    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" DestinationFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup" />
+	<FileUpdate Files="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).$(RevisionVersionNumber)"/>
     <MSBuild Projects="@(UpdateAppFromZipProject)" Targets="Rebuild" Properties="Configuration=$(Flavor)" RebaseOutputs="true">
       <Output TaskParameter="TargetOutputs" ItemName="InstallerProjectOutput"/>
     </MSBuild>
+    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup" DestinationFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" />
+	<Delete Files="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup"/>
+	
     <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Bin\$(Flavor)\UpdateAppFromZip.exe" DestinationFiles="$(InstallerOutputDir)\AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe"/>
 
     <!-- Generate XML for Web update -->
