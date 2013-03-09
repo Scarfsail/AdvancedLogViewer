@@ -1,2 +1,2 @@
-ftp -n -s:ftpcmd.dat 81.95.98.142
+ftp -n -s:ftpcmd.dat ftp.salplachta.net
 pause

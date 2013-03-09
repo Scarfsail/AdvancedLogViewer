@@ -1,7 +1,7 @@
-user v008899a
-As19216819
+user AlvUploader
+AlvPassword1921
 bin
-cd salplachta.net/WWWRoot/SoftwareUpdates/AdvancedLogViewer/Downloads/
+cd Downloads/
 put ..\Bin\Installer\Release\*.msi
 put ..\Bin\Installer\Release\*.zip
 put ..\Bin\Installer\Release\*.exe
