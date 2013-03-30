@@ -25,8 +25,8 @@ using System;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("7.0.2")]
-[assembly: AssemblyFileVersion("7.0.2")]
+[assembly: AssemblyVersion("7.5.1")]
+[assembly: AssemblyFileVersion("7.5.1")]
 
 
 [AttributeUsage(AttributeTargets.Assembly, Inherited = false)]

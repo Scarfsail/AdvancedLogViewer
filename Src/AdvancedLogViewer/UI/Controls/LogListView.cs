@@ -240,7 +240,7 @@ namespace AdvancedLogViewer.UI.Controls
                 }
 
                 owner.FilterManager.Save();
-                owner.ShowLoadedLog(false);
+                owner.ShowLoadedLog(false, true);
             }
         }
 
@@ -552,6 +552,11 @@ namespace AdvancedLogViewer.UI.Controls
 
 
 
+        private static readonly Color colorHighlightText = Color.FromKnownColor(KnownColor.HighlightText);
+        private static readonly Color colorWindowText = Color.FromKnownColor(KnownColor.WindowText);
+        private static readonly TextFormatFlags flagsRightNoPrefix = TextFormatFlags.Right | TextFormatFlags.NoPrefix;
+        private static readonly TextFormatFlags flagsWordEllSingleLineNoPrefix = TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix;
+
         protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
         {
             base.OnDrawSubItem(e);
@@ -562,6 +567,15 @@ namespace AdvancedLogViewer.UI.Controls
             }
             else
             {
+                Color colorOwnHighlightText = colorHighlightText;
+                Color colorOwnWindowText = colorWindowText;
+
+                if ((e.Item as LogListViewItem).HighlightSearchResult)
+                {
+                    colorOwnHighlightText = Color.DarkRed;
+                    colorOwnWindowText = Color.Red;
+                }
+
                 Rectangle recBounds = new Rectangle(e.Bounds.X + 1, e.Bounds.Y + 2, e.Bounds.Width - 1, e.Bounds.Height);
                 if (owner.Settings.MainFormUI.TrimClassColumnFromLeft && (e.ColumnIndex == this.classColumn.Index))
                 {
@@ -570,18 +584,18 @@ namespace AdvancedLogViewer.UI.Controls
                         if (e.Item.ListView.Focused)
                         {
                             e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.HighlightText), TextFormatFlags.Right | TextFormatFlags.NoPrefix);
+                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, colorOwnHighlightText, flagsRightNoPrefix);
                         }
                         else
                         {
                             e.Graphics.FillRectangle(SystemBrushes.ButtonFace, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.WindowText), TextFormatFlags.Right | TextFormatFlags.NoPrefix);
+                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, colorOwnWindowText, flagsRightNoPrefix);
                         }
                     }
                     else
                     {
                         e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), e.Bounds);
-                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, TextFormatFlags.Right | TextFormatFlags.NoPrefix);
+                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, flagsRightNoPrefix);
                     }
                 }
                 else
@@ -591,18 +605,18 @@ namespace AdvancedLogViewer.UI.Controls
                         if (e.Item.ListView.Focused)
                         {
                             e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.HighlightText), TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
+                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, colorOwnHighlightText, flagsWordEllSingleLineNoPrefix);
                         }
                         else
                         {
                             e.Graphics.FillRectangle(SystemBrushes.ButtonFace, e.Bounds);
-                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, Color.FromKnownColor(KnownColor.WindowText), TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
+                            TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, colorOwnWindowText, flagsWordEllSingleLineNoPrefix);
                         }
                     }
                     else
                     {
                         e.Graphics.FillRectangle(new SolidBrush(e.Item.BackColor), e.Bounds);
-                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, TextFormatFlags.WordEllipsis | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);
+                        TextRenderer.DrawText(e.Graphics, e.Item.SubItems[e.ColumnIndex].Text, e.Item.ListView.Font, recBounds, e.Item.ForeColor, flagsWordEllSingleLineNoPrefix);
                     }
                 }
             }

@@ -50,6 +50,7 @@
             this.mainPanel = new System.Windows.Forms.Panel();
             this.logViewPanel = new System.Windows.Forms.Panel();
             this.markersPanelParent = new System.Windows.Forms.Panel();
+            this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.logMessageEdit = new System.Windows.Forms.RichTextBox();
             this.splitter2 = new System.Windows.Forms.Splitter();
@@ -132,7 +133,8 @@
             this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
+            this.searchMarkersPanelParent = new System.Windows.Forms.Panel();
+            this.searchMarkerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.logListView = new AdvancedLogViewer.UI.Controls.LogListView();
             this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.logViewContextMenu.SuspendLayout();
@@ -144,6 +146,7 @@
             this.toolStrip.SuspendLayout();
             this.pluginsContextMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.searchMarkersPanelParent.SuspendLayout();
             this.SuspendLayout();
             // 
             // logViewContextMenu
@@ -287,6 +290,7 @@
             // logViewPanel
             // 
             this.logViewPanel.Controls.Add(this.logListView);
+            this.logViewPanel.Controls.Add(this.searchMarkersPanelParent);
             this.logViewPanel.Controls.Add(this.markersPanelParent);
             this.logViewPanel.Controls.Add(this.splitter1);
             this.logViewPanel.Controls.Add(this.logMessageEdit);
@@ -305,6 +309,20 @@
             this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.markersPanelParent.Size = new System.Drawing.Size(10, 429);
             this.markersPanelParent.TabIndex = 6;
+            // 
+            // markerPanel
+            // 
+            this.markerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.markerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.markerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.markerPanel.Horizontal = false;
+            this.markerPanel.Location = new System.Drawing.Point(0, 10);
+            this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
+            this.markerPanel.Name = "markerPanel";
+            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
+            this.markerPanel.Size = new System.Drawing.Size(10, 409);
+            this.markerPanel.TabIndex = 6;
+            this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // splitter1
             // 
@@ -1047,31 +1065,46 @@
             this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
             this.parserPatternToolStripStatus.Text = " ";
             // 
-            // markerPanel
+            // searchMarkersPanelParent
             // 
-            this.markerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.markerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.markerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.markerPanel.Horizontal = false;
-            this.markerPanel.Location = new System.Drawing.Point(0, 10);
-            this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
-            this.markerPanel.Name = "markerPanel";
-            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 409);
-            this.markerPanel.TabIndex = 6;
-            this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
+            this.searchMarkersPanelParent.Controls.Add(this.searchMarkerPanel);
+            this.searchMarkersPanelParent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.searchMarkersPanelParent.Location = new System.Drawing.Point(1002, 0);
+            this.searchMarkersPanelParent.Name = "searchMarkersPanelParent";
+            this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.searchMarkersPanelParent.TabIndex = 8;
+            this.searchMarkersPanelParent.Visible = false;
+            // 
+            // searchMarkerPanel
+            // 
+            this.searchMarkerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.searchMarkerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.searchMarkerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchMarkerPanel.Horizontal = false;
+            this.searchMarkerPanel.Location = new System.Drawing.Point(0, 10);
+            this.searchMarkerPanel.MinimumSize = new System.Drawing.Size(0, 1);
+            this.searchMarkerPanel.Name = "searchMarkerPanel";
+            this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
+            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 409);
+            this.searchMarkerPanel.TabIndex = 6;
+            this.searchMarkerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // logListView
             // 
             this.logListView.ContextMenuStrip = this.logViewContextMenu;
             this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logListView.Enabled = false;
+            this.logListView.FullRowSelect = true;
+            this.logListView.HideSelection = false;
             this.logListView.Location = new System.Drawing.Point(0, 0);
             this.logListView.Name = "logListView";
-            this.logListView.Size = new System.Drawing.Size(1012, 429);
+            this.logListView.OwnerDraw = true;
+            this.logListView.Size = new System.Drawing.Size(1002, 429);
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
             this.logListView.View = System.Windows.Forms.View.Details;
+            this.logListView.VirtualMode = true;
             this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
             this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
             this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
@@ -1116,8 +1149,10 @@
             this.pluginsContextMenu.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.searchMarkersPanelParent.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -1227,6 +1262,8 @@
         private System.Windows.Forms.Panel logViewPanel;
         private System.Windows.Forms.Splitter splitter2;
         private Controls.SqlFilterControl sqlFilterControl;
+        private System.Windows.Forms.Panel searchMarkersPanelParent;
+        private Scarfsail.Common.UI.Controls.MarkerPanel searchMarkerPanel;
     }
 }
 

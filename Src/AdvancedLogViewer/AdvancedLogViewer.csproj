@@ -85,6 +85,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BL\FindText\FindTextContext.cs" />
     <Compile Include="BL\MyCredentials.cs" />
     <Compile Include="BL\LogAdjuster\LogAdjuster.cs" />
     <Compile Include="BL\LogAdjuster\LogAdjusters.cs" />
@@ -166,6 +167,12 @@
     <Compile Include="UI\Controls\SqlFilterControl.Designer.cs">
       <DependentUpon>SqlFilterControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FindTextDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FindTextDlg.designer.cs">
+      <DependentUpon>FindTextDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LogAdjustersDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,12 +208,6 @@
     </Compile>
     <Compile Include="UI\SettingsDlg.Designer.cs">
       <DependentUpon>SettingsDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\FindTextDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\FindTextDlg.designer.cs">
-      <DependentUpon>FindTextDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ManageParserPatterns.cs">
       <SubType>Form</SubType>
@@ -267,6 +268,9 @@
     <EmbeddedResource Include="UI\Controls\SqlFilterControl.resx">
       <DependentUpon>SqlFilterControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FindTextDlg.resx">
+      <DependentUpon>FindTextDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LogAdjustersDlg.resx">
       <DependentUpon>LogAdjustersDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,9 +288,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsDlg.resx">
       <DependentUpon>SettingsDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\FindTextDlg.resx">
-      <DependentUpon>FindTextDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ManageParserPatterns.resx">
       <DependentUpon>ManageParserPatterns.cs</DependentUpon>

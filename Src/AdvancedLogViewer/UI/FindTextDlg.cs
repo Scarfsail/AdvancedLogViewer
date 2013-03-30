@@ -13,33 +13,60 @@ using System.Text.RegularExpressions;
 using AdvancedLogViewer.Common;
 using AdvancedLogViewer.BL.FindText;
 using Scarfsail.Common.BL;
+using System.Threading;
 
 namespace AdvancedLogViewer.UI
 {
-    internal delegate LogListViewItem GetLogListItem(GetLogListItemType type);
-    internal delegate List<LogEntry> GetLogEntries();
-    internal delegate bool GotoLogItem(int index);
-    
     public partial class FindTextDlg : Form
     {
-        private GetLogEntries GetLogEntries;
-        private GetLogListItem GetLogItem;
-        private GotoLogItem GoToLogItem;
-        private RichTextBox logMessageEdit;
+        private class CompiledSearchInput
+        {
+            public CompiledSearchInput(FindTextDlg compileFrom)
+            {
+                FindWhat = compileFrom.findWhatCombo.Text;
+
+                //What to find
+                FindIn = null;
+                if (compileFrom.findInCombo.SelectedIndex > 0)
+                {
+                    FindIn = (compileFrom.findInCombo.SelectedItem as PatternItem).ItemType;
+                }
+
+                StringComparison = compileFrom.caseSensitiveCheckBox.Checked ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+                RegEx = compileFrom.useRegExCheckBox.Checked ? new Regex(FindWhat, compileFrom.caseSensitiveCheckBox.Checked ? RegexOptions.None : RegexOptions.IgnoreCase) : null;
+
+            }
+            public bool MatchPatternType(PatternItemType type)
+            {
+                return FindIn == null || FindIn == type;
+            }
+
+            public PatternItemType? FindIn { get; private set; }
+            public string FindWhat { get; private set; }
+            public Regex RegEx { get; private set; }
+            public StringComparison StringComparison { get; private set; }
+        }
+
+        private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
+
         private string logFileName;
         private FindTextSettings settings;
         private string prevFindWhat = String.Empty;
-        private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
 
+        private List<LogEntry> foundEntries;
+        private bool logHasBeenChanged = true;
+        private bool markerksUpToDate = false;
 
-        internal FindTextDlg(Form ownerForm, GetLogEntries getLogEntries, GetLogListItem getLogItemFnc, GotoLogItem goToLogItemFnc, RichTextBox logMessageEdit)
+        private FindDialogContext context;
+        private CompiledSearchInput compiledSearchInput;
+
+        internal FindTextDlg(Form ownerForm, FindDialogContext context)
         {
             InitializeComponent();
+            this.context = context;
+
             this.Owner = ownerForm;
-            this.GetLogEntries = getLogEntries;
-            this.GetLogItem = getLogItemFnc;
-            this.GoToLogItem = goToLogItemFnc;
-            this.logMessageEdit = logMessageEdit;
+
             this.settings = FindTextSettings.LoadFromFile(Path.Combine(Globals.UserDataDir, "FindText.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
 
             this.LoadRecentTexts();
@@ -48,7 +75,6 @@ namespace AdvancedLogViewer.UI
             //Note: FindIn is loaded for each different logfile
             this.useRegExCheckBox.Checked = this.settings.UseRegEx;
             this.caseSensitiveCheckBox.Checked = this.settings.CaseSensitive;
-            this.searchFromCurrentPositionCheckBox.Checked = this.settings.SearchFromCurrentPosition;
         }
 
         public void Show(string logFileName, IEnumerable<PatternItem> patternItems)
@@ -88,18 +114,230 @@ namespace AdvancedLogViewer.UI
                 base.Show(this.Owner);
             this.findWhatCombo.Focus();
             this.findWhatCombo.SelectAll();
+            SetVisibilityOfFoundResults(true);
+
+            if (!markerksUpToDate)
+                ShowMarkers();
+        }
+
+
+
+        public void LogHasBeenChanged()
+        {
+            logHasBeenChanged = true;
+            markerksUpToDate = false;
+
+            if (this.Visible)
+                ShowMarkers();
+        }
+
+        public void ResetSearchResults()
+        {
+            if (foundEntries != null)
+            {
+                foundEntries.ForEach(e => e.FoundOnLine = -1);
+                foundEntries = null;
+                compiledSearchInput = null;
+                ReflectChangesInFoundList();
+            }
+            SetStatusText("Nothing has been searched.", Color.FromKnownColor(KnownColor.ControlText));
         }
 
         public void Find(string logFileName, IEnumerable<PatternItem> patternItems, bool searchDown)
         {
             if (this.logFileName != logFileName || this.findWhatCombo.Text == String.Empty)
             {
+                this.ResetSearchResults();
                 this.Show(logFileName, patternItems);
             }
             else
             {
-                this.Find(searchDown, false);
+                this.Find(searchDown);
             }
+        }
+
+        public void Find(bool searchDown)
+        {
+            LogListViewItem selectedItem = this.context.GetLogItem(GetLogListItemType.Selected);
+            if (selectedItem == null)
+                return;
+
+            if (logHasBeenChanged || foundEntries == null)
+            {
+                this.foundEntries = FindItemsMatchingToSearchCriteria();
+                logHasBeenChanged = false;
+                ReflectChangesInFoundList();
+            }
+
+            if (this.foundEntries.Count == 0)
+            {
+                SetStatusText("Entered text wasn't found.", Color.Red);
+            }
+            else
+            {
+                Color statusColor = Color.Green;
+                LogEntry logEntry = null;
+                int i = foundEntries.IndexOf(selectedItem.LogItem);
+
+                if (i == -1)
+                {
+                    i = searchDown ? -1 : foundEntries.Count;
+                }
+                else
+                {
+                    if (TryHighlightNextOccurenceInMessageDetail())
+                        return;
+                }
+
+                bool found = false;
+                if (searchDown)
+                {
+                    while (i + 1 < foundEntries.Count)
+                    {
+                        i++;
+                        logEntry = foundEntries[i];
+                        if (logEntry.LineInFile > selectedItem.LogItem.LineInFile)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    while (i - 1 >= 0)
+                    {
+                        i--;
+                        logEntry = foundEntries[i];
+                        if (logEntry.LineInFile < selectedItem.LogItem.LineInFile)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                string currentStatusText;
+                if (found)
+                {
+                    context.GoToLogItem(logEntry);
+                    currentStatusText = String.Format("Selected {0} of {1}", i + 1, foundEntries.Count);
+                    TryHighlightNextOccurenceInMessageDetail();
+                }
+                else
+                {
+                    statusColor = Color.DarkOrange;
+                    currentStatusText = searchDown ? "Nothing, click on Find prev" : "Nothing, click on Find next";
+                }
+                SetStatusText(String.Format("Found {0} results.{1}{2}", foundEntries.Count, Environment.NewLine, currentStatusText), statusColor);
+            }
+        }
+
+        private bool TryHighlightNextOccurenceInMessageDetail()
+        {
+            int selLength;
+            int selStart = context.LogMessageEdit.SelectionStart;
+            if (context.LogMessageEdit.SelectionLength > 0)
+                selStart++;
+
+            selStart= SearchText(this.compiledSearchInput, context.LogMessageEdit.Text, selStart, out selLength);
+            if (selStart > -1)
+            {
+                context.LogMessageEdit.SelectionStart = selStart;
+                context.LogMessageEdit.SelectionLength = selLength;
+                return true;
+            }
+            return false;
+        }
+
+        private void SetStatusText(string text, Color color)
+        {
+            this.statusLabel.ForeColor = color;
+            this.statusLabel.Text = text;
+        }
+
+        private void SetVisibilityOfFoundResults(bool visible)
+        {
+            context.RepaintLogList();
+            context.SetMarkersPanelVisibility(visible);
+        }
+
+        private void ReflectChangesInFoundList()
+        {
+            context.RepaintLogList();
+            ShowMarkers();
+        }
+
+        private void ShowMarkers()
+        {
+            if (foundEntries == null)
+                context.ShowMarkers(0, new Dictionary<int, Color>());
+            else
+            {
+                Color color = Color.FromArgb(0xFF, 0xE4, 0xD0, 0x0A);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
+                {
+                    context.ShowMarkers(context.GetLogEntries().Count, foundEntries.ToDictionary(item => item.FoundOnLine, item => color));
+                }));
+            }
+            markerksUpToDate = true;
+        }
+
+        private List<LogEntry> FindItemsMatchingToSearchCriteria()
+        {
+            Cursor origOwnerCursor = Owner.Cursor;
+            Owner.Cursor = Cursors.WaitCursor;
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                compiledSearchInput = new CompiledSearchInput(this);
+
+                //Save to recent searches
+                if (!this.prevFindWhat.Equals(compiledSearchInput.FindWhat, StringComparison.OrdinalIgnoreCase))
+                {
+                    this.settings.SearchHistory.AddText(compiledSearchInput.FindWhat);
+                    this.LoadRecentTexts();
+                }
+
+
+                List<LogEntry> logEntries = this.context.GetLogEntries();
+
+                List<LogEntry> foundEntriesList = new List<LogEntry>();
+                for (int i = 0; i < logEntries.Count; i++)
+                {
+                    LogEntry logEntry = logEntries[i];
+                    bool found =
+                            (compiledSearchInput.MatchPatternType(PatternItemType.Date) && SearchText(compiledSearchInput, logEntry.DateText))
+                            ||
+                            (compiledSearchInput.MatchPatternType(PatternItemType.Thread) && SearchText(compiledSearchInput, logEntry.Thread))
+                            ||
+                            (compiledSearchInput.MatchPatternType(PatternItemType.Type) && SearchText(compiledSearchInput, logEntry.Type))
+                            ||
+                            (compiledSearchInput.MatchPatternType(PatternItemType.Class) && SearchText(compiledSearchInput, logEntry.Class))
+                            ||
+                            (compiledSearchInput.MatchPatternType(PatternItemType.Message) && SearchText(compiledSearchInput, logEntry.Message));
+
+                    if (found)
+                    {
+                        logEntry.FoundOnLine = i;
+                        foundEntriesList.Add(logEntry);
+                    }
+                }
+
+                return foundEntriesList;
+
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error during search: " + ex.ToString());
+                MessageBox.Show(ex.Message, "Error during search", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Owner.Cursor = origOwnerCursor;
+                this.Cursor = Cursors.Default;
+            }
+            return new List<LogEntry>();
         }
 
         public void SaveSettings()
@@ -107,9 +345,8 @@ namespace AdvancedLogViewer.UI
             this.settings.FindWhat = this.findWhatCombo.Text;
             this.settings.UseRegEx = this.useRegExCheckBox.Checked;
             this.settings.CaseSensitive = this.caseSensitiveCheckBox.Checked;
-            this.settings.SearchFromCurrentPosition = this.searchFromCurrentPositionCheckBox.Checked;            
             //Note: Recent search list is updated on each search
-            
+
             this.settings.Save();
         }
 
@@ -120,6 +357,7 @@ namespace AdvancedLogViewer.UI
             this.Hide();
             Owner.Show();
             base.OnClosing(e);
+            SetVisibilityOfFoundResults(false);
         }
 
         protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, System.Windows.Forms.Keys keyData)
@@ -151,178 +389,20 @@ namespace AdvancedLogViewer.UI
         }
 
 
-
-        private bool Find(bool searchDown, bool thisIsSecondSearch)
+        private bool SearchText(CompiledSearchInput input, string findWhere)
         {
-            Cursor origOwnerCursor = Owner.Cursor;
-            Owner.Cursor = Cursors.WaitCursor;
-            this.Cursor = Cursors.WaitCursor;
-
-            try
-            {
-                List<LogEntry> logEntries = this.GetLogEntries();
-
-                LogListViewItem selectedItem = thisIsSecondSearch ? this.GetLogItem(searchDown ? GetLogListItemType.First : GetLogListItemType.Last) : this.GetLogItem(GetLogListItemType.Selected);
-                if (selectedItem == null)
-                    return false;
-
-                this.statusLabel.LinkColor = SystemColors.ControlText;
-                this.statusLabel.Text = "Searching ...";
-                this.statusLabel.Tag = -3;
-                this.statusLabel.Visible = true;
-                this.Update();
-
-                int index = selectedItem.Index;
-                string findWhat = this.findWhatCombo.Text;
-
-                if (!this.prevFindWhat.Equals(findWhat, StringComparison.OrdinalIgnoreCase))
-                {
-                    this.settings.SearchHistory.AddText(findWhat);
-                    this.LoadRecentTexts();
-                }
-
-                PatternItemType? findIn = null;
-                if (this.findInCombo.SelectedIndex > 0)
-                {
-                    findIn = (this.findInCombo.SelectedItem as PatternItem).ItemType;
-                }
-
-                StringComparison stringComparison = this.caseSensitiveCheckBox.Checked ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
-                Regex regex = this.useRegExCheckBox.Checked ? new Regex(findWhat, this.caseSensitiveCheckBox.Checked ? RegexOptions.None : RegexOptions.IgnoreCase) : null;
-
-                bool found = false;
-                int i = searchDown ? index - 1 : index + 1;
-                while (searchDown ? ++i < logEntries.Count : --i >= 0)
-                {
-                    LogEntry logEntry = logEntries.ElementAt(i);
-
-                    //Search for other columns than Message (we search in current item only when we search for message too, otherwise we search from next item)
-                    if (i != index)
-                    {
-                        if (!found && (findIn == null || findIn == PatternItemType.Date))
-                            if (SearchText(findWhat, logEntry.DateText, regex, stringComparison) > -1)
-                                found = true;
-
-                        if (!found && (findIn == null || findIn == PatternItemType.Thread) && logEntry.Thread != null)
-                            if (SearchText(findWhat, logEntry.Thread, regex, stringComparison) > -1)
-                                found = true;
-
-                        if (!found && (findIn == null || findIn == PatternItemType.Type) && logEntry.Type != null)
-                            if (SearchText(findWhat, logEntry.Type, regex, stringComparison) > -1)
-                                found = true;
-
-                        if (!found && (findIn == null || findIn == PatternItemType.Class) && logEntry.Class != null)
-                            if (SearchText(findWhat, logEntry.Class, regex, stringComparison) > -1)
-                                found = true;
-                    }
-
-
-                    //Search in message (we search message in current item for next occurence of searched text)
-                    if (!found && (findIn == PatternItemType.Message || findIn == null))
-                    {
-                        int prevMessageFoundPos = (i == index && this.logMessageEdit.SelectionLength > 0) ? this.logMessageEdit.SelectionStart - logMessageEdit.GetFirstCharIndexFromLine(1) : -1;
-                        int length;
-                        int textPos = SearchText(findWhat, logEntry.Message, prevMessageFoundPos + 1, regex, stringComparison, out length);
-                        if (textPos > -1)
-                        {
-                            if (i != index)
-                            {
-                                GoToLogItem(i);
-                            }
-
-                            //Select text                            
-                            logMessageEdit.SelectionStart = textPos + logMessageEdit.GetFirstCharIndexFromLine(1);
-                            logMessageEdit.SelectionLength = length;
-                            logMessageEdit.ScrollToCaret();
-                            found = true;
-                            break;
-                        }
-                        else
-                        {
-                            found = false;
-                        }
-                    }
-
-                    if (found)
-                    {
-                        GoToLogItem(i);
-                        break;
-                    }
-                }
-
-                if (found)
-                {
-                    if (this.Visible)
-                    {
-                        this.statusLabel.LinkColor = Color.Green;
-                        this.statusLabel.Text = "Text found, click to &select the item";
-                        this.statusLabel.Tag = i + 1; //Zero means: Text not found. So we have to put there item number+1.
-                        this.statusLabel.Visible = true;
-                    }
-                }
-                else
-                {
-                    if (this.Visible)
-                    {
-                        if (!thisIsSecondSearch)
-                        {
-                            this.statusLabel.LinkColor = Color.Orange;
-                            this.statusLabel.Text = "Not found, &search from " + (searchDown ? "first" : "last") + " item";
-                            this.statusLabel.Tag = searchDown ? -1 : -2;
-                        }
-                        else
-                        {
-                            this.statusLabel.Text = "Searched text was not found.";
-                            this.statusLabel.LinkColor = Color.Red;
-                            this.statusLabel.Tag = 0;
-                        }
-                        this.statusLabel.Visible = true;
-                    }
-                    else
-                    {
-                        if (!thisIsSecondSearch)
-                        {
-                            string msg = "Searched text: '" + this.findWhatCombo.Text + "' was not found.\n";
-                            msg += searchDown ? "Continue search from first item of the log ?" : "Continue search from last item of the log ?";
-
-                            if (MessageBox.Show(msg, "Not found", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                                this.Find(searchDown, true);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Searched text was not found anywhere.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                }
-                return found;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Error during search: " + ex.ToString());
-                MessageBox.Show(ex.Message, "Error during search", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (findWhere == null)
                 return false;
-            }
-            finally
-            {
-                if ((int)this.statusLabel.Tag == -3)
-                    this.statusLabel.Visible = false;
 
-                Owner.Cursor = origOwnerCursor;
-                this.Cursor = Cursors.Default;
-            }
-        }
-
-        private int SearchText(string findWhat, string findWhere, Regex regEx, StringComparison stringComparison)
-        {
             int length;
-            return SearchText(findWhat, findWhere, 0, regEx, stringComparison, out length);
+            return SearchText(input, findWhere, 0, out length) > -1;
         }
 
-        private int SearchText(string findWhat, string findWhere, int startIndex, Regex regEx, StringComparison stringComparison, out int length)
+        private int SearchText(CompiledSearchInput input, string findWhere, int startIndex, out int length)
         {
-            if (regEx != null)
+            if (input.RegEx != null)
             {
-                Match match = regEx.Match(findWhere, startIndex);
+                Match match = input.RegEx.Match(findWhere, startIndex);
                 if (match.Success)
                 {
                     length = match.Length;
@@ -336,8 +416,8 @@ namespace AdvancedLogViewer.UI
             }
             else
             {
-                length = findWhat.Length;
-                return findWhere.IndexOf(findWhat, startIndex, stringComparison);
+                length = input.FindWhat.Length;
+                return findWhere.IndexOf(input.FindWhat, startIndex, input.StringComparison);
             }
         }
 
@@ -365,9 +445,8 @@ namespace AdvancedLogViewer.UI
 
         private void UpdateUI()
         {
-            this.statusLabel.Visible = false;
             this.findNextButton.Enabled = this.findWhatCombo.Text != String.Empty;
-            this.findPrevButton.Enabled = (this.findWhatCombo.Text != String.Empty) && (this.searchFromCurrentPositionCheckBox.Checked);
+            this.findPrevButton.Enabled = this.findWhatCombo.Text != String.Empty;
         }
 
 
@@ -383,7 +462,7 @@ namespace AdvancedLogViewer.UI
 
         private void FindTextDlg_Deactivate(object sender, EventArgs e)
         {
-            this.Opacity = 0.75;
+            this.Opacity = 0.80;
         }
 
         private void FindTextDlg_Activated(object sender, EventArgs e)
@@ -393,63 +472,25 @@ namespace AdvancedLogViewer.UI
 
         private void findNextButton_Click(object sender, EventArgs e)
         {
-            bool found = this.Find(true, false);
-            if (!this.searchFromCurrentPositionCheckBox.Checked && !found)
-                this.Find(true, true);
+            this.Find(true);
         }
 
         private void findPrevButton_Click(object sender, EventArgs e)
         {
-            this.Find(false, false);
+            this.Find(false);
         }
-        
-        
+
+
         private void findInCombo_SelectedValueChanged(object sender, EventArgs e)
         {
             this.settings.FindIn = this.findInCombo.SelectedItem.ToString();
-            this.UpdateUI();
+            SearchConditionsChanged(sender, e);
         }
 
         private void SearchConditionsChanged(object sender, EventArgs e)
         {
+            this.ResetSearchResults();
             this.UpdateUI();
-        }
-
-        private void searchFromCurrentPositionCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (searchFromCurrentPositionCheckBox.Checked)
-            {
-                this.findPrevButton.Enabled = (this.findWhatCombo.Text != String.Empty) && (this.searchFromCurrentPositionCheckBox.Checked);
-                this.findNextButton.Text = "Find &next";
-            }
-            else
-            {
-                this.findPrevButton.Enabled = false;
-                this.findNextButton.Text = "Find";
-            }
-        }
-
-        private void statusLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            int tag = (int)statusLabel.Tag;
-            if (tag == 0)
-            {
-                MessageBox.Show("Searched text was not found anywhere.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                if (tag > 0)
-                {
-                    this.GoToLogItem(tag - 1);
-                }
-                else
-                    if (tag == -3)
-                    {
-                        //Do nothing, it's "Searching..." text
-                    }
-                    else
-                    {
-                        this.Find(tag == -1, true);
-                    }
         }
 
 

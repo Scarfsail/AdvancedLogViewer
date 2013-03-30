@@ -17,7 +17,7 @@ namespace AdvancedLogViewer.UI.Controls
         FilterManager FilterManager { get; }
         LogParser LogParser { get; }
         List<LogEntry> LogEntries { get; }
-        void ShowLoadedLog(bool loadingInProgress);
+        void ShowLoadedLog(bool loadingInProgress, bool resetSearchResults);
         bool FiltersEnabled { get; set; }
         GetDistinctValues GetDistinctValues { get; }
         ColorHighlightManager ColorHighlightManager { get; }

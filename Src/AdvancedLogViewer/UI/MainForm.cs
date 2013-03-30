@@ -33,6 +33,7 @@ using AdvancedLogViewer.BL.LogAdjuster;
 using Scarfsail.Common.BL;
 using System.Text.RegularExpressions;
 using AdvancedLogViewer.UI.Controls;
+using AdvancedLogViewer.BL.FindText;
 
 namespace AdvancedLogViewer.UI
 {
@@ -133,6 +134,7 @@ namespace AdvancedLogViewer.UI
                 //UI
                 int margins = SystemInformation.VerticalScrollBarArrowHeight + 4;
                 this.markersPanelParent.Padding = new Padding(0, margins, 0, margins);
+                this.searchMarkersPanelParent.Padding = new Padding(0, margins, 0, margins);
 
                 //Bookmarks
                 for (int i = 1; i <= 9; i++)
@@ -509,6 +511,7 @@ namespace AdvancedLogViewer.UI
                     if (this.findDlg != null)
                     {
                         this.findDlg.Close();
+                        this.findDlg.ResetSearchResults();
                     }
 
                     //Log Parser
@@ -568,7 +571,7 @@ namespace AdvancedLogViewer.UI
 
         void sqlFilterControl_Execute(object sender, EventArgs e)
         {
-            this.ShowLoadedLog(false);
+            this.ShowLoadedLog(false, true);
         }
 
         private void InitLogAdjuster()
@@ -749,7 +752,7 @@ namespace AdvancedLogViewer.UI
             else
             {
                 log.Debug("Loading in progress event");
-                this.ShowLoadedLog(true);
+                this.ShowLoadedLog(true, false);
             }
         }
 
@@ -772,7 +775,9 @@ namespace AdvancedLogViewer.UI
                         this.lastChangeStatus.Text = "Change: " + DateTime.Now.ToLongTimeString();
 
                         //ListView
-                        this.ShowLoadedLog(false);
+                        this.ShowLoadedLog(false, false);
+                        if (this.findDlg != null)
+                            this.findDlg.LogHasBeenChanged();
 
                         if (this.lastCompletelyLoadedLogFileName != this.fileName)
                         {
@@ -835,7 +840,7 @@ namespace AdvancedLogViewer.UI
                     {
                         log.Warn("Log file doesn't exist.");
 
-                        this.ShowLoadedLog(false);
+                        this.ShowLoadedLog(false, true);
 
                         this.lastChangeStatus.Text = "Log file doesn't exist.";
                         this.goToItemButton.Enabled = false;
@@ -865,10 +870,13 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-        public void ShowLoadedLog(bool loadingInProgress)
+        public void ShowLoadedLog(bool loadingInProgress, bool resetSearchResults)
         {
             if (this.logParser == null)
                 return;
+
+            if (resetSearchResults && this.findDlg != null)
+                findDlg.ResetSearchResults();
 
             log.Debug("ShowLoadedLog, loading in progress: " + loadingInProgress.ToString());
             LogListViewItem selListItem = logListView.GetSelectedListItem();
@@ -1078,7 +1086,7 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-        
+
 
         private void RefreshMessageDetail(LogListViewItem listItem, bool forceRefresh)
         {
@@ -1164,6 +1172,7 @@ namespace AdvancedLogViewer.UI
             this.ReloadLog();
         }
 
+
         private void ShowMarkers()
         {
             if (this.settings.MainFormUI.ShowMarkers)
@@ -1245,7 +1254,7 @@ namespace AdvancedLogViewer.UI
                 }
             }
         }
-        
+
         private int GetKeyNumber(Keys keys)
         {
             return (int)(keys & (Keys.D0 | Keys.D1 | Keys.D2 | Keys.D3 | Keys.D4 | Keys.D5 | Keys.D6 | Keys.D7 | Keys.D8 | Keys.D9));
@@ -1430,7 +1439,7 @@ namespace AdvancedLogViewer.UI
         {
             try
             {
-                e.Item = new LogListViewItem(this.logEntries.ElementAt(e.ItemIndex), this.enableHighlightsButton.Checked ? this.ColorHighlightManager.CurrentGroup : null);
+                e.Item = new LogListViewItem(this.logEntries.ElementAt(e.ItemIndex), this.enableHighlightsButton.Checked ? this.ColorHighlightManager.CurrentGroup : null, this.findDlg != null && this.findDlg.Visible);
             }
             catch (Exception ex)
             {
@@ -1570,7 +1579,7 @@ namespace AdvancedLogViewer.UI
                         this.settings.MainFormUI.EnableFilter = this.enableFiltersButton.Checked;
                     }
 
-                    this.ShowLoadedLog(false);
+                    this.ShowLoadedLog(false, true);
                 }
             }
         }
@@ -1692,7 +1701,7 @@ namespace AdvancedLogViewer.UI
         {
             log.Debug("EnableFilters button click");
 
-            this.ShowLoadedLog(false);
+            this.ShowLoadedLog(false, true);
 
             this.settings.MainFormUI.EnableFilter = this.enableFiltersButton.Checked;
         }
@@ -1902,7 +1911,7 @@ namespace AdvancedLogViewer.UI
             filter.ToEnabled = false;
             filter.Enabled = true;
 
-            this.ShowLoadedLog(false);
+            this.ShowLoadedLog(false, true);
         }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1910,7 +1919,7 @@ namespace AdvancedLogViewer.UI
             this.softwareUpdatesClient.CheckForUpdate(false, true, true);
         }
 
-        
+
         private ColorHighlightManager colorHighlightManager;
 
 
@@ -1937,7 +1946,7 @@ namespace AdvancedLogViewer.UI
             this.Activate();
         }
 
-        private FindTextDlg FindDlg
+        /*private FindTextDlg FindDlg
         {
             get
             {
@@ -1948,6 +1957,28 @@ namespace AdvancedLogViewer.UI
                                                    (GetLogListItemType type) => logListView.GetLogListItem(type),
                                                    (int itemIndex) => logListView.GoToLogItem(itemIndex, true),
                                                    this.logMessageEdit);
+                }
+                return this.findDlg;
+            }
+        }*/
+
+        private FindTextDlg FindDlg
+        {
+            get
+            {
+                if (this.findDlg == null)
+                {
+                    var context = new FindDialogContext(
+                                                       () => this.logEntries,
+                                                       (GetLogListItemType type) => logListView.GetLogListItem(type),
+                                                       (LogEntry entry) => logListView.GoToLogItem(entry),
+                                                       this.logMessageEdit,
+                                                       () => this.logListView.Invalidate(),
+                                                       (bool visible) => { this.searchMarkersPanelParent.Visible = visible; this.logListView.SetColumnSizes();},
+                                                       this.searchMarkerPanel.ShowMarkers
+                                                   );
+
+                    this.findDlg = new FindTextDlg(this, context);
                 }
                 return this.findDlg;
             }
@@ -2082,7 +2113,7 @@ namespace AdvancedLogViewer.UI
             this.settings.MainFormUI.EnableFilter = this.enableFiltersButton.Checked;
 
             this.FilterManager.Save();
-            this.ShowLoadedLog(false);
+            this.ShowLoadedLog(false, true);
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2374,7 +2405,7 @@ ForceParser {0}{0}- Force the parser specified after the colon instead of using 
             {
                 sqlFilterControl.Focus();
             }
-            this.ShowLoadedLog(false);
+            this.ShowLoadedLog(false, true);
         }
     }
 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.bottomPanel = new System.Windows.Forms.Panel();
-            this.statusLabel = new System.Windows.Forms.LinkLabel();
             this.findPrevButton = new System.Windows.Forms.Button();
             this.closelButton = new System.Windows.Forms.Button();
             this.findNextButton = new System.Windows.Forms.Button();
@@ -39,7 +38,7 @@
             this.caseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
             this.useRegExCheckBox = new System.Windows.Forms.CheckBox();
             this.findWhatCombo = new System.Windows.Forms.ComboBox();
-            this.searchFromCurrentPositionCheckBox = new System.Windows.Forms.CheckBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.bottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,18 +53,6 @@
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(401, 31);
             this.bottomPanel.TabIndex = 6;
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.LinkColor = System.Drawing.Color.Blue;
-            this.statusLabel.Location = new System.Drawing.Point(6, 10);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(62, 13);
-            this.statusLabel.TabIndex = 0;
-            this.statusLabel.TabStop = true;
-            this.statusLabel.Text = "Status label";
-            this.statusLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.statusLabel_LinkClicked);
             // 
             // findPrevButton
             // 
@@ -160,27 +147,22 @@
             this.findWhatCombo.TabIndex = 1;
             this.findWhatCombo.TextChanged += new System.EventHandler(this.SearchConditionsChanged);
             // 
-            // searchFromCurrentPositionCheckBox
+            // statusLabel
             // 
-            this.searchFromCurrentPositionCheckBox.AutoSize = true;
-            this.searchFromCurrentPositionCheckBox.Checked = true;
-            this.searchFromCurrentPositionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.searchFromCurrentPositionCheckBox.Location = new System.Drawing.Point(303, 27);
-            this.searchFromCurrentPositionCheckBox.Name = "searchFromCurrentPositionCheckBox";
-            this.searchFromCurrentPositionCheckBox.Size = new System.Drawing.Size(98, 30);
-            this.searchFromCurrentPositionCheckBox.TabIndex = 7;
-            this.searchFromCurrentPositionCheckBox.Text = "Search from\r\ncurrent position";
-            this.searchFromCurrentPositionCheckBox.UseVisualStyleBackColor = true;
-            this.searchFromCurrentPositionCheckBox.CheckedChanged += new System.EventHandler(this.searchFromCurrentPositionCheckBox_CheckedChanged);
+            this.statusLabel.Location = new System.Drawing.Point(6, 0);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(175, 27);
+            this.statusLabel.TabIndex = 4;
+            this.statusLabel.Text = "Status";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // FindTextDlg
+            // FindTextDlg2
             // 
             this.AcceptButton = this.findNextButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closelButton;
             this.ClientSize = new System.Drawing.Size(401, 91);
-            this.Controls.Add(this.searchFromCurrentPositionCheckBox);
             this.Controls.Add(this.findWhatCombo);
             this.Controls.Add(this.useRegExCheckBox);
             this.Controls.Add(this.caseSensitiveCheckBox);
@@ -191,7 +173,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FindTextDlg";
+            this.Name = "FindTextDlg2";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -200,7 +182,6 @@
             this.Deactivate += new System.EventHandler(this.FindTextDlg_Deactivate);
             this.Load += new System.EventHandler(this.FindTextDlg_Load);
             this.bottomPanel.ResumeLayout(false);
-            this.bottomPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,8 +199,7 @@
         private System.Windows.Forms.CheckBox caseSensitiveCheckBox;
         private System.Windows.Forms.CheckBox useRegExCheckBox;
         private System.Windows.Forms.ComboBox findWhatCombo;
-        private System.Windows.Forms.LinkLabel statusLabel;
-        private System.Windows.Forms.CheckBox searchFromCurrentPositionCheckBox;
+        private System.Windows.Forms.Label statusLabel;
 
     }
 }

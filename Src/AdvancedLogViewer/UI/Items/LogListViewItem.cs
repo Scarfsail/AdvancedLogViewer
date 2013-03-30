@@ -11,7 +11,7 @@ namespace AdvancedLogViewer.UI.Items
 {
     class LogListViewItem:ListViewItem
     {
-        public LogListViewItem(LogEntry logItem, ColorHighlightGroup colorHighlights)
+        public LogListViewItem(LogEntry logItem, ColorHighlightGroup colorHighlights, bool highlightSearchResults)
         {
             this.LogItem = logItem;
             if (LogItem.Bookmark > 0)                  //0
@@ -31,7 +31,7 @@ namespace AdvancedLogViewer.UI.Items
 
             this.ImageIndex = (int)logItem.LogType;
 
-            if (colorHighlights != null)
+            if (colorHighlights != null && !(highlightSearchResults && logItem.FoundOnLine==-1))
             {
                 Color color;
                 Color textColor;
@@ -41,8 +41,16 @@ namespace AdvancedLogViewer.UI.Items
                     this.ForeColor = textColor;
                 }
             }
+            this.HighlightSearchResult = highlightSearchResults && logItem.FoundOnLine>-1;
+
+            if (HighlightSearchResult)
+            {
+                this.BackColor = Color.Yellow;
+                this.ForeColor = Color.Red;
+            }
         }
 
+        public bool HighlightSearchResult { get; private set; }
 
         public LogEntry LogItem { get; private set; }
     }

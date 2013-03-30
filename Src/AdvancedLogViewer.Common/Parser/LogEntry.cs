@@ -8,7 +8,7 @@ using System.Globalization;
 namespace AdvancedLogViewer.Common.Parser
 {
     public class LogEntry
-    {                
+    {
         internal bool SaveValue(PatternItemType valueType, string value)
         {
             try
@@ -41,7 +41,7 @@ namespace AdvancedLogViewer.Common.Parser
             {
                 throw;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false; //Some error in conversion
             }
@@ -49,12 +49,16 @@ namespace AdvancedLogViewer.Common.Parser
             return true;
         }
 
+        private int foundOnLine = -1;
+
+        public int FoundOnLine { get { return foundOnLine; } set { foundOnLine = value; } }
+
         public string DateText { get; private set; }
-        
+
         public string Thread { get; private set; }
-        
+
         public string Type { get; private set; }
-        
+
         public LogType LogType
         {
             get
@@ -90,12 +94,12 @@ namespace AdvancedLogViewer.Common.Parser
                 return message;
             }
         }
-         
+
         public DateTime Date { get; private set; }
 
         public int LineInFile { get; internal set; }
 
-        public int ItemNumber { get; internal set; }      
+        public int ItemNumber { get; internal set; }
 
         /// <summary>Bookmark number. Range: 1..9, when is zero, bookmark isn't set for this item.</summary>
         public int Bookmark { get; set; }
@@ -107,15 +111,15 @@ namespace AdvancedLogViewer.Common.Parser
             result.Add(new ColumnDescription("DateText", typeof(string)));
             if (includeThread)
                 result.Add(new ColumnDescription("Thread", typeof(string)));
-            if (includeType) 
+            if (includeType)
                 result.Add(new ColumnDescription("Type", typeof(string)));
-            if (includeClass) 
+            if (includeClass)
                 result.Add(new ColumnDescription("Class", typeof(string)));
             result.Add(new ColumnDescription("Message", typeof(string)));
             result.Add(new ColumnDescription("LineInFile", typeof(int)));
             result.Add(new ColumnDescription("ItemNumber", typeof(int)));
             result.Add(new ColumnDescription("Bookmark", typeof(int)));
-            
+
             return result;
         }
 
