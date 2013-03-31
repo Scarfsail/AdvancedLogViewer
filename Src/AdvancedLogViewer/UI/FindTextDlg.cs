@@ -452,7 +452,15 @@ namespace AdvancedLogViewer.UI
 
         private void FindTextDlg_Load(object sender, EventArgs e)
         {
-            this.Location = new System.Drawing.Point(this.Owner.Location.X + (this.Owner.Width - this.Width) / 2, this.Owner.Location.Y + (this.Owner.Height - this.Height) / 2);
+            this.Owner.Resize += Owner_Resize;
+            this.Owner.Move += Owner_Resize;
+            Owner_Resize(this, e);
+        }
+
+        void Owner_Resize(object sender, EventArgs e)
+        {
+            this.Location = new System.Drawing.Point(this.Owner.Location.X + this.Owner.Width - this.Width - 50,
+                this.Owner.Location.Y + 55);
         }
 
         private void closeButton_Click(object sender, EventArgs e)
