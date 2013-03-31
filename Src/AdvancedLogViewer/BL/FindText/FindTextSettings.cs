@@ -13,7 +13,7 @@ namespace AdvancedLogViewer.BL.FindText
         public string FindIn { get; set; }
         public bool UseRegEx { get; set; }
         public bool CaseSensitive { get; set; }
-        public bool SearchFromCurrentPosition { get; set; }
+        public bool Docked { get; set; }
 
         public SearchHistory SearchHistory { get; private set; }
 
@@ -23,7 +23,7 @@ namespace AdvancedLogViewer.BL.FindText
             this.FindIn = GetAttrValue<string>(s => s, xmlElement, "FindIn", String.Empty);
             this.UseRegEx = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "UseRegEx", false);
             this.CaseSensitive = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "CaseSensitive", false);
-            this.SearchFromCurrentPosition = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "SearchFromCurrentPosition", true);
+            this.Docked = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "Docked", true);
 
             this.SearchHistory = GetSubElementValue<SearchHistory>(f => SearchHistory.GetInstance(f), xmlElement, "SearchHistory");
         }
@@ -34,7 +34,7 @@ namespace AdvancedLogViewer.BL.FindText
             AddAttrValue(xmlElement, "FindIn", this.FindIn);
             AddAttrValue(xmlElement, "UseRegEx", this.UseRegEx.ToString());
             AddAttrValue(xmlElement, "CaseSensitive", this.CaseSensitive.ToString());
-            AddAttrValue(xmlElement, "SearchFromCurrentPosition", this.SearchFromCurrentPosition.ToString());
+            AddAttrValue(xmlElement, "Docked", this.Docked.ToString());
 
             AddSubElementValue<SearchHistory>(val => val.GetXmlElement("SearchHistory"), xmlElement, this.SearchHistory);
         }

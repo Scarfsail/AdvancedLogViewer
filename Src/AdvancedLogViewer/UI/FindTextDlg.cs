@@ -59,6 +59,7 @@ namespace AdvancedLogViewer.UI
 
         private FindDialogContext context;
         private CompiledSearchInput compiledSearchInput;
+        private bool dialogWasShown = false;
 
         internal FindTextDlg(Form ownerForm, FindDialogContext context)
         {
@@ -75,6 +76,7 @@ namespace AdvancedLogViewer.UI
             //Note: FindIn is loaded for each different logfile
             this.useRegExCheckBox.Checked = this.settings.UseRegEx;
             this.caseSensitiveCheckBox.Checked = this.settings.CaseSensitive;
+            this.dockedCheckBox.Checked = this.settings.Docked;
         }
 
         public void Show(string logFileName, IEnumerable<PatternItem> patternItems)
@@ -118,6 +120,11 @@ namespace AdvancedLogViewer.UI
 
             if (!markerksUpToDate)
                 ShowMarkers();
+
+            if (!dialogWasShown || this.dockedCheckBox.Checked)
+                this.Location = context.GetPositionForSearchWindow(this.Width);
+
+            dialogWasShown = true;
         }
 
 
@@ -232,56 +239,6 @@ namespace AdvancedLogViewer.UI
             }
         }
 
-        private bool TryHighlightNextOccurenceInMessageDetail()
-        {
-            int selLength;
-            int selStart = context.LogMessageEdit.SelectionStart;
-            if (context.LogMessageEdit.SelectionLength > 0)
-                selStart++;
-
-            selStart= SearchText(this.compiledSearchInput, context.LogMessageEdit.Text, selStart, out selLength);
-            if (selStart > -1)
-            {
-                context.LogMessageEdit.SelectionStart = selStart;
-                context.LogMessageEdit.SelectionLength = selLength;
-                return true;
-            }
-            return false;
-        }
-
-        private void SetStatusText(string text, Color color)
-        {
-            this.statusLabel.ForeColor = color;
-            this.statusLabel.Text = text;
-        }
-
-        private void SetVisibilityOfFoundResults(bool visible)
-        {
-            context.RepaintLogList();
-            context.SetMarkersPanelVisibility(visible);
-        }
-
-        private void ReflectChangesInFoundList()
-        {
-            context.RepaintLogList();
-            ShowMarkers();
-        }
-
-        private void ShowMarkers()
-        {
-            if (foundEntries == null)
-                context.ShowMarkers(0, new Dictionary<int, Color>());
-            else
-            {
-                Color color = Color.FromArgb(0xFF, 0xE4, 0xD0, 0x0A);
-                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
-                {
-                    context.ShowMarkers(context.GetLogEntries().Count, foundEntries.ToDictionary(item => item.FoundOnLine, item => color));
-                }));
-            }
-            markerksUpToDate = true;
-        }
-
         private List<LogEntry> FindItemsMatchingToSearchCriteria()
         {
             Cursor origOwnerCursor = Owner.Cursor;
@@ -340,11 +297,101 @@ namespace AdvancedLogViewer.UI
             return new List<LogEntry>();
         }
 
+        private bool TryHighlightNextOccurenceInMessageDetail()
+        {
+            int selLength;
+            int selStart = context.LogMessageEdit.SelectionStart;
+            if (context.LogMessageEdit.SelectionLength > 0)
+                selStart++;
+
+            selStart = SearchText(this.compiledSearchInput, context.LogMessageEdit.Text, selStart, out selLength);
+            if (selStart > -1)
+            {
+                context.LogMessageEdit.SelectionStart = selStart;
+                context.LogMessageEdit.SelectionLength = selLength;
+                return true;
+            }
+            return false;
+        }
+
+        private bool SearchText(CompiledSearchInput input, string findWhere)
+        {
+            if (findWhere == null)
+                return false;
+
+            int length;
+            return SearchText(input, findWhere, 0, out length) > -1;
+        }
+
+        private int SearchText(CompiledSearchInput input, string findWhere, int startIndex, out int length)
+        {
+            if (input.RegEx != null)
+            {
+                Match match = input.RegEx.Match(findWhere, startIndex);
+                if (match.Success)
+                {
+                    length = match.Length;
+                    return match.Index;
+                }
+                else
+                {
+                    length = -1;
+                    return -1;
+                }
+            }
+            else
+            {
+                length = input.FindWhat.Length;
+                return findWhere.IndexOf(input.FindWhat, startIndex, input.StringComparison);
+            }
+        }
+
+        private void SetStatusText(string text, Color color)
+        {
+            this.statusLabel.ForeColor = color;
+            this.statusLabel.Text = text;
+        }
+
+        private void SetVisibilityOfFoundResults(bool visible)
+        {
+            context.RepaintLogList();
+            context.SetMarkersPanelVisibility(visible);
+        }
+
+        private void ReflectChangesInFoundList()
+        {
+            context.RepaintLogList();
+            ShowMarkers();
+        }
+
+        private void ShowMarkers()
+        {
+            if (foundEntries == null)
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
+                {
+                    context.ShowMarkers(0, new Dictionary<int, Color>());
+                }));
+            }
+            else
+            {
+                Color color = Color.FromArgb(0xFF, 0xE4, 0xD0, 0x0A);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
+                {
+                    context.ShowMarkers(context.GetLogEntries().Count, foundEntries.ToDictionary(item => item.FoundOnLine, item => color));
+                }));
+            }
+            markerksUpToDate = true;
+        }
+
+
+
         public void SaveSettings()
         {
             this.settings.FindWhat = this.findWhatCombo.Text;
             this.settings.UseRegEx = this.useRegExCheckBox.Checked;
             this.settings.CaseSensitive = this.caseSensitiveCheckBox.Checked;
+            this.settings.Docked = this.dockedCheckBox.Checked;
             //Note: Recent search list is updated on each search
 
             this.settings.Save();
@@ -389,37 +436,7 @@ namespace AdvancedLogViewer.UI
         }
 
 
-        private bool SearchText(CompiledSearchInput input, string findWhere)
-        {
-            if (findWhere == null)
-                return false;
 
-            int length;
-            return SearchText(input, findWhere, 0, out length) > -1;
-        }
-
-        private int SearchText(CompiledSearchInput input, string findWhere, int startIndex, out int length)
-        {
-            if (input.RegEx != null)
-            {
-                Match match = input.RegEx.Match(findWhere, startIndex);
-                if (match.Success)
-                {
-                    length = match.Length;
-                    return match.Index;
-                }
-                else
-                {
-                    length = -1;
-                    return -1;
-                }
-            }
-            else
-            {
-                length = input.FindWhat.Length;
-                return findWhere.IndexOf(input.FindWhat, startIndex, input.StringComparison);
-            }
-        }
 
         private void LoadRecentTexts()
         {
@@ -454,13 +471,12 @@ namespace AdvancedLogViewer.UI
         {
             this.Owner.Resize += Owner_Resize;
             this.Owner.Move += Owner_Resize;
-            Owner_Resize(this, e);
         }
 
         void Owner_Resize(object sender, EventArgs e)
         {
-            this.Location = new System.Drawing.Point(this.Owner.Location.X + this.Owner.Width - this.Width - 50,
-                this.Owner.Location.Y + 55);
+            if (this.Visible && this.dockedCheckBox.Checked)
+                this.Location = context.GetPositionForSearchWindow(this.Width);
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -501,7 +517,19 @@ namespace AdvancedLogViewer.UI
             this.UpdateUI();
         }
 
-
+        private void dockedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dockedCheckBox.Checked)
+            {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.Location = context.GetPositionForSearchWindow(this.Width);
+            }
+            else
+            {
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+                this.Location = context.GetPositionForSearchWindow(this.Width);
+            }
+        }
 
     }
 }

@@ -19,7 +19,7 @@ namespace AdvancedLogViewer.BL.FindText
     {
         public FindDialogContext(GetLogEntries getLogEntries, GetLogListItem getLogItemFnc, GotoLogItem goToLogItemFnc,
             RichTextBox logMessageEdit, Action repaintLogList, Action<bool> setMarkersPanelVisibility, Action<int, Dictionary<int, Color>> showMarkers,
-            Func<Point> getPositionForSearchWindow)
+            Func<int,Point> getPositionForSearchWindow)
         {
             this.GetLogEntries = getLogEntries;
             this.GetLogItem = getLogItemFnc;
@@ -38,7 +38,7 @@ namespace AdvancedLogViewer.BL.FindText
         public Action RepaintLogList { get; private set; }
         public Action<bool> SetMarkersPanelVisibility { get; private set; }
         public Action<int, Dictionary<int, Color>> ShowMarkers { get; private set; }
-        public Func<Point> GetPositionForSearchWindow { get; private set; }
+        public Func<int, Point> GetPositionForSearchWindow { get; private set; }
     }
 
 }

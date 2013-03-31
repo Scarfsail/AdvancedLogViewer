@@ -572,7 +572,7 @@ namespace AdvancedLogViewer.UI.Controls
 
                 if ((e.Item as LogListViewItem).HighlightSearchResult)
                 {
-                    colorOwnHighlightText = Color.DarkRed;
+                    colorOwnHighlightText = Color.Orange;
                     colorOwnWindowText = Color.Red;
                 }
 

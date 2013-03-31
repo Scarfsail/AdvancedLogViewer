@@ -49,12 +49,16 @@
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.logViewPanel = new System.Windows.Forms.Panel();
+            this.logListView = new AdvancedLogViewer.UI.Controls.LogListView();
+            this.searchMarkersPanelParent = new System.Windows.Forms.Panel();
+            this.searchMarkerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.markersPanelParent = new System.Windows.Forms.Panel();
             this.markerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.logMessageEdit = new System.Windows.Forms.RichTextBox();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.sqlFilterPanel = new System.Windows.Forms.Panel();
+            this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
@@ -133,20 +137,16 @@
             this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.searchMarkersPanelParent = new System.Windows.Forms.Panel();
-            this.searchMarkerPanel = new Scarfsail.Common.UI.Controls.MarkerPanel();
-            this.logListView = new AdvancedLogViewer.UI.Controls.LogListView();
-            this.sqlFilterControl = new AdvancedLogViewer.UI.Controls.SqlFilterControl();
             this.logViewContextMenu.SuspendLayout();
             this.messageDetailContextMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
             this.logViewPanel.SuspendLayout();
+            this.searchMarkersPanelParent.SuspendLayout();
             this.markersPanelParent.SuspendLayout();
             this.sqlFilterPanel.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.pluginsContextMenu.SuspendLayout();
             this.statusStrip.SuspendLayout();
-            this.searchMarkersPanelParent.SuspendLayout();
             this.SuspendLayout();
             // 
             // logViewContextMenu
@@ -300,6 +300,51 @@
             this.logViewPanel.Size = new System.Drawing.Size(1022, 558);
             this.logViewPanel.TabIndex = 8;
             // 
+            // logListView
+            // 
+            this.logListView.ContextMenuStrip = this.logViewContextMenu;
+            this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logListView.Enabled = false;
+            this.logListView.FullRowSelect = true;
+            this.logListView.HideSelection = false;
+            this.logListView.Location = new System.Drawing.Point(0, 0);
+            this.logListView.Name = "logListView";
+            this.logListView.OwnerDraw = true;
+            this.logListView.Size = new System.Drawing.Size(1002, 429);
+            this.logListView.TabIndex = 0;
+            this.logListView.UseCompatibleStateImageBehavior = false;
+            this.logListView.View = System.Windows.Forms.View.Details;
+            this.logListView.VirtualMode = true;
+            this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
+            this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
+            this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
+            this.logListView.DoubleClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
+            // 
+            // searchMarkersPanelParent
+            // 
+            this.searchMarkersPanelParent.Controls.Add(this.searchMarkerPanel);
+            this.searchMarkersPanelParent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.searchMarkersPanelParent.Location = new System.Drawing.Point(1002, 0);
+            this.searchMarkersPanelParent.Name = "searchMarkersPanelParent";
+            this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.searchMarkersPanelParent.TabIndex = 8;
+            this.searchMarkersPanelParent.Visible = false;
+            // 
+            // searchMarkerPanel
+            // 
+            this.searchMarkerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.searchMarkerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.searchMarkerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchMarkerPanel.Horizontal = false;
+            this.searchMarkerPanel.Location = new System.Drawing.Point(0, 10);
+            this.searchMarkerPanel.MinimumSize = new System.Drawing.Size(0, 1);
+            this.searchMarkerPanel.Name = "searchMarkerPanel";
+            this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
+            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 409);
+            this.searchMarkerPanel.TabIndex = 6;
+            this.searchMarkerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
+            // 
             // markersPanelParent
             // 
             this.markersPanelParent.Controls.Add(this.markerPanel);
@@ -368,6 +413,15 @@
             this.sqlFilterPanel.Size = new System.Drawing.Size(1022, 82);
             this.sqlFilterPanel.TabIndex = 8;
             this.sqlFilterPanel.Visible = false;
+            // 
+            // sqlFilterControl
+            // 
+            this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
+            this.sqlFilterControl.Name = "sqlFilterControl";
+            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 82);
+            this.sqlFilterControl.TabIndex = 0;
+            this.sqlFilterControl.WhereClause = "";
             // 
             // autoRefreshTimer
             // 
@@ -1065,60 +1119,6 @@
             this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
             this.parserPatternToolStripStatus.Text = " ";
             // 
-            // searchMarkersPanelParent
-            // 
-            this.searchMarkersPanelParent.Controls.Add(this.searchMarkerPanel);
-            this.searchMarkersPanelParent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.searchMarkersPanelParent.Location = new System.Drawing.Point(1002, 0);
-            this.searchMarkersPanelParent.Name = "searchMarkersPanelParent";
-            this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 429);
-            this.searchMarkersPanelParent.TabIndex = 8;
-            this.searchMarkersPanelParent.Visible = false;
-            // 
-            // searchMarkerPanel
-            // 
-            this.searchMarkerPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.searchMarkerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.searchMarkerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.searchMarkerPanel.Horizontal = false;
-            this.searchMarkerPanel.Location = new System.Drawing.Point(0, 10);
-            this.searchMarkerPanel.MinimumSize = new System.Drawing.Size(0, 1);
-            this.searchMarkerPanel.Name = "searchMarkerPanel";
-            this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 409);
-            this.searchMarkerPanel.TabIndex = 6;
-            this.searchMarkerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
-            // 
-            // logListView
-            // 
-            this.logListView.ContextMenuStrip = this.logViewContextMenu;
-            this.logListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logListView.Enabled = false;
-            this.logListView.FullRowSelect = true;
-            this.logListView.HideSelection = false;
-            this.logListView.Location = new System.Drawing.Point(0, 0);
-            this.logListView.Name = "logListView";
-            this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1002, 429);
-            this.logListView.TabIndex = 0;
-            this.logListView.UseCompatibleStateImageBehavior = false;
-            this.logListView.View = System.Windows.Forms.View.Details;
-            this.logListView.VirtualMode = true;
-            this.logListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.logListView_ItemSelectionChanged);
-            this.logListView.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.logListView_RetrieveVirtualItem);
-            this.logListView.VirtualItemsSelectionRangeChanged += new System.Windows.Forms.ListViewVirtualItemsSelectionRangeChangedEventHandler(this.logListView_VirtualItemsSelectionRangeChanged);
-            this.logListView.DoubleClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
-            // 
-            // sqlFilterControl
-            // 
-            this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
-            this.sqlFilterControl.Name = "sqlFilterControl";
-            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 82);
-            this.sqlFilterControl.TabIndex = 0;
-            this.sqlFilterControl.WhereClause = "";
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1142,6 +1142,7 @@
             this.messageDetailContextMenu.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
             this.logViewPanel.ResumeLayout(false);
+            this.searchMarkersPanelParent.ResumeLayout(false);
             this.markersPanelParent.ResumeLayout(false);
             this.sqlFilterPanel.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
@@ -1149,7 +1150,6 @@
             this.pluginsContextMenu.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.searchMarkersPanelParent.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

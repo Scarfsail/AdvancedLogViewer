@@ -1974,14 +1974,21 @@ namespace AdvancedLogViewer.UI
                                                        (LogEntry entry) => logListView.GoToLogItem(entry),
                                                        this.logMessageEdit,
                                                        () => this.logListView.Invalidate(),
-                                                       (bool visible) => { this.searchMarkersPanelParent.Visible = visible; this.logListView.SetColumnSizes();},
-                                                       this.searchMarkerPanel.ShowMarkers
+                                                       (bool visible) => { this.searchMarkersPanelParent.Visible = visible; this.logListView.SetColumnSizes(); },
+                                                       this.searchMarkerPanel.ShowMarkers,
+                                                       (int dlgWidth) => GetLocationForSearchWindow(dlgWidth)
                                                    );
 
                     this.findDlg = new FindTextDlg(this, context);
                 }
                 return this.findDlg;
             }
+        }
+
+        private Point GetLocationForSearchWindow(int dialogWidth)
+        {
+            Point logListViewLocation = this.logListView.PointToScreen(this.logListView.Location);
+            return new Point(logListViewLocation.X + logListView.ClientSize.Width - dialogWidth, logListViewLocation.Y);
         }
 
         private LogBrowserDlg LogBrowser
