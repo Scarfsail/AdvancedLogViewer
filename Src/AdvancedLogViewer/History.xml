@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="7.5.1" date="2013-03-30">
-    <BigFeature>New search dialog which highlights all rows with searched text and shows appropriate marks on the right side to see where is the searched text.</BigFeature>
-    <Feature>Search dialog is by default docket in right upper corner with ability to undock behave as a standard window.</Feature>
+  <Version version="7.5.1" date="2013-03-31">
+    <BigFeature>New search dialog which highlights all rows with found text and shows appropriate marks on the right side to see where are the rows with found text.</BigFeature>
+    <Feature>Search dialog is by default docked in right upper corner with ability to undock and behave as a standard window.</Feature>
     <Fix>Improved performance of drawing log lines on main screen, less CPU usage during excessive scrolling.</Fix>
     <Fix>Due to completely new Find Dialog implementation, fixed bugs reported on the old search dialog (hopefully not introduced so much new bugs;-) ).</Fix>
   </Version>
