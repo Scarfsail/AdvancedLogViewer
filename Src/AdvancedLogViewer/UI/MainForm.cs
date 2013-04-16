@@ -558,6 +558,9 @@ namespace AdvancedLogViewer.UI
 
                     //Comm manager
                     this.CommManager.CurrentLogFileName = this.fileName;
+
+                    //Selection
+                    this.prevSelectedListItem = null;
                 }
 
                 log.Debug("Loading log entries async");
@@ -692,7 +695,7 @@ namespace AdvancedLogViewer.UI
                 if (itemToCheck == null)
                     itemToCheck = CreateLogAdjustMenuItem(logLevel);
                 */
-                MessageBox.Show(String.Format("LogLevel: {0} doesn't exist."), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(String.Format("LogLevel: '{0}' doesn't exist.", logLevel), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

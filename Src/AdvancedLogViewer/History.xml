@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="7.5.2" date="2013-04-16">
+    <Fix>Message detail wasn't refreshed when different log was opened and first row was selected.</Fix>
+    <Fix>Logadjuster: When active log level doesn't exist exception (Index must be greater than...) was shown.</Fix>
+  </Version>
   <Version version="7.5.1" date="2013-03-31">
     <BigFeature>New search dialog which highlights all rows with found text and shows appropriate marks on the right side to see where are the rows with found text.</BigFeature>
     <Feature>Search dialog is by default docked in right upper corner with ability to undock and behave as a standard window.</Feature>
