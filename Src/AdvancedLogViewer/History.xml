@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="7.5.2" date="2013-04-16">
+  <Version version="7.5.2" date="2013-05-04">
     <Fix>Message detail wasn't refreshed when different log was opened and first row was selected.</Fix>
-    <Fix>Logadjuster: When active log level doesn't exist exception (Index must be greater than...) was shown.</Fix>
+    <Fix>LogAdjuster: When active log level doesn't exist, exception (Index must be greater than...) was shown.</Fix>
+    <Fix>Parser: Fixed issue with parsing line which begins by something else than actual field. (e.g. Something{Date} ...)</Fix>
   </Version>
   <Version version="7.5.1" date="2013-03-31">
     <BigFeature>New search dialog which highlights all rows with found text and shows appropriate marks on the right side to see where are the rows with found text.</BigFeature>

@@ -166,7 +166,23 @@ namespace AdvancedLogViewer.Common.Parser
 
                                 foreach (PatternItem patternItem in this.logPattern.PatternItems)
                                 {
-                                    pos = patternItem.EndsWith == null ? line.Length : patternItem.EndsWith.Length == 1 ? line.IndexOf(patternItem.EndsWith[0], prevPos) : line.IndexOf(patternItem.EndsWith, prevPos, StringComparison.Ordinal);
+                                    pos = patternItem.EndsWith == null ? 
+                                        line.Length : 
+                                        patternItem.EndsWith.Length == 1 ? 
+                                            line.IndexOf(patternItem.EndsWith[0], prevPos) : 
+                                            line.IndexOf(patternItem.EndsWith, prevPos, StringComparison.Ordinal);
+                                    
+                                    if (patternItem.StartsWith != null)
+                                    {
+                                        prevPos = line.IndexOf(patternItem.StartsWith, prevPos);
+                                        if (prevPos > pos || prevPos == -1)
+                                        {
+                                            patternFits = false;
+                                            break;
+                                        }
+                                        prevPos += patternItem.StartsWith.Length;
+
+                                    }
 
                                     if (pos == -1)
                                     {
@@ -178,7 +194,7 @@ namespace AdvancedLogViewer.Common.Parser
 
                                     if (patternItem.DoLTrim)
                                         value = value.TrimStart(new char[] { ' ' });
-
+                                    
                                     if (!tmpLogEntry.SaveValue(patternItem.ItemType, value))
                                     {
                                         patternFits = false;

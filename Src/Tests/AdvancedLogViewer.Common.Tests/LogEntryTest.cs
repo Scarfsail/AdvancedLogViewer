@@ -35,6 +35,18 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.AreEqual(DateTime.MinValue, target.Date);
         }
 
+        [Test]
+        public void ParseDate_ParseDateTimeWithTimeZoneSpecification_DateShouldParsedCorrectly()
+        {
+            LogEntry target = new LogEntry(); // TODO: Initialize to an appropriate value
+            string value = "2013-03-24 01:25:52.261846+04:00";
+            Assert.IsTrue(target.SaveValue(PatternItemType.Date, value));
+            Assert.AreEqual(value, target.DateText);
+
+            Assert.IsTrue(target.ParseDate("yyyy-MM-dd HH:mm:ss.ffffffzzz"));
+            //Assert.AreEqual(DateTime.MinValue, target.Date);
+        }
+
 
         /// <summary>
         ///A test for SaveValue

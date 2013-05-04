@@ -152,10 +152,14 @@ namespace AdvancedLogViewer.Common.Parser
                             spaces = true;
                         }
 
-                        if (patternEntry != null)
-                            patternEntry.EndsWith = text;
-
+                        PatternItem previousPatternEntry = patternEntry;
                         patternEntry = new PatternItem();
+
+                        if (previousPatternEntry != null)
+                            previousPatternEntry.EndsWith = text;
+                        else
+                            patternEntry.StartsWith = text;
+                        
                         patternEntry.DoLTrim = spaces;
                         spaces = false;
 

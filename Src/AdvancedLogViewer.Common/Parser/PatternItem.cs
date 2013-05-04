@@ -9,6 +9,7 @@ namespace AdvancedLogViewer.Common.Parser
     {
         public PatternItemType ItemType;
         public string EndsWith;
+        public string StartsWith;
         public bool DoLTrim;
 
         public override string ToString()
