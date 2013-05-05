@@ -102,7 +102,7 @@ namespace AdvancedLogViewer.Common.Parser
         {
             return LogEntry.GetAvailableColumns(ContainsThread, ContainsType, ContainsClass);
         }
-        
+
 
         public string FileMask
         {
@@ -159,7 +159,7 @@ namespace AdvancedLogViewer.Common.Parser
                             previousPatternEntry.EndsWith = text;
                         else
                             patternEntry.StartsWith = text;
-                        
+
                         patternEntry.DoLTrim = spaces;
                         spaces = false;
 
@@ -201,7 +201,7 @@ namespace AdvancedLogViewer.Common.Parser
                     throw new Exception("Pattern text has to contains Message pattern");
 
                 BuildFormatStringForLogEntry(value, out this.messageHeaderFormatString, out this.wholeEntryFormatString);
-                
+
 
                 //Save value
                 this.patternText = value;
@@ -250,12 +250,33 @@ namespace AdvancedLogViewer.Common.Parser
             }
             set
             {
-                if (value == String.Empty)
+                if (String.IsNullOrWhiteSpace(value))
+                {
                     this.dateTimeFormat = null;
+                    this.PrimaryDateTimeFormat = null;
+                    this.AdditionalDateTimeFormats = null;
+                }
                 else
+                {
                     this.dateTimeFormat = value;
+                    if (value.Contains("};{"))
+                    {
+                        string[] formats = value.TrimStart('{').TrimEnd('}').Split(new string[] { "};{" }, StringSplitOptions.RemoveEmptyEntries);
+                        this.PrimaryDateTimeFormat = formats[0];
+                        this.AdditionalDateTimeFormats = formats.Skip(1).ToArray(); 
+
+                    }
+                    else
+                    {
+                        this.PrimaryDateTimeFormat = value;
+                        this.AdditionalDateTimeFormats = null;
+                    }
+                }
             }
         }
+
+        public string PrimaryDateTimeFormat { get; private set; }
+        public string[] AdditionalDateTimeFormats { get; private set; }
 
         public static Dictionary<string, string> PatternTextWithDescription
         {
@@ -265,7 +286,7 @@ namespace AdvancedLogViewer.Common.Parser
             }
         }
 
-        internal string GetLineForFile()
+        internal string GetLineForConfigFile()
         {
             return (this.FileMask + "|" + this.PatternText) + (!String.IsNullOrEmpty(this.DateTimeFormat) ? ("|" + this.DateTimeFormat) : "");
 

@@ -47,7 +47,7 @@ namespace AdvancedLogViewer.Common.Parser
             StringBuilder fileContent = new StringBuilder();
             foreach (LogPattern pattern in this.CustomPatterns)
             {
-                fileContent.AppendLine(pattern.GetLineForFile());
+                fileContent.AppendLine(pattern.GetLineForConfigFile());
             }
 
             File.WriteAllText(customPatternFileName, fileContent.ToString());

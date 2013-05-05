@@ -391,7 +391,7 @@ namespace AdvancedLogViewer.Common.Parser
             log.Debug("ParserDateTimes");
             foreach (LogEntry entry in logEntries)
             {
-                if (!entry.ParseDate(this.LogPattern.DateTimeFormat))
+                if (!entry.ParseDate(this.LogPattern.PrimaryDateTimeFormat, this.logPattern.AdditionalDateTimeFormats))
                     errorCount++;
                 else
                     errorCount = 0;

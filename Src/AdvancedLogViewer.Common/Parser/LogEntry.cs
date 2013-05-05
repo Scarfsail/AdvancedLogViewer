@@ -123,19 +123,28 @@ namespace AdvancedLogViewer.Common.Parser
             return result;
         }
 
-        internal bool ParseDate(string format)
+        internal bool ParseDate(string primaryFormat, string[] additionalFormats)
         {
-
-            try
+            DateTime date;
+            if (DateTime.TryParseExact(this.DateText, primaryFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
             {
-                this.Date = DateTime.ParseExact(this.DateText, format, CultureInfo.InvariantCulture);
+                this.Date = date;
                 return true;
             }
-            catch
+            if (additionalFormats != null)
             {
-                this.Date = DateTime.MinValue;
-                return false;
+                foreach (string additionalFormat in additionalFormats)
+                {
+                    if (DateTime.TryParseExact(this.DateText, additionalFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                    {
+                        this.Date = date;
+                        return true;
+                    }
+                }
             }
+
+            this.Date = DateTime.MinValue;
+            return false;            
         }
 
 

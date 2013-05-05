@@ -28,10 +28,10 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.AreEqual(value + " " + value2, target.DateText);
 
             string dateFormat = "dd.MM.yyyy HH:mm:ss,fff";
-            Assert.IsTrue(target.ParseDate(dateFormat));
+            Assert.IsTrue(target.ParseDate(dateFormat, null));
             Assert.AreEqual(DateTime.ParseExact(value + " " + value2, dateFormat, CultureInfo.InvariantCulture), target.Date);
 
-            Assert.IsFalse(target.ParseDate("dd.MM"));
+            Assert.IsFalse(target.ParseDate("dd.MM", null));
             Assert.AreEqual(DateTime.MinValue, target.Date);
         }
 
@@ -43,7 +43,7 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.IsTrue(target.SaveValue(PatternItemType.Date, value));
             Assert.AreEqual(value, target.DateText);
 
-            Assert.IsTrue(target.ParseDate("yyyy-MM-dd HH:mm:ss.ffffffzzz"));
+            Assert.IsTrue(target.ParseDate("yyyy-MM-dd HH:mm:ss.ffffffzzz", null));
             //Assert.AreEqual(DateTime.MinValue, target.Date);
         }
 
@@ -71,7 +71,7 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.AreEqual(value + " " + value2, target.DateText);
             
             string dateFormat = "dd.MM.yyyy HH:mm:ss,fff";
-            Assert.IsTrue(target.ParseDate(dateFormat));
+            Assert.IsTrue(target.ParseDate(dateFormat, null));
             Assert.AreEqual(DateTime.ParseExact(value + " " + value2, dateFormat, CultureInfo.InvariantCulture), target.Date);
 
 

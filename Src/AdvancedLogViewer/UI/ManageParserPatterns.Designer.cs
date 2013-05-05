@@ -62,6 +62,7 @@
             this.patternTextPatternsListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label5 = new System.Windows.Forms.Label();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -272,7 +273,7 @@
             // dateFormatEdit
             // 
             this.dateFormatEdit.HideSelection = false;
-            this.dateFormatEdit.Location = new System.Drawing.Point(12, 267);
+            this.dateFormatEdit.Location = new System.Drawing.Point(12, 275);
             this.dateFormatEdit.Name = "dateFormatEdit";
             this.dateFormatEdit.Size = new System.Drawing.Size(425, 20);
             this.dateFormatEdit.TabIndex = 11;
@@ -281,7 +282,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 251);
+            this.label3.Location = new System.Drawing.Point(9, 259);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 10;
@@ -311,6 +312,7 @@
             // 
             // editSelectedPatternGroupBox
             // 
+            this.editSelectedPatternGroupBox.Controls.Add(this.label5);
             this.editSelectedPatternGroupBox.Controls.Add(this.tryOnCurrentLogButton);
             this.editSelectedPatternGroupBox.Controls.Add(this.dateFormatPatternsListView);
             this.editSelectedPatternGroupBox.Controls.Add(this.patternTextPatternsListView);
@@ -347,10 +349,10 @@
             this.columnHeader4});
             this.dateFormatPatternsListView.FullRowSelect = true;
             this.dateFormatPatternsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.dateFormatPatternsListView.Location = new System.Drawing.Point(12, 287);
+            this.dateFormatPatternsListView.Location = new System.Drawing.Point(12, 295);
             this.dateFormatPatternsListView.MultiSelect = false;
             this.dateFormatPatternsListView.Name = "dateFormatPatternsListView";
-            this.dateFormatPatternsListView.Size = new System.Drawing.Size(425, 174);
+            this.dateFormatPatternsListView.Size = new System.Drawing.Size(425, 166);
             this.dateFormatPatternsListView.TabIndex = 14;
             this.dateFormatPatternsListView.UseCompatibleStateImageBehavior = false;
             this.dateFormatPatternsListView.View = System.Windows.Forms.View.Details;
@@ -391,6 +393,16 @@
             // 
             this.columnHeader2.Text = "Description";
             this.columnHeader2.Width = 300;
+            // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label5.Location = new System.Drawing.Point(102, 247);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(347, 27);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "When log contains multiple date time formats, you can specify them by putting eac" +
+    "h to {} and separating by ;. Example: {format1};{format2}.";
             // 
             // ManageParserPatterns
             // 
@@ -458,5 +470,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button tryOnCurrentLogButton;
         private System.Windows.Forms.Button viewCurrentLogAsTextButton;
+        private System.Windows.Forms.Label label5;
     }
 }
