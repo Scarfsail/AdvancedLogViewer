@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SoftwareUpdate>
   <Settings UpdateType="MSI" DefinitionStructureVersion="1" />
-  <LatestVersion Version="7.5.3" Date="2013-05-05" URL="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}.msi" UrlWithPortableUpdate="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}_Update.exe" UrlWithZip="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}.zip" URLWithHistoryXml="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/History.xml" />
+  <LatestVersion Version="7.5.4" Date="2013-05-24" URL="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}.msi" UrlWithPortableUpdate="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}_Update.exe" UrlWithZip="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/Downloads/AdvancedLogViewer_{$Version}.zip" URLWithHistoryXml="http://salplachta.net/SoftwareUpdates/AdvancedLogViewer/History.xml" />
 </SoftwareUpdate>

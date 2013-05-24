@@ -44,7 +44,8 @@ namespace AdvancedLogViewer.UI
             this.autoRefreshPeriodEdit.Value = this.settings.MainFormUI.AutoRefreshPeriod;
             this.addOnlyBaseNameInRecentListCheckBox.Checked = this.settings.MainFormUI.AddOnlyBaseNameInRecentList;
             this.rememberFiltersEnabledCheckBox.Checked = this.settings.MainFormUI.RememberFiltersEnabled;
-            this.TrimClassColumnFromLeftCheckBox.Checked = this.settings.MainFormUI.TrimClassColumnFromLeft;
+            this.trimClassColumnFromLeftCheckBox.Checked = this.settings.MainFormUI.TrimClassColumnFromLeft;
+            this.showLogIconsCheckBox.Checked = this.settings.MainFormUI.ShowLogIcons;
 
             this.extDiffPathEdit.Text = settings.TextDiff.DiffPath;
             this.extDiffParametersEdit.Text = settings.TextDiff.DiffParameters;
@@ -96,7 +97,8 @@ namespace AdvancedLogViewer.UI
             this.settings.MainFormUI.AutoRefreshPeriod = Convert.ToInt32(this.autoRefreshPeriodEdit.Value);
             this.settings.MainFormUI.AddOnlyBaseNameInRecentList = this.addOnlyBaseNameInRecentListCheckBox.Checked;
             this.settings.MainFormUI.RememberFiltersEnabled = this.rememberFiltersEnabledCheckBox.Checked;
-            this.settings.MainFormUI.TrimClassColumnFromLeft = this.TrimClassColumnFromLeftCheckBox.Checked;
+            this.settings.MainFormUI.TrimClassColumnFromLeft = this.trimClassColumnFromLeftCheckBox.Checked;
+            this.settings.MainFormUI.ShowLogIcons = this.showLogIconsCheckBox.Checked;
 
             this.settings.TextDiff.DiffPath = this.extDiffPathEdit.Text;
             this.settings.TextDiff.DiffParameters = this.extDiffParametersEdit.Text;

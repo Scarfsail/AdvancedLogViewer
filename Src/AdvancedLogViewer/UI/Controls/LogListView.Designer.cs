@@ -49,7 +49,7 @@ namespace AdvancedLogViewer.UI.Controls
             this.HideSelection = false;
             this.OwnerDraw = true;
             this.VirtualMode = true;
-            this.SmallImageList = this.logImageList;
+            
 
             // 
             // dateColumn

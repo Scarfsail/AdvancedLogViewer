@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="7.5.4" date="2013-05-24">
+    <Feature>New option in settings: "Show type's icon on each row (The icon on left side of each row)". By default the option is enabled, user can disable it and thus hide icons on the log view.</Feature>
+  </Version>
   <Version version="7.5.3" date="2013-05-05">
     <Feature>Parser Patterns: Added possibility to specify mutliple date time formats in case log contains date time in different formats.</Feature>
     <Fix>Significantly improved performance of date time parsing which leads to improved performance of log loading.</Fix>

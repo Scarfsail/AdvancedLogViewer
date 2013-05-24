@@ -1249,6 +1249,8 @@ namespace AdvancedLogViewer.UI
                     if (this.settings.MainFormUI.ShowMarkers)
                         this.ShowMarkers();
                     this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
+                    this.logListView.SetLogIconsVisibility();
+
                     return true;
                 }
                 else

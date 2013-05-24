@@ -23,6 +23,7 @@ namespace AdvancedLogViewer.BL.Settings
         public bool RememberFiltersEnabled { get; set; }
         public bool TrimClassColumnFromLeft { get; set; }
         public string SqlFilterText { get; set; }
+        public bool ShowLogIcons { get; set; }
 
         protected override void LoadData(XElement xmlElement)
         {
@@ -40,6 +41,7 @@ namespace AdvancedLogViewer.BL.Settings
             this.RememberFiltersEnabled = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "RememberFiltersEnabled", false);
             this.TrimClassColumnFromLeft = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "TrimClassColumnFromLeft", true);
             this.SqlFilterText = GetAttrValue(s => s, xmlElement, "SqlFilterText", String.Empty);
+            this.ShowLogIcons = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "ShowLogIcons", true);
         }
 
         protected override void SaveData(XElement xmlElement)
@@ -59,6 +61,7 @@ namespace AdvancedLogViewer.BL.Settings
             AddAttrValue(xmlElement, "RememberFiltersEnabled", RememberFiltersEnabled.ToString());
             AddAttrValue(xmlElement, "TrimClassColumnFromLeft", TrimClassColumnFromLeft.ToString());
             AddAttrValue(xmlElement, "SqlFilterText", SqlFilterText);
+            AddAttrValue(xmlElement, "ShowLogIcons", ShowLogIcons.ToString());
         }
 
         

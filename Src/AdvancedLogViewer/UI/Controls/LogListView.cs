@@ -76,6 +76,7 @@ namespace AdvancedLogViewer.UI.Controls
         public void Init(ILogListViewOwner owner)
         {
             this.owner = owner;
+            SetLogIconsVisibility();
         }
 
 
@@ -141,6 +142,12 @@ namespace AdvancedLogViewer.UI.Controls
 
             resizingColumns = false;
             this.ResumeLayout(false);
+        }
+
+
+        public void SetLogIconsVisibility()
+        {
+            this.SmallImageList = owner.Settings.MainFormUI.ShowLogIcons ? this.logImageList : null;
         }
 
         public void ToggleOrGotoBookmark(int bookmarkNumber)
