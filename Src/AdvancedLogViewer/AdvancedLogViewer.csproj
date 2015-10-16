@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdvancedLogViewer</RootNamespace>
     <AssemblyName>AdvancedLogViewer</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Resources\MainFile32.ico</ApplicationIcon>
     <SccProjectName>
@@ -36,6 +36,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,19 +46,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\Common\3rdParty\log4net\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="QueryAnythingMerged">
       <HintPath>..\..\..\Common\3rdParty\SqlLinq\Bin\QueryAnythingMerged.dll</HintPath>
     </Reference>
-    <Reference Include="Scarfsail.Logging">
-      <HintPath>..\..\..\Common\Scarfsail\Logging\obj\Release\Scarfsail.Logging.dll</HintPath>
+    <Reference Include="Scarfsail.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Common\Scarfsail\Logging\Compiled\NET4.6\Scarfsail.Logging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -115,6 +115,11 @@
     <Compile Include="BL\Settings\RecentFiles.cs" />
     <Compile Include="BL\Settings\TextDiff.cs" />
     <Compile Include="BL\TotalCmdIntegration.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service References\SalplachtaNetServices\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -250,6 +255,10 @@
     <Compile Include="UI\ViewLogAsText.Designer.cs">
       <DependentUpon>ViewLogAsText.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,22 +314,12 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\MergeLogParts.resx">
       <DependentUpon>MergeLogParts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="UI\ViewLogAsText.resx">
       <DependentUpon>ViewLogAsText.cs</DependentUpon>
     </EmbeddedResource>
@@ -352,6 +351,9 @@
     <None Include="Service References\SalplachtaNetServices\myservices.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\syntax highlight - manage - Copy.bmp" />
+    <None Include="Resources\SettingsSmallIcon.png" />
+    <None Include="Resources\Settings.bmp" />
     <None Include="Resources\SqlFilter.png" />
     <None Include="Resources\Save.png" />
     <None Include="Resources\ShowHideBottomPane.png" />
@@ -416,7 +418,10 @@
     <None Include="Resources\Highlight.png" />
     <None Include="Resources\HighlightSettings.png" />
     <None Include="Resources\Erase.png" />
+    <None Include="Resources\AutoRefreshOld.bmp" />
+    <None Include="Resources\filter-Manage - Copy.bmp" />
     <Content Include="Resources\LogsAround.bmp" />
+    <None Include="Resources\MainFile128.png" />
     <Content Include="Resources\MainFile32.ico" />
     <None Include="Resources\syntax highlight.bmp" />
   </ItemGroup>

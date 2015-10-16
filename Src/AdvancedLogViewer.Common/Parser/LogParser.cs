@@ -93,7 +93,7 @@ namespace AdvancedLogViewer.Common.Parser
                     this.LogFileExists = true;
                     using (FileStream fs = File.Open(this.LogFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
-                        using (TextReader sr = new StreamReader(fs))
+                        using (TextReader sr = new StreamReader(fs, Encoding.Default))
                         {
                             LogEntry tmpLogEntry = new LogEntry();
                             LogEntry currentLogEntry = null;

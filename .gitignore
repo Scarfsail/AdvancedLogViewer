@@ -1,5 +1,5 @@
+*.suo
 /Bin/
-/Src/*.suo
 /Src/AdvancedLogBrowser/obj/
 /Src/AdvancedLogViewer/obj/
 /Src/AdvancedLogViewer.Common/obj/

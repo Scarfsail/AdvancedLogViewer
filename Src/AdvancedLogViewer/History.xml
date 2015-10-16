@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="7.6.0" date="2015-10-16">
+    <Feature>Updated to .NET 4.6 and improved performance of log loading mainly on x64 OS.</Feature>
+    <Fix>Fixed code page detection to show characters in UTF8 correctly.</Fix>
+  </Version>
   <Version version="7.5.4" date="2013-05-24">
     <Feature>New option in settings: "Show type's icon on each row (The icon on left side of each row)". By default the option is enabled, user can disable it and thus hide icons on the log view.</Feature>
   </Version>
