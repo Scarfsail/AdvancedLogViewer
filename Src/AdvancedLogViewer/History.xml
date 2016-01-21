@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="7.6.0" date="2016-1-11">
+  <Version version="7.6.0" date="2016-01-11">
     <Feature>Updated to .NET 4.6.1 and improved performance of log loading mainly on x64 OS.</Feature>
     <Fix>Fixed log's code page detection to show characters in UTF8 correctly.</Fix>
     <Fix>Fixed few UI glitches.</Fix>
