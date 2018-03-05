@@ -1,3 +1,4 @@
+sql/
 *.suo
 /Bin/
 /Src/AdvancedLogBrowser/obj/
