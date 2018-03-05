@@ -53,7 +53,7 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="QueryAnythingMerged">
-      <HintPath>..\..\..\Common\3rdParty\SqlLinq\Bin\QueryAnythingMerged.dll</HintPath>
+      <HintPath>..\3rdParty\SqlLinq\Bin\QueryAnythingMerged.dll</HintPath>
     </Reference>
     <Reference Include="Scarfsail.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,7 +78,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="XDMessaging">
-      <HintPath>..\..\..\Common\3rdParty\XDMessaging-2.0.3.0\bin\XDMessaging.dll</HintPath>
+      <HintPath>..\3rdParty\XDMessaging-2.0.3.0\bin\XDMessaging.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +86,6 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BL\FindText\FindTextContext.cs" />
-    <Compile Include="BL\MyCredentials.cs" />
     <Compile Include="BL\LogAdjuster\LogAdjuster.cs" />
     <Compile Include="BL\LogAdjuster\LogAdjusters.cs" />
     <Compile Include="BL\LogBrowser\LogBrowserSettings.cs" />
@@ -119,11 +118,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\SalplachtaNetServices\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="UI\AboutDialog.cs">
       <SubType>Form</SubType>
@@ -348,7 +342,6 @@
     <Compile Include="UI\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <None Include="Service References\SalplachtaNetServices\myservices.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\syntax highlight - manage - Copy.bmp" />
@@ -365,13 +358,6 @@
     <None Include="Resources\TextDiff.png" />
     <None Include="Resources\StayOnTop.png" />
     <None Include="Resources\Notepad.bmp" />
-    <None Include="Service References\SalplachtaNetServices\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\SalplachtaNetServices\configuration.svcinfo" />
-    <None Include="Service References\SalplachtaNetServices\configuration91.svcinfo" />
-    <None Include="Service References\SalplachtaNetServices\myservices.disco" />
     <None Include="Resources\Play.bmp" />
     <None Include="Resources\Pause.bmp" />
     <None Include="Resources\refresh16_transparent.png" />
@@ -426,11 +412,11 @@
     <None Include="Resources\syntax highlight.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Scarfsail\Common\Scarfsail.Common.csproj">
+    <ProjectReference Include="..\3rdParty\Scarfsail\Common\Scarfsail.Common.csproj">
       <Project>{F47904FE-1338-44F0-B8A8-5F0EBB55EECE}</Project>
       <Name>Scarfsail.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\Scarfsail\SoftwareUpdates\Scarfsail.SoftwareUpdates.csproj">
+    <ProjectReference Include="..\3rdParty\Scarfsail\SoftwareUpdates\Scarfsail.SoftwareUpdates.csproj">
       <Project>{2D833994-C908-472A-B215-200BD1239C5E}</Project>
       <Name>Scarfsail.SoftwareUpdates</Name>
     </ProjectReference>
@@ -441,9 +427,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\SalplachtaNetServices\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

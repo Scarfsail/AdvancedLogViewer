@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{BB420C94-7862-4028-B105-4EFE3FD78877}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test Service", "Test Service\Test Service.csproj", "{620A459E-E994-4CA6-8891-58EAF6EA9683}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB420C94-7862-4028-B105-4EFE3FD78877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB420C94-7862-4028-B105-4EFE3FD78877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB420C94-7862-4028-B105-4EFE3FD78877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB420C94-7862-4028-B105-4EFE3FD78877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{620A459E-E994-4CA6-8891-58EAF6EA9683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{620A459E-E994-4CA6-8891-58EAF6EA9683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{620A459E-E994-4CA6-8891-58EAF6EA9683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{620A459E-E994-4CA6-8891-58EAF6EA9683}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

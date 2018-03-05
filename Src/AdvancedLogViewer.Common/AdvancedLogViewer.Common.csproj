@@ -48,10 +48,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Scarfsail.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Common\Scarfsail\Logging\Compiled\NET4.6\Scarfsail.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -85,9 +81,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Scarfsail\Common\Scarfsail.Common.csproj">
+    <ProjectReference Include="..\3rdParty\Scarfsail\Common\Scarfsail.Common.csproj">
       <Project>{F47904FE-1338-44F0-B8A8-5F0EBB55EECE}</Project>
       <Name>Scarfsail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\3rdParty\Scarfsail\Logging\Scarfsail.Logging.csproj">
+      <Project>{d6a25e78-f75d-4368-8244-bb33aaaa4ab2}</Project>
+      <Name>Scarfsail.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

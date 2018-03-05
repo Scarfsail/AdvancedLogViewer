@@ -1,0 +1,2 @@
+The code was downloaded from: 
+http://www.codeproject.com/Articles/43678/Dynamically-evaluated-SQL-LINQ-queries?msg=4460721#xx4460721xx

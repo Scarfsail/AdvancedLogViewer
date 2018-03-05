@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F47904FE-1338-44F0-B8A8-5F0EBB55EECE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Scarfsail.Common</RootNamespace>
+    <AssemblyName>Scarfsail.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Scarfsail.Logging">
+      <HintPath>..\Logging\Compiled\NET4.6\Scarfsail.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BL\ApplicationHistoryXml2Html.cs" />
+    <Compile Include="BL\FileAssociation.cs" />
+    <Compile Include="BL\IniFile.cs" />
+    <Compile Include="BL\KeyValueCache.cs" />
+    <Compile Include="BL\PluginEngine.cs" />
+    <Compile Include="BL\XmlSerializable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\ApplicationHistoryDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ApplicationHistoryDlg.Designer.cs">
+      <DependentUpon>ApplicationHistoryDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ColorPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\NativeTabControl.cs" />
+    <Compile Include="UI\Controls\TimeLinePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\TimeLinePanel.Designer.cs">
+      <DependentUpon>TimeLinePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\DateTimeEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\DateTimeEdit.Designer.cs">
+      <DependentUpon>DateTimeEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\EditableListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\EditableListView.Designer.cs">
+      <DependentUpon>EditableListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\MarkerPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\MarkerPanel.Designer.cs">
+      <DependentUpon>MarkerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CustomMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CustomMessageBox.Designer.cs">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ListOfShortcutsDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ListOfShortcutsDlg.Designer.cs">
+      <DependentUpon>ListOfShortcutsDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DrawBackgroundImage.cs" />
+    <Compile Include="UI\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Shortcuts\ShortcutItem.cs" />
+    <Compile Include="UI\Shortcuts\ShortcutManager.cs" />
+    <Compile Include="UI\SyntaxHighlighter\AutoCompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SyntaxHighlighter\Fontdictionary.cs" />
+    <Compile Include="UI\SyntaxHighlighter\HighlightDescriptor.cs" />
+    <Compile Include="UI\SyntaxHighlighter\HighlightDescriptorCollection.cs" />
+    <Compile Include="UI\SyntaxHighlighter\SeperaratorCollection.cs" />
+    <Compile Include="UI\SyntaxHighlighter\SyntaxHighlightingTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\SyntaxHighlighter\Win32.cs" />
+    <Compile Include="Utils\ExternalTextDiff.cs" />
+    <Compile Include="Utils\StringIgnoreCaseEqualityComparer.cs" />
+    <Compile Include="Utils\WinFormHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\ApplicationHistoryDlg.resx">
+      <DependentUpon>ApplicationHistoryDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\TimeLinePanel.resx">
+      <DependentUpon>TimeLinePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\DateTimeEdit.resx">
+      <DependentUpon>DateTimeEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\EditableListView.resx">
+      <DependentUpon>EditableListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Controls\MarkerPanel.resx">
+      <DependentUpon>MarkerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CustomMessageBox.resx">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ListOfShortcutsDlg.resx">
+      <DependentUpon>ListOfShortcutsDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SyntaxHighlighter\AutoCompleteForm.resx">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

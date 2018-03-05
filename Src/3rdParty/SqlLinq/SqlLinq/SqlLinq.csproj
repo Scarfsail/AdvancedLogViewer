@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0B66963E-77FA-4B56-9091-C56F50D7FD12}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SqlLinq</RootNamespace>
+    <AssemblyName>SqlLinq</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PlatformTarget>x86</PlatformTarget>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldParser, Version=2.1.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GoldParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Kackman.RuntimeTypeLoader, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Kackman.RuntimeTypeLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="GroupByCall.cs" />
+    <Compile Include="ParserFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQL 89.cs" />
+    <Compile Include="SqlParser.cs" />
+    <Compile Include="SyntaxNodeAttribute.cs" />
+    <Compile Include="SyntaxRuleFactory.cs" />
+    <Compile Include="SyntaxTree\Aggregates\AggregateNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\AverageNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\CountAllNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\MaxNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\MinNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\StandardDeviationNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\StandardDeviationPNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\SumNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\VarianceNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\VariancePNode.cs" />
+    <Compile Include="SyntaxTree\Clauses\FromClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\GroupByClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\HavingClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByItem.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByValueItem.cs" />
+    <Compile Include="SyntaxTree\Clauses\WhereClause.cs" />
+    <Compile Include="SyntaxTree\Columns.cs" />
+    <Compile Include="SyntaxTree\ColumnSource.cs" />
+    <Compile Include="SyntaxTree\FieldReference.cs" />
+    <Compile Include="SyntaxTree\Functions\FunctionNode.cs" />
+    <Compile Include="SyntaxTree\Functions\Value.cs" />
+    <Compile Include="SyntaxTree\Literals\BooleanLiteral.cs" />
+    <Compile Include="SyntaxTree\Literals\DateLiteral.cs" />
+    <Compile Include="SyntaxTree\Literals\IntegerLiteral.cs" />
+    <Compile Include="SyntaxTree\Literals\Literal.cs" />
+    <Compile Include="SyntaxTree\Literals\LiteralNode.cs" />
+    <Compile Include="SyntaxTree\Literals\NullLiteral.cs" />
+    <Compile Include="SyntaxTree\Literals\RealLiteral.cs" />
+    <Compile Include="SyntaxTree\Literals\StringLiteral.cs" />
+    <Compile Include="SyntaxTree\NodeWithId.cs" />
+    <Compile Include="SyntaxTree\NonTerminalNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\ArithmeticNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\DivideNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\MinusNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\MultiplyNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\NegateNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Arithmetic\PlusNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Boolean\AndNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Boolean\NotNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Boolean\OrNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\BetweenNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\EqualityNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\GreaterThanNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\GreaterThanOrEqualNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\InEqualityNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\InNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\IsNotNullNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\IsNullNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\LessThanNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\LessThanOrEqualNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\LikeNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\NotBetweenNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\NotInNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\Comparison\NotLikeNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\PredicateNode.cs" />
+    <Compile Include="SyntaxTree\Predicates\TupleNode.cs" />
+    <Compile Include="ExpressionFactory.cs" />
+    <Compile Include="SyntaxTree\SelectNode.cs" />
+    <Compile Include="SyntaxTree\SyntaxNode.cs" />
+    <Compile Include="SyntaxTree\TerminalNode.cs" />
+    <Compile Include="TypeHelpers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQL-ANSI-89.4.cgt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LinqStatistics\LinqStatistics.csproj">
+      <Project>{FA474C99-3F49-493F-8F18-D0EE98961595}</Project>
+      <Name>LinqStatistics</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

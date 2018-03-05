@@ -1,0 +1,1 @@
+ilmerge /target:library /targetplatform:v4,C:\Windows\Microsoft.NET\Framework64\v4.0.30319 /out:QueryAnythingMerged.dll ..\QueryAnything\Bin\Release\GoldParser.dll ..\QueryAnything\Bin\Release\Kackman.RuntimeTypeLoader.dll ..\QueryAnything\Bin\Release\QueryAnything.dll ..\QueryAnything\Bin\Release\SqlLinq.dll

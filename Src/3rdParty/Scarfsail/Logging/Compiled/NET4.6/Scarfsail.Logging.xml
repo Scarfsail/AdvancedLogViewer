@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Scarfsail.Logging</name>
+    </assembly>
+    <members>
+        <member name="F:Scarfsail.Logging.Ext.EventID.EventIDLogImpl.ThisDeclaringType">
+            <summary>
+            The declaring type of the method that is the stack boundary into the logging system for this call.
+            </summary>
+        </member>
+        <member name="F:Scarfsail.Logging.Ext.EventID.EventIDLogManager.s_wrapperMap">
+            <summary>
+            The wrapper map to use to hold the <see cref="T:Scarfsail.Logging.Ext.EventID.EventIDLogImpl"/> objects
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.#ctor">
+            <summary>
+            Private constructor to prevent object creation
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.Exists(System.String)">
+            <summary>
+            Returns the named logger if it exists
+            </summary>
+            <remarks>
+            <para>If the named logger exists (in the default hierarchy) then it
+            returns a reference to the logger, otherwise it returns
+            <c>null</c>.</para>
+            </remarks>
+            <param name="name">The fully qualified logger name to look for</param>
+            <returns>The logger found, or null</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.Exists(System.String,System.String)">
+            <summary>
+            Returns the named logger if it exists
+            </summary>
+            <remarks>
+            <para>If the named logger exists (in the specified domain) then it
+            returns a reference to the logger, otherwise it returns
+            <c>null</c>.</para>
+            </remarks>
+            <param name="domain">the domain to lookup in</param>
+            <param name="name">The fully qualified logger name to look for</param>
+            <returns>The logger found, or null</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.Exists(System.Reflection.Assembly,System.String)">
+            <summary>
+            Returns the named logger if it exists
+            </summary>
+            <remarks>
+            <para>If the named logger exists (in the specified assembly's domain) then it
+            returns a reference to the logger, otherwise it returns
+            <c>null</c>.</para>
+            </remarks>
+            <param name="assembly">the assembly to use to lookup the domain</param>
+            <param name="name">The fully qualified logger name to look for</param>
+            <returns>The logger found, or null</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetCurrentLoggers">
+            <summary>
+            Returns all the currently defined loggers in the default domain.
+            </summary>
+            <remarks>
+            <para>The root logger is <b>not</b> included in the returned array.</para>
+            </remarks>
+            <returns>All the defined loggers</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetCurrentLoggers(System.String)">
+            <summary>
+            Returns all the currently defined loggers in the specified domain.
+            </summary>
+            <param name="domain">the domain to lookup in</param>
+            <remarks>
+            The root logger is <b>not</b> included in the returned array.
+            </remarks>
+            <returns>All the defined loggers</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetCurrentLoggers(System.Reflection.Assembly)">
+            <summary>
+            Returns all the currently defined loggers in the specified assembly's domain.
+            </summary>
+            <param name="assembly">the assembly to use to lookup the domain</param>
+            <remarks>
+            The root logger is <b>not</b> included in the returned array.
+            </remarks>
+            <returns>All the defined loggers</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.String)">
+            <summary>
+            Retrieve or create a named logger.
+            </summary>
+            <remarks>
+            <para>Retrieve a logger named as the <paramref name="name"/>
+            parameter. If the named logger already exists, then the
+            existing instance will be returned. Otherwise, a new instance is
+            created.</para>
+            
+            <para>By default, loggers do not have a set level but inherit
+            it from the hierarchy. This is one of the central features of
+            log4net.</para>
+            </remarks>
+            <param name="name">The name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.String,System.String)">
+            <summary>
+            Retrieve or create a named logger.
+            </summary>
+            <remarks>
+            <para>Retrieve a logger named as the <paramref name="name"/>
+            parameter. If the named logger already exists, then the
+            existing instance will be returned. Otherwise, a new instance is
+            created.</para>
+            
+            <para>By default, loggers do not have a set level but inherit
+            it from the hierarchy. This is one of the central features of
+            log4net.</para>
+            </remarks>
+            <param name="domain">the domain to lookup in</param>
+            <param name="name">The name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.Reflection.Assembly,System.String)">
+            <summary>
+            Retrieve or create a named logger.
+            </summary>
+            <remarks>
+            <para>Retrieve a logger named as the <paramref name="name"/>
+            parameter. If the named logger already exists, then the
+            existing instance will be returned. Otherwise, a new instance is
+            created.</para>
+            
+            <para>By default, loggers do not have a set level but inherit
+            it from the hierarchy. This is one of the central features of
+            log4net.</para>
+            </remarks>
+            <param name="assembly">the assembly to use to lookup the domain</param>
+            <param name="name">The name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.Type)">
+            <summary>
+            Shorthand for <see cref="M:log4net.LogManager.GetLogger(System.String)"/>.
+            </summary>
+            <remarks>
+            Get the logger for the fully qualified name of the type specified.
+            </remarks>
+            <param name="type">The full name of <paramref name="type"/> will 
+            be used as the name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.String,System.Type)">
+            <summary>
+            Shorthand for <see cref="M:log4net.LogManager.GetLogger(System.String)"/>.
+            </summary>
+            <remarks>
+            Get the logger for the fully qualified name of the type specified.
+            </remarks>
+            <param name="domain">the domain to lookup in</param>
+            <param name="type">The full name of <paramref name="type"/> will 
+            be used as the name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.GetLogger(System.Reflection.Assembly,System.Type)">
+            <summary>
+            Shorthand for <see cref="M:log4net.LogManager.GetLogger(System.String)"/>.
+            </summary>
+            <remarks>
+            Get the logger for the fully qualified name of the type specified.
+            </remarks>
+            <param name="assembly">the assembly to use to lookup the domain</param>
+            <param name="type">The full name of <paramref name="type"/> will 
+            be used as the name of the logger to retrieve.</param>
+            <returns>the logger with the name specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.WrapLogger(log4net.Core.ILogger)">
+            <summary>
+            Lookup the wrapper object for the logger specified
+            </summary>
+            <param name="logger">the logger to get the wrapper for</param>
+            <returns>the wrapper for the logger specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.WrapLoggers(log4net.Core.ILogger[])">
+            <summary>
+            Lookup the wrapper objects for the loggers specified
+            </summary>
+            <param name="loggers">the loggers to get the wrappers for</param>
+            <returns>Lookup the wrapper objects for the loggers specified</returns>
+        </member>
+        <member name="M:Scarfsail.Logging.Ext.EventID.EventIDLogManager.WrapperCreationHandler(log4net.Core.ILogger)">
+            <summary>
+            Method to create the <see cref="T:log4net.Core.ILoggerWrapper"/> objects used by
+            this manager.
+            </summary>
+            <param name="logger">The logger to wrap</param>
+            <returns>The wrapper for the logger specified</returns>
+        </member>
+        <member name="T:Scarfsail.Logging.BlockLogger">
+            <summary>
+            Class intended to log function blocks like methods or some blocks inside methods
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Scarfsail.Logging.BlockLogger.SetResultInformation(System.Action{Scarfsail.Logging.BlockLoggerParams})" -->
+        <member name="M:Scarfsail.Logging.LogBlockLoggerExtensions.EnterBlock(Scarfsail.Logging.Log)">
+            <summary>
+            Creates block logger with block name=caller method name and log severity set to DEBUG
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerExtensions.EnterBlock(Scarfsail.Logging.Log,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with logSeverity=DEBUG, block name=caller method name and log level=DEBUG
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerExtensions.EnterBlock(Scarfsail.Logging.Log,Scarfsail.Logging.LogSeverity,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with block name=caller method name and optional parameters
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerExtensions.EnterBlock(Scarfsail.Logging.Log,System.String,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with log severity=DEBUG defined block name and optional parameters
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerExtensions.EnterBlock(Scarfsail.Logging.Log,Scarfsail.Logging.LogSeverity,System.String,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with defined logSeverity, block name and optional parameters
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerDispExtensions.EnterBlockDisp(Scarfsail.Logging.Log)">
+            <summary>
+            Creates block logger with block name=caller method name and log severity set to DEBUG
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerDispExtensions.EnterBlockDisp(Scarfsail.Logging.Log,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with logSeverity=DEBUG, block name=caller method name and log level=DEBUG
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerDispExtensions.EnterBlockDisp(Scarfsail.Logging.Log,Scarfsail.Logging.LogSeverity,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with block name=caller method name and optional parameters
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerDispExtensions.EnterBlockDisp(Scarfsail.Logging.Log,System.String,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with log severity=DEBUG defined block name and optional parameters
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.LogBlockLoggerDispExtensions.EnterBlockDisp(Scarfsail.Logging.Log,Scarfsail.Logging.LogSeverity,System.String,System.Action{Scarfsail.Logging.BlockLoggerParams})">
+            <summary>
+            Creates block logger with defined logSeverity, block name and optional parameters
+            </summary>
+        </member>
+        <member name="T:Scarfsail.Logging.PerformanceLogger">
+            <summary>
+            used for logging performance.
+            <example>
+            
+            <code>
+            using(new PerformanceLogger("test01"))
+            {
+            // do some time consuming
+            }
+            </code>
+            after ending the 'Using' block, something like 
+            
+            PerformanceLogger: test01 took 10.00sec
+            
+            can be also nested:
+            <code>
+            using(new PerformanceLogger("test01"))
+            {
+                using(new PerformanceLogger("subtest02"))
+                {
+                    // something time consuming
+                }
+                using(new PerformanceLogger("subtest03"))
+                {
+                    // something time consuming
+                }
+            }
+            </code>
+            writes
+            PerformanceLogger: test01 took 10.00sec
+            PerformanceLogger: test01.subtest02 took 4.00sec
+            PerformanceLogger: test01.subtest03 took 6.00sec
+            
+            
+            you can also add some message to performance logging with PerformanceLogger.FormatMessage(), it will look like
+            PerformanceLogger: test01.subtest03 took 6.00sec AND SOME MESSAGE FOLLOWS
+            
+            </example>
+            </summary>
+        </member>
+        <member name="T:Scarfsail.Logging.Log">
+            <summary>
+            2014-07-18: Modifyed to allow configure log4net from multiple configuration files.
+            Aseembly which needs to add own "log4net" configuration together with application 
+            "log4net" configuration file should call Log.Configure([configuration file]). 
+            Assembly loading event is not handling.
+            Be careful with overidding "log4net" settings.
+            Example: host and plugin configuration files
+            As well, allows properly using paterns %method and %line for log4net layout
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.Log.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Scarfsail.Logging.Log"/> class.
+            XP/2003 -&gt; C:\Documents and Settings\All Users\Application Data
+            Vista/Win7/2008 -&gt; C:\ProgramData
+            </summary>
+        </member>
+        <member name="M:Scarfsail.Logging.Log.LogAssemblyVersion(System.Reflection.Assembly)">
+            <summary>
+            Record assembly version which initialize logging, assembly version is recorded only once per AppDomain
+            If assembly loaded as plugin, log header information (log4net.GlobalContext.Properties) 
+            already initialized and contains host assembly information
+            </summary>
+            <param name="assembly"></param>
+        </member>
+        <member name="T:Scarfsail.Logging.ForceMessageLog">
+            <summary>
+            Allow force log message to log file in-depend from the log level
+            </summary>
+        </member>
+    </members>
+</doc>
