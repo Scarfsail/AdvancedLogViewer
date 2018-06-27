@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace AdvancedLogViewer.Common.Parser
 {
@@ -441,9 +442,24 @@ namespace AdvancedLogViewer.Common.Parser
             this.BaseLogFileName = GetBaseLogFileName(this.LogFileName);
 
             this.AllLogPartsFileNames.Clear();
-            if (File.Exists(BaseLogFileName))
-                this.AllLogPartsFileNames.Add(BaseLogFileName);
+            
+            if (!AddOtherLogPartsSuffixStrategy(this.AllLogPartsFileNames))
+            {
+                AllLogPartsFileNames.Clear();
+                if (!AddOtherLogPartsNumbericWildcardStrategy(this.AllLogPartsFileNames))
+                {
+                    if (File.Exists(BaseLogFileName))
+                        AllLogPartsFileNames.Add(BaseLogFileName);
+                }
+            }
+        }
 
+        private bool AddOtherLogPartsSuffixStrategy(List<string> logParts)
+        {
+            if (File.Exists(BaseLogFileName))
+                logParts.Add(BaseLogFileName);
+
+            bool result = false;
             int i = 1;
             int nonExistingExtensions = 0;
             while (true)
@@ -451,7 +467,8 @@ namespace AdvancedLogViewer.Common.Parser
                 string fileName = BaseLogFileName + "." + i.ToString();
                 if (File.Exists(fileName))
                 {
-                    this.AllLogPartsFileNames.Add(fileName);
+                    logParts.Add(fileName);
+                    result = true;
                     nonExistingExtensions = 0;
                 }
                 else
@@ -462,7 +479,40 @@ namespace AdvancedLogViewer.Common.Parser
                 }
                 i++;
             }
+
+            return result;
         }
 
+        private bool AddOtherLogPartsNumbericWildcardStrategy(List<string> logParts)
+        {
+            string logDirectory = Path.GetDirectoryName(LogFileName);
+            string logFilename = Path.GetFileName(LogFileName);
+            var relatedLogsSearchPattern = Regex.Replace(logFilename, @"\d+", "*");
+
+            try
+            {
+                DirectoryInfo logDirectoryInfo = new DirectoryInfo(logDirectory);
+                FileInfo[] logPartsInfos = logDirectoryInfo.GetFiles(relatedLogsSearchPattern, SearchOption.TopDirectoryOnly);
+
+                var orderedLogParts = logPartsInfos
+                    .OrderByDescending(fi => fi.LastWriteTimeUtc)
+                    .ThenBy(fi => fi.Name)
+                    .Select(fi => fi.FullName)
+                    .ToArray();
+
+                if (orderedLogParts.Any())
+                {
+                    logParts.AddRange(orderedLogParts);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception exception)
+            {
+                log.Debug($"Could not query directory {logDirectory} for related log parts.", exception);
+                return false;
+            }
+        }
     }
 }
