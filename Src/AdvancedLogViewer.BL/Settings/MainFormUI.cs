@@ -43,7 +43,7 @@ namespace AdvancedLogViewer.BL.Settings
             this.TrimClassColumnFromLeft = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "TrimClassColumnFromLeft", true);
             this.SqlFilterText = GetAttrValue(s => s, xmlElement, "SqlFilterText", String.Empty);
             this.ShowLogIcons = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "ShowLogIcons", true);
-            this.MessageWordWrap = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "MessageWordWrap", false);
+            this.MessageWordWrap = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "MessageWordWrap", true);
         }
 
         protected override void SaveData(XElement xmlElement)
