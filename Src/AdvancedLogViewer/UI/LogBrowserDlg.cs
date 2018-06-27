@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using AdvancedLogViewer.Common;
 using AdvancedLogViewer.BL.LogBrowser;
+using System.Text.RegularExpressions;
 
 namespace AdvancedLogViewer.UI
 {
@@ -166,7 +167,7 @@ namespace AdvancedLogViewer.UI
                 }
 
                 TreeNode newNode;
-                if (fileNode != null && logFile.Contains(fileNode.Name))
+                if (fileNode != null && AreFilesRelated(fileNode.Name, logFile))
                 { //Numbered log file name
                     newNode = fileNode.Nodes.Add(logFile, Path.GetFileName(logFile));
                 }
@@ -193,6 +194,23 @@ namespace AdvancedLogViewer.UI
 
             this.logsTreeView.EndUpdate();
             this.setButtonsEnabled();
+        }
+
+        private static readonly Regex numericRegex = new Regex(@"\d+", RegexOptions.Compiled);
+
+        private bool AreFilesRelated(string baseFilename, string filename)
+        {
+            if (filename.Contains(baseFilename))        // check suffix match first, e.g. 'test.log' and 'test.log.1'
+            {
+                return true;
+            }
+            else
+            {
+                var baseFilenameWithoutNumbers = numericRegex.Replace(Path.GetFileName(baseFilename), string.Empty);
+                var fileNameWithoutNumbers = numericRegex.Replace(Path.GetFileName(filename), string.Empty);
+
+                return baseFilenameWithoutNumbers.Equals(fileNameWithoutNumbers, StringComparison.InvariantCultureIgnoreCase);
+            }
         }
 
         private TreeNode AddDirectoryToTree(string dir, TreeNode currentDirNode)

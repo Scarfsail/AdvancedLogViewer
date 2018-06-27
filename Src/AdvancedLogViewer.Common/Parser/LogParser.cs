@@ -452,6 +452,8 @@ namespace AdvancedLogViewer.Common.Parser
                         AllLogPartsFileNames.Add(BaseLogFileName);
                 }
             }
+
+            log.Debug("PopulateOtherLogFileNameParts() done.");
         }
 
         private bool AddOtherLogPartsSuffixStrategy(List<string> logParts)
