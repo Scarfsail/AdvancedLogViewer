@@ -46,6 +46,7 @@ namespace AdvancedLogViewer.UI
             this.rememberFiltersEnabledCheckBox.Checked = this.settings.MainFormUI.RememberFiltersEnabled;
             this.trimClassColumnFromLeftCheckBox.Checked = this.settings.MainFormUI.TrimClassColumnFromLeft;
             this.showLogIconsCheckBox.Checked = this.settings.MainFormUI.ShowLogIcons;
+            this.messageWordWrapCheckBox.Checked = this.settings.MainFormUI.MessageWordWrap;
 
             this.extDiffPathEdit.Text = settings.TextDiff.DiffPath;
             this.extDiffParametersEdit.Text = settings.TextDiff.DiffParameters;
@@ -99,6 +100,7 @@ namespace AdvancedLogViewer.UI
             this.settings.MainFormUI.RememberFiltersEnabled = this.rememberFiltersEnabledCheckBox.Checked;
             this.settings.MainFormUI.TrimClassColumnFromLeft = this.trimClassColumnFromLeftCheckBox.Checked;
             this.settings.MainFormUI.ShowLogIcons = this.showLogIconsCheckBox.Checked;
+            this.settings.MainFormUI.MessageWordWrap = this.messageWordWrapCheckBox.Checked;
 
             this.settings.TextDiff.DiffPath = this.extDiffPathEdit.Text;
             this.settings.TextDiff.DiffParameters = this.extDiffParametersEdit.Text;

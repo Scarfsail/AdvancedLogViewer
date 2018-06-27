@@ -1107,6 +1107,7 @@ namespace AdvancedLogViewer.UI
                     LogEntry logEntry = listItem.LogItem;
                     logMessageEdit.Text = "";
                     logMessageEdit.SelectionColor = SystemColors.GrayText;
+                    logMessageEdit.WordWrap = settings.MainFormUI.MessageWordWrap;
                     logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
                     logMessageEdit.SelectionColor = SystemColors.WindowText;
                     logMessageEdit.AppendText(logEntry.Message);

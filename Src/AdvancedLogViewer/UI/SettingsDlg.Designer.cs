@@ -33,6 +33,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.mainWindowGroupBox = new System.Windows.Forms.GroupBox();
+            this.showLogIconsCheckBox = new System.Windows.Forms.CheckBox();
             this.trimClassColumnFromLeftCheckBox = new System.Windows.Forms.CheckBox();
             this.rememberFiltersEnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.addOnlyBaseNameInRecentListCheckBox = new System.Windows.Forms.CheckBox();
@@ -72,7 +73,7 @@
             this.extTextEditParametersEdit = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.extTextEditPathEdit = new System.Windows.Forms.TextBox();
-            this.showLogIconsCheckBox = new System.Windows.Forms.CheckBox();
+            this.messageWordWrapCheckBox = new System.Windows.Forms.CheckBox();
             this.bottomPanel.SuspendLayout();
             this.mainWindowGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.autoRefreshPeriodEdit)).BeginInit();
@@ -89,7 +90,7 @@
             this.bottomPanel.Controls.Add(this.cancelButton);
             this.bottomPanel.Controls.Add(this.okButton);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 712);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 747);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(585, 39);
             this.bottomPanel.TabIndex = 2;
@@ -119,6 +120,7 @@
             // 
             // mainWindowGroupBox
             // 
+            this.mainWindowGroupBox.Controls.Add(this.messageWordWrapCheckBox);
             this.mainWindowGroupBox.Controls.Add(this.showLogIconsCheckBox);
             this.mainWindowGroupBox.Controls.Add(this.trimClassColumnFromLeftCheckBox);
             this.mainWindowGroupBox.Controls.Add(this.rememberFiltersEnabledCheckBox);
@@ -133,10 +135,20 @@
             this.mainWindowGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.mainWindowGroupBox.Location = new System.Drawing.Point(0, 0);
             this.mainWindowGroupBox.Name = "mainWindowGroupBox";
-            this.mainWindowGroupBox.Size = new System.Drawing.Size(585, 230);
+            this.mainWindowGroupBox.Size = new System.Drawing.Size(585, 249);
             this.mainWindowGroupBox.TabIndex = 0;
             this.mainWindowGroupBox.TabStop = false;
             this.mainWindowGroupBox.Text = "Main window";
+            // 
+            // showLogIconsCheckBox
+            // 
+            this.showLogIconsCheckBox.AutoSize = true;
+            this.showLogIconsCheckBox.Location = new System.Drawing.Point(12, 203);
+            this.showLogIconsCheckBox.Name = "showLogIconsCheckBox";
+            this.showLogIconsCheckBox.Size = new System.Drawing.Size(332, 17);
+            this.showLogIconsCheckBox.TabIndex = 10;
+            this.showLogIconsCheckBox.Text = "Show type\'s icon on each row (The icon on left side of each row)";
+            this.showLogIconsCheckBox.UseVisualStyleBackColor = true;
             // 
             // trimClassColumnFromLeftCheckBox
             // 
@@ -261,7 +273,7 @@
             this.diffToolGroupBox.Controls.Add(this.label1);
             this.diffToolGroupBox.Controls.Add(this.extDiffPathEdit);
             this.diffToolGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.diffToolGroupBox.Location = new System.Drawing.Point(0, 315);
+            this.diffToolGroupBox.Location = new System.Drawing.Point(0, 334);
             this.diffToolGroupBox.Name = "diffToolGroupBox";
             this.diffToolGroupBox.Size = new System.Drawing.Size(585, 100);
             this.diffToolGroupBox.TabIndex = 1;
@@ -331,7 +343,7 @@
             this.totalCmdGroupBox.Controls.Add(this.totalCmdStatusLabel);
             this.totalCmdGroupBox.Controls.Add(this.integrateWithTotalCmdCheckBox);
             this.totalCmdGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.totalCmdGroupBox.Location = new System.Drawing.Point(0, 230);
+            this.totalCmdGroupBox.Location = new System.Drawing.Point(0, 249);
             this.totalCmdGroupBox.Name = "totalCmdGroupBox";
             this.totalCmdGroupBox.Size = new System.Drawing.Size(585, 85);
             this.totalCmdGroupBox.TabIndex = 3;
@@ -377,7 +389,7 @@
             this.automaticUpdateGroup.Controls.Add(this.label6);
             this.automaticUpdateGroup.Controls.Add(this.automaticUpdateEnabledCheckBox);
             this.automaticUpdateGroup.Dock = System.Windows.Forms.DockStyle.Top;
-            this.automaticUpdateGroup.Location = new System.Drawing.Point(0, 607);
+            this.automaticUpdateGroup.Location = new System.Drawing.Point(0, 626);
             this.automaticUpdateGroup.Name = "automaticUpdateGroup";
             this.automaticUpdateGroup.Size = new System.Drawing.Size(585, 112);
             this.automaticUpdateGroup.TabIndex = 4;
@@ -440,7 +452,7 @@
             this.logBrowserGroupBox.Controls.Add(this.topLevelFolders);
             this.logBrowserGroupBox.Controls.Add(this.openAndExitOnDoubleClickCheckBox);
             this.logBrowserGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.logBrowserGroupBox.Location = new System.Drawing.Point(0, 524);
+            this.logBrowserGroupBox.Location = new System.Drawing.Point(0, 543);
             this.logBrowserGroupBox.Name = "logBrowserGroupBox";
             this.logBrowserGroupBox.Size = new System.Drawing.Size(585, 83);
             this.logBrowserGroupBox.TabIndex = 7;
@@ -496,7 +508,7 @@
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.extTextEditPathEdit);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 415);
+            this.groupBox1.Location = new System.Drawing.Point(0, 434);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(585, 109);
             this.groupBox1.TabIndex = 8;
@@ -561,22 +573,22 @@
             this.extTextEditPathEdit.Size = new System.Drawing.Size(440, 20);
             this.extTextEditPathEdit.TabIndex = 2;
             // 
-            // showLogIconsCheckBox
+            // messageWordWrapCheckBox
             // 
-            this.showLogIconsCheckBox.AutoSize = true;
-            this.showLogIconsCheckBox.Location = new System.Drawing.Point(12, 203);
-            this.showLogIconsCheckBox.Name = "showLogIconsCheckBox";
-            this.showLogIconsCheckBox.Size = new System.Drawing.Size(332, 17);
-            this.showLogIconsCheckBox.TabIndex = 10;
-            this.showLogIconsCheckBox.Text = "Show type\'s icon on each row (The icon on left side of each row)";
-            this.showLogIconsCheckBox.UseVisualStyleBackColor = true;
+            this.messageWordWrapCheckBox.AutoSize = true;
+            this.messageWordWrapCheckBox.Location = new System.Drawing.Point(12, 226);
+            this.messageWordWrapCheckBox.Name = "messageWordWrapCheckBox";
+            this.messageWordWrapCheckBox.Size = new System.Drawing.Size(174, 17);
+            this.messageWordWrapCheckBox.TabIndex = 11;
+            this.messageWordWrapCheckBox.Text = "Word wrap message in preview";
+            this.messageWordWrapCheckBox.UseVisualStyleBackColor = true;
             // 
             // SettingsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(585, 751);
+            this.ClientSize = new System.Drawing.Size(585, 786);
             this.Controls.Add(this.automaticUpdateGroup);
             this.Controls.Add(this.logBrowserGroupBox);
             this.Controls.Add(this.groupBox1);
@@ -657,5 +669,6 @@
         private System.Windows.Forms.TextBox extTextEditPathEdit;
         private System.Windows.Forms.CheckBox associateWithAlvCheckBox;
         private System.Windows.Forms.CheckBox showLogIconsCheckBox;
+        private System.Windows.Forms.CheckBox messageWordWrapCheckBox;
     }
 }
