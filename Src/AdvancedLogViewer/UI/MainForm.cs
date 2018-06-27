@@ -1245,6 +1245,7 @@ namespace AdvancedLogViewer.UI
                         this.ShowMarkers();
                     this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
                     this.logListView.SetLogIconsVisibility();
+                    RefreshMessageDetail(this.logListView.GetSelectedListItem(), true);
 
                     return true;
                 }
