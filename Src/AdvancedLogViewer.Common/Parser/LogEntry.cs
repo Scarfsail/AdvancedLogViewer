@@ -65,26 +65,29 @@ namespace AdvancedLogViewer.Common.Parser
 
         public string Type { get; private set; }
 
+        private static Dictionary<string, LogType> stringToLogTypeCache = new Dictionary<string, LogType>();
+
         public LogType LogType
         {
             get
             {
                 if (this.logType == LogType.NONE)
                 {
-                    if (String.IsNullOrEmpty(this.Type))
+                    if (!stringToLogTypeCache.TryGetValue(this.Type, out this.logType))
                     {
-                        this.logType = LogType.UNKNOWN;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            this.logType = (LogType)Enum.Parse(typeof(LogType), this.Type);
-                        }
-                        catch
+                        if (String.IsNullOrEmpty(this.Type))
                         {
                             this.logType = LogType.UNKNOWN;
                         }
+                        else
+                        {
+                            if (!Enum.TryParse(this.Type, out this.logType))
+                            {
+                                this.logType = LogType.UNKNOWN;
+                            }
+                        }
+
+                        stringToLogTypeCache.Add(this.Type, this.logType);
                     }
                 }
                 return this.logType;
