@@ -256,6 +256,29 @@ A severe error occurred on the current command.  The results, if any, should be 
    at AlertingEngine.SWAlertingEngine.SetupDBConnection(SqlConnection& DBConnection, SqlCommand& DBCommand, SqlDataReader& DBReader)", target.LogEntries[1].Message);            
         }
 
+        [Test]
+        public void LoadLogWithUtf8Text()
+        {
+            string logFileName = this.logFileNameUtf8;
+            var target = new LogParser(logFileName);
+            target.LoadLogEntries();
+
+            Assert.AreEqual(1, target.LogEntries.Count);
+            Assert.IsTrue(target.DateIsParsed);
+            Assert.IsFalse(target.LoadingInProgress);
+            Assert.IsTrue(target.LogPattern.ContainsClass);
+            Assert.IsTrue(target.LogPattern.ContainsThread);
+            Assert.IsTrue(target.LogPattern.ContainsType);
+
+            Assert.AreEqual(0, target.LogEntries[0].ItemNumber);
+            Assert.AreEqual(1, target.LogEntries[0].LineInFile);
+            Assert.AreEqual(DateTime.ParseExact("2010-05-13 17:15:58,236", "yyyy-MM-dd HH:mm:ss,fff", CultureInfo.InvariantCulture), target.LogEntries[0].Date);
+            Assert.AreEqual("MainTaskThread", target.LogEntries[0].Thread);
+            Assert.AreEqual(LogType.ERROR, target.LogEntries[0].LogType);
+            Assert.AreEqual("All", target.LogEntries[0].Class);
+            Assert.AreEqual("Пожалуйста, укажите детали прибытия", target.LogEntries[0].Message);
+        }
+
         /// <summary>
         ///A test for AbortLoading
         ///</summary>
@@ -336,9 +359,10 @@ b", target.LogEntries[4].Message);
         }
 
 
-        private string logFileNameAllColumns = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\AllColumns.log");
-        private string logFileNameDateAndMessageOnly = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\DateAndMessageOnlyInstall.log");
-        private string logFileNameWithoutType = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\DiscoveryEngine.log");
-        private string logFileNameFirstLineInWrongFormat = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\FirstLineInWrongFormat.log");
+        private readonly string logFileNameAllColumns = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\AllColumns.log");
+        private readonly string logFileNameDateAndMessageOnly = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\DateAndMessageOnlyInstall.log");
+        private readonly string logFileNameWithoutType = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\DiscoveryEngine.log");
+        private readonly string logFileNameFirstLineInWrongFormat = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\FirstLineInWrongFormat.log");
+        private readonly string logFileNameUtf8 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"TestData\Logs\UTF8.log");
     }
 }
