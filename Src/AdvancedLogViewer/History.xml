@@ -4,8 +4,9 @@
     <Feature>Add support for wrapping of the message in preview.</Feature>
     <Fix>Fixed bug with log parser pattern that has a character "|".</Fix>
     <Fix>Support of UTF8 documents.</Fix>
-    <Feature>Support for other Solarwinds log files (e.g. OrionWeb.log)</Feature>
-    <Feature>Log files with only assemblies are always shown, message about custom parsers is skipped</Feature>
+    <Feature>Support for other Solarwinds log files (e.g. OrionWeb.log).</Feature>
+    <Feature>Log files with only assemblies are always shown, message about custom parsers is skipped.</Feature>
+    <Feature>Support for log parts with non-continuous numbering.</Feature>
   </Version>
   <Version version="7.6.0" date="2016-01-11">
     <Feature>Updated to .NET 4.6.1 and improved performance of log loading mainly on x64 OS.</Feature>

@@ -73,21 +73,21 @@ namespace AdvancedLogViewer.Common.Parser
             {
                 if (this.logType == LogType.NONE)
                 {
-                    if (!stringToLogTypeCache.TryGetValue(this.Type, out this.logType))
+                    if (string.IsNullOrEmpty(this.Type))
                     {
-                        if (String.IsNullOrEmpty(this.Type))
-                        {
-                            this.logType = LogType.UNKNOWN;
-                        }
-                        else
+                        this.logType = LogType.UNKNOWN;
+                    }
+                    else
+                    {
+                        if (!stringToLogTypeCache.TryGetValue(this.Type, out this.logType))
                         {
                             if (!Enum.TryParse(this.Type, out this.logType))
                             {
                                 this.logType = LogType.UNKNOWN;
                             }
-                        }
 
-                        stringToLogTypeCache.Add(this.Type, this.logType);
+                            stringToLogTypeCache.Add(this.Type, this.logType);
+                        }
                     }
                 }
                 return this.logType;
