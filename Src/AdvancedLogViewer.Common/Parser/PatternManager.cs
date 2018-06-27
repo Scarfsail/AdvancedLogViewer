@@ -84,7 +84,7 @@ namespace AdvancedLogViewer.Common.Parser
 
                 foreach (string line in patternLines)
                 {
-                    string[] lineParts = line.Split(new char[] { '|' });
+                    string[] lineParts = SplitPatternLine(line);
 
                     if ((exactMatch && lineParts[0].Equals(patternId, StringComparison.OrdinalIgnoreCase)) || (!exactMatch && StringMatchWithWildcards(lineParts[0], patternId)))
                     {
@@ -105,7 +105,7 @@ namespace AdvancedLogViewer.Common.Parser
 
                 foreach (string line in patternLines)
                 {
-                    string[] lineParts = line.Split(new char[] { '|' });
+                    string[] lineParts = SplitPatternLine(line);
                     result.Add(lineParts);
                 }
             }
@@ -148,6 +148,17 @@ namespace AdvancedLogViewer.Common.Parser
                 return StringMatchWithWildcards(patternWithWildCards.Substring(1), stringToMatch.Substring(1));
 
             return false;
+        }
+
+        private static string[] SplitPatternLine(string line)
+        {
+            var lineWithoutDoublePipe = line.Replace("||", "\b");
+
+            string[] lineParts = lineWithoutDoublePipe.Split(new char[] { '|' });
+
+            lineParts = lineParts.Select(part => part.Replace("\b", "|")).ToArray();
+
+            return lineParts;
         }
     }
 }
