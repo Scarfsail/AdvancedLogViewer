@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
   <Version version="7.7.0" date="2018-06-27">
+    <Feature>Add support for wrapping of the message in preview.</Feature>
     <Fix>Fixed bug with log parser pattern that has a character "|".</Fix>
+    <Fix>Support of UTF8 documents.</Fix>
     <Feature>Support for other Solarwinds log files (e.g. OrionWeb.log)</Feature>
   </Version>
   <Version version="7.6.0" date="2016-01-11">

@@ -695,7 +695,7 @@ namespace AdvancedLogViewer.UI
                 if (itemToCheck == null)
                     itemToCheck = CreateLogAdjustMenuItem(logLevel);
                 */
-                MessageBox.Show(String.Format("LogLevel: '{0}' doesn't exist.", logLevel), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(String.Format("LogLevel: '{0}' doesn't exist in SystemLogAdjusters.xml.", logLevel), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1107,6 +1107,7 @@ namespace AdvancedLogViewer.UI
                     LogEntry logEntry = listItem.LogItem;
                     logMessageEdit.Text = "";
                     logMessageEdit.SelectionColor = SystemColors.GrayText;
+                    logMessageEdit.WordWrap = settings.MainFormUI.MessageWordWrap;
                     logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
                     logMessageEdit.SelectionColor = SystemColors.WindowText;
                     logMessageEdit.AppendText(logEntry.Message);

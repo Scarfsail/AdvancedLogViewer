@@ -141,7 +141,7 @@ namespace AdvancedLogViewer.BL.LogAdjuster
         {
             this.LogFileName = GetFullPath(GetAttrValue<string>(s => s, xmlElement, "LogFileName", "None"));
             this.ConfigFileName = GetFullPath(GetAttrValue<string>(s => s, xmlElement, "ConfigFileName", "None"));
-            this.LogLevels = GetAttrValue<string>(s => s, xmlElement, "LogLevels", "VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL");
+            this.LogLevels = GetAttrValue<string>(s => s, xmlElement, "LogLevels", "ALL;TRACE;VERBOSE;DEBUG;INFO;WARN;ERROR;FATAL");
         }
 
 
