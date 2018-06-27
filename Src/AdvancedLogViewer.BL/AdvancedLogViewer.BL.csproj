@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{823C16AA-F267-48BB-AD57-2902F3A118E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdvancedLogViewer.BL</RootNamespace>
+    <AssemblyName>AdvancedLogViewer.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XDMessaging">
+      <HintPath>..\3rdParty\XDMessaging-2.0.3.0\bin\XDMessaging.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ColorHighlight\ColorHighlightEntry.cs" />
+    <Compile Include="ColorHighlight\ColorHighlightGroup.cs" />
+    <Compile Include="ColorHighlight\ColorHighlightManager.cs" />
+    <Compile Include="Comm\CommDatagram.cs" />
+    <Compile Include="Comm\CommManager.cs" />
+    <Compile Include="Comm\Messages\BaseMessage.cs" />
+    <Compile Include="Comm\Messages\LogViewerInstance.cs" />
+    <Compile Include="Comm\MessageType.cs" />
+    <Compile Include="Filters\FilterEntry.cs" />
+    <Compile Include="Filters\FilterManager.cs" />
+    <Compile Include="FindText\FindTextSettings.cs" />
+    <Compile Include="FindText\SearchHistory.cs" />
+    <Compile Include="LogAdjuster\LogAdjuster.cs" />
+    <Compile Include="LogAdjuster\LogAdjusters.cs" />
+    <Compile Include="LogBrowser\LogBrowserSettings.cs" />
+    <Compile Include="MergeFiles.cs" />
+    <Compile Include="MessageContentExtraction\CustomMessageExtractor.cs" />
+    <Compile Include="MessageContentExtraction\MessageContentExtractor.cs" />
+    <Compile Include="MessageContentExtraction\MessageContentExtractorAction.cs" />
+    <Compile Include="MessageContentExtraction\MessageContentExtractorConfig.cs" />
+    <Compile Include="PluginManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\AlvSettings.cs" />
+    <Compile Include="Settings\AutomaticUpdates.cs" />
+    <Compile Include="Settings\MainFormUI.cs" />
+    <Compile Include="Settings\RecentFiles.cs" />
+    <Compile Include="Settings\TextDiff.cs" />
+    <Compile Include="Settings\TextEditor.cs" />
+    <Compile Include="TotalCmdIntegration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\3rdParty\Scarfsail\Common\Scarfsail.Common.csproj">
+      <Project>{F47904FE-1338-44F0-B8A8-5F0EBB55EECE}</Project>
+      <Name>Scarfsail.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdvancedLogViewer.Common\AdvancedLogViewer.Common.csproj">
+      <Project>{F69DED99-F89E-402D-839B-D9356254799B}</Project>
+      <Name>AdvancedLogViewer.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
