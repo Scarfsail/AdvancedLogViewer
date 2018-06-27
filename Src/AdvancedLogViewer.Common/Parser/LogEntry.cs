@@ -49,6 +49,12 @@ namespace AdvancedLogViewer.Common.Parser
             return true;
         }
 
+        public bool SaveCustomValue(string customFieldKey, string value)
+        {
+            CustomFields[customFieldKey] = value;
+            return true;
+        }
+
         private int foundOnLine = -1;
 
         public int FoundOnLine { get { return foundOnLine; } set { foundOnLine = value; } }
@@ -103,6 +109,8 @@ namespace AdvancedLogViewer.Common.Parser
 
         /// <summary>Bookmark number. Range: 1..9, when is zero, bookmark isn't set for this item.</summary>
         public int Bookmark { get; set; }
+
+        public IDictionary<string, string> CustomFields { get; internal set; } = new Dictionary<string, string>();
 
         public static List<ColumnDescription> GetAvailableColumns(bool includeThread, bool includeType, bool includeClass)
         {
