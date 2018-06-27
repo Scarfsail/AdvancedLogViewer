@@ -11,6 +11,7 @@ namespace AdvancedLogViewer.Common.Parser
         public string EndsWith;
         public string StartsWith;
         public bool DoLTrim;
+        public string CustomFieldKey;
 
         public override string ToString()
         {
@@ -24,6 +25,7 @@ namespace AdvancedLogViewer.Common.Parser
                                                                               {PatternItemType.Thread, "Thread"},
                                                                               {PatternItemType.Type, "Type"},
                                                                               {PatternItemType.Class, "Class"},
-                                                                              {PatternItemType.Message, "Message"}};
+                                                                              {PatternItemType.Message, "Message"},
+                                                                              {PatternItemType.Custom, "Custom"} };
     }
 }

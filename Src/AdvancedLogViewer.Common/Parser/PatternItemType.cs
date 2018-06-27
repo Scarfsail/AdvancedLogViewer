@@ -12,6 +12,7 @@ namespace AdvancedLogViewer.Common.Parser
         Thread,
         Type,
         Class,
-        Message
+        Message,
+        Custom
     }
 }

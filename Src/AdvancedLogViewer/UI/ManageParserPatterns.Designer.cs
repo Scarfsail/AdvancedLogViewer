@@ -55,6 +55,7 @@
             this.patternError = new System.Windows.Forms.ErrorProvider(this.components);
             this.dateFormatError = new System.Windows.Forms.ErrorProvider(this.components);
             this.editSelectedPatternGroupBox = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tryOnCurrentLogButton = new System.Windows.Forms.Button();
             this.dateFormatPatternsListView = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -62,7 +63,7 @@
             this.patternTextPatternsListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label5 = new System.Windows.Forms.Label();
+            this.hintCustomFields = new System.Windows.Forms.Label();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -312,6 +313,7 @@
             // 
             // editSelectedPatternGroupBox
             // 
+            this.editSelectedPatternGroupBox.Controls.Add(this.hintCustomFields);
             this.editSelectedPatternGroupBox.Controls.Add(this.label5);
             this.editSelectedPatternGroupBox.Controls.Add(this.tryOnCurrentLogButton);
             this.editSelectedPatternGroupBox.Controls.Add(this.dateFormatPatternsListView);
@@ -331,6 +333,16 @@
             this.editSelectedPatternGroupBox.TabIndex = 13;
             this.editSelectedPatternGroupBox.TabStop = false;
             this.editSelectedPatternGroupBox.Text = "Edit selected pattern";
+            // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label5.Location = new System.Drawing.Point(102, 247);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(347, 27);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "When log contains multiple date time formats, you can specify them by putting eac" +
+    "h to {} and separating by ;. Example: {format1};{format2}.";
             // 
             // tryOnCurrentLogButton
             // 
@@ -394,15 +406,15 @@
             this.columnHeader2.Text = "Description";
             this.columnHeader2.Width = 300;
             // 
-            // label5
+            // hintCustomFields
             // 
-            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(102, 247);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(347, 27);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "When log contains multiple date time formats, you can specify them by putting eac" +
-    "h to {} and separating by ;. Example: {format1};{format2}.";
+            this.hintCustomFields.AutoSize = true;
+            this.hintCustomFields.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.hintCustomFields.Location = new System.Drawing.Point(82, 96);
+            this.hintCustomFields.Name = "hintCustomFields";
+            this.hintCustomFields.Size = new System.Drawing.Size(361, 13);
+            this.hintCustomFields.TabIndex = 16;
+            this.hintCustomFields.Text = "Hint: custom fields will be visible only in message preview. E.g. {ErrorCode}.";
             // 
             // ManageParserPatterns
             // 
@@ -471,5 +483,6 @@
         private System.Windows.Forms.Button tryOnCurrentLogButton;
         private System.Windows.Forms.Button viewCurrentLogAsTextButton;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label hintCustomFields;
     }
 }
