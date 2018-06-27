@@ -194,8 +194,18 @@ namespace AdvancedLogViewer.Common.Parser
 
                                     if (patternItem.DoLTrim)
                                         value = value.TrimStart(new char[] { ' ' });
-                                    
-                                    if (!tmpLogEntry.SaveValue(patternItem.ItemType, value))
+
+                                    bool valueSaved;
+                                    if (patternItem.ItemType != PatternItemType.Custom)
+                                    {
+                                        valueSaved = tmpLogEntry.SaveValue(patternItem.ItemType, value);
+                                    }
+                                    else
+                                    {
+                                        valueSaved = tmpLogEntry.SaveCustomValue(patternItem.CustomFieldKey, value);
+                                    }
+
+                                    if (!valueSaved)
                                     {
                                         patternFits = false;
                                         break;
@@ -250,7 +260,12 @@ namespace AdvancedLogViewer.Common.Parser
                                                 if (patternItem.ItemType == PatternItemType.Message)
                                                     currentLogEntry.SaveValue(patternItem.ItemType, line);
                                                 else
-                                                    currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                                {
+                                                    if (patternItem.ItemType == PatternItemType.Custom)
+                                                        currentLogEntry.SaveCustomValue(patternItem.CustomFieldKey, string.Empty);
+                                                    else
+                                                        currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                                }
                                             }
                                         }
                                 }
@@ -352,12 +367,12 @@ namespace AdvancedLogViewer.Common.Parser
 
         public string GetFormattedMessageDetailHeader(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class);
+            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.CustomFields);
         }
 
         public string GetFormattedWholeEntry(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message);
+            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message, logEntry.CustomFields);
         }
 
         protected void OnLoadingProgress()

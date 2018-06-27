@@ -71,14 +71,30 @@ namespace AdvancedLogViewer.Common.Parser
             this.DateTimeFormat = copyFrom.DateTimeFormat;
         }
 
-        public string GetFormattedDetailHeader(string dateTimeText, string thread, string type, string className)
+        public string GetFormattedDetailHeader(string dateTimeText, string thread, string type, string className, IDictionary<string, string> customFields)
         {
-            return string.Format(this.messageHeaderFormatString, dateTimeText, thread, type, className);
+            var headerWithCustomFields = FormatStringWithCustomFields(this.messageHeaderFormatString, customFields);
+
+            return string.Format(headerWithCustomFields, dateTimeText, thread, type, className);
         }
 
-        public string GetFormattedWholeEntry(string dateTimeText, string thread, string type, string className, string message)
+        public string GetFormattedWholeEntry(string dateTimeText, string thread, string type, string className, string message, IDictionary<string, string> customFields)
         {
-            return string.Format(this.wholeEntryFormatString, dateTimeText, thread, type, className, message);
+            var entryWithCustomFields = FormatStringWithCustomFields(this.wholeEntryFormatString, customFields);
+
+            return string.Format(entryWithCustomFields, dateTimeText, thread, type, className, message);
+        }
+
+        private string FormatStringWithCustomFields(string text, IDictionary<string, string> customFields)
+        {
+            var result = text;
+
+            foreach (var customField in customFields)
+            {
+                result = result.Replace($"{{{customField.Key}}}", customField.Value);
+            }
+
+            return result;
         }
 
         public override string ToString()
@@ -171,7 +187,10 @@ namespace AdvancedLogViewer.Common.Parser
                     {
                         PatternItemType type;
                         if (!patternTextToType.TryGetValue(text, out type))
-                            throw new Exception("Unkown pattern type: " + text);
+                        {
+                            type = PatternItemType.Custom;
+                            patternEntry.CustomFieldKey = text;
+                        }
 
                         patternEntry.ItemType = type;
                         patternItemsList.Add(patternEntry);
