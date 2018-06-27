@@ -63,6 +63,13 @@ namespace AdvancedLogViewer.Common.Parser
             this.PatternText = "{Date} {Time} {Message}";
             this.DateTimeFormat = "";
         }
+        
+        public LogPattern(string fileMask, string patternText, string dateTimeFormat)
+        {
+            this.FileMask = fileMask;
+            this.PatternText = patternText;
+            this.DateTimeFormat = dateTimeFormat;
+        }
 
         public LogPattern(LogPattern copyFrom)
         {
