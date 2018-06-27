@@ -12,7 +12,8 @@ namespace AdvancedLogViewer.UI
 
             this.settingsControl.Init(alvSettings, firstTimeShown);
         }
-        
+
+
         private void okButton_Click(object sender, EventArgs e)
         {
             this.settingsControl.Save();
