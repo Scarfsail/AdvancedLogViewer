@@ -288,8 +288,12 @@ namespace AdvancedLogViewer.Common.Parser
 
         internal string GetLineForConfigFile()
         {
-            return (this.FileMask + "|" + this.PatternText) + (!String.IsNullOrEmpty(this.DateTimeFormat) ? ("|" + this.DateTimeFormat) : "");
+            return (this.FileMask + "|" + EncodePipe(this.PatternText)) + (!String.IsNullOrEmpty(this.DateTimeFormat) ? ("|" + EncodePipe(this.DateTimeFormat)) : "");
+        }
 
+        private string EncodePipe(string text)
+        {
+            return text.Replace("|", "||");
         }
     }
 }
