@@ -5,5 +5,5 @@ OrionInstaller.log*|{Date} {Time} [{Thread}] {Type} {Class} - {Message}|yyyy-MM-
 CustomPropertyEditor.Trace|{Thread}	{Date} {Time} {Message}|MMM-dd HH:mm:ss
 SWAutomationFramework.log*|{Date} {Time} - [{Type} ] - {Class} - {Message}|yyyy-MM-dd HH:mm:ss,fff
 OrionWeb.log*|{Date} {Time} [{Thread}] ({HttpRequestId}) {Type} {Class} - ({ErrorCode}) {Message}|yyyy-MM-dd HH:mm:ss,fff
-SolarWinds.Agent.*.log.txt|{Date} {Time} PID: {PID} TID: {Thread} [{Type}] {Class} - {Message}|dd/MM/yy HH:mm:ss.fff
+SolarWinds.Agent.*.log.txt|{Date} {Time} PID: {PID} TID: {Thread} [{Type}] {Class} {Message}|dd/MM/yy HH:mm:ss.fff
 *|{Date} {Time} [{Thread}] {Type}$Spaces${Class} - {Message}|yyyy-MM-dd HH:mm:ss,fff
