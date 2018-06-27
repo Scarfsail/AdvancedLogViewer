@@ -8,17 +8,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl TabStripPlacement="Left" Margin="0, 0, 0, 10" Background="Transparent">
+        <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" Margin="0, 0, 0, 10" Background="Transparent">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Height" Value="25"/>
+                </Style>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Margin" Value="10,10,0,0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+            </TabControl.Resources>
             <TabItem Header="Main Window">
                 <TabItem.Content>
                     <StackPanel Orientation="Vertical">
                         <CheckBox Name="ShowMarkersCheckBox">Show markers side panel</CheckBox>
                         <CheckBox Name="ExitAppOnEscCheckBox">Exit from application on ESC keystroke</CheckBox>
                         <CheckBox Name="AutoScrollCheckBox">Auto scroll to latest item when Auto refresh is enabled and last item is selected</CheckBox>
-                        <CheckBox Name="AutoScrollShowTwoItemsCheckBox" Margin="20,0,0,0">Select previous last item and curent last item when auto refresh (otherwise select only current last item)</CheckBox>
-                        <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="AutoScrollShowTwoItemsCheckBox" Margin="30,10,0,0">Select previous last item and curent last item when auto refresh (otherwise select only current last item)</CheckBox>
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
                             <Label>Auto refresh period:</Label>
-                            <xctk:IntegerUpDown Name="AutoRefreshPeriod" />
+                            <xctk:IntegerUpDown Name="AutoRefreshPeriodEdit" />
                             <Label>ms</Label>
                         </StackPanel>
                         <CheckBox Name="AddOnlyBaseNameInRecentListCheckBox">Add only base file names into recent file list. E.g.: Add LogName.log instead of LogName.Log.3.</CheckBox>
@@ -32,41 +45,93 @@
 
             <TabItem Header="System Integration">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        Test
-                    </TextBlock>
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Name="IntegrateWithTotalCmdCheckBox">Use Advanced Log Viewer as a viewer in Total Commander for ALT + F3 shortcut (standard F3 remains unchanged)</CheckBox>
+                        <Label Name="TotalCmdStatusLabel" Foreground="Gray" Margin="10,0,0,0">TotalCmd status</Label>
+                        <CheckBox Name="AssociateWithAlvCheckBox">Associate *.LOG files with this Advanced Log Viewer application.</CheckBox>
+                    </StackPanel>
                 </TabItem.Content>
             </TabItem>
 
             <TabItem Header="External Diff Tool Settings">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        Test
-                    </TextBlock>
+                    <Grid Margin="10,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Path:</Label>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="ExtDiffPathEdit"></TextBox>
+                        <Button Grid.Row="0" Grid.Column="2" Name="ExtDiffBrowseButton" Click="extDiffBrowseButton_Click" Width="70">Browse</Button>
+
+                        <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Parameters:</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Name="ExtDiffParametersEdit"></TextBox>
+
+                        <Label Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Foreground="Gray">Variables %File1% and %File2% will be replaced by real file names.</Label>
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
 
             <TabItem Header="External Text File Editor Settings">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        Test
-                    </TextBlock>
+                    <Grid Margin="10,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Path:</Label>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="ExtTextEditPathEdit"></TextBox>
+                        <Button Grid.Row="0" Grid.Column="2" Name="ExtTextEditBrowseButton" Click="extTextEditBrowseButton_Click" Width="70">Browse</Button>
+
+                        <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Parameters:</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Name="ExtTextEditParametersEdit"></TextBox>
+
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Gray">Variable %FileName% will be replaced by full opened log file name.</Label>
+                        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Gray">Variable %LineNumber% will be replaced by line number of selected row.</Label>
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
 
             <TabItem Header="Log Browser">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        Test
-                    </TextBlock>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                            <Label Margin="0,0,10,0">Top level folders names:</Label>
+                            <TextBox Name="TopLevelFolders" Width="300"></TextBox>
+                        </StackPanel>
+                        <Label Foreground="Gray" Margin="10,0,0,0">When one of folders is found above current log, all logs under the folder are displayed.</Label>
+                        <CheckBox Name="OpenAndExitOnDoubleClickCheckBox">Show &amp;&amp; Close on double click / Enter. Otherwise just show selected log and keep dialog opened.</CheckBox>
+                    </StackPanel>
                 </TabItem.Content>
             </TabItem>
 
             <TabItem Header="Application Update">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                        Test
-                    </TextBlock>
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Name="AutomaticUpdateEnabledCheckBox">Automatically check for new application versions</CheckBox>
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                            <Label>Check period:</Label>
+                            <xctk:IntegerUpDown Name="AutomaticUpdateCheckPeriodEdit" />
+                            <Label>hours</Label>
+                        </StackPanel>
+
+                        <TextBlock TextWrapping="WrapWithOverflow" Foreground="Gray" Margin="10,10,10,0">
+                            When automatic check is enabled, every time when ALV is launched and check period since last check elapsed, check for possible update on the web is performed. Check is silently performed on the background. When update is found, user is informed about that, otherwise no message is shown.
+                        </TextBlock>
+                    </StackPanel>
                 </TabItem.Content>
             </TabItem>
         </TabControl>

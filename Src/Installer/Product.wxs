@@ -61,6 +61,9 @@
           <Component Id="AdvancedLogViewer.BL.dll" Guid="{CF27CA98-8989-4F0E-A2F1-A102DB80D1E7}">
             <File Source="$(var.BuildOutputDir)AdvancedLogViewer.BL.dll"/>
           </Component>
+          <Component Id="AdvancedLogViewer.WPF.dll" Guid="{1845E717-E2F2-4341-BB08-906536318EF6}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.WPF.dll"/>
+          </Component>
           <Component Id="Scarfsail.Common.dll" Guid="{D7487562-FE2A-4fa5-A1D9-FFCEC9B008BF}">
             <File Source="$(var.BuildOutputDir)Scarfsail.Common.dll"/>
           </Component>
@@ -136,6 +139,7 @@
       <ComponentRef Id="AdvancedLogViewer.exe.config" />
       <ComponentRef Id="AdvancedLogViewer.Common.dll" />
       <ComponentRef Id="AdvancedLogViewer.BL.dll" /> 
+      <ComponentRef Id="AdvancedLogViewer.WPF.dll" /> 
       <ComponentRef Id="Scarfsail.SoftwareUpdates.dll" />
       <ComponentRef Id="Scarfsail.Common.dll" />
       <ComponentRef Id="XDMessaging.dll" />
