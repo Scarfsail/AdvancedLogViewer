@@ -5,13 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AdvancedLogViewer.WPF"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:properties="clr-namespace:AdvancedLogViewer.WPF.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="ApplicationUpdate" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Application Update.png"></BitmapImage>
+            <BitmapImage x:Key="ExternalDiffTool" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/External Diff Tool.png"></BitmapImage>
+            <BitmapImage x:Key="ExternalTextEditor" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/External Text Editor.png"></BitmapImage>
+            <BitmapImage x:Key="LogBrowser" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Log Browser.png"></BitmapImage>
+            <BitmapImage x:Key="MainWindow" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Main Window.png"></BitmapImage>
+            <BitmapImage x:Key="SystemIntegration" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/System Integration.png"></BitmapImage>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" Margin="0, 0, 0, 10" Background="Transparent">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Height" Value="40"/>
                 </Style>
                 <Style TargetType="{x:Type CheckBox}">
                     <Setter Property="Margin" Value="10,10,0,0"/>
@@ -22,7 +33,13 @@
                     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Main Window">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource MainWindow}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Main Window</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Orientation="Vertical">
                         <CheckBox Name="ShowMarkersCheckBox">Show markers side panel</CheckBox>
@@ -43,7 +60,13 @@
                 </TabItem.Content>
             </TabItem>
 
-            <TabItem Header="System Integration">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource SystemIntegration}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">System Integration</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Orientation="Vertical">
                         <CheckBox Name="IntegrateWithTotalCmdCheckBox">Use Advanced Log Viewer as a viewer in Total Commander for ALT + F3 shortcut (standard F3 remains unchanged)</CheckBox>
@@ -53,7 +76,13 @@
                 </TabItem.Content>
             </TabItem>
 
-            <TabItem Header="External Diff Tool Settings">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ExternalDiffTool}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">External Diff Tool Settings</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="10,10,0,0">
                         <Grid.ColumnDefinitions>
@@ -78,7 +107,13 @@
                 </TabItem.Content>
             </TabItem>
 
-            <TabItem Header="External Text File Editor Settings">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ExternalTextEditor}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">External Text File Editor Settings</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <Grid Margin="10,10,0,0">
                         <Grid.ColumnDefinitions>
@@ -105,7 +140,13 @@
                 </TabItem.Content>
             </TabItem>
 
-            <TabItem Header="Log Browser">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource LogBrowser}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Log Browser</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
@@ -118,7 +159,13 @@
                 </TabItem.Content>
             </TabItem>
 
-            <TabItem Header="Application Update">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ApplicationUpdate}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Application Update</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel Orientation="Vertical">
                         <CheckBox Name="AutomaticUpdateEnabledCheckBox">Automatically check for new application versions</CheckBox>
