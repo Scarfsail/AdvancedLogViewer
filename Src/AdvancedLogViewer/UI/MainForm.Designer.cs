@@ -434,6 +434,7 @@
             // 
             // toolStrip
             // 
+            this.toolStrip.AutoSize = false;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileButton,
             this.showLogBrowserButton,
@@ -486,7 +487,7 @@
             this.openFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Open;
             this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(32, 22);
+            this.openFileButton.Size = new System.Drawing.Size(42, 31);
             this.openFileButton.ToolTipText = "Click on button to show Open File dialog (CTRL + O)\r\nClick on arrow to show recen" +
     "t files (CTRL + R)";
             this.openFileButton.ButtonClick += new System.EventHandler(this.openFileButton_Click);
@@ -509,7 +510,7 @@
             this.showLogBrowserButton.Image = global::AdvancedLogViewer.Properties.Resources.LogsAround;
             this.showLogBrowserButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showLogBrowserButton.Name = "showLogBrowserButton";
-            this.showLogBrowserButton.Size = new System.Drawing.Size(23, 22);
+            this.showLogBrowserButton.Size = new System.Drawing.Size(23, 31);
             this.showLogBrowserButton.ToolTipText = "Browse for logs";
             this.showLogBrowserButton.Click += new System.EventHandler(this.showLogBrowserButton_Click);
             // 
@@ -520,7 +521,7 @@
             this.exportButton.Image = global::AdvancedLogViewer.Properties.Resources.Save;
             this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(23, 22);
+            this.exportButton.Size = new System.Drawing.Size(23, 31);
             this.exportButton.ToolTipText = "Save currently shown items to a new log file";
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
@@ -531,7 +532,7 @@
             this.openOtherPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.LogParts;
             this.openOtherPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openOtherPartsButton.Name = "openOtherPartsButton";
-            this.openOtherPartsButton.Size = new System.Drawing.Size(32, 22);
+            this.openOtherPartsButton.Size = new System.Drawing.Size(32, 31);
             this.openOtherPartsButton.ToolTipText = "Open another log part (.1, .2, ...)\r\nClick on this button to open following part." +
     "\r\n\r\nPress CTRL+Right to open following part.\r\nPress CTRL+Left to open previous p" +
     "art.\r\n";
@@ -544,14 +545,14 @@
             this.starFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Star_Gray;
             this.starFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.starFileButton.Name = "starFileButton";
-            this.starFileButton.Size = new System.Drawing.Size(23, 22);
+            this.starFileButton.Size = new System.Drawing.Size(23, 31);
             this.starFileButton.ToolTipText = "Mark / unmark currently opened file as favorite ";
             this.starFileButton.Click += new System.EventHandler(this.starFileButton_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 34);
             // 
             // mergeLogPartsButton
             // 
@@ -560,14 +561,14 @@
             this.mergeLogPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.Merge;
             this.mergeLogPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mergeLogPartsButton.Name = "mergeLogPartsButton";
-            this.mergeLogPartsButton.Size = new System.Drawing.Size(23, 22);
+            this.mergeLogPartsButton.Size = new System.Drawing.Size(23, 31);
             this.mergeLogPartsButton.ToolTipText = "Merge log parts into one file";
             this.mergeLogPartsButton.Click += new System.EventHandler(this.mergeLogPartsButton_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 34);
             // 
             // otherInstancesButton
             // 
@@ -575,7 +576,7 @@
             this.otherInstancesButton.Image = global::AdvancedLogViewer.Properties.Resources.InstancesManager;
             this.otherInstancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.otherInstancesButton.Name = "otherInstancesButton";
-            this.otherInstancesButton.Size = new System.Drawing.Size(29, 22);
+            this.otherInstancesButton.Size = new System.Drawing.Size(29, 31);
             this.otherInstancesButton.ToolTipText = "Running instances of ALV.\r\nUse also CTRL+Tab to easy switch between running insta" +
     "nces of ALV.";
             this.otherInstancesButton.DropDownOpening += new System.EventHandler(this.otherInstancesButton_DropDownOpening);
@@ -583,7 +584,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 34);
             // 
             // openInTextEditorButton
             // 
@@ -592,7 +593,7 @@
             this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad;
             this.openInTextEditorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openInTextEditorButton.Name = "openInTextEditorButton";
-            this.openInTextEditorButton.Size = new System.Drawing.Size(23, 22);
+            this.openInTextEditorButton.Size = new System.Drawing.Size(23, 31);
             this.openInTextEditorButton.ToolTipText = "Open the log file in associated text editor.\r\nHint: Use context menu on appropria" +
     "te row to open log on exact line (If supported by the configured text editor).";
             this.openInTextEditorButton.Click += new System.EventHandler(this.openInTextEditorButton_Click);
@@ -600,7 +601,7 @@
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 34);
             // 
             // logAdjusterButton
             // 
@@ -613,7 +614,7 @@
             this.logAdjusterButton.Image = global::AdvancedLogViewer.Properties.Resources.LogAdjust;
             this.logAdjusterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logAdjusterButton.Name = "logAdjusterButton";
-            this.logAdjusterButton.Size = new System.Drawing.Size(29, 22);
+            this.logAdjusterButton.Size = new System.Drawing.Size(29, 31);
             this.logAdjusterButton.ToolTipText = "Adjust log level in associated Config file for currently opened log file.";
             // 
             // logAdjusterMenuDivider
@@ -638,7 +639,7 @@
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 34);
             // 
             // refreshButton
             // 
@@ -647,7 +648,7 @@
             this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Refresh;
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(23, 22);
+            this.refreshButton.Size = new System.Drawing.Size(23, 31);
             this.refreshButton.ToolTipText = "Refresh log file now";
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -666,7 +667,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 34);
             // 
             // bookmarkButton
             // 
@@ -675,7 +676,7 @@
             this.bookmarkButton.Image = global::AdvancedLogViewer.Properties.Resources.Bookmark;
             this.bookmarkButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bookmarkButton.Name = "bookmarkButton";
-            this.bookmarkButton.Size = new System.Drawing.Size(32, 22);
+            this.bookmarkButton.Size = new System.Drawing.Size(32, 31);
             this.bookmarkButton.ToolTipText = "Click on the button to create first free bookmark on current line.\r\nPress CTRL + " +
     "Bookmark number to go to the bookmark.\r\nPress CTRL + SHIFT + Bookmark number to " +
     "toggle the bookmark on current line.";
@@ -684,7 +685,7 @@
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 34);
             // 
             // goToItemButton
             // 
@@ -693,7 +694,7 @@
             this.goToItemButton.Image = global::AdvancedLogViewer.Properties.Resources.Goto;
             this.goToItemButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.goToItemButton.Name = "goToItemButton";
-            this.goToItemButton.Size = new System.Drawing.Size(23, 22);
+            this.goToItemButton.Size = new System.Drawing.Size(23, 31);
             this.goToItemButton.ToolTipText = "Go to an item";
             this.goToItemButton.Click += new System.EventHandler(this.goToItemButton_Click);
             // 
@@ -712,7 +713,7 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 34);
             // 
             // showOnlyNewItemsButton
             // 
@@ -721,7 +722,7 @@
             this.showOnlyNewItemsButton.Image = global::AdvancedLogViewer.Properties.Resources.Erase;
             this.showOnlyNewItemsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showOnlyNewItemsButton.Name = "showOnlyNewItemsButton";
-            this.showOnlyNewItemsButton.Size = new System.Drawing.Size(23, 22);
+            this.showOnlyNewItemsButton.Size = new System.Drawing.Size(23, 31);
             this.showOnlyNewItemsButton.ToolTipText = "Show only new log items since now, older items will be hidden.\r\nThis action enabl" +
     "e Date filter and put current time into \'From\' field.";
             this.showOnlyNewItemsButton.Click += new System.EventHandler(this.showOnlyNewItemsButton_Click);
@@ -733,7 +734,7 @@
             this.sqlFilterButton.Image = global::AdvancedLogViewer.Properties.Resources.SqlFilter;
             this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.sqlFilterButton.Name = "sqlFilterButton";
-            this.sqlFilterButton.Size = new System.Drawing.Size(23, 22);
+            this.sqlFilterButton.Size = new System.Drawing.Size(23, 31);
             this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit. When the edit isn\'t shown, the sql filter isn\'t appl" +
     "ied.";
             this.sqlFilterButton.Click += new System.EventHandler(this.sqlFilterButton_Click);
@@ -746,7 +747,7 @@
             this.enableFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.Filter;
             this.enableFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enableFiltersButton.Name = "enableFiltersButton";
-            this.enableFiltersButton.Size = new System.Drawing.Size(23, 22);
+            this.enableFiltersButton.Size = new System.Drawing.Size(23, 31);
             this.enableFiltersButton.ToolTipText = "Enable / disable filters";
             this.enableFiltersButton.Click += new System.EventHandler(this.enableFiltersButton_Click);
             // 
@@ -757,14 +758,14 @@
             this.manageFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.FilterSettings;
             this.manageFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manageFiltersButton.Name = "manageFiltersButton";
-            this.manageFiltersButton.Size = new System.Drawing.Size(23, 22);
+            this.manageFiltersButton.Size = new System.Drawing.Size(23, 31);
             this.manageFiltersButton.ToolTipText = "Manage filters";
             this.manageFiltersButton.Click += new System.EventHandler(this.manageFiltersButton_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 34);
             // 
             // enableHighlightsButton
             // 
@@ -774,7 +775,7 @@
             this.enableHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.Highlight;
             this.enableHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enableHighlightsButton.Name = "enableHighlightsButton";
-            this.enableHighlightsButton.Size = new System.Drawing.Size(23, 22);
+            this.enableHighlightsButton.Size = new System.Drawing.Size(23, 31);
             this.enableHighlightsButton.ToolTipText = "Enable / disable highlights";
             this.enableHighlightsButton.Click += new System.EventHandler(this.enableHighlightsButton_Click);
             // 
@@ -785,14 +786,14 @@
             this.manageHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.HighlightSettings;
             this.manageHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manageHighlightsButton.Name = "manageHighlightsButton";
-            this.manageHighlightsButton.Size = new System.Drawing.Size(23, 22);
+            this.manageHighlightsButton.Size = new System.Drawing.Size(23, 31);
             this.manageHighlightsButton.ToolTipText = "Manage highlights";
             this.manageHighlightsButton.Click += new System.EventHandler(this.manageHighlightsButton_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 34);
             // 
             // textDiffButton
             // 
@@ -801,14 +802,14 @@
             this.textDiffButton.Image = global::AdvancedLogViewer.Properties.Resources.TextDiff;
             this.textDiffButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.textDiffButton.Name = "textDiffButton";
-            this.textDiffButton.Size = new System.Drawing.Size(23, 22);
+            this.textDiffButton.Size = new System.Drawing.Size(23, 31);
             this.textDiffButton.ToolTipText = "Show text differences between two log items";
             this.textDiffButton.Click += new System.EventHandler(this.textDiffButton_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 34);
             // 
             // showHideBottomPane
             // 
@@ -819,7 +820,7 @@
             this.showHideBottomPane.Image = global::AdvancedLogViewer.Properties.Resources.ShowHideBottomPane;
             this.showHideBottomPane.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showHideBottomPane.Name = "showHideBottomPane";
-            this.showHideBottomPane.Size = new System.Drawing.Size(23, 22);
+            this.showHideBottomPane.Size = new System.Drawing.Size(23, 31);
             this.showHideBottomPane.ToolTipText = "Show / Hide bottom pane with message details";
             this.showHideBottomPane.Click += new System.EventHandler(this.showHideBottomPane_Click);
             // 
@@ -827,17 +828,17 @@
             // 
             this.stayOnTopButton.CheckOnClick = true;
             this.stayOnTopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stayOnTopButton.Image = ((System.Drawing.Image)(resources.GetObject("stayOnTopButton.Image")));
+            this.stayOnTopButton.Image = global::AdvancedLogViewer.Properties.Resources.StayOnTop;
             this.stayOnTopButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.stayOnTopButton.Name = "stayOnTopButton";
-            this.stayOnTopButton.Size = new System.Drawing.Size(23, 22);
+            this.stayOnTopButton.Size = new System.Drawing.Size(23, 31);
             this.stayOnTopButton.ToolTipText = "Main window stay on top";
             this.stayOnTopButton.Click += new System.EventHandler(this.stayOnTopButton_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 34);
             // 
             // otherButton
             // 
@@ -860,7 +861,7 @@
             this.otherButton.Image = ((System.Drawing.Image)(resources.GetObject("otherButton.Image")));
             this.otherButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.otherButton.Name = "otherButton";
-            this.otherButton.Size = new System.Drawing.Size(48, 22);
+            this.otherButton.Size = new System.Drawing.Size(48, 31);
             this.otherButton.Text = "More";
             // 
             // settingsMenuItem
