@@ -107,7 +107,7 @@
             // refreshButton
             // 
             this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.refresh16_transparent;
+            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Refresh;
             this.refreshButton.Location = new System.Drawing.Point(478, 0);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(22, 23);

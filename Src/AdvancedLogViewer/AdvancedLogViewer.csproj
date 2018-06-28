@@ -228,6 +228,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AboutDialog.resx">
@@ -321,6 +322,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Find.png" />
+    <None Include="Resources\InstancesManager.png" />
+    <None Include="Resources\LogAdjust.png" />
+    <None Include="Resources\LogLevel_All.png" />
+    <None Include="Resources\LogLevel_Debug.png" />
+    <None Include="Resources\LogLevel_Error.png" />
+    <None Include="Resources\LogLevel_Fatal.png" />
+    <None Include="Resources\LogLevel_Info.png" />
+    <None Include="Resources\LogLevel_Trace.png" />
+    <None Include="Resources\LogLevel_Verbose.png" />
+    <None Include="Resources\LogLevel_Warn.png" />
+    <None Include="Resources\Refresh.png" />
+    <None Include="Resources\Star-Gray.png" />
+    <None Include="Resources\Star-Yellow.png" />
     <None Include="Resources\syntax highlight - manage - Copy.bmp" />
     <None Include="Resources\SettingsSmallIcon.png" />
     <None Include="Resources\Settings.bmp" />
@@ -334,17 +349,12 @@
     <None Include="Resources\Merge.png" />
     <None Include="Resources\TextDiff.png" />
     <None Include="Resources\StayOnTop.png" />
-    <None Include="Resources\Notepad.bmp" />
     <None Include="Resources\Play.bmp" />
     <None Include="Resources\Pause.bmp" />
-    <None Include="Resources\refresh16_transparent.png" />
     <None Include="Resources\ShowHideBottomPane.bmp" />
-    <None Include="Resources\Star-Yellow.bmp" />
-    <None Include="Resources\Star-Gray.bmp" />
     <None Include="Resources\syntax highlight - manage.bmp" />
     <None Include="Resources\open16_h.bmp" />
     <None Include="Resources\filter-2.bmp" />
-    <None Include="Resources\Find.bmp" />
     <None Include="Resources\filter-Manage.bmp" />
     <None Include="Resources\AutoRefresh.bmp" />
     <None Include="Resources\ExtractMessageContent.bmp" />
@@ -359,19 +369,9 @@
     <None Include="Resources\FolderOpened.bmp" />
     <None Include="Resources\LogFileIcon.bmp" />
     <None Include="Resources\Clean.bmp" />
-    <None Include="Resources\LogLevel_Error.bmp" />
-    <None Include="Resources\LogLevel_Info.bmp" />
-    <None Include="Resources\LogLevel_Warn.bmp" />
-    <None Include="Resources\LogLevel_Fatal.bmp" />
-    <None Include="Resources\LogLevel_Debug.bmp" />
     <None Include="Resources\LogLevel_Custom.bmp" />
-    <None Include="Resources\LogLevel_Verbose.bmp" />
-    <None Include="Resources\LogAdjust.bmp" />
     <None Include="Resources\logLevel_Unknown.bmp" />
-    <None Include="Resources\LogLevel_All.bmp" />
     <None Include="Resources\btn_donate_SM.gif" />
-    <None Include="Resources\LogLevel_Trace.bmp" />
-    <None Include="Resources\InstancesManager.bmp" />
     <None Include="Resources\Bookmark.png" />
     <None Include="Resources\LogParts.png" />
     <None Include="Resources\Goto.png" />
@@ -383,7 +383,6 @@
     <None Include="Resources\Erase.png" />
     <None Include="Resources\AutoRefreshOld.bmp" />
     <None Include="Resources\filter-Manage - Copy.bmp" />
-    <Content Include="Resources\LogsAround.bmp" />
     <None Include="Resources\MainFile128.png" />
     <Content Include="Resources\MainFile32.ico" />
     <None Include="Resources\syntax highlight.bmp" />

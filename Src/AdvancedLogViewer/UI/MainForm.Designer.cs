@@ -506,7 +506,7 @@
             // showLogBrowserButton
             // 
             this.showLogBrowserButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showLogBrowserButton.Image = ((System.Drawing.Image)(resources.GetObject("showLogBrowserButton.Image")));
+            this.showLogBrowserButton.Image = global::AdvancedLogViewer.Properties.Resources.LogsAround;
             this.showLogBrowserButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showLogBrowserButton.Name = "showLogBrowserButton";
             this.showLogBrowserButton.Size = new System.Drawing.Size(23, 22);
@@ -589,7 +589,7 @@
             // 
             this.openInTextEditorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.openInTextEditorButton.Enabled = false;
-            this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad1;
+            this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad;
             this.openInTextEditorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openInTextEditorButton.Name = "openInTextEditorButton";
             this.openInTextEditorButton.Size = new System.Drawing.Size(23, 22);
@@ -644,7 +644,7 @@
             // 
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.refreshButton.Enabled = false;
-            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.refresh16_transparent;
+            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Refresh;
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(23, 22);
@@ -656,7 +656,7 @@
             this.autoRefreshButton.CheckOnClick = true;
             this.autoRefreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.autoRefreshButton.Enabled = false;
-            this.autoRefreshButton.Image = ((System.Drawing.Image)(resources.GetObject("autoRefreshButton.Image")));
+            this.autoRefreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Play;
             this.autoRefreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.autoRefreshButton.Name = "autoRefreshButton";
             this.autoRefreshButton.Size = new System.Drawing.Size(23, 22);
@@ -701,7 +701,7 @@
             // 
             this.findButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.findButton.Enabled = false;
-            this.findButton.Image = global::AdvancedLogViewer.Properties.Resources.Find;
+            this.findButton.Image = ((System.Drawing.Image)(resources.GetObject("findButton.Image")));
             this.findButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findButton.Name = "findButton";
             this.findButton.Size = new System.Drawing.Size(23, 22);
