@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using Scarfsail.Common.BL;
@@ -25,6 +26,8 @@ namespace AdvancedLogViewer.BL.Settings
         public string SqlFilterText { get; set; }
         public bool ShowLogIcons { get; set; }
         public bool MessageWordWrap { get; set; }
+        public string MessageFontFamily { get; set; }
+        public float MessageFontSize { get; set; }
 
         protected override void LoadData(XElement xmlElement)
         {
@@ -44,6 +47,8 @@ namespace AdvancedLogViewer.BL.Settings
             this.SqlFilterText = GetAttrValue(s => s, xmlElement, "SqlFilterText", String.Empty);
             this.ShowLogIcons = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "ShowLogIcons", true);
             this.MessageWordWrap = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "MessageWordWrap", true);
+            this.MessageFontFamily = GetAttrValue<string>(s => s, xmlElement, "MessageFontFamily", SystemFonts.DefaultFont.Name);
+            this.MessageFontSize = GetAttrValue<float>(s => float.Parse(s), xmlElement, "MessageFontSize", SystemFonts.DefaultFont.SizeInPoints);
         }
 
         protected override void SaveData(XElement xmlElement)
@@ -65,6 +70,8 @@ namespace AdvancedLogViewer.BL.Settings
             AddAttrValue(xmlElement, "SqlFilterText", SqlFilterText);
             AddAttrValue(xmlElement, "ShowLogIcons", ShowLogIcons.ToString());
             AddAttrValue(xmlElement, "MessageWordWrap", MessageWordWrap.ToString());
+            AddAttrValue(xmlElement, "MessageFontFamily", MessageFontFamily);
+            AddAttrValue(xmlElement, "MessageFontSize", MessageFontSize.ToString());
         }
 
         

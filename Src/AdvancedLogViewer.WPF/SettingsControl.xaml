@@ -32,6 +32,9 @@
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                 </Style>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
@@ -56,6 +59,29 @@
                         <CheckBox Name="TrimClassColumnFromLeftCheckBox">Trim text in Class column from the left instead of right side. Thus right part of class name is always visible.</CheckBox>
                         <CheckBox Name="ShowLogIconsCheckBox">Show type's icon on each row (The icon on left side of each row)</CheckBox>
                         <CheckBox Name="MessageWordWrapCheckBox">Word wrap message in preview</CheckBox>
+
+                        <Grid Margin="10,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,0,10">Message Preview:</Label>
+                            <Label Grid.Row="1" Grid.Column="0">Font Family</Label>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Name="FontComboBox"></ComboBox>
+                            <Label Grid.Row="1" Grid.Column="2" Margin="20,0,0,0">Font Size</Label>
+                            <xctk:DoubleUpDown Grid.Row="1" Grid.Column="3" Minimum="1" Maximum="100" Name="FontSize" Width="100"></xctk:DoubleUpDown>
+                            <Label Grid.Row="1" Grid.Column="4">pt</Label>
+                            <Button Grid.Row="1" Grid.Column="5" Click="DefaultFont_Click" Margin="20,0,0,0" Width="60">Default</Button>
+                        </Grid>
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
