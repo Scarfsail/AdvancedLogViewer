@@ -322,6 +322,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Refresh_small.png" />
     <None Include="Resources\Find.png" />
     <None Include="Resources\InstancesManager.png" />
     <None Include="Resources\LogAdjust.png" />

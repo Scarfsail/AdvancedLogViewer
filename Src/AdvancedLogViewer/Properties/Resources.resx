@@ -124,32 +124,32 @@
   <data name="filter_Manage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filter-Manage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="syntax_highlight___manage___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\syntax highlight - manage - Copy.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TextDiff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TextDiff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LogAdjust" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogAdjust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="syntax_highlight___manage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\syntax highlight - manage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Star_Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Star-Yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Star_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Star-Gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SqlFilter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SqlFilter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="open16_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\open16_h.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AutoRefreshOld" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AutoRefreshOld.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogLevel_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogLevel_Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LogLevel_Info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogLevel_Info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextDiff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TextDiff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,35 +166,29 @@
   <data name="Merge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Merge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SqlFilter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SqlFilter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LogFileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogFileIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FolderOpened" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FolderOpened.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogsAround" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogsAround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LogLevel_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogLevel_Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ShowHideBottomPane1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ShowHideBottomPane.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="btn_donate_SM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\btn_donate_SM.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Star_Yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Star-Yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Find" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AutoRefresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AutoRefresh.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="MainFile128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainFile128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LogParts" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogParts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -205,11 +199,14 @@
   <data name="Clean" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Clean.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainFile128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainFile128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LogLevel_Custom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogLevel_Custom.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FilterSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FilterSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="filter_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filter-2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FolderClosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FolderClosed.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,8 +214,8 @@
   <data name="LogLevel_Trace" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogLevel_Trace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogLevel_Custom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogLevel_Custom.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AutoRefresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AutoRefresh.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HighlightSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HighlightSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,26 +226,32 @@
   <data name="ExtractMessageContent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExtractMessageContent.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LogLevel_Warn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogLevel_Warn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="LogLevel_Debug" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogLevel_Debug.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LogsAround" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogsAround.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogLevel_Verbose" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogLevel_Verbose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="syntax_highlight___manage___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\syntax highlight - manage - Copy.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="InstancesManager" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\InstancesManager.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Goto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Goto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogLevel_Warn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogLevel_Warn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="InstancesManager" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InstancesManager.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Goto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Goto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="LogLevel_Verbose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LogLevel_Verbose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LogLevel_All" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogLevel_All.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,14 +259,14 @@
   <data name="filter_Manage___Copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\filter-Manage - Copy.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AutoRefreshOld" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AutoRefreshOld.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="syntax_highlight___manage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\syntax highlight - manage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filter_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filter-2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Star_Gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Star-Gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ShowHideBottomPane1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShowHideBottomPane.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StayOnTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StayOnTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -277,10 +280,10 @@
   <data name="logLevel_Unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logLevel_Unknown.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LogFileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LogFileIcon.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="open16_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\open16_h.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Find" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Find.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Refresh_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Refresh_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
