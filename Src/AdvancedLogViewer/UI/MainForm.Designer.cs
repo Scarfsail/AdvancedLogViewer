@@ -62,63 +62,20 @@
             this.autoRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.openFileButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.removeNonexistingRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.showLogBrowserButton = new System.Windows.Forms.ToolStripButton();
-            this.exportButton = new System.Windows.Forms.ToolStripButton();
-            this.openOtherPartsButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.starFileButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.mergeLogPartsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.otherInstancesButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openInTextEditorButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
-            this.logAdjusterButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.logAdjusterMenuDivider = new System.Windows.Forms.ToolStripSeparator();
-            this.editConfigFileDirectlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshButton = new System.Windows.Forms.ToolStripButton();
-            this.autoRefreshButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bookmarkButton = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.goToItemButton = new System.Windows.Forms.ToolStripButton();
-            this.findButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.showOnlyNewItemsButton = new System.Windows.Forms.ToolStripButton();
-            this.sqlFilterButton = new System.Windows.Forms.ToolStripButton();
-            this.enableFiltersButton = new System.Windows.Forms.ToolStripButton();
-            this.manageFiltersButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.enableHighlightsButton = new System.Windows.Forms.ToolStripButton();
-            this.manageHighlightsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.textDiffButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.showHideBottomPane = new System.Windows.Forms.ToolStripButton();
-            this.stayOnTopButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.otherButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logLevelAdjustmentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageParsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.showListOfShortcutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showCommandLineParamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.pluginsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pluginsNotFoundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
-            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applicationHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
-            this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadingStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lastRefreshStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.lastChangeStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -129,14 +86,57 @@
             this.timeSpanBetweenTwoItems = new System.Windows.Forms.ToolStripStatusLabel();
             this.checkForUpdatesStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openFileButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.removeNonexistingRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.showLogBrowserButton = new System.Windows.Forms.ToolStripButton();
+            this.exportButton = new System.Windows.Forms.ToolStripButton();
+            this.openOtherPartsButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.starFileButton = new System.Windows.Forms.ToolStripButton();
+            this.mergeLogPartsButton = new System.Windows.Forms.ToolStripButton();
+            this.otherInstancesButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.openInTextEditorButton = new System.Windows.Forms.ToolStripButton();
+            this.logAdjusterButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.logAdjusterMenuDivider = new System.Windows.Forms.ToolStripSeparator();
+            this.editConfigFileDirectlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshButton = new System.Windows.Forms.ToolStripButton();
+            this.autoRefreshButton = new System.Windows.Forms.ToolStripButton();
+            this.bookmarkButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.goToItemButton = new System.Windows.Forms.ToolStripButton();
+            this.findButton = new System.Windows.Forms.ToolStripButton();
+            this.showOnlyNewItemsButton = new System.Windows.Forms.ToolStripButton();
+            this.sqlFilterButton = new System.Windows.Forms.ToolStripButton();
+            this.enableFiltersButton = new System.Windows.Forms.ToolStripButton();
+            this.manageFiltersButton = new System.Windows.Forms.ToolStripButton();
+            this.enableHighlightsButton = new System.Windows.Forms.ToolStripButton();
+            this.manageHighlightsButton = new System.Windows.Forms.ToolStripButton();
+            this.textDiffButton = new System.Windows.Forms.ToolStripButton();
+            this.showHideBottomPane = new System.Windows.Forms.ToolStripButton();
+            this.stayOnTopButton = new System.Windows.Forms.ToolStripButton();
+            this.otherButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.settingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logLevelAdjustmentSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageParsersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.showListOfShortcutsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showCommandLineParamsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.pluginsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
+            this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractMessageContentButton = new System.Windows.Forms.ToolStripSplitButton();
             this.configureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.openInDefaultApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logLoadingErrorsStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.parserPatternToolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.logViewContextMenu.SuspendLayout();
             this.messageDetailContextMenu.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -282,9 +282,9 @@
             this.mainPanel.Controls.Add(this.splitter2);
             this.mainPanel.Controls.Add(this.sqlFilterPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 25);
+            this.mainPanel.Location = new System.Drawing.Point(0, 39);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1022, 644);
+            this.mainPanel.Size = new System.Drawing.Size(1022, 630);
             this.mainPanel.TabIndex = 0;
             // 
             // logViewPanel
@@ -297,7 +297,7 @@
             this.logViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.logViewPanel.Location = new System.Drawing.Point(0, 86);
             this.logViewPanel.Name = "logViewPanel";
-            this.logViewPanel.Size = new System.Drawing.Size(1022, 558);
+            this.logViewPanel.Size = new System.Drawing.Size(1022, 544);
             this.logViewPanel.TabIndex = 8;
             // 
             // logListView
@@ -310,7 +310,7 @@
             this.logListView.Location = new System.Drawing.Point(0, 0);
             this.logListView.Name = "logListView";
             this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1002, 429);
+            this.logListView.Size = new System.Drawing.Size(1002, 415);
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
             this.logListView.View = System.Windows.Forms.View.Details;
@@ -327,7 +327,7 @@
             this.searchMarkersPanelParent.Location = new System.Drawing.Point(1002, 0);
             this.searchMarkersPanelParent.Name = "searchMarkersPanelParent";
             this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 415);
             this.searchMarkersPanelParent.TabIndex = 8;
             this.searchMarkersPanelParent.Visible = false;
             // 
@@ -341,7 +341,7 @@
             this.searchMarkerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.searchMarkerPanel.Name = "searchMarkerPanel";
             this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 409);
+            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 395);
             this.searchMarkerPanel.TabIndex = 6;
             this.searchMarkerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
@@ -352,7 +352,7 @@
             this.markersPanelParent.Location = new System.Drawing.Point(1012, 0);
             this.markersPanelParent.Name = "markersPanelParent";
             this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.markersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.markersPanelParent.Size = new System.Drawing.Size(10, 415);
             this.markersPanelParent.TabIndex = 6;
             // 
             // markerPanel
@@ -365,14 +365,14 @@
             this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.markerPanel.Name = "markerPanel";
             this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 409);
+            this.markerPanel.Size = new System.Drawing.Size(10, 395);
             this.markerPanel.TabIndex = 6;
             this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 429);
+            this.splitter1.Location = new System.Drawing.Point(0, 415);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(1022, 4);
             this.splitter1.TabIndex = 4;
@@ -385,7 +385,7 @@
             this.logMessageEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.logMessageEdit.Enabled = false;
             this.logMessageEdit.HideSelection = false;
-            this.logMessageEdit.Location = new System.Drawing.Point(0, 433);
+            this.logMessageEdit.Location = new System.Drawing.Point(0, 419);
             this.logMessageEdit.Name = "logMessageEdit";
             this.logMessageEdit.ReadOnly = true;
             this.logMessageEdit.Size = new System.Drawing.Size(1022, 125);
@@ -434,7 +434,8 @@
             // 
             // toolStrip
             // 
-            this.toolStrip.AutoSize = false;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileButton,
             this.showLogBrowserButton,
@@ -474,451 +475,70 @@
             this.otherButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1022, 25);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(4, 0, 1, 0);
+            this.toolStrip.Size = new System.Drawing.Size(1022, 39);
             this.toolStrip.TabIndex = 5;
             this.toolStrip.Text = "toolStrip1";
-            // 
-            // openFileButton
-            // 
-            this.openFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openFileButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeNonexistingRecentFilesToolStripMenuItem,
-            this.toolStripMenuItem3});
-            this.openFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Open;
-            this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(32, 22);
-            this.openFileButton.ToolTipText = "Click on button to show Open File dialog (CTRL + O)\r\nClick on arrow to show recen" +
-    "t files (CTRL + R)";
-            this.openFileButton.ButtonClick += new System.EventHandler(this.openFileButton_Click);
-            // 
-            // removeNonexistingRecentFilesToolStripMenuItem
-            // 
-            this.removeNonexistingRecentFilesToolStripMenuItem.Name = "removeNonexistingRecentFilesToolStripMenuItem";
-            this.removeNonexistingRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
-            this.removeNonexistingRecentFilesToolStripMenuItem.Text = "Remove  nonexisting recent files";
-            this.removeNonexistingRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.removeNonexistingRecentFilesToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(241, 6);
-            // 
-            // showLogBrowserButton
-            // 
-            this.showLogBrowserButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showLogBrowserButton.Image = global::AdvancedLogViewer.Properties.Resources.LogsAround;
-            this.showLogBrowserButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showLogBrowserButton.Name = "showLogBrowserButton";
-            this.showLogBrowserButton.Size = new System.Drawing.Size(23, 22);
-            this.showLogBrowserButton.ToolTipText = "Browse for logs";
-            this.showLogBrowserButton.Click += new System.EventHandler(this.showLogBrowserButton_Click);
-            // 
-            // exportButton
-            // 
-            this.exportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.exportButton.Enabled = false;
-            this.exportButton.Image = global::AdvancedLogViewer.Properties.Resources.Save;
-            this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(23, 22);
-            this.exportButton.ToolTipText = "Save currently shown items to a new log file";
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
-            // 
-            // openOtherPartsButton
-            // 
-            this.openOtherPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openOtherPartsButton.Enabled = false;
-            this.openOtherPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.LogParts;
-            this.openOtherPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openOtherPartsButton.Name = "openOtherPartsButton";
-            this.openOtherPartsButton.Size = new System.Drawing.Size(32, 22);
-            this.openOtherPartsButton.ToolTipText = "Open another log part (.1, .2, ...)\r\nClick on this button to open following part." +
-    "\r\n\r\nPress CTRL+Right to open following part.\r\nPress CTRL+Left to open previous p" +
-    "art.\r\n";
-            this.openOtherPartsButton.ButtonClick += new System.EventHandler(this.openOtherPartsButton_ButtonClick);
-            // 
-            // starFileButton
-            // 
-            this.starFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.starFileButton.Enabled = false;
-            this.starFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Star_Gray;
-            this.starFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.starFileButton.Name = "starFileButton";
-            this.starFileButton.Size = new System.Drawing.Size(23, 22);
-            this.starFileButton.ToolTipText = "Mark / unmark currently opened file as favorite ";
-            this.starFileButton.Click += new System.EventHandler(this.starFileButton_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 25);
-            // 
-            // mergeLogPartsButton
-            // 
-            this.mergeLogPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.mergeLogPartsButton.Enabled = false;
-            this.mergeLogPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.Merge;
-            this.mergeLogPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mergeLogPartsButton.Name = "mergeLogPartsButton";
-            this.mergeLogPartsButton.Size = new System.Drawing.Size(23, 22);
-            this.mergeLogPartsButton.ToolTipText = "Merge log parts into one file";
-            this.mergeLogPartsButton.Click += new System.EventHandler(this.mergeLogPartsButton_Click);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 25);
-            // 
-            // otherInstancesButton
-            // 
-            this.otherInstancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.otherInstancesButton.Image = global::AdvancedLogViewer.Properties.Resources.InstancesManager;
-            this.otherInstancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.otherInstancesButton.Name = "otherInstancesButton";
-            this.otherInstancesButton.Size = new System.Drawing.Size(29, 22);
-            this.otherInstancesButton.ToolTipText = "Running instances of ALV.\r\nUse also CTRL+Tab to easy switch between running insta" +
-    "nces of ALV.";
-            this.otherInstancesButton.DropDownOpening += new System.EventHandler(this.otherInstancesButton_DropDownOpening);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // openInTextEditorButton
-            // 
-            this.openInTextEditorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openInTextEditorButton.Enabled = false;
-            this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad;
-            this.openInTextEditorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openInTextEditorButton.Name = "openInTextEditorButton";
-            this.openInTextEditorButton.Size = new System.Drawing.Size(23, 22);
-            this.openInTextEditorButton.ToolTipText = "Open the log file in associated text editor.\r\nHint: Use context menu on appropria" +
-    "te row to open log on exact line (If supported by the configured text editor).";
-            this.openInTextEditorButton.Click += new System.EventHandler(this.openInTextEditorButton_Click);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
-            // 
-            // logAdjusterButton
-            // 
-            this.logAdjusterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.logAdjusterButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logAdjusterMenuDivider,
-            this.editConfigFileDirectlyToolStripMenuItem,
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem});
-            this.logAdjusterButton.Enabled = false;
-            this.logAdjusterButton.Image = global::AdvancedLogViewer.Properties.Resources.LogAdjust;
-            this.logAdjusterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.logAdjusterButton.Name = "logAdjusterButton";
-            this.logAdjusterButton.Size = new System.Drawing.Size(29, 22);
-            this.logAdjusterButton.ToolTipText = "Adjust log level in associated Config file for currently opened log file.";
-            // 
-            // logAdjusterMenuDivider
-            // 
-            this.logAdjusterMenuDivider.Name = "logAdjusterMenuDivider";
-            this.logAdjusterMenuDivider.Size = new System.Drawing.Size(221, 6);
-            // 
-            // editConfigFileDirectlyToolStripMenuItem
-            // 
-            this.editConfigFileDirectlyToolStripMenuItem.Name = "editConfigFileDirectlyToolStripMenuItem";
-            this.editConfigFileDirectlyToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.editConfigFileDirectlyToolStripMenuItem.Text = "Edit Config file directly";
-            this.editConfigFileDirectlyToolStripMenuItem.Click += new System.EventHandler(this.editConfigFileDirectlyToolStripMenuItem_Click);
-            // 
-            // configureLogAdjusterForThisLogFileToolStripMenuItem
-            // 
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Name = "configureLogAdjusterForThisLogFileToolStripMenuItem";
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "It\'s configured in the code ...";
-            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Click += new System.EventHandler(this.configureLogAdjusterForThisLogFileToolStripMenuItem_Click);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.refreshButton.Enabled = false;
-            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Refresh;
-            this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(23, 22);
-            this.refreshButton.ToolTipText = "Refresh log file now";
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
-            // autoRefreshButton
-            // 
-            this.autoRefreshButton.CheckOnClick = true;
-            this.autoRefreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.autoRefreshButton.Enabled = false;
-            this.autoRefreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Play;
-            this.autoRefreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.autoRefreshButton.Name = "autoRefreshButton";
-            this.autoRefreshButton.Size = new System.Drawing.Size(23, 22);
-            this.autoRefreshButton.ToolTipText = "Toggle auto refresh (Play / Pause)";
-            this.autoRefreshButton.CheckedChanged += new System.EventHandler(this.autoRefreshButton_CheckedChanged);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // bookmarkButton
-            // 
-            this.bookmarkButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bookmarkButton.Enabled = false;
-            this.bookmarkButton.Image = global::AdvancedLogViewer.Properties.Resources.Bookmark;
-            this.bookmarkButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bookmarkButton.Name = "bookmarkButton";
-            this.bookmarkButton.Size = new System.Drawing.Size(32, 22);
-            this.bookmarkButton.ToolTipText = "Click on the button to create first free bookmark on current line.\r\nPress CTRL + " +
-    "Bookmark number to go to the bookmark.\r\nPress CTRL + SHIFT + Bookmark number to " +
-    "toggle the bookmark on current line.";
-            this.bookmarkButton.ButtonClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
-            // 
-            // goToItemButton
-            // 
-            this.goToItemButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.goToItemButton.Enabled = false;
-            this.goToItemButton.Image = global::AdvancedLogViewer.Properties.Resources.Goto;
-            this.goToItemButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.goToItemButton.Name = "goToItemButton";
-            this.goToItemButton.Size = new System.Drawing.Size(23, 22);
-            this.goToItemButton.ToolTipText = "Go to an item";
-            this.goToItemButton.Click += new System.EventHandler(this.goToItemButton_Click);
-            // 
-            // findButton
-            // 
-            this.findButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findButton.Enabled = false;
-            this.findButton.Image = ((System.Drawing.Image)(resources.GetObject("findButton.Image")));
-            this.findButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.findButton.Name = "findButton";
-            this.findButton.Size = new System.Drawing.Size(23, 22);
-            this.findButton.ToolTipText = "Find text in the log (CTRL + F)\r\nF3 - Find next occurence of the text\r\nSHIFT + F3" +
-    " - Find previous occurence of the text\r\n";
-            this.findButton.Click += new System.EventHandler(this.findButton_Click);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // showOnlyNewItemsButton
-            // 
-            this.showOnlyNewItemsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showOnlyNewItemsButton.Enabled = false;
-            this.showOnlyNewItemsButton.Image = global::AdvancedLogViewer.Properties.Resources.Erase;
-            this.showOnlyNewItemsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showOnlyNewItemsButton.Name = "showOnlyNewItemsButton";
-            this.showOnlyNewItemsButton.Size = new System.Drawing.Size(23, 22);
-            this.showOnlyNewItemsButton.ToolTipText = "Show only new log items since now, older items will be hidden.\r\nThis action enabl" +
-    "e Date filter and put current time into \'From\' field.";
-            this.showOnlyNewItemsButton.Click += new System.EventHandler(this.showOnlyNewItemsButton_Click);
-            // 
-            // sqlFilterButton
-            // 
-            this.sqlFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.sqlFilterButton.Enabled = false;
-            this.sqlFilterButton.Image = global::AdvancedLogViewer.Properties.Resources.SqlFilter;
-            this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.sqlFilterButton.Name = "sqlFilterButton";
-            this.sqlFilterButton.Size = new System.Drawing.Size(23, 22);
-            this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit. When the edit isn\'t shown, the sql filter isn\'t appl" +
-    "ied.";
-            this.sqlFilterButton.Click += new System.EventHandler(this.sqlFilterButton_Click);
-            // 
-            // enableFiltersButton
-            // 
-            this.enableFiltersButton.CheckOnClick = true;
-            this.enableFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.enableFiltersButton.Enabled = false;
-            this.enableFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.Filter;
-            this.enableFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enableFiltersButton.Name = "enableFiltersButton";
-            this.enableFiltersButton.Size = new System.Drawing.Size(23, 22);
-            this.enableFiltersButton.ToolTipText = "Enable / disable filters";
-            this.enableFiltersButton.Click += new System.EventHandler(this.enableFiltersButton_Click);
-            // 
-            // manageFiltersButton
-            // 
-            this.manageFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.manageFiltersButton.Enabled = false;
-            this.manageFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.FilterSettings;
-            this.manageFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.manageFiltersButton.Name = "manageFiltersButton";
-            this.manageFiltersButton.Size = new System.Drawing.Size(23, 22);
-            this.manageFiltersButton.ToolTipText = "Manage filters";
-            this.manageFiltersButton.Click += new System.EventHandler(this.manageFiltersButton_Click);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // enableHighlightsButton
-            // 
-            this.enableHighlightsButton.CheckOnClick = true;
-            this.enableHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.enableHighlightsButton.Enabled = false;
-            this.enableHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.Highlight;
-            this.enableHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.enableHighlightsButton.Name = "enableHighlightsButton";
-            this.enableHighlightsButton.Size = new System.Drawing.Size(23, 22);
-            this.enableHighlightsButton.ToolTipText = "Enable / disable highlights";
-            this.enableHighlightsButton.Click += new System.EventHandler(this.enableHighlightsButton_Click);
-            // 
-            // manageHighlightsButton
-            // 
-            this.manageHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.manageHighlightsButton.Enabled = false;
-            this.manageHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.HighlightSettings;
-            this.manageHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.manageHighlightsButton.Name = "manageHighlightsButton";
-            this.manageHighlightsButton.Size = new System.Drawing.Size(23, 22);
-            this.manageHighlightsButton.ToolTipText = "Manage highlights";
-            this.manageHighlightsButton.Click += new System.EventHandler(this.manageHighlightsButton_Click);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // textDiffButton
-            // 
-            this.textDiffButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.textDiffButton.Enabled = false;
-            this.textDiffButton.Image = global::AdvancedLogViewer.Properties.Resources.TextDiff;
-            this.textDiffButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.textDiffButton.Name = "textDiffButton";
-            this.textDiffButton.Size = new System.Drawing.Size(23, 22);
-            this.textDiffButton.ToolTipText = "Show text differences between two log items";
-            this.textDiffButton.Click += new System.EventHandler(this.textDiffButton_Click);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-            // 
-            // showHideBottomPane
-            // 
-            this.showHideBottomPane.Checked = true;
-            this.showHideBottomPane.CheckOnClick = true;
-            this.showHideBottomPane.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showHideBottomPane.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showHideBottomPane.Image = global::AdvancedLogViewer.Properties.Resources.ShowHideBottomPane1;
-            this.showHideBottomPane.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showHideBottomPane.Name = "showHideBottomPane";
-            this.showHideBottomPane.Size = new System.Drawing.Size(23, 22);
-            this.showHideBottomPane.ToolTipText = "Show / Hide bottom pane with message details";
-            this.showHideBottomPane.Click += new System.EventHandler(this.showHideBottomPane_Click);
-            // 
-            // stayOnTopButton
-            // 
-            this.stayOnTopButton.CheckOnClick = true;
-            this.stayOnTopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.stayOnTopButton.Image = global::AdvancedLogViewer.Properties.Resources.StayOnTop;
-            this.stayOnTopButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stayOnTopButton.Name = "stayOnTopButton";
-            this.stayOnTopButton.Size = new System.Drawing.Size(23, 22);
-            this.stayOnTopButton.ToolTipText = "Main window stay on top";
-            this.stayOnTopButton.Click += new System.EventHandler(this.stayOnTopButton_Click);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 39);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
-            // 
-            // otherButton
-            // 
-            this.otherButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.otherButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsMenuItem,
-            this.logLevelAdjustmentSettingsToolStripMenuItem,
-            this.manageParsersMenuItem,
-            this.toolStripMenuItem5,
-            this.showListOfShortcutsToolStripMenuItem,
-            this.showCommandLineParamsToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.pluginsMenuItem,
-            this.toolStripMenuItem10,
-            this.checkForUpdateToolStripMenuItem,
-            this.applicationHistoryToolStripMenuItem,
-            this.toolStripMenuItem9,
-            this.sendFeedbackToolStripMenuItem,
-            this.aboutMenuItem});
-            this.otherButton.Image = ((System.Drawing.Image)(resources.GetObject("otherButton.Image")));
-            this.otherButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.otherButton.Name = "otherButton";
-            this.otherButton.Size = new System.Drawing.Size(48, 22);
-            this.otherButton.Text = "More";
-            // 
-            // settingsMenuItem
-            // 
-            this.settingsMenuItem.Name = "settingsMenuItem";
-            this.settingsMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.settingsMenuItem.Text = "Application settings";
-            this.settingsMenuItem.Click += new System.EventHandler(this.settingsMenuItem_Click);
-            // 
-            // logLevelAdjustmentSettingsToolStripMenuItem
-            // 
-            this.logLevelAdjustmentSettingsToolStripMenuItem.Enabled = false;
-            this.logLevelAdjustmentSettingsToolStripMenuItem.Name = "logLevelAdjustmentSettingsToolStripMenuItem";
-            this.logLevelAdjustmentSettingsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.logLevelAdjustmentSettingsToolStripMenuItem.Text = "Log Level Adjustment settings";
-            this.logLevelAdjustmentSettingsToolStripMenuItem.Click += new System.EventHandler(this.logLevelAdjustmentSettingsToolStripMenuItem_Click);
-            // 
-            // manageParsersMenuItem
-            // 
-            this.manageParsersMenuItem.Name = "manageParsersMenuItem";
-            this.manageParsersMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.manageParsersMenuItem.Text = "Manage parser patterns";
-            this.manageParsersMenuItem.ToolTipText = "Shows manager of parser patterns";
-            this.manageParsersMenuItem.Click += new System.EventHandler(this.manageParsersMenuItem_Click);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(242, 6);
-            // 
-            // showListOfShortcutsToolStripMenuItem
-            // 
-            this.showListOfShortcutsToolStripMenuItem.Name = "showListOfShortcutsToolStripMenuItem";
-            this.showListOfShortcutsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.showListOfShortcutsToolStripMenuItem.Text = "Show list of keyboard shortcuts";
-            this.showListOfShortcutsToolStripMenuItem.Click += new System.EventHandler(this.showListOfShortcutsToolStripMenuItem_Click);
-            // 
-            // showCommandLineParamsToolStripMenuItem
-            // 
-            this.showCommandLineParamsToolStripMenuItem.Name = "showCommandLineParamsToolStripMenuItem";
-            this.showCommandLineParamsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.showCommandLineParamsToolStripMenuItem.Text = "Show command line parameters";
-            this.showCommandLineParamsToolStripMenuItem.Click += new System.EventHandler(this.showCommandLineParamsToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(242, 6);
-            // 
-            // pluginsMenuItem
-            // 
-            this.pluginsMenuItem.DropDown = this.pluginsContextMenu;
-            this.pluginsMenuItem.Enabled = false;
-            this.pluginsMenuItem.Name = "pluginsMenuItem";
-            this.pluginsMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.pluginsMenuItem.Text = "Plugins";
-            this.pluginsMenuItem.DropDownOpening += new System.EventHandler(this.pluginsMenuItem_DropDownOpening);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 39);
             // 
             // pluginsContextMenu
             // 
@@ -935,44 +555,6 @@
             this.pluginsNotFoundToolStripMenuItem.Text = "There are no any plugins";
             this.pluginsNotFoundToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.pluginsNotFoundToolStripMenuItem.Click += new System.EventHandler(this.pluginsNotFoundToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem10
-            // 
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(242, 6);
-            // 
-            // checkForUpdateToolStripMenuItem
-            // 
-            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.checkForUpdateToolStripMenuItem.Text = "Check for updates ...";
-            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
-            // 
-            // applicationHistoryToolStripMenuItem
-            // 
-            this.applicationHistoryToolStripMenuItem.Name = "applicationHistoryToolStripMenuItem";
-            this.applicationHistoryToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.applicationHistoryToolStripMenuItem.Text = "Application history";
-            this.applicationHistoryToolStripMenuItem.Click += new System.EventHandler(this.applicationHistoryToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem9
-            // 
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(242, 6);
-            // 
-            // sendFeedbackToolStripMenuItem
-            // 
-            this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
-            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.sendFeedbackToolStripMenuItem.Text = "Send feedback to author";
-            this.sendFeedbackToolStripMenuItem.Click += new System.EventHandler(this.sendFeedbackToolStripMenuItem_Click);
-            // 
-            // aboutMenuItem
-            // 
-            this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.aboutMenuItem.Text = "About";
-            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
             // loadingStatus
             // 
@@ -1057,6 +639,461 @@
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
+            // logLoadingErrorsStatus
+            // 
+            this.logLoadingErrorsStatus.Name = "logLoadingErrorsStatus";
+            this.logLoadingErrorsStatus.Size = new System.Drawing.Size(10, 17);
+            this.logLoadingErrorsStatus.Text = " ";
+            // 
+            // parserPatternToolStripStatus
+            // 
+            this.parserPatternToolStripStatus.Name = "parserPatternToolStripStatus";
+            this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
+            this.parserPatternToolStripStatus.Text = " ";
+            // 
+            // openFileButton
+            // 
+            this.openFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openFileButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeNonexistingRecentFilesToolStripMenuItem,
+            this.toolStripMenuItem3});
+            this.openFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Open;
+            this.openFileButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(40, 36);
+            this.openFileButton.ToolTipText = "Click on button to show Open File dialog (CTRL + O)\r\nClick on arrow to show recen" +
+    "t files (CTRL + R)";
+            this.openFileButton.ButtonClick += new System.EventHandler(this.openFileButton_Click);
+            // 
+            // removeNonexistingRecentFilesToolStripMenuItem
+            // 
+            this.removeNonexistingRecentFilesToolStripMenuItem.Name = "removeNonexistingRecentFilesToolStripMenuItem";
+            this.removeNonexistingRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.removeNonexistingRecentFilesToolStripMenuItem.Text = "Remove  nonexisting recent files";
+            this.removeNonexistingRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.removeNonexistingRecentFilesToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(241, 6);
+            // 
+            // showLogBrowserButton
+            // 
+            this.showLogBrowserButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showLogBrowserButton.Image = global::AdvancedLogViewer.Properties.Resources.LogsAround;
+            this.showLogBrowserButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showLogBrowserButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showLogBrowserButton.Name = "showLogBrowserButton";
+            this.showLogBrowserButton.Size = new System.Drawing.Size(28, 36);
+            this.showLogBrowserButton.ToolTipText = "Browse for logs";
+            this.showLogBrowserButton.Click += new System.EventHandler(this.showLogBrowserButton_Click);
+            // 
+            // exportButton
+            // 
+            this.exportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.exportButton.Enabled = false;
+            this.exportButton.Image = global::AdvancedLogViewer.Properties.Resources.Save;
+            this.exportButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(28, 36);
+            this.exportButton.ToolTipText = "Save currently shown items to a new log file";
+            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+            // 
+            // openOtherPartsButton
+            // 
+            this.openOtherPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openOtherPartsButton.Enabled = false;
+            this.openOtherPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.LogParts;
+            this.openOtherPartsButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.openOtherPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openOtherPartsButton.Name = "openOtherPartsButton";
+            this.openOtherPartsButton.Size = new System.Drawing.Size(40, 36);
+            this.openOtherPartsButton.ToolTipText = "Open another log part (.1, .2, ...)\r\nClick on this button to open following part." +
+    "\r\n\r\nPress CTRL+Right to open following part.\r\nPress CTRL+Left to open previous p" +
+    "art.\r\n";
+            this.openOtherPartsButton.ButtonClick += new System.EventHandler(this.openOtherPartsButton_ButtonClick);
+            // 
+            // starFileButton
+            // 
+            this.starFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.starFileButton.Enabled = false;
+            this.starFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Star_Gray;
+            this.starFileButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.starFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.starFileButton.Name = "starFileButton";
+            this.starFileButton.Size = new System.Drawing.Size(28, 36);
+            this.starFileButton.ToolTipText = "Mark / unmark currently opened file as favorite ";
+            this.starFileButton.Click += new System.EventHandler(this.starFileButton_Click);
+            // 
+            // mergeLogPartsButton
+            // 
+            this.mergeLogPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.mergeLogPartsButton.Enabled = false;
+            this.mergeLogPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.Merge;
+            this.mergeLogPartsButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.mergeLogPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mergeLogPartsButton.Name = "mergeLogPartsButton";
+            this.mergeLogPartsButton.Size = new System.Drawing.Size(28, 36);
+            this.mergeLogPartsButton.ToolTipText = "Merge log parts into one file";
+            this.mergeLogPartsButton.Click += new System.EventHandler(this.mergeLogPartsButton_Click);
+            // 
+            // otherInstancesButton
+            // 
+            this.otherInstancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.otherInstancesButton.Image = global::AdvancedLogViewer.Properties.Resources.InstancesManager;
+            this.otherInstancesButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.otherInstancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.otherInstancesButton.Name = "otherInstancesButton";
+            this.otherInstancesButton.Size = new System.Drawing.Size(37, 36);
+            this.otherInstancesButton.ToolTipText = "Running instances of ALV.\r\nUse also CTRL+Tab to easy switch between running insta" +
+    "nces of ALV.";
+            this.otherInstancesButton.DropDownOpening += new System.EventHandler(this.otherInstancesButton_DropDownOpening);
+            // 
+            // openInTextEditorButton
+            // 
+            this.openInTextEditorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openInTextEditorButton.Enabled = false;
+            this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad;
+            this.openInTextEditorButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.openInTextEditorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openInTextEditorButton.Name = "openInTextEditorButton";
+            this.openInTextEditorButton.Size = new System.Drawing.Size(28, 36);
+            this.openInTextEditorButton.ToolTipText = "Open the log file in associated text editor.\r\nHint: Use context menu on appropria" +
+    "te row to open log on exact line (If supported by the configured text editor).";
+            this.openInTextEditorButton.Click += new System.EventHandler(this.openInTextEditorButton_Click);
+            // 
+            // logAdjusterButton
+            // 
+            this.logAdjusterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.logAdjusterButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logAdjusterMenuDivider,
+            this.editConfigFileDirectlyToolStripMenuItem,
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem});
+            this.logAdjusterButton.Enabled = false;
+            this.logAdjusterButton.Image = global::AdvancedLogViewer.Properties.Resources.LogAdjust;
+            this.logAdjusterButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.logAdjusterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.logAdjusterButton.Name = "logAdjusterButton";
+            this.logAdjusterButton.Size = new System.Drawing.Size(37, 36);
+            this.logAdjusterButton.ToolTipText = "Adjust log level in associated Config file for currently opened log file.";
+            // 
+            // logAdjusterMenuDivider
+            // 
+            this.logAdjusterMenuDivider.Name = "logAdjusterMenuDivider";
+            this.logAdjusterMenuDivider.Size = new System.Drawing.Size(221, 6);
+            // 
+            // editConfigFileDirectlyToolStripMenuItem
+            // 
+            this.editConfigFileDirectlyToolStripMenuItem.Name = "editConfigFileDirectlyToolStripMenuItem";
+            this.editConfigFileDirectlyToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.editConfigFileDirectlyToolStripMenuItem.Text = "Edit Config file directly";
+            this.editConfigFileDirectlyToolStripMenuItem.Click += new System.EventHandler(this.editConfigFileDirectlyToolStripMenuItem_Click);
+            // 
+            // configureLogAdjusterForThisLogFileToolStripMenuItem
+            // 
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Name = "configureLogAdjusterForThisLogFileToolStripMenuItem";
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Text = "It\'s configured in the code ...";
+            this.configureLogAdjusterForThisLogFileToolStripMenuItem.Click += new System.EventHandler(this.configureLogAdjusterForThisLogFileToolStripMenuItem_Click);
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.refreshButton.Enabled = false;
+            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Refresh;
+            this.refreshButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(28, 36);
+            this.refreshButton.ToolTipText = "Refresh log file now";
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
+            // autoRefreshButton
+            // 
+            this.autoRefreshButton.CheckOnClick = true;
+            this.autoRefreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.autoRefreshButton.Enabled = false;
+            this.autoRefreshButton.Image = global::AdvancedLogViewer.Properties.Resources.Play;
+            this.autoRefreshButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.autoRefreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.autoRefreshButton.Name = "autoRefreshButton";
+            this.autoRefreshButton.Size = new System.Drawing.Size(28, 36);
+            this.autoRefreshButton.ToolTipText = "Toggle auto refresh (Play / Pause)";
+            this.autoRefreshButton.CheckedChanged += new System.EventHandler(this.autoRefreshButton_CheckedChanged);
+            // 
+            // bookmarkButton
+            // 
+            this.bookmarkButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bookmarkButton.Enabled = false;
+            this.bookmarkButton.Image = global::AdvancedLogViewer.Properties.Resources.Bookmark;
+            this.bookmarkButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bookmarkButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bookmarkButton.Name = "bookmarkButton";
+            this.bookmarkButton.Size = new System.Drawing.Size(40, 36);
+            this.bookmarkButton.ToolTipText = "Click on the button to create first free bookmark on current line.\r\nPress CTRL + " +
+    "Bookmark number to go to the bookmark.\r\nPress CTRL + SHIFT + Bookmark number to " +
+    "toggle the bookmark on current line.";
+            this.bookmarkButton.ButtonClick += new System.EventHandler(this.bookmarkButton_ButtonClick);
+            // 
+            // goToItemButton
+            // 
+            this.goToItemButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.goToItemButton.Enabled = false;
+            this.goToItemButton.Image = global::AdvancedLogViewer.Properties.Resources.Goto;
+            this.goToItemButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.goToItemButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.goToItemButton.Name = "goToItemButton";
+            this.goToItemButton.Size = new System.Drawing.Size(28, 36);
+            this.goToItemButton.ToolTipText = "Go to an item";
+            this.goToItemButton.Click += new System.EventHandler(this.goToItemButton_Click);
+            // 
+            // findButton
+            // 
+            this.findButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.findButton.Enabled = false;
+            this.findButton.Image = ((System.Drawing.Image)(resources.GetObject("findButton.Image")));
+            this.findButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.findButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.findButton.Name = "findButton";
+            this.findButton.Size = new System.Drawing.Size(36, 36);
+            this.findButton.ToolTipText = "Find text in the log (CTRL + F)\r\nF3 - Find next occurence of the text\r\nSHIFT + F3" +
+    " - Find previous occurence of the text\r\n";
+            this.findButton.Click += new System.EventHandler(this.findButton_Click);
+            // 
+            // showOnlyNewItemsButton
+            // 
+            this.showOnlyNewItemsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showOnlyNewItemsButton.Enabled = false;
+            this.showOnlyNewItemsButton.Image = global::AdvancedLogViewer.Properties.Resources.Erase;
+            this.showOnlyNewItemsButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showOnlyNewItemsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showOnlyNewItemsButton.Name = "showOnlyNewItemsButton";
+            this.showOnlyNewItemsButton.Size = new System.Drawing.Size(28, 36);
+            this.showOnlyNewItemsButton.ToolTipText = "Show only new log items since now, older items will be hidden.\r\nThis action enabl" +
+    "e Date filter and put current time into \'From\' field.";
+            this.showOnlyNewItemsButton.Click += new System.EventHandler(this.showOnlyNewItemsButton_Click);
+            // 
+            // sqlFilterButton
+            // 
+            this.sqlFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.sqlFilterButton.Enabled = false;
+            this.sqlFilterButton.Image = global::AdvancedLogViewer.Properties.Resources.SqlFilter;
+            this.sqlFilterButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sqlFilterButton.Name = "sqlFilterButton";
+            this.sqlFilterButton.Size = new System.Drawing.Size(28, 36);
+            this.sqlFilterButton.ToolTipText = "Show / Hide SQL Filter edit. When the edit isn\'t shown, the sql filter isn\'t appl" +
+    "ied.";
+            this.sqlFilterButton.Click += new System.EventHandler(this.sqlFilterButton_Click);
+            // 
+            // enableFiltersButton
+            // 
+            this.enableFiltersButton.CheckOnClick = true;
+            this.enableFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enableFiltersButton.Enabled = false;
+            this.enableFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.Filter;
+            this.enableFiltersButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.enableFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enableFiltersButton.Name = "enableFiltersButton";
+            this.enableFiltersButton.Size = new System.Drawing.Size(28, 36);
+            this.enableFiltersButton.ToolTipText = "Enable / disable filters";
+            this.enableFiltersButton.Click += new System.EventHandler(this.enableFiltersButton_Click);
+            // 
+            // manageFiltersButton
+            // 
+            this.manageFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.manageFiltersButton.Enabled = false;
+            this.manageFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.FilterSettings;
+            this.manageFiltersButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.manageFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.manageFiltersButton.Name = "manageFiltersButton";
+            this.manageFiltersButton.Size = new System.Drawing.Size(28, 36);
+            this.manageFiltersButton.ToolTipText = "Manage filters";
+            this.manageFiltersButton.Click += new System.EventHandler(this.manageFiltersButton_Click);
+            // 
+            // enableHighlightsButton
+            // 
+            this.enableHighlightsButton.CheckOnClick = true;
+            this.enableHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.enableHighlightsButton.Enabled = false;
+            this.enableHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.Highlight;
+            this.enableHighlightsButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.enableHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enableHighlightsButton.Name = "enableHighlightsButton";
+            this.enableHighlightsButton.Size = new System.Drawing.Size(23, 36);
+            this.enableHighlightsButton.ToolTipText = "Enable / disable highlights";
+            this.enableHighlightsButton.Click += new System.EventHandler(this.enableHighlightsButton_Click);
+            // 
+            // manageHighlightsButton
+            // 
+            this.manageHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.manageHighlightsButton.Enabled = false;
+            this.manageHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.HighlightSettings;
+            this.manageHighlightsButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.manageHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.manageHighlightsButton.Name = "manageHighlightsButton";
+            this.manageHighlightsButton.Size = new System.Drawing.Size(23, 36);
+            this.manageHighlightsButton.ToolTipText = "Manage highlights";
+            this.manageHighlightsButton.Click += new System.EventHandler(this.manageHighlightsButton_Click);
+            // 
+            // textDiffButton
+            // 
+            this.textDiffButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.textDiffButton.Enabled = false;
+            this.textDiffButton.Image = global::AdvancedLogViewer.Properties.Resources.TextDiff;
+            this.textDiffButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.textDiffButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.textDiffButton.Name = "textDiffButton";
+            this.textDiffButton.Size = new System.Drawing.Size(28, 36);
+            this.textDiffButton.ToolTipText = "Show text differences between two log items";
+            this.textDiffButton.Click += new System.EventHandler(this.textDiffButton_Click);
+            // 
+            // showHideBottomPane
+            // 
+            this.showHideBottomPane.Checked = true;
+            this.showHideBottomPane.CheckOnClick = true;
+            this.showHideBottomPane.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showHideBottomPane.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showHideBottomPane.Image = global::AdvancedLogViewer.Properties.Resources.ShowHideBottomPane1;
+            this.showHideBottomPane.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.showHideBottomPane.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showHideBottomPane.Name = "showHideBottomPane";
+            this.showHideBottomPane.Size = new System.Drawing.Size(28, 36);
+            this.showHideBottomPane.ToolTipText = "Show / Hide bottom pane with message details";
+            this.showHideBottomPane.Click += new System.EventHandler(this.showHideBottomPane_Click);
+            // 
+            // stayOnTopButton
+            // 
+            this.stayOnTopButton.CheckOnClick = true;
+            this.stayOnTopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.stayOnTopButton.Image = global::AdvancedLogViewer.Properties.Resources.StayOnTop;
+            this.stayOnTopButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.stayOnTopButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stayOnTopButton.Name = "stayOnTopButton";
+            this.stayOnTopButton.Size = new System.Drawing.Size(28, 36);
+            this.stayOnTopButton.ToolTipText = "Main window stay on top";
+            this.stayOnTopButton.Click += new System.EventHandler(this.stayOnTopButton_Click);
+            // 
+            // otherButton
+            // 
+            this.otherButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.otherButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsMenuItem,
+            this.logLevelAdjustmentSettingsToolStripMenuItem,
+            this.manageParsersMenuItem,
+            this.toolStripMenuItem5,
+            this.showListOfShortcutsToolStripMenuItem,
+            this.showCommandLineParamsToolStripMenuItem,
+            this.toolStripMenuItem4,
+            this.pluginsMenuItem,
+            this.toolStripMenuItem10,
+            this.checkForUpdateToolStripMenuItem,
+            this.applicationHistoryToolStripMenuItem,
+            this.toolStripMenuItem9,
+            this.sendFeedbackToolStripMenuItem,
+            this.aboutMenuItem});
+            this.otherButton.Image = ((System.Drawing.Image)(resources.GetObject("otherButton.Image")));
+            this.otherButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.otherButton.Name = "otherButton";
+            this.otherButton.Size = new System.Drawing.Size(48, 36);
+            this.otherButton.Text = "More";
+            // 
+            // settingsMenuItem
+            // 
+            this.settingsMenuItem.Name = "settingsMenuItem";
+            this.settingsMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.settingsMenuItem.Text = "Application settings";
+            this.settingsMenuItem.Click += new System.EventHandler(this.settingsMenuItem_Click);
+            // 
+            // logLevelAdjustmentSettingsToolStripMenuItem
+            // 
+            this.logLevelAdjustmentSettingsToolStripMenuItem.Enabled = false;
+            this.logLevelAdjustmentSettingsToolStripMenuItem.Name = "logLevelAdjustmentSettingsToolStripMenuItem";
+            this.logLevelAdjustmentSettingsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.logLevelAdjustmentSettingsToolStripMenuItem.Text = "Log Level Adjustment settings";
+            this.logLevelAdjustmentSettingsToolStripMenuItem.Click += new System.EventHandler(this.logLevelAdjustmentSettingsToolStripMenuItem_Click);
+            // 
+            // manageParsersMenuItem
+            // 
+            this.manageParsersMenuItem.Name = "manageParsersMenuItem";
+            this.manageParsersMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.manageParsersMenuItem.Text = "Manage parser patterns";
+            this.manageParsersMenuItem.ToolTipText = "Shows manager of parser patterns";
+            this.manageParsersMenuItem.Click += new System.EventHandler(this.manageParsersMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(242, 6);
+            // 
+            // showListOfShortcutsToolStripMenuItem
+            // 
+            this.showListOfShortcutsToolStripMenuItem.Name = "showListOfShortcutsToolStripMenuItem";
+            this.showListOfShortcutsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.showListOfShortcutsToolStripMenuItem.Text = "Show list of keyboard shortcuts";
+            this.showListOfShortcutsToolStripMenuItem.Click += new System.EventHandler(this.showListOfShortcutsToolStripMenuItem_Click);
+            // 
+            // showCommandLineParamsToolStripMenuItem
+            // 
+            this.showCommandLineParamsToolStripMenuItem.Name = "showCommandLineParamsToolStripMenuItem";
+            this.showCommandLineParamsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.showCommandLineParamsToolStripMenuItem.Text = "Show command line parameters";
+            this.showCommandLineParamsToolStripMenuItem.Click += new System.EventHandler(this.showCommandLineParamsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(242, 6);
+            // 
+            // pluginsMenuItem
+            // 
+            this.pluginsMenuItem.DropDown = this.pluginsContextMenu;
+            this.pluginsMenuItem.Enabled = false;
+            this.pluginsMenuItem.Name = "pluginsMenuItem";
+            this.pluginsMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.pluginsMenuItem.Text = "Plugins";
+            this.pluginsMenuItem.DropDownOpening += new System.EventHandler(this.pluginsMenuItem_DropDownOpening);
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(242, 6);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for updates ...";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // applicationHistoryToolStripMenuItem
+            // 
+            this.applicationHistoryToolStripMenuItem.Name = "applicationHistoryToolStripMenuItem";
+            this.applicationHistoryToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.applicationHistoryToolStripMenuItem.Text = "Application history";
+            this.applicationHistoryToolStripMenuItem.Click += new System.EventHandler(this.applicationHistoryToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem9
+            // 
+            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(242, 6);
+            // 
+            // sendFeedbackToolStripMenuItem
+            // 
+            this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
+            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.sendFeedbackToolStripMenuItem.Text = "Send feedback to author";
+            this.sendFeedbackToolStripMenuItem.Click += new System.EventHandler(this.sendFeedbackToolStripMenuItem_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.aboutMenuItem.Text = "About";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
             // extractMessageContentButton
             // 
             this.extractMessageContentButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -1107,18 +1144,6 @@
             this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.saveToFileToolStripMenuItem.Text = "Save to file";
             this.saveToFileToolStripMenuItem.Click += new System.EventHandler(this.saveToFileToolStripMenuItem_Click);
-            // 
-            // logLoadingErrorsStatus
-            // 
-            this.logLoadingErrorsStatus.Name = "logLoadingErrorsStatus";
-            this.logLoadingErrorsStatus.Size = new System.Drawing.Size(10, 17);
-            this.logLoadingErrorsStatus.Text = " ";
-            // 
-            // parserPatternToolStripStatus
-            // 
-            this.parserPatternToolStripStatus.Name = "parserPatternToolStripStatus";
-            this.parserPatternToolStripStatus.Size = new System.Drawing.Size(10, 17);
-            this.parserPatternToolStripStatus.Text = " ";
             // 
             // MainForm
             // 
