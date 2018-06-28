@@ -205,7 +205,7 @@ namespace AdvancedLogViewer.UI
                 //Upgrade or First run
                 if (this.settings.MainFormUI.LastRunVersion == null)
                 {
-                    this.ShowSettingsDialog(" - This is first run of the application, please review the settings", true);
+                    //this.ShowSettingsDialog(" - This is first run of the application, please review the settings", true);
                     this.settings.MainFormUI.LastRunVersion = this.ProductVersion;
                     this.settings.Save();
                 }
@@ -1245,6 +1245,7 @@ namespace AdvancedLogViewer.UI
                         this.ShowMarkers();
                     this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
                     this.logListView.SetLogIconsVisibility();
+                    RefreshMessageDetail(this.logListView.GetSelectedListItem(), true);
 
                     return true;
                 }

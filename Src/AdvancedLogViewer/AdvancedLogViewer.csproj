@@ -405,6 +405,10 @@
       <Project>{F69DED99-F89E-402D-839B-D9356254799B}</Project>
       <Name>AdvancedLogViewer.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AdvancedLogViewer.WPF\AdvancedLogViewer.WPF.csproj">
+      <Project>{6e776869-e962-4898-b5a0-e7c667e7d296}</Project>
+      <Name>AdvancedLogViewer.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
