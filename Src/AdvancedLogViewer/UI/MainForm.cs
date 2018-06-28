@@ -1104,8 +1104,8 @@ namespace AdvancedLogViewer.UI
                     logMessageEdit.WordWrap = settings.MainFormUI.MessageWordWrap;
                     logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
                     logMessageEdit.SelectionColor = SystemColors.WindowText;
+                    logMessageEdit.Font = new Font(new FontFamily(settings.MainFormUI.MessageFontFamily), settings.MainFormUI.MessageFontSize);
                     logMessageEdit.AppendText(logEntry.Message);
-
 
                     if (settings.MainFormUI.EnableHighlights)
                         ColorHighlightManager.CurrentGroup.HighlightTextInMessageDetail(logMessageEdit);

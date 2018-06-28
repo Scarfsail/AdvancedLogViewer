@@ -42,7 +42,7 @@
             this.bottomPanel.Controls.Add(this.cancelButton);
             this.bottomPanel.Controls.Add(this.okButton);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 290);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 361);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(783, 39);
             this.bottomPanel.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             this.settingsHost.Location = new System.Drawing.Point(0, 0);
             this.settingsHost.Name = "settingsHost";
-            this.settingsHost.Size = new System.Drawing.Size(783, 293);
+            this.settingsHost.Size = new System.Drawing.Size(783, 360);
             this.settingsHost.TabIndex = 9;
             this.settingsHost.Child = this.settingsControl;
             // 
@@ -83,7 +83,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(783, 329);
+            this.ClientSize = new System.Drawing.Size(783, 400);
             this.Controls.Add(this.settingsHost);
             this.Controls.Add(this.bottomPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

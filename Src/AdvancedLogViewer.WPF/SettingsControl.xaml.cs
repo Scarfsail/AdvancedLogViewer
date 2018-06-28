@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -10,6 +11,7 @@ using Scarfsail.Common.BL;
 using Scarfsail.Logging;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SystemFonts = System.Drawing.SystemFonts;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace AdvancedLogViewer.WPF
@@ -49,6 +51,13 @@ namespace AdvancedLogViewer.WPF
             this.TrimClassColumnFromLeftCheckBox.IsChecked = this.settings.MainFormUI.TrimClassColumnFromLeft;
             this.ShowLogIconsCheckBox.IsChecked = this.settings.MainFormUI.ShowLogIcons;
             this.MessageWordWrapCheckBox.IsChecked = this.settings.MainFormUI.MessageWordWrap;
+            foreach (FontFamily font in System.Drawing.FontFamily.Families)
+            {
+                FontComboBox.Items.Add(font.Name);
+            }
+
+            FontComboBox.SelectedValue = this.settings.MainFormUI.MessageFontFamily;
+            FontSize.Value = this.settings.MainFormUI.MessageFontSize;
 
             this.ExtDiffPathEdit.Text = settings.TextDiff.DiffPath;
             this.ExtDiffParametersEdit.Text = settings.TextDiff.DiffParameters;
@@ -124,6 +133,8 @@ namespace AdvancedLogViewer.WPF
             this.settings.MainFormUI.TrimClassColumnFromLeft = this.TrimClassColumnFromLeftCheckBox.IsChecked.GetValueOrDefault();
             this.settings.MainFormUI.ShowLogIcons = this.ShowLogIconsCheckBox.IsChecked.GetValueOrDefault();
             this.settings.MainFormUI.MessageWordWrap = this.MessageWordWrapCheckBox.IsChecked.GetValueOrDefault();
+            this.settings.MainFormUI.MessageFontFamily = this.FontComboBox.SelectedValue.ToString();
+            this.settings.MainFormUI.MessageFontSize = (float)this.FontSize.Value.GetValueOrDefault();
 
             this.settings.TextDiff.DiffPath = this.ExtDiffPathEdit.Text;
             this.settings.TextDiff.DiffParameters = this.ExtDiffParametersEdit.Text;
@@ -189,6 +200,12 @@ namespace AdvancedLogViewer.WPF
 
 
             }
+        }
+
+        public void DefaultFont_Click(object sender, EventArgs e)
+        {
+            FontComboBox.SelectedValue = SystemFonts.DefaultFont.Name;
+            FontSize.Value = SystemFonts.DefaultFont.SizeInPoints;
         }
     }
 }
