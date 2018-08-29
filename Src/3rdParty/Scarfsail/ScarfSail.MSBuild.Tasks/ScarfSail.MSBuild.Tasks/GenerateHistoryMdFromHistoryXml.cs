@@ -30,12 +30,14 @@ namespace ScarfSail.MSBuild.Tasks
 
                 var readmeMd = new StringBuilder();
 
-                foreach (XmlNode version in history.SelectNodes("History/Version"))
+                foreach (XmlNode versionNode in history.SelectNodes("History/Version"))
                 {
-                    readmeMd.AppendLine($"## {version.Attributes["version"].InnerText} - {version.Attributes["date"].InnerText}");
-                    AppendChanges(version, readmeMd, "BigFeature", "Big features");
-                    AppendChanges(version, readmeMd, "Feature", "Features");
-                    AppendChanges(version, readmeMd, "Fix", "Fixes");
+                    string version = versionNode.Attributes["version"].InnerText;
+                    readmeMd.AppendLine($"## {version} - {versionNode.Attributes["date"].InnerText}");
+                    readmeMd.AppendLine($"###### Download: [MSI](bin/AdvancedLogViewer_{version}.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_{version}.zip?raw=true)");
+                    this.AppendChanges(versionNode, readmeMd, "BigFeature", "Big features");
+                    this.AppendChanges(versionNode, readmeMd, "Feature", "Features");
+                    this.AppendChanges(versionNode, readmeMd, "Fix", "Fixes");
                 }
 
                 if (File.Exists(this.HistoryMd))

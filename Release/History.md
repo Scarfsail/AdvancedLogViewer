@@ -1,4 +1,5 @@
 ## 8.0.0 - 2018-06-27
+###### Download: [MSI](bin/AdvancedLogViewer_8.0.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.0.zip?raw=true)
 #### Big features
 * The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer
 #### Features
@@ -12,25 +13,30 @@
 * Fixed bug with log parser pattern that has a character "|".
 * Support of UTF8 documents.
 ## 7.6.0 - 2016-01-11
+###### Download: [MSI](bin/AdvancedLogViewer_7.6.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.6.0.zip?raw=true)
 #### Features
 * Updated to .NET 4.6.1 and improved performance of log loading mainly on x64 OS.
 #### Fixes
 * Fixed log's code page detection to show characters in UTF8 correctly.
 * Fixed few UI glitches.
 ## 7.5.4 - 2013-05-24
+###### Download: [MSI](bin/AdvancedLogViewer_7.5.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.5.4.zip?raw=true)
 #### Features
 * New option in settings: "Show type's icon on each row (The icon on left side of each row)". By default the option is enabled, user can disable it and thus hide icons on the log view.
 ## 7.5.3 - 2013-05-05
+###### Download: [MSI](bin/AdvancedLogViewer_7.5.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.5.3.zip?raw=true)
 #### Features
 * Parser Patterns: Added possibility to specify mutliple date time formats in case log contains date time in different formats.
 #### Fixes
 * Significantly improved performance of date time parsing which leads to improved performance of log loading.
 ## 7.5.2 - 2013-05-04
+###### Download: [MSI](bin/AdvancedLogViewer_7.5.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.5.2.zip?raw=true)
 #### Fixes
 * Message detail wasn't refreshed when different log was opened and first row was selected.
 * LogAdjuster: When active log level doesn't exist, exception (Index must be greater than...) was shown.
 * Parser: Fixed issue with parsing line which begins by something else than actual field. (e.g. Something{Date} ...)
 ## 7.5.1 - 2013-03-31
+###### Download: [MSI](bin/AdvancedLogViewer_7.5.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.5.1.zip?raw=true)
 #### Big features
 * New search dialog which highlights all rows with found text and shows appropriate marks on the right side to see where are the rows with found text.
 #### Features
@@ -39,9 +45,11 @@
 * Improved performance of drawing log lines on main screen, less CPU usage during excessive scrolling.
 * Due to completely new Find Dialog implementation, fixed bugs reported on the old search dialog (hopefully not introduced so much new bugs;-) ).
 ## 7.0.2 - 2013-01-07
+###### Download: [MSI](bin/AdvancedLogViewer_7.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.0.2.zip?raw=true)
 #### Fixes
 * When correct parser wasn't detected for the log file, whole log file was shown as one line in the ALV instead of showing message about unknown log format with link to parser patterns manager.
 ## 7.0.1 - 2013-01-01
+###### Download: [MSI](bin/AdvancedLogViewer_7.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_7.0.1.zip?raw=true)
 #### Big features
 * Ability to filter log by condition with SQL syntax, example: ((Thread = '9' AND Class LIKE 'MyClass') OR Message LIKE 'Something') 
 * New issue tracker for the ALV instead of reporting issues / feature requests in the forum. Visit <a href="http://git.salplachta.net/advanced-log-viewer/issues"><b>git.salplachta.net/advanced-log-viewer/issues</b></a> to see how the issue tracker looks like.
@@ -53,6 +61,7 @@
 * Fixed issue with progressive loading - log was always loaded without progressive loading -> log was shown at once which caused long loading times for big logs.
 * Fixed few minor issues and typos during code refactoring
 ## 6.5.2 - 2012-12-12
+###### Download: [MSI](bin/AdvancedLogViewer_6.5.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.5.2.zip?raw=true)
 #### Big features
 * Ability to filter also by regular expression (RegEx) in the text filters (Thread, Type, Class, Message).
 #### Features
@@ -61,9 +70,11 @@
 #### Fixes
 * Fixed issue in "Browse for logs" dialog. Logs in root directory were shown in some subfolder.
 ## 6.2.2 - 2012-11-03
+###### Download: [MSI](bin/AdvancedLogViewer_6.2.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.2.2.zip?raw=true)
 #### Fixes
 * Fixed issue with movement synchronization between different Log viewers. When this function was enabled, the target Log Viewer's window was activated on every row change in the source Log Viewer.
 ## 6.2.1 - 2012-10-28
+###### Download: [MSI](bin/AdvancedLogViewer_6.2.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.2.1.zip?raw=true)
 #### Features
 * Show list of command line parameters from command line (by /? param) or from 'More->Show command line parameters' menu.
 * Added new command line parameter: ForceParser to force specific parser for the given log file. See list of command line parameters for more details.
@@ -72,38 +83,48 @@
 * Fixed issue with non-parseable date time.
 * When log contains first line in different format than the parser specifies, the line is shown only in message column. In previous version the line wasn't shown in the ALV at all.
 ## 6.1.2 - 2012-10-23
+###### Download: [MSI](bin/AdvancedLogViewer_6.1.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.1.2.zip?raw=true)
 #### Fixes
 * Open dialog: Filter for all files (*.*) didn't show all files.
 * Log view: Ampersand (&) was interpreted as a prefix to underline following character and the ampersand wasn't shown.
 ## 6.1.1 - 2012-10-14
+###### Download: [MSI](bin/AdvancedLogViewer_6.1.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.1.1.zip?raw=true)
 #### Features
 * Ability to save currently shown (filtered) log items into new log file which could be shown and filtered again.
 ## 6.0.2 - 2012-09-30
+###### Download: [MSI](bin/AdvancedLogViewer_6.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.0.2.zip?raw=true)
 #### Big features
 * User can switch between running instances of ALV by pressing CTRL+Tab or from new menu (near to open file button). From this new menu is also possible to run new instance of ALV.
 ## 5.6.3 - 2012-09-25
+###### Download: [MSI](bin/AdvancedLogViewer_5.6.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.6.3.zip?raw=true)
 #### Fixes
 * Date time filter: DateFrom and DateTo was stored in computer's locale format, thus when ALV (mainly portable) was opened on computer with different locale, ALV crashed.
 * Quick filters: When user clicks on header and quick filter window is shown the text edit wasn't focused, user had to click into the text edit box manually.
 ## 5.6.2 - 2012-09-17
+###### Download: [MSI](bin/AdvancedLogViewer_5.6.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.6.2.zip?raw=true)
 #### Features
 * Added possibility to define also text color for color highlights. So now is possible to define both background and text colors.
 ## 5.5.1 - 2012-09-09
+###### Download: [MSI](bin/AdvancedLogViewer_5.5.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.5.1.zip?raw=true)
 #### Features
 * Added possibility to define filters by checking/unchecking distinct values in the list for Thread, Type and Class columns.
 #### Fixes
 * Fixed rare exception during log refresh. It occured more often on slow environments (typically VM).
 * When ALV is updated, the changelog is shown just in first opened instance of ALV even when the first instance isn't closed.
 ## 5.4.4 - 2012-08-19
+###### Download: [MSI](bin/AdvancedLogViewer_5.4.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.4.zip?raw=true)
 #### Features
 * Added an icon for TRACE log event type.
 #### Fixes
 * Fixed issue with scrollbars in message detail pane during refresh. The message detail isn't refreshed when it's not necessary (same item is still selected) -> scroll bars position in the message detail window remains unchanged.
 ## 5.4.3 - 2012-08-14
+###### Download: [MSI](bin/AdvancedLogViewer_5.4.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.3.zip?raw=true)
 #### Fixes
 * Fixed issue with automatic update when local system date format is set to something non-standard like "yyyyMMdd".
 ## 5.4.2 - 2012-08-12
+###### Download: [MSI](bin/AdvancedLogViewer_5.4.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.2.zip?raw=true)
 ## 5.4.1 - 2012-07-29
+###### Download: [MSI](bin/AdvancedLogViewer_5.4.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.1.zip?raw=true)
 #### Big features
 * Created web forum to exchange any feature requests, bug reports or ask for questions about ALV. Visit <a href="http://forum.salplachta.net"><b>forum.salplachta.net</b></a> to see how the forum looks like.
 #### Features
@@ -111,24 +132,29 @@
 #### Fixes
 * When any configuration file is broken, proper error message is shown and default configuration is loaded instead of exception.
 ## 5.3.1 - 2012-07-21
+###### Download: [MSI](bin/AdvancedLogViewer_5.3.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.3.1.zip?raw=true)
 #### Features
 * When autorefresh and autoscrolling is enabled, app jumps to last row only when last row was selected before the refresh. Otherwise stay on the same row and just show new rows from the log.
 * When new log records are shown (due to manual or automatic refresh) and last row isn't selected, "Change time" field on the status bar is bold until user jumps to last row to see recent rows.
 ## 5.2.1 - 2012-07-02
+###### Download: [MSI](bin/AdvancedLogViewer_5.2.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.2.1.zip?raw=true)
 #### Features
 * Message detail window contains new extra line with date, thread, type and class information of selected row.
 * When color highlighting is enable, appropriate text is also highlighted in message detail window.
 * Possibility to open log file in external text editor like Notepad++ which supports also open on currently selected line in ALV. Path to text editor and command line params are configurable in ALV settings, default is Notepad.exe.
 ## 5.1.1 - 2012-01-21
+###### Download: [MSI](bin/AdvancedLogViewer_5.1.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.1.1.zip?raw=true)
 #### Features
 * Added possibility to use existing instance of ALV when LogViewer is opened from command line with FileName argument. Example: 'AdvancedLogViewer.exe UseExistingInstance SomeLogFile.Log'. If any existing instance of ALV exists, SomeLogFile is opened in there.
 * Added note into each filter window about '~' character. When line starts with this character condition is negated -> search for text which doesn't contain text prefixed by ~.
 #### Fixes
 * Fixed ugly looking line when message contains more lines - next line was partially rendered in the current one and only few top pixels were visible -> very ugly. Now is also shown '...' on end of the line when message exceed size of message column.
 ## 5.0.2 - 2011-12-21
+###### Download: [MSI](bin/AdvancedLogViewer_5.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.0.2.zip?raw=true)
 #### Fixes
 * Fixed log adjuster on x64 Windows. Default paths to 'Programs Files' are now interpreted as 'Program Files (x86)' on 64 bit OS.
 ## 5.0.1 - 2011-12-18
+###### Download: [MSI](bin/AdvancedLogViewer_5.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.0.1.zip?raw=true)
 #### Big features
 * Advanced Log Viewer can be PORTABLE! It means you can use it just by copy whole ALV directory without needs to install it. ALV still can be installed, then settings is saved into user's profile directory. When exists folder: "UserData" in ALV directory, all settings is saved there and ALV run in Portable mode.
 #### Features
@@ -136,16 +162,21 @@
 * Automatic update works also in PORTABLE mode. In that case binaries are downloaded, ALV is stopped, updated by new binaries and run again.
 * Added parser for OrionInstaller.log. Thanks to Denys!
 ## 4.0.1 - 2011-12-11
+###### Download: [MSI](bin/AdvancedLogViewer_4.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_4.0.1.zip?raw=true)
 #### Big features
 * New possibility to Adjust Log Level directly from the Log Viewer. User can select Config files for each Log file. Log Viewer then automatically read associated config file, show current log levels and give possibility to change them easily. This feature is accessible via new icon on the toolbar.
 ## 3.2.4 - 2011-11-13
+###### Download: [MSI](bin/AdvancedLogViewer_3.2.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.4.zip?raw=true)
 ## 3.2.3 - 2011-11-08
+###### Download: [MSI](bin/AdvancedLogViewer_3.2.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.3.zip?raw=true)
 #### Fixes
 * Icons for log item type (the icon on each line like Warning, Information, ...) disappeared.
 ## 3.2.2 - 2011-11-07
+###### Download: [MSI](bin/AdvancedLogViewer_3.2.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.2.zip?raw=true)
 #### Fixes
 * Fixed color highlight with option "Trim text in Class column from left" enabled.
 ## 3.2.1 - 2011-11-06
+###### Download: [MSI](bin/AdvancedLogViewer_3.2.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.1.zip?raw=true)
 #### Features
 * When application checks for updates on the web, message in status bar is shown.
 * New option to trim text in Class column from left instead of right side. When true, right side of class name is always visible. By default is option enabled.
@@ -153,23 +184,28 @@
 #### Fixes
 * When main window was set to "Stay on top", quick filter window was shown under the main window (wasn't visible)
 ## 3.1.3 - 2011-10-23
+###### Download: [MSI](bin/AdvancedLogViewer_3.1.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.1.3.zip?raw=true)
 #### Features
 * Redesigned dialog which informs that New version was found, possibility to show what's new against installed version.
 #### Fixes
 * Fixed bug when user clicks on "Browse for Logs" in Windows explorer on long path and operating system pass this path as 8+3.
 * Fixed bug when user clicks on "Browse for Logs" in Windows explorer then list of recent files were not loaded.
 ## 3.1.2 - 2011-10-18
+###### Download: [MSI](bin/AdvancedLogViewer_3.1.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.1.2.zip?raw=true)
 #### Fixes
 * Fixed rare bug during saving settings for LogBrower (Exception: value can not be null).
 ## 3.1.1 - 2011-10-10
+###### Download: [MSI](bin/AdvancedLogViewer_3.1.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.1.1.zip?raw=true)
 #### Features
 * Added "Browse for Logs" into Windows Explorer context menu on Folders.
 * In Browse for Logs added possibility to change root folder and browse any other folder
 * Browse for Logs is accessible even when no log is opened, in that case dialog with "Select folder to browse" is shown
 ## 3.0.2 - 2011-10-04
+###### Download: [MSI](bin/AdvancedLogViewer_3.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.0.2.zip?raw=true)
 #### Fixes
 * Fixed issue during startup: Scarfsail.Common assembly is old.
 ## 3.0.1 - 2011-09-28
+###### Download: [MSI](bin/AdvancedLogViewer_3.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.0.1.zip?raw=true)
 #### Big features
 * New tool: Browse for logs around current log. Window with tree of logs around currently opened log file. It search for all *.log* files around current log file up to defined Top Level folder (e.g. LogFiles) and show them in tree.
 #### Features
@@ -184,41 +220,50 @@
 #### Fixes
 * Tweaked performance while log is loading.
 ## 2.6.1 - 2011-09-11
+###### Download: [MSI](bin/AdvancedLogViewer_2.6.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.6.1.zip?raw=true)
 #### Big features
 * Added possibility to specify Exclude filters and combine them with classic Include filters. Exclude item in filter list has to be prefixed with ~ char. Example: ~ExcludeThisWord. When you want to create include filter with ~ as first character, prefix it with \. eg: \~ThisIsIncludeFilterWith~AsFirstChar
 #### Features
 * Added context menu in Message detail with possibility to set/add current word as message filter.
 * When Advanced Log Viewer is opened without any log, list of recent log files is shown.
 ## 2.5.5 - 2011-09-04
+###### Download: [MSI](bin/AdvancedLogViewer_2.5.5.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.5.zip?raw=true)
 #### Features
 * Added some logging when application starts to investigate possible issues during app initialization.
 * Added log format pattern for SWAutomationFramework.log.
 ## 2.5.4 - 2011-04-16
+###### Download: [MSI](bin/AdvancedLogViewer_2.5.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.4.zip?raw=true)
 #### Fixes
 * Fixed issue with empty lines in filter items. In case there was one empty line, filter shown all items.
 ## 2.5.3 - 2011-04-11
+###### Download: [MSI](bin/AdvancedLogViewer_2.5.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.3.zip?raw=true)
 #### Features
 * Added possibility to show / hide bottom pane with message content.
 * Possibility to show list of changes in the application.
 * When new update is installed, list of changes against previous version is shown.
 ## 2.5.1 - 2011-03-27
+###### Download: [MSI](bin/AdvancedLogViewer_2.5.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.1.zip?raw=true)
 #### Big features
 * Message content extractor: Possibility to Save / Open / Copy to clipboard message content. Also possible to specify custom extractors with regex to match and extract message content and execute specific action.
 #### Fixes
 * Settings UI: Values for automatic updates settings wasn't saved properly to config file.
 * In case log file is empty, log viewer is still trying to refresh it.
 ## 2.4.1 - 2011-03-20
+###### Download: [MSI](bin/AdvancedLogViewer_2.4.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.4.1.zip?raw=true)
 #### Features
 * Internet updates: Application automatically check for new versions. There is possible to disable automatic checking and check it manually in app menu. In case new version is found, user is informed about that and LogViewer is able to download and apply that update.
 * Favorites: Possibility to mark log files as Favorites. When file is marked as a Favorite, the file will be always on the top in recent files list with "yellow star" image.
 * Plugins: When plugin is executed, context of log control is passed to the plugin. In the context are methods to control LogView like is GotoItem.
 ## 2.3.4 - 2011-03-02
+###### Download: [MSI](bin/AdvancedLogViewer_2.3.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.3.4.zip?raw=true)
 #### Fixes
 * Exception: "InvalidArgument=Value of '-1' is not valid of 'index'" when logfile was recreated just during refresh.
 ## 2.3.3 - 2010-11-27
+###### Download: [MSI](bin/AdvancedLogViewer_2.3.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.3.3.zip?raw=true)
 #### Fixes
 * Exception when log file was recreated and UI was refreshed (automatically or manually) and cursor in listview was on line number which doesn't exists yet in new log file.
 ## 2.3.2 - 2010-11-07
+###### Download: [MSI](bin/AdvancedLogViewer_2.3.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.3.2.zip?raw=true)
 #### Features
 * Possibility to insert value from currently selected item into filter (useful when user wants to filter by current Thread or Type)
 #### Fixes
@@ -226,6 +271,7 @@
 * Automatic checking of "Enabled" checkebox in Message filter when user something change (on other filters it worked)
 * When filter was applied and no item was shown, in detail remained text from previously selected item.
 ## 2.3.1 - 2010-11-01
+###### Download: [MSI](bin/AdvancedLogViewer_2.3.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.3.1.zip?raw=true)
 #### Big features
 * Possibility to set filter for column directly by clicking on column header
 #### Features
@@ -239,9 +285,11 @@
 * Case when filter was enabled, auto refresh was enabled, auto scroll was enabled and new item appeared but didn't match the filter - cursor jumps to last item anyway. Now jumps to last item only when new item which match the filter appears.
 * CTRL+O shortcut key
 ## 2.2.3 - 2010-10-13
+###### Download: [MSI](bin/AdvancedLogViewer_2.2.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.2.3.zip?raw=true)
 #### Fixes
 * Fixed case when Total Commander isn't installed on the computer at all.
 ## 2.2.2 - 2010-08-08
+###### Download: [MSI](bin/AdvancedLogViewer_2.2.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.2.2.zip?raw=true)
 #### Features
 * Settings: Possibility to integrate Advanced Log Viewer to TotalCommander as a file viewer on ALT+F3 keypress.
 * Settings: When it's first run of the application, settings dialog is shown.
@@ -255,6 +303,7 @@
 * Custom patterns: When number of columns were changed (e.g. Thread was removed or added) exception was raised after click on "Try on current log".
 * Search: When there wasn't some column (e.g. Thread) exception was raised after click on "Find" button.
 ## 2.2.0 - 2010-07-18
+###### Download: [MSI](bin/AdvancedLogViewer_2.2.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.2.0.zip?raw=true)
 #### Features
 * Main window: Possibility to set autorefresh period (minimum is 200 ms).
 * Manage filters: Added groups of filters (the same as is in manage color highlights dialog).
@@ -268,6 +317,7 @@
 * Manage highlights - when dialog was closed by X, current state was saved.
 * Main window: CTRL+END and CTRL+HOME in the list of logs works correctly now.
 ## 2.1.0 - 2010-11-07
+###### Download: [MSI](bin/AdvancedLogViewer_2.1.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.1.0.zip?raw=true)
 #### Features
 * Main window: When user selects two lines (with CTRL), time span between them is shown in status bar.
 * Main window: Manage filters and Manage highlights buttons are now represented by an icon instead of text.
@@ -283,6 +333,7 @@
 * Main window: When user set / reset filter, last selected item should be selected. When isn't visible, first next item is selected.
 * Manage highlights: When some text was selected (SelectionLength > 1), colors was saved incorrectly or everything was white.
 ## 2.0.0 - 2010-06-20
+###### Download: [MSI](bin/AdvancedLogViewer_2.0.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.0.0.zip?raw=true)
 #### Features
 * Main window can "stay on top" (switch is on the toolbar).
 * Added Settings dialog (available under Other -> Settings)
@@ -308,6 +359,7 @@
 #### Fixes
 * Fixed Jump to item functionality (two items was selected instead of one)
 ## 1.8.2 - 2010-06-13
+###### Download: [MSI](bin/AdvancedLogViewer_1.8.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.8.2.zip?raw=true)
 #### Features
 * Added possibility to show / hide side panel with markers (errors, warnings). It's located under menu: Other -> Show Markers.
 * Installer shows version of the product in the caption.
@@ -316,6 +368,7 @@
 * Fixed error with item numbering when log was updated (Error in log: Error while showing markers: System.ArgumentException: An item with the same key has already been added.).
 * Finally fixed flickering during contents refreshing !!! No more flickering when log is updated, scrolled or the rest of the log is asynchronously loaded.
 ## 1.8.1 - 2010-05-30
+###### Download: [MSI](bin/AdvancedLogViewer_1.8.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.8.1.zip?raw=true)
 #### Features
 * Added logging of the application, you can find logs under: %ProgrammData%\AdvancedLogViewer\Logs\. For each instance of the LogViewer is created one log file whose file name contains process id of the instance.
 * Removed license confirmation from the installer.
@@ -323,6 +376,7 @@
 #### Fixes
 * Fixed autoscroll when user clicks on Filter or Color highlights buttons.
 ## 1.8.0 - 2010-05-23
+###### Download: [MSI](bin/AdvancedLogViewer_1.8.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.8.0.zip?raw=true)
 #### Features
 * Added Text Diff feature - now is possible to diff texts between two log items (in defined external diff tool - e.g. p4merge.exe, for configuration goto: Other -> External diff tool settings)
 * Added custom patterns editor. It's rich GUI where is possible to define custom pattern parsers for log files with ability to preiew edited pattern on current log. (It's located under menu: Other -> Manage parser patterns)
@@ -331,6 +385,7 @@
 * Fixed issue when highlighting items without Type or Thread.
 * Renamed "Live update" to "Auto refresh" (live was confusing, because of live application update over the web).
 ## 1.7.0 - 2010-05-16
+###### Download: [MSI](bin/AdvancedLogViewer_1.7.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.7.0.zip?raw=true)
 #### Features
 * Filenames in patterns now can include wildcards (*) (in previous versions were compared only as "Contains")
 * Added CustomParserPatterns.def file which is designed for user's pattern definitions. ParserPatterns.def shouldn't be edited by an users, because could be rewritten during application upgrade.
@@ -346,10 +401,12 @@
 * Fixed issue when first line begins with something else than time (e.g. swAlert.log in Orion 2010.1)
 * Fixed issue with Autorefresh after application start.
 ## 1.6.2 - 2010-05-09
+###### Download: [MSI](bin/AdvancedLogViewer_1.6.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.6.2.zip?raw=true)
 #### Features
 * Simpified UI for managing filters and highlights
 * Added ability to revert filter (show all what doesn't match current conditionals)
 ## 1.6.1 - 2010-04-25
+###### Download: [MSI](bin/AdvancedLogViewer_1.6.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.6.1.zip?raw=true)
 #### Features
 * Simple installer in WIX
 * Copy all files to desired folder and create shortcuts in Startmenu.
@@ -362,12 +419,14 @@
 * Fixed issue with side panel (wrong thread synchronization to UI)
 * Internal code changes (cleanup, refactoring)
 ## 1.5.0 - 2010-03-22
+###### Download: [MSI](bin/AdvancedLogViewer_1.5.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.5.0.zip?raw=true)
 #### Features
 * New clickable side panel with color markers representing errors and warnings in the log.
 * Improved performance for showing log type icons
 #### Fixes
 * Fixed enabling/disabling buttons after log refresh
 ## 1.4.3 - 2010-03-21
+###### Download: [MSI](bin/AdvancedLogViewer_1.4.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.4.3.zip?raw=true)
 #### Features
 * Merging partial log files (.1, .2, ...) into one file
 * Show all parts of log files (.1, .2, ...) and open it by one click
@@ -377,11 +436,13 @@
 * CPU usage is lower during loading (about 20% faster loading)
 * Fixed aborting during log file loading
 ## 1.3.2 - 2010-03-11
+###### Download: [MSI](bin/AdvancedLogViewer_1.3.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.3.2.zip?raw=true)
 #### Features
 * Added information when searched text isn't found, possibility to search from start/end of log
 #### Fixes
 * Fixed minor issues with autoscroll while loading
 * Improved loading performance (especially for long inner texts)
 ## 1.3.1 - 2010-03-09
+###### Download: [MSI](bin/AdvancedLogViewer_1.3.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_1.3.1.zip?raw=true)
 #### Features
 * First public version. No list of changes against previous version.
