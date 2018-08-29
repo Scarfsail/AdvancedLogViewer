@@ -22,7 +22,7 @@ namespace AdvancedLogViewer.UI
             this.productNameLabel.Text = this.ProductName;
             this.productVersionLabel.Text = this.ProductVersion;
             this.productAuthorLabel.Text = this.CompanyName;
-            this.webLinkLabel.Text = "www.salplachta.net/alv";
+            this.webLinkLabel.Text = "https://github.com/Scarfsail/AdvancedLogViewer";
             this.usersConfigurationLocationLabel.Text = Globals.UserDataDir;
         }
 
