@@ -105,8 +105,8 @@
 
     <!-- Generate XML for Web update -->
     <Message Text="Generating XML for Web update ..."/>
-    <GenerateWebUpdateXmlFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" WebUpdateXml="../Publish/AdvancedLogViewer.xml"/>
-    <Message Text="XML for Web update has been generated to: ../Publish/AdvancedLogViewer.xml"/>
+    <GenerateWebUpdateXmlFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" WebUpdateXml="../Release/AdvancedLogViewer.xml"/>
+    <Message Text="XML for Web update has been generated to: ../Release/AdvancedLogViewer.xml"/>
 
     <Message Text="DONE !"/>
   </Target>
