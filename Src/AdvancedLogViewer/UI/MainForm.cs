@@ -241,7 +241,7 @@ namespace AdvancedLogViewer.UI
                 {
                     ProductPathToStoreHistoryInfo = Globals.UserDataDir,
                     ProductVersion = new Version(this.ProductVersion),
-                    RemoteDefinitionXmlUrl = "http://salplachta.net/SofwareUpdates/AdvancedLogViewer/AdvancedLogViewer.xml",
+                    RemoteDefinitionXmlUrl = "https://raw.githubusercontent.com/Scarfsail/AdvancedLogViewer/master/Release/AdvancedLogViewer.xml",
                     UpdateCheckPeriod = TimeSpan.FromHours(this.settings.AutomaticUpdates.CheckInterval)
                 };
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="8.0.0" date="2018-06-27">
+  <Version version="8.0.1" date="2018-08-29">
     <BigFeature>The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer</BigFeature>
     <Feature>Add support for wrapping and change font of the message in preview.</Feature>
     <Feature>Redesign log level icons.</Feature>
@@ -104,7 +104,7 @@
     <Change>Dialog "Send feedback to author" now contains just link to new web forum instead of input field to send feedback directly from the application.</Change>
     <Fix>When any configuration file is broken, proper error message is shown and default configuration is loaded instead of exception.</Fix>
   </Version>
-    <Version version="5.3.1" date="2012-07-21">
+  <Version version="5.3.1" date="2012-07-21">
     <Feature>When autorefresh and autoscrolling is enabled, app jumps to last row only when last row was selected before the refresh. Otherwise stay on the same row and just show new rows from the log.</Feature>
     <Feature>When new log records are shown (due to manual or automatic refresh) and last row isn't selected, "Change time" field on the status bar is bold until user jumps to last row to see recent rows.</Feature>
     <Change>Changed order of items in the "Other menu". Text of "Other" menu changed to "More". Also added link "Send feedback to author" to the About dialog.</Change>
@@ -130,8 +130,8 @@
     <BigFeature>Advanced Log Viewer can be PORTABLE! It means you can use it just by copy whole ALV directory without needs to install it. ALV still can be installed, then settings is saved into user's profile directory. When exists folder: "UserData" in ALV directory, all settings is saved there and ALV run in Portable mode.</BigFeature>
     <Feature>Possibility to jump to DateTime or Line number in log file by specifying command line arguments of LogViewer. Example: "AdvancedLogViewer.exe "C:\SomeLog.log" 123"s to be interpreted will open SomeLog.log and jump there onto line 123.</Feature>
     <Feature>Automatic update works also in PORTABLE mode. In that case binaries are downloaded, ALV is stopped, updated by new binaries and run again.</Feature>
-	  <Feature>Added parser for OrionInstaller.log. Thanks to Denys!</Feature>
-    <Change>Changed icon for Fatal log level - now is black with red cross to better distinguish betweeen Error and Fatal</Change> 
+    <Feature>Added parser for OrionInstaller.log. Thanks to Denys!</Feature>
+    <Change>Changed icon for Fatal log level - now is black with red cross to better distinguish betweeen Error and Fatal</Change>
   </Version>
 
   <Version version="4.0.1" date="2011-12-11">
@@ -191,10 +191,10 @@
     <Feature>On filter popup window added keyboard shortcut for Enable/Disable filter (ALT+E)</Feature>
     <Feature>Added list of keyboard shortcuts, it's available under menu: Other -> Keyboard shortcuts</Feature>
     <Feature>Added possibility to disable remembering of enabled filters for next session. This option is on settings page.</Feature>
-    <Changed>Some icons in toolbar changed.</Changed>   
+    <Changed>Some icons in toolbar changed.</Changed>
     <Fix>Tweaked performance while log is loading.</Fix>
   </Version>
-  
+
   <Version version="2.6.1" date="2011-09-11">
     <BigFeature>Added possibility to specify Exclude filters and combine them with classic Include filters. Exclude item in filter list has to be prefixed with ~ char. Example: ~ExcludeThisWord. When you want to create include filter with ~ as first character, prefix it with \. eg: \~ThisIsIncludeFilterWith~AsFirstChar</BigFeature>
     <Feature>Added context menu in Message detail with possibility to set/add current word as message filter.</Feature>
@@ -230,15 +230,15 @@
     <Feature>Favorites: Possibility to mark log files as Favorites. When file is marked as a Favorite, the file will be always on the top in recent files list with "yellow star" image.</Feature>
     <Feature>Plugins: When plugin is executed, context of log control is passed to the plugin. In the context are methods to control LogView like is GotoItem.</Feature>
   </Version>
-  
+
   <Version version="2.3.4" date="2011-03-02">
     <Fix>Exception: "InvalidArgument=Value of '-1' is not valid of 'index'" when logfile was recreated just during refresh.</Fix>
   </Version>
-  
+
   <Version version="2.3.3" date="2010-11-27">
     <Fix>Exception when log file was recreated and UI was refreshed (automatically or manually) and cursor in listview was on line number which doesn't exists yet in new log file.</Fix>
   </Version>
-  
+
   <Version version="2.3.2" date="2010-11-07">
     <Feature>Possibility to insert value from currently selected item into filter (useful when user wants to filter by current Thread or Type)</Feature>
     <Fix>Wrong markers showing when only time filter was enabled</Fix>
@@ -255,7 +255,7 @@
     <Feature>Indication to column header if the column is filtered</Feature>
     <Feature>Date fitler is autonomous - is enabled / disabled independenly on other filters.</Feature>
     <Fix>Case when filter was enabled, auto refresh was enabled, auto scroll was enabled and new item appeared but didn't match the filter - cursor jumps to last item anyway. Now jumps to last item only when new item which match the filter appears.</Fix>
-    <Fix>CTRL+O shortcut key</Fix>  
+    <Fix>CTRL+O shortcut key</Fix>
   </Version>
 
   <Version version="2.2.3" date="2010-10-13">
@@ -312,13 +312,15 @@
     <Feature>Added Settings dialog (available under Other -> Settings)</Feature>
     <Feature>Ability to set if application will exit when user press ESC key</Feature>
     <Feature>Added some other settings from main menu</Feature>
-    <Feature>Added bookmarks:
+    <Feature>
+      Added bookmarks:
       - Button available on the toolbar - press the button to assign first free bookmark on current line. Dropdown menu to view all the bookmarks.
       - Press CTRL + SHIFT + Number to toggle bookmark on current line
       - Press CTRL + Number to goto bookmark with the number
       - The bookmark is is shown on appropriate line before DateTime text.
     </Feature>
-    <Feature>Reworked Find text functionality:
+    <Feature>
+      Reworked Find text functionality:
       - Find function has own window, removed for someone confusing search boxes from main window.
       - Find dialog isn't modal - when isn't focused, transparency of the window is set to 75%.
       - Ability to search as Regular Expression !
@@ -411,5 +413,5 @@
   <Version version="1.3.1" date="2010-03-09">
     <Feature>First public version. No list of changes against previous version.</Feature>
   </Version>
-  
+
 </History>

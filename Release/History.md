@@ -1,5 +1,5 @@
-## 8.0.0 - 2018-06-27
-###### Download: [MSI](bin/AdvancedLogViewer_8.0.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.0.zip?raw=true)
+## 8.0.1 - 2018-08-29
+###### Download: [MSI](bin/AdvancedLogViewer_8.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.1.zip?raw=true)
 #### Big features
 * The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer
 #### Features
@@ -339,13 +339,15 @@
 * Added Settings dialog (available under Other -> Settings)
 * Ability to set if application will exit when user press ESC key
 * Added some other settings from main menu
-* Added bookmarks:
+* 
+      Added bookmarks:
       - Button available on the toolbar - press the button to assign first free bookmark on current line. Dropdown menu to view all the bookmarks.
       - Press CTRL + SHIFT + Number to toggle bookmark on current line
       - Press CTRL + Number to goto bookmark with the number
       - The bookmark is is shown on appropriate line before DateTime text.
     
-* Reworked Find text functionality:
+* 
+      Reworked Find text functionality:
       - Find function has own window, removed for someone confusing search boxes from main window.
       - Find dialog isn't modal - when isn't focused, transparency of the window is set to 75%.
       - Ability to search as Regular Expression !
