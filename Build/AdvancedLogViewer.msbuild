@@ -5,7 +5,7 @@
     <InstallerOutputDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\Bin\Installer\$(Flavor)'))</InstallerOutputDir>
     <MSBuildTasksLib>Tasks\MSBuild.Community.Tasks.dll</MSBuildTasksLib>
     <ScarfsailTasksLib>Tasks\ScarfSail.MSBuild.Tasks.dll</ScarfsailTasksLib>
-    <UpdateFromZipPath>$(MSBuildProjectDirectory)\..\..\Common\Scarfsail\UpdateAppFromZip</UpdateFromZipPath>
+    <UpdateFromZipPath>$(MSBuildProjectDirectory)\..\src\3rdParty\Scarfsail\UpdateAppFromZip</UpdateFromZipPath>
   </PropertyGroup>
 
   <ItemGroup>
