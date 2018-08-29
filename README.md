@@ -2,8 +2,7 @@
 Free Log Viewer for easy & powerful log viewing.
 
 ## Download
-**Latest release 8.0.0 - 8/29/2018.**
-You can download [MSI Installer](https://github.com/Scarfsail/AdvancedLogViewer/raw/BuildAndPublishToGithub/Release/bin/AdvancedLogViewer.msi) or [Portable ZIP](https://github.com/Scarfsail/AdvancedLogViewer/raw/BuildAndPublishToGithub/Release/bin/AdvancedLogViewer.zip).
+You can download the latest release as [MSI Installer](https://github.com/Scarfsail/AdvancedLogViewer/raw/BuildAndPublishToGithub/Release/bin/AdvancedLogViewer.msi) or [Portable ZIP](https://github.com/Scarfsail/AdvancedLogViewer/raw/BuildAndPublishToGithub/Release/bin/AdvancedLogViewer.zip). There's also a [changelog](https://github.com/Scarfsail/AdvancedLogViewer/blob/BuildAndPublishToGithub/Release/History.md) with all previous versions.
 
 Both versions contain same binaries. MSI version installs ALV into the system, creates shortcut in start menu and user's settings is saved into user's profile. Portable version can be placed anywhere (e.g. network drive, usb drive) and user's settings is saved into the same folder where is the application, nothing is saved in the OS.
 
