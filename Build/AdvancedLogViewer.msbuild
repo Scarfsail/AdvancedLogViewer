@@ -18,6 +18,7 @@
   <UsingTask  TaskName="DeleteDirectory" AssemblyFile="$(ScarfsailTasksLib)" />
   <UsingTask  TaskName="GetLatestFile" AssemblyFile="$(ScarfsailTasksLib)" />
   <UsingTask  TaskName="GenerateWebUpdateXmlFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask  TaskName="GenerateHistoryMdFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
   <UsingTask TaskName="MSBuild.Community.Tasks.Zip" AssemblyFile="$(MSBuildTasksLib)" />
   <UsingTask TaskName="MSBuild.Community.Tasks.FileUpdate" AssemblyFile="$(MSBuildTasksLib)" />
   
@@ -106,7 +107,17 @@
     <!-- Generate XML for Web update -->
     <Message Text="Generating XML for Web update ..."/>
     <GenerateWebUpdateXmlFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" WebUpdateXml="../Release/AdvancedLogViewer.xml"/>
-    <Message Text="XML for Web update has been generated to: ../Release/AdvancedLogViewer.xml"/>
+    <Message Text="XML for Web update has been generated."/>
+
+    <Message Text="Generating History.md ..."/>
+    <GenerateHistoryMdFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" HistoryMd="../Release/History.md"/>
+    <Message Text="History.md has been generated."/>
+    <Copy SourceFiles="../Bin/$(Flavor)/History.xml" DestinationFolder="../Release/"/>
+    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe" DestinationFolder="../Release/bin"/>
+    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).zip" DestinationFolder="../Release/bin"/>
+    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).msi" DestinationFolder="../Release/bin"/>
+    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).zip" DestinationFiles="../Release/bin/AdvancedLogViewer.zip"/>
+    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).msi" DestinationFiles="../Release/bin/AdvancedLogViewer.msi"/>
 
     <Message Text="DONE !"/>
   </Target>
