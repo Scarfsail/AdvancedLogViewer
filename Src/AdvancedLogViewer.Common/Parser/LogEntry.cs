@@ -49,6 +49,12 @@ namespace AdvancedLogViewer.Common.Parser
             return true;
         }
 
+        public bool SaveCustomValue(string customFieldKey, string value)
+        {
+            CustomFields[customFieldKey] = value;
+            return true;
+        }
+
         private int foundOnLine = -1;
 
         public int FoundOnLine { get { return foundOnLine; } set { foundOnLine = value; } }
@@ -59,25 +65,28 @@ namespace AdvancedLogViewer.Common.Parser
 
         public string Type { get; private set; }
 
+        private static Dictionary<string, LogType> stringToLogTypeCache = new Dictionary<string, LogType>();
+
         public LogType LogType
         {
             get
             {
                 if (this.logType == LogType.NONE)
                 {
-                    if (String.IsNullOrEmpty(this.Type))
+                    if (string.IsNullOrEmpty(this.Type))
                     {
                         this.logType = LogType.UNKNOWN;
                     }
                     else
                     {
-                        try
+                        if (!stringToLogTypeCache.TryGetValue(this.Type, out this.logType))
                         {
-                            this.logType = (LogType)Enum.Parse(typeof(LogType), this.Type);
-                        }
-                        catch
-                        {
-                            this.logType = LogType.UNKNOWN;
+                            if (!Enum.TryParse(this.Type, out this.logType))
+                            {
+                                this.logType = LogType.UNKNOWN;
+                            }
+
+                            stringToLogTypeCache.Add(this.Type, this.logType);
                         }
                     }
                 }
@@ -103,6 +112,8 @@ namespace AdvancedLogViewer.Common.Parser
 
         /// <summary>Bookmark number. Range: 1..9, when is zero, bookmark isn't set for this item.</summary>
         public int Bookmark { get; set; }
+
+        public IDictionary<string, string> CustomFields { get; internal set; } = new Dictionary<string, string>();
 
         public static List<ColumnDescription> GetAvailableColumns(bool includeThread, bool includeType, bool includeClass)
         {

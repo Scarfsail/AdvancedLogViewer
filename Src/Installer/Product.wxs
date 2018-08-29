@@ -58,6 +58,12 @@
           <Component Id="AdvancedLogViewer.Common.dll" Guid="{86E7094D-6249-4632-8356-A9BE2BFFF0E7}">
             <File Source="$(var.BuildOutputDir)AdvancedLogViewer.Common.dll"/>
           </Component>
+          <Component Id="AdvancedLogViewer.BL.dll" Guid="{CF27CA98-8989-4F0E-A2F1-A102DB80D1E7}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.BL.dll"/>
+          </Component>
+          <Component Id="AdvancedLogViewer.WPF.dll" Guid="{1845E717-E2F2-4341-BB08-906536318EF6}">
+            <File Source="$(var.BuildOutputDir)AdvancedLogViewer.WPF.dll"/>
+          </Component>
           <Component Id="Scarfsail.Common.dll" Guid="{D7487562-FE2A-4fa5-A1D9-FFCEC9B008BF}">
             <File Source="$(var.BuildOutputDir)Scarfsail.Common.dll"/>
           </Component>
@@ -66,6 +72,9 @@
           </Component>          
           <Component Id="XDMessaging.dll" Guid="{63F0672B-BC29-4dd8-8D37-F419E416158B}">
             <File Source="$(var.BuildOutputDir)XDMessaging.dll"/>
+          </Component>
+          <Component Id="Xceed.Wpf.Toolkit.dll" Guid="{64D9618D-D7CB-43FA-8A07-5B704A3F15B4}">
+            <File Source="$(var.BuildOutputDir)Xceed.Wpf.Toolkit.dll"/>
           </Component>
           <Component Id="QueryAnythingMerged.dll" Guid="{673C043A-C666-42B4-8F09-43B9E2ABD27E}">
             <File Source="$(var.BuildOutputDir)QueryAnythingMerged.dll"/>
@@ -131,10 +140,13 @@
       <!--Core-->
       <ComponentRef Id="AdvancedLogViewer.exe" />
       <ComponentRef Id="AdvancedLogViewer.exe.config" />
-      <ComponentRef Id="AdvancedLogViewer.Common.dll" />      
+      <ComponentRef Id="AdvancedLogViewer.Common.dll" />
+      <ComponentRef Id="AdvancedLogViewer.BL.dll" /> 
+      <ComponentRef Id="AdvancedLogViewer.WPF.dll" /> 
       <ComponentRef Id="Scarfsail.SoftwareUpdates.dll" />
       <ComponentRef Id="Scarfsail.Common.dll" />
       <ComponentRef Id="XDMessaging.dll" />
+      <ComponentRef Id="Xceed.Wpf.Toolkit.dll"/>
       <ComponentRef Id="QueryAnythingMerged.dll" />
       
       <!--Logging-->

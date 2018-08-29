@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="8.0.0" date="2018-06-27">
+    <BigFeature>The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer</BigFeature>
+    <Feature>Add support for wrapping and change font of the message in preview.</Feature>
+    <Feature>Redesign log level icons.</Feature>
+    <Feature>Redesign settings page, new look &amp; feel.</Feature>
+    <Fix>Fixed bug with log parser pattern that has a character "|".</Fix>
+    <Fix>Support of UTF8 documents.</Fix>
+    <Feature>Support for other Solarwinds log files (e.g. OrionWeb.log).</Feature>
+    <Feature>Log files with only assemblies are always shown, message about custom parsers is skipped.</Feature>
+    <Feature>Support for log parts with non-continuous numbering.</Feature>
+  </Version>
   <Version version="7.6.0" date="2016-01-11">
     <Feature>Updated to .NET 4.6.1 and improved performance of log loading mainly on x64 OS.</Feature>
     <Fix>Fixed log's code page detection to show characters in UTF8 correctly.</Fix>

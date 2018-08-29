@@ -52,6 +52,7 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="QueryAnythingMerged">
       <HintPath>..\3rdParty\SqlLinq\Bin\QueryAnythingMerged.dll</HintPath>
     </Reference>
@@ -66,6 +67,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -77,6 +79,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="XDMessaging">
       <HintPath>..\3rdParty\XDMessaging-2.0.3.0\bin\XDMessaging.dll</HintPath>
     </Reference>
@@ -85,35 +90,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BL\FindText\FindTextContext.cs" />
-    <Compile Include="BL\LogAdjuster\LogAdjuster.cs" />
-    <Compile Include="BL\LogAdjuster\LogAdjusters.cs" />
-    <Compile Include="BL\LogBrowser\LogBrowserSettings.cs" />
-    <Compile Include="BL\MessageContentExtraction\CustomMessageExtractor.cs" />
-    <Compile Include="BL\MessageContentExtraction\MessageContentExtractorAction.cs" />
-    <Compile Include="BL\MessageContentExtraction\MessageContentExtractorConfig.cs" />
-    <Compile Include="BL\MessageContentExtraction\MessageContentExtractor.cs" />
-    <Compile Include="BL\Filters\FilterManager.cs" />
-    <Compile Include="BL\FindText\FindTextSettings.cs" />
-    <Compile Include="BL\MergeFiles.cs" />
-    <Compile Include="BL\PluginManager.cs" />
-    <Compile Include="BL\Settings\AlvSettings.cs" />
-    <Compile Include="BL\ColorHighlight\ColorHighlightEntry.cs" />
-    <Compile Include="BL\ColorHighlight\ColorHighlightManager.cs" />
-    <Compile Include="BL\ColorHighlight\ColorHighlightGroup.cs" />
-    <Compile Include="BL\Comm\Messages\BaseMessage.cs" />
-    <Compile Include="BL\Comm\MessageType.cs" />
-    <Compile Include="BL\Comm\CommDatagram.cs" />
-    <Compile Include="BL\Comm\CommManager.cs" />
-    <Compile Include="BL\Comm\Messages\LogViewerInstance.cs" />
-    <Compile Include="BL\Filters\FilterEntry.cs" />
-    <Compile Include="BL\FindText\SearchHistory.cs" />
-    <Compile Include="BL\Settings\AutomaticUpdates.cs" />
-    <Compile Include="BL\Settings\TextEditor.cs" />
-    <Compile Include="BL\Settings\MainFormUI.cs" />
-    <Compile Include="BL\Settings\RecentFiles.cs" />
-    <Compile Include="BL\Settings\TextDiff.cs" />
-    <Compile Include="BL\TotalCmdIntegration.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,6 +148,7 @@
     <Compile Include="UI\FindTextDlg.designer.cs">
       <DependentUpon>FindTextDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Items\FindTextContext.cs" />
     <Compile Include="UI\LogAdjustersDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -420,9 +397,17 @@
       <Project>{2D833994-C908-472A-B215-200BD1239C5E}</Project>
       <Name>Scarfsail.SoftwareUpdates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AdvancedLogViewer.BL\AdvancedLogViewer.BL.csproj">
+      <Project>{823c16aa-f267-48bb-ad57-2902f3a118e4}</Project>
+      <Name>AdvancedLogViewer.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AdvancedLogViewer.Common\AdvancedLogViewer.Common.csproj">
       <Project>{F69DED99-F89E-402D-839B-D9356254799B}</Project>
       <Name>AdvancedLogViewer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdvancedLogViewer.WPF\AdvancedLogViewer.WPF.csproj">
+      <Project>{6e776869-e962-4898-b5a0-e7c667e7d296}</Project>
+      <Name>AdvancedLogViewer.WPF</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,212 @@
+﻿<UserControl x:Class="AdvancedLogViewer.WPF.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdvancedLogViewer.WPF"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:properties="clr-namespace:AdvancedLogViewer.WPF.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="ApplicationUpdate" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Application Update.png"></BitmapImage>
+            <BitmapImage x:Key="ExternalDiffTool" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/External Diff Tool.png"></BitmapImage>
+            <BitmapImage x:Key="ExternalTextEditor" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/External Text Editor.png"></BitmapImage>
+            <BitmapImage x:Key="LogBrowser" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Log Browser.png"></BitmapImage>
+            <BitmapImage x:Key="MainWindow" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/Main Window.png"></BitmapImage>
+            <BitmapImage x:Key="SystemIntegration" UriSource="pack://application:,,,/AdvancedLogViewer.WPF;component/Resources/System Integration.png"></BitmapImage>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <TabControl TabStripPlacement="Left" HorizontalContentAlignment="Left" Margin="0, 0, 0, 10" Background="Transparent">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Height" Value="40"/>
+                </Style>
+                <Style TargetType="{x:Type CheckBox}">
+                    <Setter Property="Margin" Value="10,10,0,0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource MainWindow}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Main Window</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Name="ShowMarkersCheckBox">Show markers side panel</CheckBox>
+                        <CheckBox Name="ExitAppOnEscCheckBox">Exit from application on ESC keystroke</CheckBox>
+                        <CheckBox Name="AutoScrollCheckBox">Auto scroll to latest item when Auto refresh is enabled and last item is selected</CheckBox>
+                        <CheckBox Name="AutoScrollShowTwoItemsCheckBox" Margin="30,10,0,0">Select previous last item and curent last item when auto refresh (otherwise select only current last item)</CheckBox>
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                            <Label>Auto refresh period:</Label>
+                            <xctk:IntegerUpDown Name="AutoRefreshPeriodEdit" />
+                            <Label>ms</Label>
+                        </StackPanel>
+                        <CheckBox Name="AddOnlyBaseNameInRecentListCheckBox">Add only base file names into recent file list. E.g.: Add LogName.log instead of LogName.Log.3.</CheckBox>
+                        <CheckBox Name="RememberFiltersEnabledCheckBox">Remember if filters are enabled for next session.</CheckBox>
+                        <CheckBox Name="TrimClassColumnFromLeftCheckBox">Trim text in Class column from the left instead of right side. Thus right part of class name is always visible.</CheckBox>
+                        <CheckBox Name="ShowLogIconsCheckBox">Show type's icon on each row (The icon on left side of each row)</CheckBox>
+                        <CheckBox Name="MessageWordWrapCheckBox">Word wrap message in preview</CheckBox>
+
+                        <Grid Margin="10,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,0,10">Message Preview:</Label>
+                            <Label Grid.Row="1" Grid.Column="0">Font Family</Label>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Name="FontComboBox"></ComboBox>
+                            <Label Grid.Row="1" Grid.Column="2" Margin="20,0,0,0">Font Size</Label>
+                            <xctk:DoubleUpDown Grid.Row="1" Grid.Column="3" Minimum="1" Maximum="100" Name="FontSize" Width="100"></xctk:DoubleUpDown>
+                            <Label Grid.Row="1" Grid.Column="4">pt</Label>
+                            <Button Grid.Row="1" Grid.Column="5" Click="DefaultFont_Click" Margin="20,0,0,0" Width="60">Default</Button>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource SystemIntegration}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">System Integration</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Name="IntegrateWithTotalCmdCheckBox">Use Advanced Log Viewer as a viewer in Total Commander for ALT + F3 shortcut (standard F3 remains unchanged)</CheckBox>
+                        <Label Name="TotalCmdStatusLabel" Foreground="Gray" Margin="10,0,0,0">TotalCmd status</Label>
+                        <CheckBox Name="AssociateWithAlvCheckBox">Associate *.LOG files with this Advanced Log Viewer application.</CheckBox>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ExternalDiffTool}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">External Diff Tool Settings</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid Margin="10,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Path:</Label>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="ExtDiffPathEdit"></TextBox>
+                        <Button Grid.Row="0" Grid.Column="2" Name="ExtDiffBrowseButton" Click="extDiffBrowseButton_Click" Width="70">Browse</Button>
+
+                        <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Parameters:</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Name="ExtDiffParametersEdit"></TextBox>
+
+                        <Label Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" Foreground="Gray">Variables %File1% and %File2% will be replaced by real file names.</Label>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ExternalTextEditor}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">External Text File Editor Settings</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid Margin="10,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Path:</Label>
+                        <TextBox Grid.Row="0" Grid.Column="1" Name="ExtTextEditPathEdit"></TextBox>
+                        <Button Grid.Row="0" Grid.Column="2" Name="ExtTextEditBrowseButton" Click="extTextEditBrowseButton_Click" Width="70">Browse</Button>
+
+                        <Label Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">Parameters:</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" Name="ExtTextEditParametersEdit"></TextBox>
+
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Gray">Variable %FileName% will be replaced by full opened log file name.</Label>
+                        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Foreground="Gray">Variable %LineNumber% will be replaced by line number of selected row.</Label>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource LogBrowser}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Log Browser</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                            <Label Margin="0,0,10,0">Top level folders names:</Label>
+                            <TextBox Name="TopLevelFolders" Width="300"></TextBox>
+                        </StackPanel>
+                        <Label Foreground="Gray" Margin="10,0,0,0">When one of folders is found above current log, all logs under the folder are displayed.</Label>
+                        <CheckBox Name="OpenAndExitOnDoubleClickCheckBox">Show &amp;&amp; Close on double click / Enter. Otherwise just show selected log and keep dialog opened.</CheckBox>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{StaticResource ApplicationUpdate}"  Width="24" />
+                        <TextBlock VerticalAlignment="Center" Margin="10, 0">Application Update</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Name="AutomaticUpdateEnabledCheckBox">Automatically check for new application versions</CheckBox>
+                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                            <Label>Check period:</Label>
+                            <xctk:IntegerUpDown Name="AutomaticUpdateCheckPeriodEdit" />
+                            <Label>hours</Label>
+                        </StackPanel>
+
+                        <TextBlock TextWrapping="WrapWithOverflow" Foreground="Gray" Margin="10,10,10,0">
+                            When automatic check is enabled, every time when ALV is launched and check period since last check elapsed, check for possible update on the web is performed. Check is silently performed on the background. When update is found, user is informed about that, otherwise no message is shown.
+                        </TextBlock>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

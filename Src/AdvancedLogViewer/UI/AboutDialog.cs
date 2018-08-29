@@ -42,7 +42,7 @@ namespace AdvancedLogViewer.UI
 
         private void forumLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WinFormHelper.GotoUrl("http://forum.salplachta.net");
+            WinFormHelper.GotoUrl("https://github.com/Scarfsail/AdvancedLogViewer/issues");
 
         }
 

@@ -205,7 +205,7 @@ namespace AdvancedLogViewer.UI
                 //Upgrade or First run
                 if (this.settings.MainFormUI.LastRunVersion == null)
                 {
-                    this.ShowSettingsDialog(" - This is first run of the application, please review the settings", true);
+                    //this.ShowSettingsDialog(" - This is first run of the application, please review the settings", true);
                     this.settings.MainFormUI.LastRunVersion = this.ProductVersion;
                     this.settings.Save();
                 }
@@ -695,7 +695,7 @@ namespace AdvancedLogViewer.UI
                 if (itemToCheck == null)
                     itemToCheck = CreateLogAdjustMenuItem(logLevel);
                 */
-                MessageBox.Show(String.Format("LogLevel: '{0}' doesn't exist.", logLevel), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(String.Format("LogLevel: '{0}' doesn't exist in SystemLogAdjusters.xml.", logLevel), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -966,17 +966,11 @@ namespace AdvancedLogViewer.UI
             {
                 log.Debug("Show markers...");
                 this.ShowMarkers();
-
+                
                 if ((!this.logParser.ForcedLogPattern) && (this.logParser.LinesCount > 2) && (this.logParser.LogEntriesCount == 0))
                 {
-                    this.Invoke(new MethodInvoker(delegate
-                    {
-                        ShowAndLogError(@"There is not suitable parser pattern for this log file. Please add appropriate custom pattern in following dialog.");
-
-                        this.manageParsersMenuItem.PerformClick();
-                    }));
+                    TryLogPatternOnCurrentLog(new LogPattern("Unable to parse it, showing with default parser", "{Date}{Message}", ""));
                 }
-
 
                 log.Debug("Select some item");
                 if (this.goToLineAfterLoad != null)
@@ -1107,10 +1101,11 @@ namespace AdvancedLogViewer.UI
                     LogEntry logEntry = listItem.LogItem;
                     logMessageEdit.Text = "";
                     logMessageEdit.SelectionColor = SystemColors.GrayText;
+                    logMessageEdit.WordWrap = settings.MainFormUI.MessageWordWrap;
                     logMessageEdit.AppendText(logParser.GetFormattedMessageDetailHeader(logEntry));
                     logMessageEdit.SelectionColor = SystemColors.WindowText;
+                    logMessageEdit.Font = new Font(new FontFamily(settings.MainFormUI.MessageFontFamily), settings.MainFormUI.MessageFontSize);
                     logMessageEdit.AppendText(logEntry.Message);
-
 
                     if (settings.MainFormUI.EnableHighlights)
                         ColorHighlightManager.CurrentGroup.HighlightTextInMessageDetail(logMessageEdit);
@@ -1250,6 +1245,7 @@ namespace AdvancedLogViewer.UI
                         this.ShowMarkers();
                     this.autoRefreshTimer.Interval = this.settings.MainFormUI.AutoRefreshPeriod;
                     this.logListView.SetLogIconsVisibility();
+                    RefreshMessageDetail(this.logListView.GetSelectedListItem(), true);
 
                     return true;
                 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace AdvancedLogViewer.Common.Parser
 {
@@ -93,7 +94,7 @@ namespace AdvancedLogViewer.Common.Parser
                     this.LogFileExists = true;
                     using (FileStream fs = File.Open(this.LogFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
-                        using (TextReader sr = new StreamReader(fs, Encoding.Default))
+                        using (TextReader sr = new StreamReader(fs, true))
                         {
                             LogEntry tmpLogEntry = new LogEntry();
                             LogEntry currentLogEntry = null;
@@ -194,8 +195,18 @@ namespace AdvancedLogViewer.Common.Parser
 
                                     if (patternItem.DoLTrim)
                                         value = value.TrimStart(new char[] { ' ' });
-                                    
-                                    if (!tmpLogEntry.SaveValue(patternItem.ItemType, value))
+
+                                    bool valueSaved;
+                                    if (patternItem.ItemType != PatternItemType.Custom)
+                                    {
+                                        valueSaved = tmpLogEntry.SaveValue(patternItem.ItemType, value);
+                                    }
+                                    else
+                                    {
+                                        valueSaved = tmpLogEntry.SaveCustomValue(patternItem.CustomFieldKey, value);
+                                    }
+
+                                    if (!valueSaved)
                                     {
                                         patternFits = false;
                                         break;
@@ -250,7 +261,12 @@ namespace AdvancedLogViewer.Common.Parser
                                                 if (patternItem.ItemType == PatternItemType.Message)
                                                     currentLogEntry.SaveValue(patternItem.ItemType, line);
                                                 else
-                                                    currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                                {
+                                                    if (patternItem.ItemType == PatternItemType.Custom)
+                                                        currentLogEntry.SaveCustomValue(patternItem.CustomFieldKey, string.Empty);
+                                                    else
+                                                        currentLogEntry.SaveValue(patternItem.ItemType, String.Empty);
+                                                }
                                             }
                                         }
                                 }
@@ -352,12 +368,12 @@ namespace AdvancedLogViewer.Common.Parser
 
         public string GetFormattedMessageDetailHeader(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class);
+            return this.logPattern.GetFormattedDetailHeader(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.CustomFields);
         }
 
         public string GetFormattedWholeEntry(LogEntry logEntry)
         {
-            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message);
+            return this.logPattern.GetFormattedWholeEntry(logEntry.DateText, logEntry.Thread, logEntry.Type, logEntry.Class, logEntry.Message, logEntry.CustomFields);
         }
 
         protected void OnLoadingProgress()
@@ -426,9 +442,26 @@ namespace AdvancedLogViewer.Common.Parser
             this.BaseLogFileName = GetBaseLogFileName(this.LogFileName);
 
             this.AllLogPartsFileNames.Clear();
-            if (File.Exists(BaseLogFileName))
-                this.AllLogPartsFileNames.Add(BaseLogFileName);
+            
+            if (!AddOtherLogPartsSuffixStrategy(this.AllLogPartsFileNames))
+            {
+                AllLogPartsFileNames.Clear();
+                if (!AddOtherLogPartsNumbericWildcardStrategy(this.AllLogPartsFileNames))
+                {
+                    if (File.Exists(BaseLogFileName))
+                        AllLogPartsFileNames.Add(BaseLogFileName);
+                }
+            }
 
+            log.Debug("PopulateOtherLogFileNameParts() done.");
+        }
+
+        private bool AddOtherLogPartsSuffixStrategy(List<string> logParts)
+        {
+            if (File.Exists(BaseLogFileName))
+                logParts.Add(BaseLogFileName);
+
+            bool result = false;
             int i = 1;
             int nonExistingExtensions = 0;
             while (true)
@@ -436,7 +469,8 @@ namespace AdvancedLogViewer.Common.Parser
                 string fileName = BaseLogFileName + "." + i.ToString();
                 if (File.Exists(fileName))
                 {
-                    this.AllLogPartsFileNames.Add(fileName);
+                    logParts.Add(fileName);
+                    result = true;
                     nonExistingExtensions = 0;
                 }
                 else
@@ -447,7 +481,40 @@ namespace AdvancedLogViewer.Common.Parser
                 }
                 i++;
             }
+
+            return result;
         }
 
+        private bool AddOtherLogPartsNumbericWildcardStrategy(List<string> logParts)
+        {
+            string logDirectory = Path.GetDirectoryName(LogFileName);
+            string logFilename = Path.GetFileName(LogFileName);
+            var relatedLogsSearchPattern = Regex.Replace(logFilename, @"\d+", "*");
+
+            try
+            {
+                DirectoryInfo logDirectoryInfo = new DirectoryInfo(logDirectory);
+                FileInfo[] logPartsInfos = logDirectoryInfo.GetFiles(relatedLogsSearchPattern, SearchOption.TopDirectoryOnly);
+
+                var orderedLogParts = logPartsInfos
+                    .OrderByDescending(fi => fi.LastWriteTimeUtc)
+                    .ThenBy(fi => fi.Name)
+                    .Select(fi => fi.FullName)
+                    .ToArray();
+
+                if (orderedLogParts.Any())
+                {
+                    logParts.AddRange(orderedLogParts);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception exception)
+            {
+                log.Debug($"Could not query directory {logDirectory} for related log parts.", exception);
+                return false;
+            }
+        }
     }
 }
