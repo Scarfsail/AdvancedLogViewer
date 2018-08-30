@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="8.0.1" date="2018-08-29">
+  <Version version="8.0.2" date="2018-08-30">
     <BigFeature>The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer</BigFeature>
     <Feature>Add support for wrapping and change font of the message in preview.</Feature>
     <Feature>Redesign log level icons.</Feature>

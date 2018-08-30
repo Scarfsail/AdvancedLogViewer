@@ -1,5 +1,5 @@
-## 8.0.1 - 2018-08-29
-###### Download: [MSI](bin/AdvancedLogViewer_8.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.1.zip?raw=true)
+## 8.0.2 - 2018-08-30
+###### Download: [MSI](bin/AdvancedLogViewer_8.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.2.zip?raw=true)
 #### Big features
 * The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer
 #### Features

@@ -43,10 +43,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.productIconPicture = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productIconPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,10 +118,10 @@
             this.webLinkLabel.AutoSize = true;
             this.webLinkLabel.Location = new System.Drawing.Point(122, 72);
             this.webLinkLabel.Name = "webLinkLabel";
-            this.webLinkLabel.Size = new System.Drawing.Size(55, 13);
+            this.webLinkLabel.Size = new System.Drawing.Size(38, 13);
             this.webLinkLabel.TabIndex = 7;
             this.webLinkLabel.TabStop = true;
-            this.webLinkLabel.Text = "linkLabel1";
+            this.webLinkLabel.Text = "Github";
             this.webLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLinkLabel_LinkClicked);
             // 
             // label1
@@ -183,25 +181,11 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(11, 118);
+            this.label7.Location = new System.Drawing.Point(11, 129);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(283, 73);
+            this.label7.Size = new System.Drawing.Size(283, 35);
             this.label7.TabIndex = 14;
-            this.label7.Text = "This application is absolutely free for private and also for commercial use.\r\n\r\nI" +
-    "f you find it useful, you can                           to support my work on th" +
-    "is project.";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = global::AdvancedLogViewer.Properties.Resources.btn_donate_SM;
-            this.pictureBox1.Location = new System.Drawing.Point(146, 154);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(74, 21);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.label7.Text = "This application is absolutely free for private and also for commercial use.";
             // 
             // productIconPicture
             // 
@@ -218,7 +202,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.okButton;
             this.ClientSize = new System.Drawing.Size(294, 289);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -243,7 +226,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productIconPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -268,6 +250,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -22,7 +22,6 @@ namespace AdvancedLogViewer.UI
             this.productNameLabel.Text = this.ProductName;
             this.productVersionLabel.Text = this.ProductVersion;
             this.productAuthorLabel.Text = this.CompanyName;
-            this.webLinkLabel.Text = "https://github.com/Scarfsail/AdvancedLogViewer";
             this.usersConfigurationLocationLabel.Text = Globals.UserDataDir;
         }
 
@@ -37,13 +36,12 @@ namespace AdvancedLogViewer.UI
 
         private void webLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            WinFormHelper.GotoUrl("http://" + ((LinkLabel)sender).Text);
+            WinFormHelper.GotoUrl("https://github.com/Scarfsail/AdvancedLogViewer");
         }
 
         private void forumLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             WinFormHelper.GotoUrl("https://github.com/Scarfsail/AdvancedLogViewer/issues");
-
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
