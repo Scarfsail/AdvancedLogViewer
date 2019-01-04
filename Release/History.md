@@ -1,3 +1,8 @@
+## 8.1.0 - 2019-01-04
+###### Download: [MSI](bin/AdvancedLogViewer_8.1.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.1.0.zip?raw=true)
+#### Features
+* Extended log level parser to support various input strings instead of exact Enum's name. Goal is to support Serilog log levels like DBG, WRN, ...
+* Log file name parts finder finds also other parts when base name doesn't contain numeric sequence (e.g. it's just FileName.log) and other parts have the sequence before .log (e.g. FileName_1.log)
 ## 8.0.2 - 2018-08-30
 ###### Download: [MSI](bin/AdvancedLogViewer_8.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.0.2.zip?raw=true)
 #### Big features

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <SoftwareUpdate>
   <Settings UpdateType="MSI" DefinitionStructureVersion="1" />
-  <LatestVersion Version="8.0.2" Date="2018-08-30" URL="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}.msi" UrlWithPortableUpdate="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}_Update.exe" UrlWithZip="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}.zip" URLWithHistoryXml="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/History.xml" />
+  <LatestVersion Version="8.1.0" Date="2019-01-04" URL="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}.msi" UrlWithPortableUpdate="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}_Update.exe" UrlWithZip="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/bin/AdvancedLogViewer_{$Version}.zip" URLWithHistoryXml="https://github.com/Scarfsail/AdvancedLogViewer/raw/master/Release/History.xml" />
 </SoftwareUpdate>
