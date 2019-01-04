@@ -57,6 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogPartsFileNameStrategyTests\LogPartsFileNameFinderTest.cs" />
+    <Compile Include="LogPartsFileNameStrategyTests\NumericWildcardStrategyTest.cs" />
+    <Compile Include="LogPartsFileNameStrategyTests\LogPartFileNameStrategyTestBase.cs" />
+    <Compile Include="LogPartsFileNameStrategyTests\DotSuffixStrategyTest.cs" />
     <Compile Include="PatternManagerTest.cs" />
     <Compile Include="LogEntryTest.cs" />
     <Compile Include="LogParserTest.cs" />

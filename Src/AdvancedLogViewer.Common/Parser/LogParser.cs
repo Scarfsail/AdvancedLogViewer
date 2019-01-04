@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
+using AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies;
 
 namespace AdvancedLogViewer.Common.Parser
 {
@@ -438,83 +439,10 @@ namespace AdvancedLogViewer.Common.Parser
         private void PopulateOtherLogFileNameParts()
         {
             log.Debug("PopulateOtherLogFileNameParts()");
-            //Try to find other parts of this log (.1 .2 ....)
             this.BaseLogFileName = GetBaseLogFileName(this.LogFileName);
-
-            this.AllLogPartsFileNames.Clear();
-            
-            if (!AddOtherLogPartsSuffixStrategy(this.AllLogPartsFileNames))
-            {
-                AllLogPartsFileNames.Clear();
-                if (!AddOtherLogPartsNumbericWildcardStrategy(this.AllLogPartsFileNames))
-                {
-                    if (File.Exists(BaseLogFileName))
-                        AllLogPartsFileNames.Add(BaseLogFileName);
-                }
-            }
+            this.AllLogPartsFileNames = LogPartsFileNameFinder.GetFileNameParts(this.BaseLogFileName);
 
             log.Debug("PopulateOtherLogFileNameParts() done.");
-        }
-
-        private bool AddOtherLogPartsSuffixStrategy(List<string> logParts)
-        {
-            if (File.Exists(BaseLogFileName))
-                logParts.Add(BaseLogFileName);
-
-            bool result = false;
-            int i = 1;
-            int nonExistingExtensions = 0;
-            while (true)
-            {
-                string fileName = BaseLogFileName + "." + i.ToString();
-                if (File.Exists(fileName))
-                {
-                    logParts.Add(fileName);
-                    result = true;
-                    nonExistingExtensions = 0;
-                }
-                else
-                {
-                    nonExistingExtensions++;
-                    if (nonExistingExtensions == 5)
-                        break;
-                }
-                i++;
-            }
-
-            return result;
-        }
-
-        private bool AddOtherLogPartsNumbericWildcardStrategy(List<string> logParts)
-        {
-            string logDirectory = Path.GetDirectoryName(LogFileName);
-            string logFilename = Path.GetFileName(LogFileName);
-            var relatedLogsSearchPattern = Regex.Replace(logFilename, @"\d+", "*");
-
-            try
-            {
-                DirectoryInfo logDirectoryInfo = new DirectoryInfo(logDirectory);
-                FileInfo[] logPartsInfos = logDirectoryInfo.GetFiles(relatedLogsSearchPattern, SearchOption.TopDirectoryOnly);
-
-                var orderedLogParts = logPartsInfos
-                    .OrderByDescending(fi => fi.LastWriteTimeUtc)
-                    .ThenBy(fi => fi.Name)
-                    .Select(fi => fi.FullName)
-                    .ToArray();
-
-                if (orderedLogParts.Any())
-                {
-                    logParts.AddRange(orderedLogParts);
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception exception)
-            {
-                log.Debug($"Could not query directory {logDirectory} for related log parts.", exception);
-                return false;
-            }
         }
     }
 }
