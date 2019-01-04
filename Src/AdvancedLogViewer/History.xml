@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="8.1.0" date="2019-01-04">
+    <Feature>Extended log level parser to support various input strings instead of exact Enum's name. Goal is to support Serilog log levels like DBG, WRN, ...</Feature>
+  </Version>
   <Version version="8.0.2" date="2018-08-30">
     <BigFeature>The Advanced Log Viewer has been open sourced! See https://github.com/Scarfsail/AdvancedLogViewer</BigFeature>
     <Feature>Add support for wrapping and change font of the message in preview.</Feature>

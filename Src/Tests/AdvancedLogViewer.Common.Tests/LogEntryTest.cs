@@ -95,5 +95,25 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.AreEqual(LogType.DEBUG, target.LogType);
 
         }
+
+
+
+        [Test]
+        [TestCase("WRN", LogType.WARN)]
+        [TestCase("INF",LogType.INFO)]
+        [TestCase("DBG", LogType.DEBUG)]
+        [TestCase("FTL", LogType.FATAL)]
+        [TestCase("TRC", LogType.TRACE)]
+        [TestCase("INFO", LogType.INFO)]
+        [TestCase("Information", LogType.INFO)]
+        public void VariousLogTypeStringsRecognizedAsProperLogTypes(string logTypeStr, LogType logType)
+        {
+            LogEntry target = new LogEntry();
+            Assert.IsTrue(target.SaveValue(PatternItemType.Type, logTypeStr));
+            Assert.AreEqual(logTypeStr, target.Type);
+            Assert.AreEqual(logType, target.LogType);
+        }
+
+
     }
 }

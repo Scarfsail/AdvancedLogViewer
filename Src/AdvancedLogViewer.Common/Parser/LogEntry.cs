@@ -1,14 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Globalization;
 
 
 namespace AdvancedLogViewer.Common.Parser
 {
     public class LogEntry
     {
+        private static Dictionary<string, LogType> stringToLogTypeCache = new Dictionary<string, LogType>()
+        {
+            { "Verbose",LogType.VERBOSE },
+            { "VERBOSE",LogType.VERBOSE },
+            { "VRB",LogType.VERBOSE },
+
+            { "Debug",LogType.DEBUG },
+            { "DEBUG",LogType.DEBUG },
+            { "DBG",LogType.DEBUG },
+
+            { "Information",LogType.INFO },
+            { "INFORMATION",LogType.INFO },
+            { "INFO",LogType.INFO },
+            { "INF",LogType.INFO },
+
+            { "Warning",LogType.WARN },
+            { "WARNING",LogType.WARN },
+            { "WARN",LogType.WARN },
+            { "WRN",LogType.WARN },
+
+            { "Error",LogType.ERROR },
+            { "ERROR",LogType.ERROR },
+            { "ERR",LogType.ERROR },
+
+            { "Fatal",LogType.FATAL },
+            { "FATAL",LogType.FATAL },
+            { "FTL",LogType.FATAL },
+
+            { "Trace",LogType.TRACE },
+            { "TRACE",LogType.TRACE },
+            { "TRC",LogType.TRACE },
+        };
+
+
         internal bool SaveValue(PatternItemType valueType, string value)
         {
             try
@@ -31,7 +65,7 @@ namespace AdvancedLogViewer.Common.Parser
                         this.Class = value;
                         break;
                     case PatternItemType.Message:
-                        message += value;
+                        this.message += value;
                         break;
                     default:
                         throw new ArgumentException("Unkown value type:" + valueType.ToString(), "valueType");
@@ -51,21 +85,19 @@ namespace AdvancedLogViewer.Common.Parser
 
         public bool SaveCustomValue(string customFieldKey, string value)
         {
-            CustomFields[customFieldKey] = value;
+            this.CustomFields[customFieldKey] = value;
             return true;
         }
 
         private int foundOnLine = -1;
 
-        public int FoundOnLine { get { return foundOnLine; } set { foundOnLine = value; } }
+        public int FoundOnLine { get { return this.foundOnLine; } set { this.foundOnLine = value; } }
 
         public string DateText { get; private set; }
 
         public string Thread { get; private set; }
 
         public string Type { get; private set; }
-
-        private static Dictionary<string, LogType> stringToLogTypeCache = new Dictionary<string, LogType>();
 
         public LogType LogType
         {
@@ -81,11 +113,7 @@ namespace AdvancedLogViewer.Common.Parser
                     {
                         if (!stringToLogTypeCache.TryGetValue(this.Type, out this.logType))
                         {
-                            if (!Enum.TryParse(this.Type, out this.logType))
-                            {
-                                this.logType = LogType.UNKNOWN;
-                            }
-
+                            this.logType = LogType.UNKNOWN;
                             stringToLogTypeCache.Add(this.Type, this.logType);
                         }
                     }
@@ -100,7 +128,7 @@ namespace AdvancedLogViewer.Common.Parser
         {
             get
             {
-                return message;
+                return this.message;
             }
         }
 
@@ -155,7 +183,7 @@ namespace AdvancedLogViewer.Common.Parser
             }
 
             this.Date = DateTime.MinValue;
-            return false;            
+            return false;
         }
 
 
