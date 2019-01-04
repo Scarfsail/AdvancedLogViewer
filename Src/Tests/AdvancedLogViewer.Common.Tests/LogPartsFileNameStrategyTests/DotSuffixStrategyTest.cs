@@ -13,10 +13,7 @@ namespace AdvancedLogViewer.Common.Tests.LogPartsFileNameStrategyTests
     [TestFixture]
     public class DotSuffixStrategyTest : LogPartFileNameStrategyTestBase<DotSuffixStrategy>
     {
-        public DotSuffixStrategyTest() : base("TestFile.log")
-        {
-        }
-
+        
         [Test]
         public void BaseFileNameWithoutSuffixFindsPartsWithNumberedDotSuffix()
         {

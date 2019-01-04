@@ -13,12 +13,8 @@ namespace AdvancedLogViewer.Common.Tests.LogPartsFileNameStrategyTests
     public abstract class LogPartFileNameStrategyTestBase<TStrategy>
         where TStrategy: LogPartsFileNameStrategy, new()
     {
-        private string baseFileName;
+        private const string baseFileName = "FileName.log";
         
-        public LogPartFileNameStrategyTestBase(string baseFileName)
-        {
-            this.baseFileName = baseFileName;
-        }
 
         [SetUp]
         public void SetUp()

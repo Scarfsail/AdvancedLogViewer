@@ -8,6 +8,6 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
 {
     public abstract class LogPartsFileNameStrategy
     {
-        public abstract ICollection<string> AddOtherLogParts(string baseFileName);
+        public abstract List<string> AddOtherLogParts(string baseFileName);
     }
 }

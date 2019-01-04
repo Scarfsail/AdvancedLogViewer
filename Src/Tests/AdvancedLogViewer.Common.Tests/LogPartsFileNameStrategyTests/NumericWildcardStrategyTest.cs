@@ -14,10 +14,6 @@ namespace AdvancedLogViewer.Common.Tests.LogPartsFileNameStrategyTests
     public class NumericWildcardStrategyTest : LogPartFileNameStrategyTestBase<NumericWildcardStrategy>
     {
 
-        public NumericWildcardStrategyTest() : base("TestFile.log")
-        {
-        }
-
         [Test]
         public void MultipleFilesDistinguishedOnlyByNumberAreAllIdentifiedAsParts()
         {

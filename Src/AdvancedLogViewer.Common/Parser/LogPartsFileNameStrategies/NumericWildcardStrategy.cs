@@ -13,7 +13,7 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
     {
         private static Log log = new Log();
 
-        public override ICollection<string> AddOtherLogParts(string baseFileName)
+        public override List<string> AddOtherLogParts(string baseFileName)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
                     .ThenBy(fi => fi.Name)
                     .Where(fi => Regex.Match(fi.Name, pattern).Success)
                     .Select(fi => fi.FullName)
-                    .ToArray();
+                    .ToList();
 
 
                 return orderedLogParts;
@@ -46,7 +46,7 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
                 log.Debug($"Could not query directory for base log filename {baseFileName} for related log parts.", ex);
             }
 
-            return new string[0];
+            return new List<string>();
         }
     }
 }

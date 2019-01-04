@@ -9,7 +9,7 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
 {
     public class DotSuffixStrategy : LogPartsFileNameStrategy
     {
-        public override ICollection<string> AddOtherLogParts(string baseFileName)
+        public override List<string> AddOtherLogParts(string baseFileName)
         {
             const int maxMissingExtensionsInRow = 5;
             var result = new List<string>();
