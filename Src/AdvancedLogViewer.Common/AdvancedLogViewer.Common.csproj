@@ -70,6 +70,9 @@
     <Compile Include="Parser\ColumnDescription.cs" />
     <Compile Include="Parser\LogEntry.cs" />
     <Compile Include="Parser\LogParser.cs" />
+    <Compile Include="Parser\LogPartsFileNameStrategies\NumericWildcardStrategy.cs" />
+    <Compile Include="Parser\LogPartsFileNameStrategies\DotSuffixStrategy.cs" />
+    <Compile Include="Parser\LogPartsFileNameStrategies\LogPartsFileNameStrategy.cs" />
     <Compile Include="Parser\LogPattern.cs" />
     <Compile Include="Parser\LogType.cs" />
     <Compile Include="Parser\PatternItem.cs" />
