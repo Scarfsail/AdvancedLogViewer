@@ -14,10 +14,12 @@ namespace AdvancedLogViewer.Common.Parser
             { "Verbose",LogType.VERBOSE },
             { "VERBOSE",LogType.VERBOSE },
             { "VRB",LogType.VERBOSE },
+            { "FINEST",LogType.VERBOSE },
 
             { "Debug",LogType.DEBUG },
             { "DEBUG",LogType.DEBUG },
             { "DBG",LogType.DEBUG },
+            { "FINE",LogType.DEBUG },
 
             { "Information",LogType.INFO },
             { "INFORMATION",LogType.INFO },
@@ -32,6 +34,7 @@ namespace AdvancedLogViewer.Common.Parser
             { "Error",LogType.ERROR },
             { "ERROR",LogType.ERROR },
             { "ERR",LogType.ERROR },
+            { "SEVERE",LogType.ERROR },
 
             { "Fatal",LogType.FATAL },
             { "FATAL",LogType.FATAL },
