@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -48,7 +49,7 @@ namespace AdvancedLogViewer.BL.Settings
             this.ShowLogIcons = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "ShowLogIcons", true);
             this.MessageWordWrap = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "MessageWordWrap", true);
             this.MessageFontFamily = GetAttrValue<string>(s => s, xmlElement, "MessageFontFamily", SystemFonts.DefaultFont.Name);
-            this.MessageFontSize = GetAttrValue<float>(s => float.Parse(s), xmlElement, "MessageFontSize", SystemFonts.DefaultFont.SizeInPoints);
+            this.MessageFontSize = GetAttrValue<float>(s => float.Parse(s, CultureInfo.InvariantCulture), xmlElement, "MessageFontSize", SystemFonts.DefaultFont.SizeInPoints, true);
         }
 
         protected override void SaveData(XElement xmlElement)
@@ -71,7 +72,7 @@ namespace AdvancedLogViewer.BL.Settings
             AddAttrValue(xmlElement, "ShowLogIcons", ShowLogIcons.ToString());
             AddAttrValue(xmlElement, "MessageWordWrap", MessageWordWrap.ToString());
             AddAttrValue(xmlElement, "MessageFontFamily", MessageFontFamily);
-            AddAttrValue(xmlElement, "MessageFontSize", MessageFontSize.ToString());
+            AddAttrValue(xmlElement, "MessageFontSize", MessageFontSize.ToString(CultureInfo.InvariantCulture));
         }
 
         
