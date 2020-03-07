@@ -57,7 +57,7 @@ namespace AdvancedLogViewer.WPF
             }
 
             FontComboBox.SelectedValue = this.settings.MainFormUI.MessageFontFamily;
-            FontSize.Value = this.settings.MainFormUI.MessageFontSize;
+            MessageFontSize.Value = this.settings.MainFormUI.MessageFontSize;
 
             this.ExtDiffPathEdit.Text = settings.TextDiff.DiffPath;
             this.ExtDiffParametersEdit.Text = settings.TextDiff.DiffParameters;
@@ -96,22 +96,26 @@ namespace AdvancedLogViewer.WPF
             log.Debug("SettingsDlg form created");
         }
 
-        private void extDiffBrowseButton_Click(object sender, EventArgs e)
+        private void ExternalDiffBrowseButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.FileName = this.ExtDiffPathEdit.Text;
-            dlg.Title = "Select external diff tool executable";
+            var dlg = new OpenFileDialog
+            {
+                FileName = this.ExtDiffPathEdit.Text,
+                Title = "Select external diff tool executable"
+            };
             if (dlg.ShowDialog() == true)
             {
                 this.ExtDiffPathEdit.Text = dlg.FileName;
             }
         }
 
-        private void extTextEditBrowseButton_Click(object sender, EventArgs e)
+        private void ExternalTextEditBrowseButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.FileName = this.ExtTextEditPathEdit.Text;
-            dlg.Title = "Select external text editor executable";
+            var dlg = new OpenFileDialog
+            {
+                FileName = this.ExtTextEditPathEdit.Text,
+                Title = "Select external text editor executable"
+            };
             if (dlg.ShowDialog() == true)
             {
                 this.ExtTextEditPathEdit.Text = dlg.FileName;
@@ -134,7 +138,7 @@ namespace AdvancedLogViewer.WPF
             this.settings.MainFormUI.ShowLogIcons = this.ShowLogIconsCheckBox.IsChecked.GetValueOrDefault();
             this.settings.MainFormUI.MessageWordWrap = this.MessageWordWrapCheckBox.IsChecked.GetValueOrDefault();
             this.settings.MainFormUI.MessageFontFamily = this.FontComboBox.SelectedValue.ToString();
-            this.settings.MainFormUI.MessageFontSize = (float)this.FontSize.Value.GetValueOrDefault();
+            this.settings.MainFormUI.MessageFontSize = (float)this.MessageFontSize.Value.GetValueOrDefault();
 
             this.settings.TextDiff.DiffPath = this.ExtDiffPathEdit.Text;
             this.settings.TextDiff.DiffParameters = this.ExtDiffParametersEdit.Text;
@@ -205,7 +209,7 @@ namespace AdvancedLogViewer.WPF
         public void DefaultFont_Click(object sender, EventArgs e)
         {
             FontComboBox.SelectedValue = SystemFonts.DefaultFont.Name;
-            FontSize.Value = SystemFonts.DefaultFont.SizeInPoints;
+            MessageFontSize.Value = SystemFonts.DefaultFont.SizeInPoints;
         }
     }
 }
