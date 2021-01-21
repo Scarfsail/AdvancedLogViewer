@@ -27,12 +27,12 @@
 
   <Target Name="BuildInstaller">
     <Message Text="Building installer ..." />
-    <!-- 
+    
     <CallTarget Targets="BuildApplication" />
     <CallTarget Targets="GetProductVersion" />
     <CallTarget Targets="BuildMsi" />
     <CallTarget Targets="BuildZipFile" />
-    -->
+    
     <!--<CallTarget Targets="BuildUpdateApp" />-->
     <CallTarget Targets="GenerateDocs" />
     <CallTarget Targets="CopyFilesToTargetDir" />
