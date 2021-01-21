@@ -37,11 +37,12 @@ namespace ScarfSail.MSBuild.Tasks
                     if (new Version(version+".0") < new Version("9.0.0.0"))
                         readmeMd.AppendLine($"###### Download: [MSI](bin/AdvancedLogViewer_{version}.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_{version}.zip?raw=true)");
                     else
+                    
                         readmeMd.AppendLine($"###### Download: "+
-                        "MSI: [x86](bin/AdvancedLogViewer_{version}_win-x86.msi?raw=true)  "+
-                        "[x64](bin/AdvancedLogViewer_{version}_win-x64.msi?raw=true)  or  "+
-                        "ZIP: [x86](bin/AdvancedLogViewer_{version}_win-x86.zip?raw=true) "+
-                        "[x64](bin/AdvancedLogViewer_{version}_win-x64.zip?raw=true)"
+                        $"MSI: [x86](releases/download/{version}/AdvancedLogViewer_{version}_win-x86.msi)  "+
+                        $"[x64](releases/download/{version}/AdvancedLogViewer_{version}_win-x64.msi) or "+
+                        $"ZIP: [x86](releases/download/{version}/AdvancedLogViewer_{version}_win-x86.zip) "+
+                        $"[x64](releases/download/{version}/AdvancedLogViewer_{version}_win-x64.zip)"
                         );
                     this.AppendChanges(versionNode, readmeMd, "BigFeature", "Big features");
                     this.AppendChanges(versionNode, readmeMd, "Feature", "Features");
