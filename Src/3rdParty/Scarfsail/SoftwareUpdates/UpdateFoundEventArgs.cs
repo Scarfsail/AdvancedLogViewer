@@ -73,11 +73,12 @@ namespace Scarfsail.SoftwareUpdates
 
         private void RunMsiInstaller(string pathToMsi)
         {
-            Process process = new Process();
+            /*Process process = new Process();
             process.StartInfo.FileName = pathToMsi;
             process.StartInfo.Verb = "Open";
 
-            process.Start();
+            process.Start();*/
+            Process.Start("cmd.exe", "/c "+pathToMsi);
         }
 
         private void UpdatePortable(string portableUpdatePath, string updatedAppPath)
