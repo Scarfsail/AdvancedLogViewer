@@ -1,7 +1,9 @@
-## 9.0.1 - 2021-01-20
+## 9.0.2 - 2021-01-21
 ###### Download: MSI: [x86](bin/AdvancedLogViewer_{version}_win-x86.msi?raw=true)  [x64](bin/AdvancedLogViewer_{version}_win-x64.msi?raw=true)  or  ZIP: [x86](bin/AdvancedLogViewer_{version}_win-x86.zip?raw=true) [x64](bin/AdvancedLogViewer_{version}_win-x64.zip?raw=true)
 #### Big features
-* This is the first version built in .NET 5 as self-contained application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries.
+* This is the first version built in .NET 5 as self-contained application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries. There is visible performance boost mainly on bigger logs thanks to improvements in .NET 5.
+#### Fixes
+* Fixed various bugs related to enabled UAC causing crashes of ALV.
 #### Changes
 * All setting and log files are now in Users\{CurrentUser}\AppData\Roaming\AdvancedLogViewer instead of \ProgramData\AdvancedLogViewer. This allows to run ALV even with restricted UAC without need to run app as administrator.
 * Serilog is used for ALV internal logging instead of log4net. It brings slightly better performance during logging .
