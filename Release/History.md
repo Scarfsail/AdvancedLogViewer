@@ -1,5 +1,5 @@
 ## 9.0.2 - 2021-01-21
-###### Download: MSI: [x86](releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.msi)  [x64](releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.msi) or ZIP: [x86](releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.zip) [x64](releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.zip)
+###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.zip)
 #### Big features
 * This is the first version built in .NET 5 as self-contained application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries. There is visible performance boost mainly on bigger logs thanks to improvements in .NET 5.
 #### Fixes

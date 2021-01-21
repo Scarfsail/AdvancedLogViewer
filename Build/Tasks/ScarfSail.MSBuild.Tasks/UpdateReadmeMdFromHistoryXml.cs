@@ -41,11 +41,11 @@ namespace ScarfSail.MSBuild.Tasks
                 var versionText =
                     $"You can download the latest release **{version}**:\n" +
                     "* MSI Installer: " +
-                    $"[x86](releases/download/{version}/AdvancedLogViewer_{version}_win-x86.msi) or " +
-                    $"[x64](releases/download/{version}/AdvancedLogViewer_{version}_win-x64.msi)" +
+                    $"[x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x86.msi) or " +
+                    $"[x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x64.msi)" +
                     "\n* Portable ZIP: " +
-                    $"[x86](releases/download/{version}/AdvancedLogViewer_{version}_win-x86.zip) or " +
-                    $"[x64](releases/download/{version}/AdvancedLogViewer_{version}_win-x64.zip)";
+                    $"[x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x86.zip) or " +
+                    $"[x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x64.zip)";
 
                 readmeMd = Regex.Replace(readmeMd, pattern, versionText);
 
