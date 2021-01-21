@@ -96,12 +96,12 @@ namespace TheCodeKing.Net.Messaging
             this.dataStruct = (Native.COPYDATASTRUCT)Marshal.PtrToStructure(lpParam, typeof(Native.COPYDATASTRUCT));
             byte[] bytes = new byte[this.dataStruct.cbData];
             Marshal.Copy(this.dataStruct.lpData, bytes, 0, this.dataStruct.cbData);
-            string rawmessage;
-            using (MemoryStream stream = new MemoryStream(bytes))
+            string rawmessage = Encoding.UTF8.GetString(bytes);
+            /*using (MemoryStream stream = new MemoryStream(bytes))
             {
                 BinaryFormatter b = new BinaryFormatter();
                 rawmessage = (string)b.Deserialize(stream);
-            }
+            }*/
             // use helper method to expand the raw message
             using (DataGram dataGram = DataGram.ExpandFromRaw(rawmessage))
             {
@@ -118,13 +118,13 @@ namespace TheCodeKing.Net.Messaging
         {
             string raw = string.Format("{0}:{1}", channel, message);
 
-            byte[] bytes;
-
+            byte[] bytes = Encoding.UTF8.GetBytes(raw);
+/*
             // serialize data into stream
             BinaryFormatter b = new BinaryFormatter();
-            using (MemoryStream stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream(raw))
             {
-                b.Serialize(stream, raw);
+                //b.Serialize(stream, raw);
                 stream.Flush();
                 int dataSize = (int)stream.Length;
             
@@ -133,6 +133,7 @@ namespace TheCodeKing.Net.Messaging
                 stream.Seek(0, SeekOrigin.Begin);
                 stream.Read(bytes, 0, dataSize);
             }
+            */
             IntPtr ptrData = Marshal.AllocCoTaskMem(bytes.Length);
             // flag that this instance dispose method needs to clean up the memory
             allocatedMemory = true;

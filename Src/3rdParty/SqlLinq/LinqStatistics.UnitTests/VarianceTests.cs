@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LinqStatistics.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class VarianceTests
     {
-        [TestMethod]
+        [Test]
         public void VarDouble()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -19,7 +19,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 4.1091666666666667, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarNullableDouble()
         {
             IEnumerable<double?> source = TestData.GetNullableDoubles();
@@ -29,7 +29,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual((double)result, 4.1091666666666667, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarInt()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -39,7 +39,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 2.91666666666666667, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarNullableInt()
         {
             IEnumerable<int?> source = TestData.GetNullableInts();
@@ -49,7 +49,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual((double)result, 2.91666666666666667, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarPDouble()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -59,7 +59,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 3.081875, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarPNullableDouble()
         {
             IEnumerable<double?> source = TestData.GetNullableDoubles();
@@ -69,7 +69,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual((double)result, 3.081875, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarPInt()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -79,7 +79,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 2.1875, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void VarPNullableInt()
         {
             IEnumerable<int?> source = TestData.GetNullableInts();

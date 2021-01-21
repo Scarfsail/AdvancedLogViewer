@@ -1,0 +1,33 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Ondrej Salplachta</Authors>
+    <Company>Ondrej Salplachta</Company>
+    <Title>Advanced Log Viewer</Title>
+    <Description>Application for advanced viewing log files.</Description>
+    <Product>Advanced Log Viewer</Product>
+    <Copyright>Copyright © Ondrej Salplachta 2021</Copyright>
+    <Version>9.0.1</Version>
+    <FileVersion>9.0.1</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <SupportedOSPlatform>windows</SupportedOSPlatform>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Scarfsail/AdvancedLogViewer</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Scarfsail/AdvancedLogViewer</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+    <IsPackable>false</IsPackable>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(CI)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+</Project>

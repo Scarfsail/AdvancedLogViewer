@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <OutputType>WinExe</OutputType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Resources\UpdatedAppDescription.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\UpdatedAppContent.exe" />
+  </ItemGroup>
+</Project>

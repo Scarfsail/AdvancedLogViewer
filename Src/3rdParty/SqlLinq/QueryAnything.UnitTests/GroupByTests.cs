@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class GroupByTests
     {
-        [TestMethod]
+        [Test]
         public void GroupByIntoTuple()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -22,7 +22,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void GroupByIntoNewObject()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -35,7 +35,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void GroupByIntoNewObjectTwoAggregates()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -48,7 +48,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void GroupByIntoNewObjectDynamic()
         {
             IEnumerable<Person> source = TestData.GetPeople();

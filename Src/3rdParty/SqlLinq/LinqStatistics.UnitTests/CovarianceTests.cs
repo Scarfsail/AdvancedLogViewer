@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LinqStatistics.UnitTests
 {
     /// <summary>
     /// Summary description for CovarianceTests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CovarianceTests
     {
         public CovarianceTests()
@@ -59,7 +59,7 @@ namespace LinqStatistics.UnitTests
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void Covariance()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -71,7 +71,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 3.081875, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void Covariance1()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -84,7 +84,7 @@ namespace LinqStatistics.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void PearsonIdentity()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -96,7 +96,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 1.0, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void Pearson1()
         {
             IEnumerable<double> source = TestData.GetDoubles();

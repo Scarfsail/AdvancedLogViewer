@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LinqStatistics.UnitTests
 {
     /// <summary>
     /// Summary description for ModeTests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ModeTests
     {
         public ModeTests()
@@ -59,7 +59,7 @@ namespace LinqStatistics.UnitTests
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void ModeUniform()
         {
             IEnumerable<int> source = new int[] { 1, 1, 1 };
@@ -68,7 +68,7 @@ namespace LinqStatistics.UnitTests
             Assert.IsTrue(result == 1);
         }
 
-        [TestMethod]
+        [Test]
         public void ModeNone()
         {
             IEnumerable<int> source = new int[] { 1, 2, 3 };
@@ -78,7 +78,7 @@ namespace LinqStatistics.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void ModeOne()
         {
             IEnumerable<int> source = new int[] { 1, 2, 2, 3 };
@@ -88,7 +88,7 @@ namespace LinqStatistics.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void ModeTwo()
         {
             IEnumerable<int> source = new int[] { 1, 2, 2, 3, 3, 3 };
@@ -97,7 +97,7 @@ namespace LinqStatistics.UnitTests
             Assert.IsTrue(result == 3);
         }
 
-        [TestMethod]
+        [Test]
         public void ModeThree()
         {
             IEnumerable<int> source = new int[] { 1, 2, 2, 3, 3 };
@@ -107,7 +107,7 @@ namespace LinqStatistics.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void ModeNullable()
         {
             IEnumerable<int?> source = new int?[] { 1, 3, 2, 3, null, 2, 3 };
@@ -116,7 +116,7 @@ namespace LinqStatistics.UnitTests
             Assert.IsTrue(result == 3);
         }
 
-        [TestMethod]
+        [Test]
         public void ModeMultiple()
         {
             IEnumerable<int> source = new int[] { 1, 3, 2, 2, 3 };
@@ -125,7 +125,7 @@ namespace LinqStatistics.UnitTests
             Assert.IsTrue(result.SequenceEqual(new int[] { 2, 3 }));
         }
 
-        [TestMethod]
+        [Test]
         public void ModesMultiple2()
         {
             IEnumerable<int> source = new int[] { 1, 3, 2, 2, 3, 3 };
@@ -134,7 +134,7 @@ namespace LinqStatistics.UnitTests
             Assert.IsTrue(result.SequenceEqual(new int[] { 3, 2 }));
         }
 
-        [TestMethod]
+        [Test]
         public void ModesMultipleNullable()
         {
             IEnumerable<int?> source = new int?[] { 1, 2, null, 2, 3, 3, 3 };

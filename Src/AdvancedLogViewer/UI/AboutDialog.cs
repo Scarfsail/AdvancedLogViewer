@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using AdvancedLogViewer.Common;
 using Scarfsail.Common.Utils;
+using System.Diagnostics;
 
 namespace AdvancedLogViewer.UI
 {
@@ -18,7 +19,7 @@ namespace AdvancedLogViewer.UI
         {
             InitializeComponent();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            this.productIconPicture.Image = Icon.ExtractAssociatedIcon(assembly.Location).ToBitmap();
+            this.productIconPicture.Image = Icon.ExtractAssociatedIcon(Process.GetCurrentProcess().MainModule.FileName).ToBitmap();
             this.productNameLabel.Text = this.ProductName;
             this.productVersionLabel.Text = this.ProductVersion;
             this.productAuthorLabel.Text = this.CompanyName;

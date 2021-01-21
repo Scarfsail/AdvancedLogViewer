@@ -49,7 +49,8 @@ namespace AdvancedLogViewer.BL.Settings
             this.ShowLogIcons = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "ShowLogIcons", true);
             this.MessageWordWrap = GetAttrValue<bool>(s => Convert.ToBoolean(s), xmlElement, "MessageWordWrap", true);
             this.MessageFontFamily = GetAttrValue<string>(s => s, xmlElement, "MessageFontFamily", SystemFonts.DefaultFont.Name);
-            this.MessageFontSize = GetAttrValue<float>(s => float.Parse(s, CultureInfo.InvariantCulture), xmlElement, "MessageFontSize", SystemFonts.DefaultFont.SizeInPoints, true);
+            var fontSize = GetAttrValue<float>(s => float.Parse(s, CultureInfo.InvariantCulture), xmlElement, "MessageFontSize", SystemFonts.DefaultFont.SizeInPoints, true);
+            this.MessageFontSize = fontSize > 100 ? SystemFonts.DefaultFont.SizeInPoints : fontSize;
         }
 
         protected override void SaveData(XElement xmlElement)

@@ -5,11 +5,13 @@ using System.Text;
 using Scarfsail.Common.BL;
 using Microsoft.Win32;
 using System.IO;
+using Scarfsail.Logging;
 
 namespace AdvancedLogViewer.BL
 {
     public class TotalCmdIntegration
     {
+        private static readonly Log log = new();
         public TotalCmdIntegration()
         {
             string iniLocation = this.GetTotalCmdMainIniFileLocation();
@@ -61,29 +63,35 @@ namespace AdvancedLogViewer.BL
         private string GetTotalCmdMainIniFileLocation()
         {
             //Try CurrentUser registry
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Ghisler\Total Commander"))
+            try
             {
-                if (key != null)
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Ghisler\Total Commander"))
                 {
-                    object obj = key.GetValue("IniFileName");
-                    if (obj != null)
-                        return Environment.ExpandEnvironmentVariables(obj.ToString());
+                    if (key != null)
+                    {
+                        object obj = key.GetValue("IniFileName");
+                        if (obj != null)
+                            return Environment.ExpandEnvironmentVariables(obj.ToString());
+                    }
+                }
+
+                //Try LocalMachine registry
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Ghisler\Total Commander"))
+                {
+                    if (key != null)
+                    {
+                        object obj = key.GetValue("IniFileName");
+                        if (obj != null)
+                            return Environment.ExpandEnvironmentVariables(obj.ToString());
+                    }
                 }
             }
-            
-            //Try LocalMachine registry
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"Software\Ghisler\Total Commander"))
+            catch (Exception ex)
             {
-                if (key != null)
-                {
-                    object obj = key.GetValue("IniFileName");
-                    if (obj != null)
-                        return Environment.ExpandEnvironmentVariables(obj.ToString());
-                }
+                log.Error("Error while getting info about TotalCmd from registry: " + ex.Message);
             }
-            
             //Try Current user's app data folder
-            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "wincmd.ini");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GHISLER", "wincmd.ini");
             if (File.Exists(path))
                 return path;
 

@@ -1,0 +1,5 @@
+<Project>
+
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.36" />
+  
+</Project>

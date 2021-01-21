@@ -95,15 +95,15 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                 string raw = string.Format("{0}:{1}:{2}", Guid.NewGuid().ToString(), channelName, message);
 
                 // serialize the data
-                byte[] bytes;
+                byte[] bytes = Encoding.UTF8.GetBytes(raw);
                 uint bytesWritten=0;
-                BinaryFormatter b = new BinaryFormatter();
+                /*BinaryFormatter b = new BinaryFormatter();
                 using (MemoryStream stream = new MemoryStream())
                 {
                     b.Serialize(stream, raw);
                     // create byte array
                     bytes = stream.GetBuffer();
-                }
+                }*/
                 Native.WriteFile(writeHandle, bytes, (uint)bytes.Length, ref bytesWritten, IntPtr.Zero);
 
                 // close the file handle

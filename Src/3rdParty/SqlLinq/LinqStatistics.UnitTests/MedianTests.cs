@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LinqStatistics.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class MedianTests
     {
-        [TestMethod]
+        [Test]
         public void MedianDouble()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -19,7 +19,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 4.05, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void MedianNullableDouble()
         {
             IEnumerable<double?> source = TestData.GetNullableDoubles();
@@ -29,7 +29,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual((double)result, 4.05, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void MedianInt()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -39,7 +39,7 @@ namespace LinqStatistics.UnitTests
             Assert.AreEqual(result, 3.5, double.Epsilon);
         }
 
-        [TestMethod]
+        [Test]
         public void MedianIntOddCount()
         {
             IEnumerable<int> source = TestData.GetInts().Concat(new List<int> { 4 });
@@ -50,7 +50,7 @@ namespace LinqStatistics.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void MedianNullableInt()
         {
             IEnumerable<int?> source = TestData.GetNullableInts();
@@ -59,7 +59,7 @@ namespace LinqStatistics.UnitTests
 
             Assert.AreEqual((double)result, 3.5, double.Epsilon);
         }
-        [TestMethod]
+        [Test]
 
         public void MedianNullableIntOddCount()
         {

@@ -1,125 +1,131 @@
 <Project DefaultTarget="BuildApplication" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <ExtractedMsiFolder>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\Bin\Installer\ExtractedMsi'))</ExtractedMsiFolder>
-    <InstallerOutputDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\Bin\Installer\$(Flavor)'))</InstallerOutputDir>
     <MSBuildTasksLib>Tasks\MSBuild.Community.Tasks.dll</MSBuildTasksLib>
     <ScarfsailTasksLib>Tasks\ScarfSail.MSBuild.Tasks.dll</ScarfsailTasksLib>
-    <UpdateFromZipPath>$(MSBuildProjectDirectory)\..\src\3rdParty\Scarfsail\UpdateAppFromZip</UpdateFromZipPath>
+    <UpdateFromZipPath>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\Utils\UpdateAppFromZip\'))</UpdateFromZipPath>
+    <UpdatedAppContent>$(UpdateFromZipPath)UpdateAppFromZip\Resources\UpdatedAppContent.exe</UpdatedAppContent>
+    <PublishPath>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\Src\AdvancedLogViewer\bin\Published\'))</PublishPath>
+    <InstallerDirectory>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\Installer\'))</InstallerDirectory>
+    <InstallerOutputDir>$(InstallerDirectory)out\</InstallerOutputDir>
+    <MsiDirectory>$(InstallerOutputDir)bin\</MsiDirectory>
+    <ExtractedMsiFolder>$(InstallerOutputDir)ExtractedMsi\</ExtractedMsiFolder>
+    <Flavor>Release</Flavor>
   </PropertyGroup>
 
   <ItemGroup>
-    <InstallerProject Include="$(MSBuildProjectDirectory)\..\Src\Installer\Installer.sln" />
-    <AppProject Include="$(MSBuildProjectDirectory)\..\Src\AdvancedLogViewer.sln" />
-    <UpdateAppFromZipProject Include="$(UpdateFromZipPath)\UpdateAppFromZip.sln" />
+    <AppProject Include="$(MSBuildProjectDirectory)\..\Src\AdvancedLogViewer\AdvancedLogViewer.csproj" />
+    <UpdateAppFromZipProject Include="$(UpdateFromZipPath)\UpdateAppFromZip.csproj" />
   </ItemGroup>
 
-  <UsingTask  TaskName="GetAssemblyVersion" AssemblyFile="$(ScarfsailTasksLib)" />
-  <UsingTask  TaskName="DeleteDirectory" AssemblyFile="$(ScarfsailTasksLib)" />
-  <UsingTask  TaskName="GetLatestFile" AssemblyFile="$(ScarfsailTasksLib)" />
-  <UsingTask  TaskName="GenerateWebUpdateXmlFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
-  <UsingTask  TaskName="GenerateHistoryMdFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
-  <UsingTask TaskName="MSBuild.Community.Tasks.Zip" AssemblyFile="$(MSBuildTasksLib)" />
-  <UsingTask TaskName="MSBuild.Community.Tasks.FileUpdate" AssemblyFile="$(MSBuildTasksLib)" />
-  
-  <Target Name="BuildApplication" Outputs="@(OutputFiles)">
-    <Message Text="Running Application target..." />
+  <UsingTask TaskName="GetAssemblyVersion" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask TaskName="DeleteDirectory" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask TaskName="GetLatestFile" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask TaskName="GenerateWebUpdateXmlFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask TaskName="GenerateHistoryMdFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
+  <UsingTask TaskName="UpdateReadmeMdFromHistoryXml" AssemblyFile="$(ScarfsailTasksLib)" />
 
-    <Message Text="Building Application: %(AppProject.Filename)" />
-    <MSBuild Projects="@(AppProject)" Targets="Rebuild" Properties="Configuration=$(Flavor)" RebaseOutputs="true">
-      <Output TaskParameter="TargetOutputs" ItemName="InstallerProjectOutput"/>
-    </MSBuild>
-  </Target>
-
-  <!-- Builds the installers -->
-  <Target Name="BuildInstaller" Outputs="@(OutputFiles)" >
-    <Message Text="Running Installer target..." />
-
+  <Target Name="BuildInstaller">
+    <Message Text="Building installer ..." />
+     
     <CallTarget Targets="BuildApplication" />
-
-    <Message Text="Getting product version" />    
-    <GetAssemblyVersion AssemblyPath="..\Bin\$(Flavor)\AdvancedLogViewer.exe">
-      <Output PropertyName="VersionString" TaskParameter="VersionString"/>
-      <Output PropertyName="MajorVersionNumber" TaskParameter="Major"/>
-      <Output PropertyName="MinorVersionNumber" TaskParameter="Minor"/>
-      <Output PropertyName="BuildNumber" TaskParameter="Build"/>
-      <Output PropertyName="RevisionVersionNumber" TaskParameter="Revision"/>
-    </GetAssemblyVersion>
-
-    <Message Text="Product version: $(VersionString)" />
-      
-    <!-- Build the MSI -->
-    <Message Text="Building Installer: %(InstallerProject.Filename)" />
-    <DeleteDirectory DirectoryToDelete="$(InstallerOutputDir)\"/>
-    <MSBuild Projects="@(InstallerProject)" Targets="Rebuild" Properties="Configuration=$(Flavor);MajorVersionNumber=$(MajorVersionNumber);MinorVersionNumber=$(MinorVersionNumber);BuildNumber=$(BuildNumber);RevisionVersionNumber=$(RevisionVersionNumber)" RebaseOutputs="true">
-      <Output TaskParameter="TargetOutputs" ItemName="InstallerProjectOutput"/>
-    </MSBuild>
-
-    <Message Text="Building Portable ..." />
-    <DeleteDirectory DirectoryToDelete="$(ExtractedMsiFolder)\"/>
-
-    <GetLatestFile DirectoryPath="$(InstallerOutputDir)" FileMask="*.msi">
-      <Output PropertyName="MsiFileName" TaskParameter="FoundFileName"/>
-    </GetLatestFile>
+    <CallTarget Targets="GetProductVersion" />
+    <CallTarget Targets="BuildMsi" />
+    <CallTarget Targets="BuildZipFile" />
     
-    <!-- Build the ZIP -->
-    <Message Text="Extracting found MSI to: $(ExtractedMsiFolder)\" />
-    <Exec Command='msiexec /a "$(MsiFileName)" /qn TARGETDIR="$(ExtractedMsiFolder)\"'/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Definitions\Portable.txt" DestinationFolder="$(ExtractedMsiFolder)\AdvancedLogViewer\UserData"/>
-    <Message Text="MSI Extracted"/>
-    
-    <ItemGroup>
-      <FilesToZip Include="$(ExtractedMsiFolder)\AdvancedLogViewer\**\*.*"/>
-    </ItemGroup>
-    <PropertyGroup>
-      <ZipFileName>$(InstallerOutputDir)\AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).zip</ZipFileName>
-    </PropertyGroup>
+    <!--<CallTarget Targets="BuildUpdateApp" />-->
+    <CallTarget Targets="GenerateDocs" />
+    <CallTarget Targets="CopyFilesToTargetDir" />
 
-    <Message Text="Deleting and then creating zip file: $(ZipFileName)"/>
-
-    <Delete Files="$(ZipFileName)"/>
-    <Zip Files="@(FilesToZip)" ZipFileName="$(ZipFileName)" WorkingDirectory="$(ExtractedMsiFolder)\"/>
-
-    <!-- Build the Update EXE -->
-    <Message Text="Building EXE ..."/>
-        
-    <PropertyGroup>
-      <UpdatedAppContent>$(UpdateFromZipPath)\UpdateAppFromZip\Resources\UpdatedAppContent.exe</UpdatedAppContent>
-    </PropertyGroup>
-    
-    <Message Text="Building 7-Zip and adding XML definition..."/>
-    <Delete Files="$(UpdatedAppContent)"/>       
-    <Exec Command='$(MSBuildProjectDirectory)\Utils\7-Zip\7z.exe a -t7z "$(UpdatedAppContent)" "$(ExtractedMsiFolder)\AdvancedLogViewer\*" -sfx -mx9'/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\Definitions\UpdatedAppDescription.xml" DestinationFolder="$(UpdateFromZipPath)\UpdateAppFromZip\Resources"/>
-    
-   
-    <Message Text="Building UpdateFromZip app..."/>
-    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" DestinationFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup" />
-	<FileUpdate Files="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).$(RevisionVersionNumber)"/>
-    <MSBuild Projects="@(UpdateAppFromZipProject)" Targets="Rebuild" Properties="Configuration=$(Flavor)" RebaseOutputs="true">
-      <Output TaskParameter="TargetOutputs" ItemName="InstallerProjectOutput"/>
-    </MSBuild>
-    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup" DestinationFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs" />
-	<Delete Files="$(UpdateFromZipPath)\UpdateAppFromZip\Properties\AssemblyInfo.cs.backup"/>
-	
-    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Bin\$(Flavor)\UpdateAppFromZip.exe" DestinationFiles="$(InstallerOutputDir)\AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe"/>
-
-    <!-- Generate XML for Web update -->
-    <Message Text="Generating XML for Web update ..."/>
-    <GenerateWebUpdateXmlFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" WebUpdateXml="../Release/AdvancedLogViewer.xml"/>
-    <Message Text="XML for Web update has been generated."/>
-
-    <Message Text="Generating History.md ..."/>
-    <GenerateHistoryMdFromHistoryXml HistoryXml="../Bin/$(Flavor)/History.xml" HistoryMd="../Release/History.md"/>
-    <Message Text="History.md has been generated."/>
-    <Copy SourceFiles="../Bin/$(Flavor)/History.xml" DestinationFolder="../Release/"/>
-    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe" DestinationFolder="../Release/bin"/>
-    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).zip" DestinationFolder="../Release/bin"/>
-    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).msi" DestinationFolder="../Release/bin"/>
-    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).zip" DestinationFiles="../Release/bin/AdvancedLogViewer.zip"/>
-    <Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber).msi" DestinationFiles="../Release/bin/AdvancedLogViewer.msi"/>
-
-    <Message Text="DONE !"/>
+    <Message Text="DONE !" />
   </Target>
 
+  <Target Name="BuildApplication">
+    <Message Text="Building Application: %(AppProject.Filename)" />
+    <Exec Command="dotnet publish %(AppProject.FullPath) -p:Configuration=Release -p:SelfContained=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:CopyOutputSymbolsToOutputDirectory=false -p:CopyOutputSymbolsToPublishDirectory=false --runtime $(Runtime) --output $(PublishPath)" />
+  </Target>
+
+  <Target Name="BuildMsi">
+    <Message Text="Building Installer: %(InstallerProject.Filename)" />
+    <DeleteDirectory DirectoryToDelete="$(InstallerOutputDir)" />
+
+    <Exec Command='call "$(InstallerDirectory)wix\candle.exe" $(InstallerDirectory)*.wxs -o $(InstallerOutputDir)obj\ -dMajorVersionNumber=$(MajorVersionNumber) -dMinorVersionNumber=$(MinorVersionNumber) -dBuildNumber=$(BuildNumber) -dRevisionVersionNumber=$(RevisionVersionNumber) -dBuild=Release -dBuildOutputDir=$(PublishPath)' />
+    <Exec Command='call "$(InstallerDirectory)wix\light.exe" $(InstallerOutputDir)obj\*.wixobj -o $(MsiFileName) -ext $(InstallerDirectory)wix\WixNetFxExtension.dll -ext $(InstallerDirectory)wix\WixUtilExtension.dll -ext $(InstallerDirectory)wix\WixUIExtension.dll' />
+  </Target>
+
+  <Target Name="GetProductVersion">
+    <Message Text="Getting product version" />
+    <GetAssemblyVersion AssemblyPath="$(PublishPath)AdvancedLogViewer.exe">
+      <Output PropertyName="VersionString" TaskParameter="VersionString" />
+      <Output PropertyName="MajorVersionNumber" TaskParameter="Major" />
+      <Output PropertyName="MinorVersionNumber" TaskParameter="Minor" />
+      <Output PropertyName="BuildNumber" TaskParameter="Build" />
+      <Output PropertyName="RevisionVersionNumber" TaskParameter="Revision" />
+    </GetAssemblyVersion>
+    <Message Text="Product version: $(VersionString)" />
+
+    <PropertyGroup>
+      <MsiFileName>$(MsiDirectory)AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_$(Runtime).msi</MsiFileName>
+      <ZipFileName>$(InstallerOutputDir)AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_$(Runtime).zip</ZipFileName>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="ExtractMsi">
+    <Message Text="Extracting MSI to: $(ExtractedMsiFolder)" />
+    <DeleteDirectory DirectoryToDelete="$(ExtractedMsiFolder)" />
+    <Exec Command='msiexec /a "$(MsiFileName)" /qn TARGETDIR="$(ExtractedMsiFolder)"' />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Definitions\Portable.txt" DestinationFolder="$(ExtractedMsiFolder)\AdvancedLogViewer\UserData" />
+    <Message Text="MSI Extracted" />
+  </Target>
+
+  <Target Name="BuildZipFile" DependsOnTargets="ExtractMsi">
+
+    <ItemGroup>
+      <FilesToZip Include="$(ExtractedMsiFolder)AdvancedLogViewer\**\*.*" />
+    </ItemGroup>
+
+    <Message Text="Deleting and then creating zip file: $(ZipFileName)" />
+
+    <Delete Files="$(ZipFileName)" />
+    <Exec Command='$(MSBuildProjectDirectory)\Utils\7-Zip\7z.exe a -tzip "$(ZipFileName)" "$(ExtractedMsiFolder)AdvancedLogViewer\*" -mx9' />
+
+
+  </Target>
+
+  <Target Name="BuildUpdateApp" DependsOnTargets="ExtractMsi">
+    <Message Text="Building BuildUpdateApp ..." />
+
+    <Delete Files="$(UpdatedAppContent)" />
+    <Exec Command='$(MSBuildProjectDirectory)\Utils\7-Zip\7z.exe a -t7z "$(UpdatedAppContent)" "$(ExtractedMsiFolder)\AdvancedLogViewer\*" -sfx -mx9' />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Definitions\UpdatedAppDescription.xml" DestinationFolder="$(UpdateFromZipPath)\UpdateAppFromZip\Resources" />
+
+    <Message Text="Building UpdateFromZip app..." />
+    <Exec Command="dotnet publish %(UpdateAppFromZipProject.FullPath) -p:Configuration=Release -p:CopyOutputSymbolsToOutputDirectory=false -p:CopyOutputSymbolsToPublishDirectory=false -output $(PublishPath)" />
+
+    <Copy SourceFiles="$(UpdateFromZipPath)\UpdateAppFromZip\Bin\x86\$(Flavor)\UpdateAppFromZip.exe" DestinationFiles="$(InstallerOutputDir)\AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe" />
+  </Target>
+
+  <Target Name="GenerateDocs">
+    <!-- Generate XML for Web update -->
+    <Message Text="Generating XML for Web update ..." />
+    <GenerateWebUpdateXmlFromHistoryXml HistoryXml="../Src/AdvancedLogViewer/Bin/$(Flavor)/$(Runtime)/History.xml" WebUpdateXml="../Release/AdvancedLogViewer.xml" />
+    <Message Text="XML for Web update has been generated." />
+
+    <Message Text="Generating History.md ..." />
+    <GenerateHistoryMdFromHistoryXml HistoryXml="../Src/AdvancedLogViewer/Bin/$(Flavor)/$(Runtime)/History.xml" HistoryMd="../Release/History.md" />
+    <Message Text="History.md has been generated." />
+
+    <Message Text="Generating Readme.md ..." />
+    <UpdateReadmeMdFromHistoryXml HistoryXml="../Src/AdvancedLogViewer/Bin/$(Flavor)/$(Runtime)/History.xml" ReadmeMd="../Readme.md" />
+    <Message Text="Readme.md has been generated." />
+  </Target>
+
+  <Target Name="CopyFilesToTargetDir">
+    <Copy SourceFiles="../Src/AdvancedLogViewer/Bin/$(Flavor)/$(Runtime)/History.xml" DestinationFolder="../Release/" />
+    <!--<Copy SourceFiles="../Bin/Installer/$(Flavor)/AdvancedLogViewer_$(MajorVersionNumber).$(MinorVersionNumber).$(BuildNumber)_Update.exe" DestinationFolder="../Release/bin"/>-->
+    <Copy SourceFiles="$(ZipFileName)" DestinationFolder="../Release/bin" />
+    <Copy SourceFiles="$(MsiFileName)" DestinationFolder="../Release/bin" />
+    <Message Text="Files copied" />
+
+  </Target>
 </Project>

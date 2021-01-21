@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using LinqStatistics;
 
@@ -11,7 +11,7 @@ namespace QueryAnything.UnitTests
     /// <summary>
     /// Summary description for UnitTest1
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ScalarTests
     {
         public ScalarTests()
@@ -61,7 +61,7 @@ namespace QueryAnything.UnitTests
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void Where()
         {
             List<string> l = new List<string>();
@@ -73,7 +73,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.Count() == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void Sum()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -82,7 +82,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Sum());
         }
 
-        [TestMethod]
+        [Test]
         public void AvgInt()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -91,7 +91,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Average());
         }
 
-        [TestMethod]
+        [Test]
         public void AvgDouble()
         {
             IEnumerable<double> source = TestData.GetDoubles();
@@ -100,7 +100,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Average());
         }
 
-        [TestMethod]
+        [Test]
         public void AvgFloat()
         {
             IEnumerable<float> source = TestData.GetFloats();
@@ -109,7 +109,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Average());
         }
 
-        [TestMethod]
+        [Test]
         public void AvgProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -118,7 +118,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Average(p => p.Age));
         }
 
-        [TestMethod]
+        [Test]
         public void VarProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -127,7 +127,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Variance(p => p.Age));
         }
 
-        [TestMethod]
+        [Test]
         public void Count()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -136,7 +136,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result == source.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void CountWhere()
         {
             IEnumerable<int> source = TestData.GetInts();

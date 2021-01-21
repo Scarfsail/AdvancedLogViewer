@@ -43,7 +43,7 @@ namespace AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies
             }
             catch (Exception ex)
             {
-                log.Debug($"Could not query directory for base log filename {baseFileName} for related log parts.", ex);
+                log.Debug($"Could not query directory for base log filename {baseFileName} for related log parts. Exception: " + ex.Message);
             }
 
             return new List<string>();

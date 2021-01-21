@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class SelectTests
     {
-        [TestMethod]
+        [Test]
         public void SelectProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -17,7 +17,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Select(p => p.Age)));
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPropertyWhereOtherProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -25,7 +25,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Name == "Frank").Select(p => p.Age)));
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPropertyWhereWithAddition()
         {
             IEnumerable<Person> source = TestData.GetPeople();

@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class DistinctTests
     {
-        [TestMethod]
+        [Test]
         public void DistinctValue()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -17,7 +17,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Distinct()));        
         }
 
-        [TestMethod]
+        [Test]
         public void DistinctProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();

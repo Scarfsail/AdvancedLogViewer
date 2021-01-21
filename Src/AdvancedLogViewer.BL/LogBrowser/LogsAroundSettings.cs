@@ -32,7 +32,7 @@ namespace AdvancedLogViewer.BL.LogsAround
             {
                 if (instance == null)
                 {
-                    instance = LogsAroundSettings.LoadFromFile(Path.Combine(Globals.UserDataDir, "LogsAround.xml"));
+                    instance = LogsAroundSettings.LoadFromFile(Path.Combine(Globals.UserDataDir, "LogsAround.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
                 }
                 return instance;
             }

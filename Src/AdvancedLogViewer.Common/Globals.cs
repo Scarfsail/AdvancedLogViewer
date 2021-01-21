@@ -12,26 +12,25 @@ namespace AdvancedLogViewer.Common
         private static string appDataDir = null;
         private static bool? isPortable;
 
+        public static string UserDataDataForPre9Version =>
+            GetUserDataDir(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
+
         public static string UserDataDir
         {
             get
             {
                 if (userDataDir == null)
                 {
-                    if (IsPortable)
-                    {
-                        userDataDir = Path.Combine(AppDir, "UserData");
-                    }
-                    else
-                    {
-                        userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "AdvancedLogViewer\\");
-                        if (!Directory.Exists(userDataDir))
-                            Directory.CreateDirectory(userDataDir);
-                    }
+                    userDataDir = GetUserDataDir(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+                    if (!Directory.Exists(userDataDir))
+                        Directory.CreateDirectory(userDataDir);
                 }
                 return userDataDir;
             }
         }
+
+        private static string GetUserDataDir(string applicationDataPath)
+            => IsPortable ? Path.Combine(AppExeDir, "UserData") : Path.Combine(applicationDataPath, "AdvancedLogViewer\\");
 
         public static bool IsPortable
         {
@@ -39,7 +38,7 @@ namespace AdvancedLogViewer.Common
             {
                 if (isPortable == null)
                 {
-                    isPortable = Directory.Exists(Path.Combine(AppDir, "UserData"));
+                    isPortable = Directory.Exists(Path.Combine(AppExeDir, "UserData"));
                 }
                 return isPortable.Value;
             }
@@ -51,21 +50,15 @@ namespace AdvancedLogViewer.Common
             {
                 if (appDataDir == null)
                 {
-                    appDataDir = Path.Combine(AppDir, "Data\\");
+                    appDataDir = Path.Combine(AppEmbeddedDir, "Data\\");
                     if (!Directory.Exists(appDataDir))
                         Directory.CreateDirectory(appDataDir);
                 }
                 return appDataDir;
             }
         }
-
-        public static string AppDir
-        {
-            get
-            {
-                return AppDomain.CurrentDomain.BaseDirectory;
-            }
-        }
+        public static string AppEmbeddedDir => AppDomain.CurrentDomain.BaseDirectory;
+        private static string AppExeDir => Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
 
     }
 }

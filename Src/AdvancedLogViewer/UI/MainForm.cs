@@ -80,7 +80,7 @@ namespace AdvancedLogViewer.UI
             {
                 this.SuspendLayout();
                 InitializeComponent();
-
+                this.MigratePre9FilesToNewLocation();
                 this.settings = AlvSettings.LoadFromFile(Path.Combine(Globals.UserDataDir, "Settings.xml"), XmlSerializableFileCorruptedAction.ShowDialogAndLoadDefaults);
 
                 this.logListView.Init(this);
@@ -89,9 +89,9 @@ namespace AdvancedLogViewer.UI
 
                 this.getDistinctValues = new GetDistinctValues()
                 {
-                    Threads = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Thread).Distinct(new StringIgnoreCaseEqualityComparer())); },
-                    Types = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Type).Distinct(new StringIgnoreCaseEqualityComparer())); },
-                    Classes = delegate() { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Class).Distinct(new StringIgnoreCaseEqualityComparer())); }
+                    Threads = delegate () { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Thread).Distinct(new StringIgnoreCaseEqualityComparer())); },
+                    Types = delegate () { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Type).Distinct(new StringIgnoreCaseEqualityComparer())); },
+                    Classes = delegate () { return GetListOfLogEntriesInLock(entries => entries.Select(entry => entry.Class).Distinct(new StringIgnoreCaseEqualityComparer())); }
 
                 };
 
@@ -147,7 +147,7 @@ namespace AdvancedLogViewer.UI
             catch (Exception ex)
             {
                 MessageBox.Show("Error while creating main form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                log.Error(ex);
+                log.Error(ex.Message);
                 throw;
             }
 
@@ -222,7 +222,7 @@ namespace AdvancedLogViewer.UI
                         this.DoUpgradeSteps(lastRunVersion);
 
                         //Show history list
-                        using (ApplicationHistoryDlg dlg = new ApplicationHistoryDlg(Path.Combine(Globals.AppDir, "History.xml"), lastRunVersion))
+                        using (ApplicationHistoryDlg dlg = new ApplicationHistoryDlg(Path.Combine(Globals.AppEmbeddedDir, "History.xml"), lastRunVersion))
                         {
                             dlg.ShowDialog();
                         }
@@ -320,13 +320,55 @@ namespace AdvancedLogViewer.UI
 #if !(DEBUG)
             catch (Exception ex)
             {
-                log.Error(ex);
+                log.Error(ex.Message);
                 MessageBox.Show("Error while showing main form: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
 #endif
 
             log.Debug("Main form shown event finished");
+        }
+        private void MigratePre9FilesToNewLocation()
+        {
+            var dataDirOld = Globals.UserDataDataForPre9Version;
+            var dataDirNew = Globals.UserDataDir;
+            if (dataDirOld != dataDirNew && Directory.Exists(dataDirOld) && !File.Exists(Path.Combine(dataDirNew, "Settings.xml")))
+            {
+                log.Info("Migrating from pre-9 version, moving settings to user folder");
+                foreach (var fileName in Directory.EnumerateFiles(dataDirOld, "*.*", SearchOption.AllDirectories))
+                {
+                    var fileInfo = new FileInfo(fileName);
+                    var newFile = new FileInfo(fileInfo.FullName.Replace(dataDirOld, dataDirNew));
+                    if (!newFile.Exists)
+                    {
+                        log.Info($"Copying user file from: {fileInfo.FullName} to: {newFile.FullName}");
+                        try
+                        {
+                            fileInfo.CopyTo(newFile.FullName);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("Error while copying file: " + ex.Message);
+                        }
+                        try
+                        {
+                            fileInfo.Delete();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error("Error while deleting file: " + ex.Message);
+                        }
+                    }
+                }
+                try
+                {
+                    Directory.Delete(dataDirOld, true);
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Error while deleting old application settings folder: " + ex.Message);
+                }
+            }
         }
 
         private void DoUpgradeSteps(Version upgradedFrom)
@@ -618,7 +660,7 @@ namespace AdvancedLogViewer.UI
 
             ToolStripDropDownItem parentItem = this.logAdjusterButton;
             ToolStripDropDownItem additinalLoggersItem = null;
-            Func<int> insertBefore = delegate() { return this.logAdjusterButton.DropDown.Items.IndexOf(logAdjusterMenuDivider); };
+            Func<int> insertBefore = delegate () { return this.logAdjusterButton.DropDown.Items.IndexOf(logAdjusterMenuDivider); };
 
             for (int i = 0; i < loggers.Count; i++)
             {
@@ -629,7 +671,7 @@ namespace AdvancedLogViewer.UI
                     ToolStripMenuItem item = new ToolStripMenuItem("Additional loggers");
                     this.logAdjusterButton.DropDownItems.Insert(insertBefore(), item);
                     additinalLoggersItem = item;
-                    insertBefore = delegate() { return -1; };
+                    insertBefore = delegate () { return -1; };
                 }
                 if (i > 0)
                 {
@@ -966,7 +1008,7 @@ namespace AdvancedLogViewer.UI
             {
                 log.Debug("Show markers...");
                 this.ShowMarkers();
-                
+
                 if ((!this.logParser.ForcedLogPattern) && (this.logParser.LinesCount > 2) && (this.logParser.LogEntriesCount == 0))
                 {
                     TryLogPatternOnCurrentLog(new LogPattern("Unable to parse it, showing with default parser", "{Date}{Message}", ""));
@@ -1175,7 +1217,7 @@ namespace AdvancedLogViewer.UI
         {
             if (this.settings.MainFormUI.ShowMarkers)
             {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext)
+                ThreadPool.QueueUserWorkItem(new WaitCallback(delegate (object threadContext)
                 {
                     log.Debug("Showing markers");
 
@@ -1297,7 +1339,7 @@ namespace AdvancedLogViewer.UI
             }
             else
             {
-                log.ErrorFormat("Error while checking updates: " + e.Description);
+                log.Error("Error while checking updates: " + e.Description);
                 SetUpdatesStatusText("Error while checking updates.");
                 this.checkForUpdatesStatus.ForeColor = Color.Red;
 
@@ -1316,7 +1358,7 @@ namespace AdvancedLogViewer.UI
             {
                 SetUpdatesStatusText("Newer version of ALV has been found.");
                 bool updateApplied = false;
-                updateApplied = e.ShowUiAndAskForUpdateDownload(this, "Advanced Log Viewer", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                updateApplied = e.ShowUiAndAskForUpdateDownload(this, "Advanced Log Viewer", System.AppContext.BaseDirectory,
                     Globals.IsPortable ? UpdateType.Portable : UpdateType.MSI);
                 if (updateApplied)
                     this.Close();
@@ -2066,7 +2108,7 @@ namespace AdvancedLogViewer.UI
 
         private void applicationHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (ApplicationHistoryDlg dlg = new ApplicationHistoryDlg(Path.Combine(Globals.AppDir, "History.xml"), null))
+            using (ApplicationHistoryDlg dlg = new ApplicationHistoryDlg(Path.Combine(Globals.AppEmbeddedDir, "History.xml"), null))
             {
                 dlg.ShowDialog(this);
             }

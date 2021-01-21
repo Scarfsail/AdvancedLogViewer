@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class SimpleWhereTests
     {
-        [TestMethod]
+        [Test]
         public void WhereValue()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -18,7 +18,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Where(i => i > 3)));
         }
 
-        [TestMethod]
+        [Test]
         public void WhereProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -27,7 +27,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Age > 40)));
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyWhere()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -36,7 +36,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Age > 40).Select<Person, int>(p => p.Age)));
         }
 
-        [TestMethod]
+        [Test]
         public void SelectOnePropertyWhereOtherProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -45,7 +45,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Name == "Frank").Select<Person, int>(p => p.Age)));
         }
 
-        [TestMethod]
+        [Test]
         public void SelectOnePropertyWhereOtherProperty2()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -55,7 +55,7 @@ namespace QueryAnything.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void SelectStringWhereTwoStrings()
         {
             List<string> source = new List<string>() {"aa","bb","xaax", "xbbx", "cc" };
@@ -64,7 +64,7 @@ namespace QueryAnything.UnitTests
             Assert.AreEqual(3, result.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPersonWhereTwoStrings()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -73,7 +73,7 @@ namespace QueryAnything.UnitTests
             Assert.AreEqual(3, result.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPersonWhereFourStrings()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -82,7 +82,7 @@ namespace QueryAnything.UnitTests
             Assert.AreEqual(0, result.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPersonWhereTwoStrings2()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -91,7 +91,7 @@ namespace QueryAnything.UnitTests
             Assert.AreEqual(3, result.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void SelectPersonWhereTwoStrings3()
         {
             IEnumerable<Person> source = TestData.GetPeople();

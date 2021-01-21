@@ -53,7 +53,7 @@ namespace Scarfsail.Logging
         private readonly static Log _log = new Log();
 
         [ThreadStatic]
-        private static Stack<PerformanceLogger> _callStack;
+        private static Stack<PerformanceLogger>? _callStack;
 
         private static Stack<PerformanceLogger> CallStack
         {
@@ -68,7 +68,7 @@ namespace Scarfsail.Logging
         private LogSeverity _logSeverity;
         private Stopwatch _watch;
         private bool _disposed = false;
-        private string _message = null;
+        private string? _message = null;
 
         public static void FormatMessage(string s, params object[] p)
         {

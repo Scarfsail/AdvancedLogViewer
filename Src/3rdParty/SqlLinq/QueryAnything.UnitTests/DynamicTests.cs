@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class DynamicTests
     {
-        [TestMethod]
+        [Test]
         public void DynamicOneProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -17,7 +17,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.Select(p => p.Address)));
         }
 
-        [TestMethod]
+        [Test]
         public void DynamicTwoProperties()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -35,7 +35,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(addresses.SequenceEqual(addresses1));
         }
 
-        [TestMethod]
+        [Test]
         public void NewObjectTwoProperties()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -46,7 +46,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void NewObjectTwoPropertiesWithAs()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -57,7 +57,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void NewObjectTwoPropertiesConstructor()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -68,7 +68,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
-        [TestMethod]
+        [Test]
         public void NewObjectThreePropertiesConstructor()
         {
             IEnumerable<Person> source = TestData.GetPeople();

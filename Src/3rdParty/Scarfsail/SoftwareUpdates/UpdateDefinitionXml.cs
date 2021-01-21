@@ -36,6 +36,9 @@ namespace Scarfsail.SoftwareUpdates
             public String UrlWithZip { get; private set; }
             public String UrlWithPortableUpdate { get; private set; }
             public String UrlWithHistoryXml { get; private set; }
+            public String MsiUrlWithPlatform { get; private set; }
+            public String ZipUrlWithPlatform { get; private set; }
+            
 
             protected override void LoadData(XElement xmlElement)
             {
@@ -51,13 +54,12 @@ namespace Scarfsail.SoftwareUpdates
                 else
                     this.Date = DateTime.ParseExact(dateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
+                var runtimeStr = Environment.Is64BitOperatingSystem ? "win-x64" : "win-x86";
 
-
-                this.UrlWithMsiUpdate = GetAttrValue<string>(s => s, xmlElement, "URL", null).Replace("{$Version}", versionStr);
-                this.UrlWithPortableUpdate = GetAttrValue<string>(s => s, xmlElement, "UrlWithPortableUpdate", null).Replace("{$Version}", versionStr);
-                this.UrlWithZip = GetAttrValue<string>(s => s, xmlElement, "UrlWithZip", null).Replace("{$Version}", versionStr);
+                this.UrlWithMsiUpdate = GetAttrValue<string>(s => s, xmlElement, "MsiUrlWithPlatform", null).Replace("{$Version}", versionStr).Replace("${Runtime}", runtimeStr);
+                this.UrlWithPortableUpdate = GetAttrValue<string>(s => s, xmlElement, "UrlWithPortableUpdate", null).Replace("{$Version}", versionStr).Replace("${Runtime}", runtimeStr);
+                this.UrlWithZip = GetAttrValue<string>(s => s, xmlElement, "ZipUrlWithPlatform", null).Replace("{$Version}", versionStr).Replace("${Runtime}", runtimeStr);
                 this.UrlWithHistoryXml = GetAttrValue<string>(s => s, xmlElement, "URLWithHistoryXml", null);
-                
             }
 
             protected override void SaveData(XElement xmlElement)

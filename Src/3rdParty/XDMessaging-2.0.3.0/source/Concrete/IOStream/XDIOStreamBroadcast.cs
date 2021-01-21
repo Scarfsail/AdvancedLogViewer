@@ -50,7 +50,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.IOStream
         /// </summary>
         static XDIOStreamBroadcast()
         {
-            temporaryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "XDMessaging");
+            temporaryFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AdvancedLogViewer", "XDMessaging");
         }
 
         /// <summary>

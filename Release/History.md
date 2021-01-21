@@ -1,3 +1,11 @@
+## 9.0.1 - 2021-01-20
+###### Download: MSI: [x86](bin/AdvancedLogViewer_{version}_win-x86.msi?raw=true)  [x64](bin/AdvancedLogViewer_{version}_win-x64.msi?raw=true)  or  ZIP: [x86](bin/AdvancedLogViewer_{version}_win-x86.zip?raw=true) [x64](bin/AdvancedLogViewer_{version}_win-x64.zip?raw=true)
+#### Big features
+* This is the first version built in .NET 5 as self-contained application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries.
+#### Changes
+* All setting and log files are now in Users\{CurrentUser}\AppData\Roaming\AdvancedLogViewer instead of \ProgramData\AdvancedLogViewer. This allows to run ALV even with restricted UAC without need to run app as administrator.
+* Serilog is used for ALV internal logging instead of log4net. It brings slightly better performance during logging .
+* Settings page is in standard WinForm instead of WPF which brings better performance and less 3rd party WPF libraries only because of that one page.
 ## 8.1.0 - 2019-01-04
 ###### Download: [MSI](bin/AdvancedLogViewer_8.1.0.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_8.1.0.zip?raw=true)
 #### Features
@@ -87,6 +95,8 @@
 #### Fixes
 * Fixed issue with non-parseable date time.
 * When log contains first line in different format than the parser specifies, the line is shown only in message column. In previous version the line wasn't shown in the ALV at all.
+#### Changes
+* When ALV can't parse date time based on provided date time format it's shown only in status bar, no more annoying popup message box.
 ## 6.1.2 - 2012-10-23
 ###### Download: [MSI](bin/AdvancedLogViewer_6.1.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.1.2.zip?raw=true)
 #### Fixes
@@ -100,6 +110,8 @@
 ###### Download: [MSI](bin/AdvancedLogViewer_6.0.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_6.0.2.zip?raw=true)
 #### Big features
 * User can switch between running instances of ALV by pressing CTRL+Tab or from new menu (near to open file button). From this new menu is also possible to run new instance of ALV.
+#### Changes
+* Toolbar: Buttons order has been changed a bit, text buttons replaced by new icon buttons, some icons revamped.
 ## 5.6.3 - 2012-09-25
 ###### Download: [MSI](bin/AdvancedLogViewer_5.6.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.6.3.zip?raw=true)
 #### Fixes
@@ -109,6 +121,8 @@
 ###### Download: [MSI](bin/AdvancedLogViewer_5.6.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.6.2.zip?raw=true)
 #### Features
 * Added possibility to define also text color for color highlights. So now is possible to define both background and text colors.
+#### Changes
+* Distinct values in the filter selection (like class names) weren't sorted. They sorted alphabetically now. 
 ## 5.5.1 - 2012-09-09
 ###### Download: [MSI](bin/AdvancedLogViewer_5.5.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.5.1.zip?raw=true)
 #### Features
@@ -128,6 +142,8 @@
 * Fixed issue with automatic update when local system date format is set to something non-standard like "yyyyMMdd".
 ## 5.4.2 - 2012-08-12
 ###### Download: [MSI](bin/AdvancedLogViewer_5.4.2.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.2.zip?raw=true)
+#### Changes
+* When there is a problem during automatic check for an updates of ALV, no error dialog is shown. Just error message in the status bar which disappears within 3 seconds.
 ## 5.4.1 - 2012-07-29
 ###### Download: [MSI](bin/AdvancedLogViewer_5.4.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.4.1.zip?raw=true)
 #### Big features
@@ -136,11 +152,15 @@
 * Added more information to the about dialog (Fact that application is free for private and also for commercial use, link to the forum and Donate button).
 #### Fixes
 * When any configuration file is broken, proper error message is shown and default configuration is loaded instead of exception.
+#### Changes
+* Dialog "Send feedback to author" now contains just link to new web forum instead of input field to send feedback directly from the application.
 ## 5.3.1 - 2012-07-21
 ###### Download: [MSI](bin/AdvancedLogViewer_5.3.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.3.1.zip?raw=true)
 #### Features
 * When autorefresh and autoscrolling is enabled, app jumps to last row only when last row was selected before the refresh. Otherwise stay on the same row and just show new rows from the log.
 * When new log records are shown (due to manual or automatic refresh) and last row isn't selected, "Change time" field on the status bar is bold until user jumps to last row to see recent rows.
+#### Changes
+* Changed order of items in the "Other menu". Text of "Other" menu changed to "More". Also added link "Send feedback to author" to the About dialog.
 ## 5.2.1 - 2012-07-02
 ###### Download: [MSI](bin/AdvancedLogViewer_5.2.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_5.2.1.zip?raw=true)
 #### Features
@@ -166,12 +186,19 @@
 * Possibility to jump to DateTime or Line number in log file by specifying command line arguments of LogViewer. Example: "AdvancedLogViewer.exe "C:\SomeLog.log" 123"s to be interpreted will open SomeLog.log and jump there onto line 123.
 * Automatic update works also in PORTABLE mode. In that case binaries are downloaded, ALV is stopped, updated by new binaries and run again.
 * Added parser for OrionInstaller.log. Thanks to Denys!
+#### Changes
+* Changed icon for Fatal log level - now is black with red cross to better distinguish betweeen Error and Fatal
 ## 4.0.1 - 2011-12-11
 ###### Download: [MSI](bin/AdvancedLogViewer_4.0.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_4.0.1.zip?raw=true)
 #### Big features
 * New possibility to Adjust Log Level directly from the Log Viewer. User can select Config files for each Log file. Log Viewer then automatically read associated config file, show current log levels and give possibility to change them easily. This feature is accessible via new icon on the toolbar.
+#### Changes
+* Changed icons for log level types (warning, error, debug, ...). Each log level has different icon with different color to easily distinguish between them.
 ## 3.2.4 - 2011-11-13
 ###### Download: [MSI](bin/AdvancedLogViewer_3.2.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.4.zip?raw=true)
+#### Changes
+* Default interval for automatic update check changed from 2 days to 12 hours.
+* Few minor UI changes (text corrections, tab order fixed, ...).
 ## 3.2.3 - 2011-11-08
 ###### Download: [MSI](bin/AdvancedLogViewer_3.2.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_3.2.3.zip?raw=true)
 #### Fixes
@@ -224,6 +251,9 @@
 * Added possibility to disable remembering of enabled filters for next session. This option is on settings page.
 #### Fixes
 * Tweaked performance while log is loading.
+#### Changes
+* When log part isn't continuous (.log, .log.1, .log.2, ...) and some numbers missing (.log, .log.2, .log.4, ...) those parts are now shown also in log parts list.
+* Refactored code responsible for keyboard shortcuts, planned possibility to define own keyboard shortcuts in some future release.
 ## 2.6.1 - 2011-09-11
 ###### Download: [MSI](bin/AdvancedLogViewer_2.6.1.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.6.1.zip?raw=true)
 #### Big features
@@ -236,10 +266,14 @@
 #### Features
 * Added some logging when application starts to investigate possible issues during app initialization.
 * Added log format pattern for SWAutomationFramework.log.
+#### Changes
+* Changed default value for: "Select previous last item" in settings from True to False.
 ## 2.5.4 - 2011-04-16
 ###### Download: [MSI](bin/AdvancedLogViewer_2.5.4.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.4.zip?raw=true)
 #### Fixes
 * Fixed issue with empty lines in filter items. In case there was one empty line, filter shown all items.
+#### Changes
+* When filters are disabled and user clicks on some column header to specify and enable filter for that column, filters for other columns are not applied.
 ## 2.5.3 - 2011-04-11
 ###### Download: [MSI](bin/AdvancedLogViewer_2.5.3.msi?raw=true) or [ZIP](bin/AdvancedLogViewer_2.5.3.zip?raw=true)
 #### Features

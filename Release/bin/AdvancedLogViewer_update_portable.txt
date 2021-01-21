@@ -1,0 +1,1 @@
+To update your portable Advanced Log Viewer, please go to https://github.com/Scarfsail/AdvancedLogViewer and download latest zip with the portable version.

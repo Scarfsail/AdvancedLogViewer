@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class HavingTests
     {
-        [TestMethod]
+        [Test]
         public void HavingTestNewObject()
         {
             IEnumerable<Person> source = TestData.GetPeople();

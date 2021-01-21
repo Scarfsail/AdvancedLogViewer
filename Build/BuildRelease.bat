@@ -1,2 +1,4 @@
-"c:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\msbuild.exe" AdvancedLogViewer.msbuild /target:BuildInstaller /p:Flavor=Release
+dotnet build AdvancedLogViewer.msbuild /target:BuildInstaller /p:Runtime=win-x86 /verbosity:normal
+dotnet build AdvancedLogViewer.msbuild /target:BuildInstaller /p:Runtime=win-x64 /verbosity:normal
+
 pause

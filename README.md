@@ -2,17 +2,24 @@
 Free Log Viewer for easy & powerful log viewing.
 
 ## Download
-You can download the latest release as [MSI Installer](Release/bin/AdvancedLogViewer.msi?raw=true) or [Portable ZIP](Release/bin/AdvancedLogViewer.zip?raw=true). There's also a [changelog](Release/History.md) with all previous versions.
+<!--GENERATED LINKS BEGIN-->
+You can download the latest release **9.0.1**:
+* MSI Installer: [x86](Release/bin/AdvancedLogViewer_9.0.1_win-x86.msi?raw=true) or [x64](Release/bin/AdvancedLogViewer_9.0.1_win-x64.msi?raw=true)
+* Portable ZIP: [x86](Release/bin/AdvancedLogViewer_9.0.1_win-x86.zip?raw=true) or [x64](Release/bin/AdvancedLogViewer_9.0.1_win-x64.zip?raw=true)
+<!--GENERATED LINKS END-->
+**Note: Version 9.x is built in .NET 5 as [self-contained](https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained) application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries.**
+
+There's also a [changelog](Release/History.md) with all previous versions.
 
 Both versions contain same binaries. MSI version installs ALV into the system, creates shortcut in start menu and user's settings is saved into user's profile. Portable version can be placed anywhere (e.g. network drive, usb drive) and user's settings is saved into the same folder where is the application, nothing is saved in the OS.
 
-*100% CLEAN award granted by [Softpedia](http://www.softpedia.com/progClean/ALV-Advanced-Log-Viewer-Clean-219121.html).*
+*100% CLEAN award granted by [Softpedia](http://www.softpedia.com/progClean/ALV-Advanced-Log-Viewer-Clean-219121.html).
 
 ## License
 Freeware for personal or commercial use. If you find ALV useful, you can [Donate](http://salplachta.net/AdvancedLogViewer/Donate.aspx) to support my work on this project.
 
 ## Platform
-Windows with .NET 4.6.1 (Vista, 7, 10, 2003, 2003 R2, 2008, 2008 R2, 2012, 2012 R2, 2016).
+Windows 7 and newer, no .NET needs to be installed since version 9.
 If you have any specific question, feature request or an issue with the application, please post it in the [issue tracker](https://github.com/Scarfsail/AdvancedLogViewer/issues).
 
 ---

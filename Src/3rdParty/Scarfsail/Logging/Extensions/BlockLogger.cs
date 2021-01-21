@@ -13,15 +13,15 @@ namespace Scarfsail.Logging
     /// </summary>
     public class BlockLogger
     {
-        private Log log;
-        private Action<string> logMessage;
-        private string blockName;
+        private Log? log;
+        private Action<string>? logMessage;
+        private string? blockName;
         protected bool isLoggingEnabled;
         protected bool endWasCalled = false;
-        private Action<BlockLoggerParams> fillResults;
+        private Action<BlockLoggerParams>? fillResults;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal BlockLogger(Log log, LogSeverity severity, string blockName, Action<BlockLoggerParams> fillParams, int callerLevel = 2)
+        internal BlockLogger(Log log, LogSeverity severity, string? blockName, Action<BlockLoggerParams>? fillParams, int callerLevel = 2)
         {
             isLoggingEnabled = GetIsLoggingEnabled(log, severity);
             if (!isLoggingEnabled)
@@ -29,7 +29,7 @@ namespace Scarfsail.Logging
 
             this.log = log;
             this.logMessage = GetLogMessageMethod(log, severity);
-            this.blockName = blockName ?? new StackFrame(callerLevel, false).GetMethod().Name;
+            this.blockName = blockName ?? (new StackFrame(callerLevel, false)?.GetMethod()?.Name ?? "Block name not found.");
             this.fillResults = null;
 
             //Log the start
@@ -57,14 +57,14 @@ namespace Scarfsail.Logging
             End(this.fillResults);
         }
 
-        public void End(Action<BlockLoggerParams> fillResultText)
+        public void End(Action<BlockLoggerParams>? fillResultText)
         {
             if (!isLoggingEnabled || endWasCalled)
                 return;
 
             endWasCalled = true;
-            string results = null;
-            if (fillResultText != null)
+            string? results = null;
+            if (fillResultText != null && log != null)
             {
                 var bp = new BlockLoggerParams(log);
                 fillResultText(bp);
@@ -72,14 +72,16 @@ namespace Scarfsail.Logging
             }
 
             string baseMsg = String.Format("Finished method: '{0}'", blockName);
-
-            if (results != null)
+            if (logMessage != null)
             {
-                logMessage(baseMsg + " with results: " + results);
-            }
-            else
-            {
-                logMessage(baseMsg);
+                if (results != null)
+                {
+                    logMessage(baseMsg + " with results: " + results);
+                }
+                else
+                {
+                    logMessage(baseMsg);
+                }
             }
         }
 
@@ -130,7 +132,7 @@ namespace Scarfsail.Logging
         /// Creates block logger with logSeverity=DEBUG, block name=caller method name and log level=DEBUG
         /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static BlockLogger EnterBlock(this Log log, Action<BlockLoggerParams> fillParams = null)
+        public static BlockLogger EnterBlock(this Log log, Action<BlockLoggerParams>? fillParams = null)
         {
             return new BlockLogger(log, LogSeverity.DEBUG, null, fillParams);
         }
@@ -139,7 +141,7 @@ namespace Scarfsail.Logging
         /// Creates block logger with block name=caller method name and optional parameters
         /// </summary>
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static BlockLogger EnterBlock(this Log log, LogSeverity logSeverity, Action<BlockLoggerParams> fillParams = null)
+        public static BlockLogger EnterBlock(this Log log, LogSeverity logSeverity, Action<BlockLoggerParams>? fillParams = null)
         {
             return new BlockLogger(log, logSeverity, null, fillParams);
 
@@ -147,7 +149,7 @@ namespace Scarfsail.Logging
         /// <summary>
         /// Creates block logger with log severity=DEBUG defined block name and optional parameters
         /// </summary>
-        public static BlockLogger EnterBlock(this Log log, string blockName, Action<BlockLoggerParams> fillParams = null)
+        public static BlockLogger EnterBlock(this Log log, string blockName, Action<BlockLoggerParams>? fillParams = null)
         {
             return new BlockLogger(log, LogSeverity.DEBUG, blockName, fillParams);
         }
@@ -155,7 +157,7 @@ namespace Scarfsail.Logging
         /// <summary>
         /// Creates block logger with defined logSeverity, block name and optional parameters
         /// </summary>
-        public static BlockLogger EnterBlock(this Log log, LogSeverity logSeverity, string blockName, Action<BlockLoggerParams> fillParams = null)
+        public static BlockLogger EnterBlock(this Log log, LogSeverity logSeverity, string blockName, Action<BlockLoggerParams>? fillParams = null)
         {
             return new BlockLogger(log, logSeverity, blockName, fillParams);
         }

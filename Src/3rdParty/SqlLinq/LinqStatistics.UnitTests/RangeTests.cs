@@ -2,14 +2,14 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LinqStatistics.UnitTests
 {
     /// <summary>
     /// Summary description for RangeTests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class RangeTests
     {
         public RangeTests()
@@ -59,7 +59,7 @@ namespace LinqStatistics.UnitTests
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void Range()
         {
             IEnumerable<int> source = new int[] { 1, 2, 3, 4, 5 };

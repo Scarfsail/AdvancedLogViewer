@@ -172,6 +172,16 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
         {
             BinaryFormatter b = new BinaryFormatter();
             string rawMessage = string.Empty;
+            try
+            {
+                rawMessage = Encoding.UTF8.GetString(buffer, 0, (int)bytesRead);
+            }
+            catch
+            {
+                // if something goes wrong such as handle is closed,
+                // we will not process this message
+            }
+            /*
             using (MemoryStream stream = new MemoryStream())
             {
                 stream.Write(buffer, 0, (int)bytesRead);
@@ -184,7 +194,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                 }
                 catch (SerializationException) { } // if something goes wrong such as handle is closed,
                                                    // we will not process this message
-            }
+            }*/
             // mailslot message format is id:channel:message
             using (DataGram dataGramId = DataGram.ExpandFromRaw(rawMessage))
             {
@@ -261,7 +271,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                         activeThreads.Remove(channelName);
                     }
                 }
-                if (info!=null)
+                if (info != null)
                 {
                     // close any read handles
                     if (info.HasValidFileHandle)
@@ -279,7 +289,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                         if (!info.Thread.Join(500))
                         {
                             // if no response within timeout, force abort
-                            info.Thread.Abort();
+                            //info.Thread.Abort(); //Do nothing
                         }
                     }
                 }
@@ -339,7 +349,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                     {
                         // grab a reference to the current list of threads
                         var values = new List<MailSlotThreadInfo>(activeThreads.Values);
-       
+
                         // removing the channels, will cause threads to terminate
                         activeThreads.Clear();
                         // shut down listener threads
@@ -363,7 +373,7 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
                                 if (!info.Thread.Join(500))
                                 {
                                     // last resort abort thread
-                                    info.Thread.Abort();
+                                    //info.Thread.Abort(); Do Nothing
                                 }
                             }
                         }

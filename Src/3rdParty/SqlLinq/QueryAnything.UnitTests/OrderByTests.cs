@@ -3,14 +3,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace QueryAnything.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class OrderByTests
     {
-        [TestMethod]
+        [Test]
         public void OrderByValue()
         {
             IEnumerable<int> source = TestData.GetInts();
@@ -18,7 +18,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.OrderBy(i => i)));
         }
 
-        [TestMethod]
+        [Test]
         public void OrderByProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -26,7 +26,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.OrderBy(p => p.Age)));
         }
 
-        [TestMethod]
+        [Test]
         public void OrderByTwoProperties()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -34,7 +34,7 @@ namespace QueryAnything.UnitTests
             Assert.IsTrue(result.SequenceEqual(source.OrderBy(p => p.Age).ThenBy(p => p.Name)));
         }
 
-        [TestMethod]
+        [Test]
         public void OrderByPropertySelectOtherProperty()
         {
             IEnumerable<Person> source = TestData.GetPeople();
@@ -48,7 +48,7 @@ namespace QueryAnything.UnitTests
                 Debug.WriteLine("{0} {1}", p.Age, p.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void OrderByPropertyDescending()
         {
             IEnumerable<Person> source = TestData.GetPeople();

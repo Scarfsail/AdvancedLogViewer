@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using AdvancedLogViewer.UI;
@@ -18,13 +19,14 @@ namespace AdvancedLogViewer
             try
 #endif
             {
-                Scarfsail.Logging.Log.Configure("");
+                Scarfsail.Logging.Log.Configure(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AdvancedLogViewer", "Logs"),
+                    $"AdvancedLogViewer_[{System.Diagnostics.Process.GetCurrentProcess().Id}].log");
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 MainForm mainForm = new MainForm(args);
                 if (!mainForm.DontRunApplication)
                     Application.Run(mainForm);
-            }           
+            }
 #if !(DEBUG)
             catch (Exception ex)
             {

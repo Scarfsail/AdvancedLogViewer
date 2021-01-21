@@ -521,9 +521,10 @@ namespace Sarfsail.Common.UI.SyntaxHighlighter
         /// <param name="sbBody">The sb body.</param>
         private void ApplyRTF(StringBuilder sbHeader, StringBuilder sbBody)
         {
+            //TODO Fix color highglighting in NET 5.0
             //Now create the RTF from header and body.
-            string sCompositeRTF = sbHeader.ToString() + sbBody.ToString();
-            Rtf = sCompositeRTF;
+            /*string sCompositeRTF = sbHeader.ToString() + sbBody.ToString();
+            Rtf = sCompositeRTF;*/
         }
 
 

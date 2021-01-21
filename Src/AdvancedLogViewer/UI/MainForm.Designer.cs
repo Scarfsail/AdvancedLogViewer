@@ -227,52 +227,52 @@
             this.copyToolStripMenuItem,
             this.selectAllToolStripMenuItem});
             this.messageDetailContextMenu.Name = "messageDetailContextMenu";
-            this.messageDetailContextMenu.Size = new System.Drawing.Size(181, 142);
+            this.messageDetailContextMenu.Size = new System.Drawing.Size(182, 142);
             // 
             // setAsIncludeFilterToolStripMenuItem
             // 
             this.setAsIncludeFilterToolStripMenuItem.Name = "setAsIncludeFilterToolStripMenuItem";
-            this.setAsIncludeFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setAsIncludeFilterToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.setAsIncludeFilterToolStripMenuItem.Text = "Set as Include filter";
             this.setAsIncludeFilterToolStripMenuItem.Click += new System.EventHandler(this.setAsIncludeFilterToolStripMenuItem_Click);
             // 
             // setAsExcludeFilterToolStripMenuItem
             // 
             this.setAsExcludeFilterToolStripMenuItem.Name = "setAsExcludeFilterToolStripMenuItem";
-            this.setAsExcludeFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setAsExcludeFilterToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.setAsExcludeFilterToolStripMenuItem.Text = "Set as Exclude filter";
             this.setAsExcludeFilterToolStripMenuItem.Click += new System.EventHandler(this.setAsExcludeFilterToolStripMenuItem_Click);
             // 
             // addAsIncludeFilterToolStripMenuItem
             // 
             this.addAsIncludeFilterToolStripMenuItem.Name = "addAsIncludeFilterToolStripMenuItem";
-            this.addAsIncludeFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addAsIncludeFilterToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.addAsIncludeFilterToolStripMenuItem.Text = "Add as Include filter";
             this.addAsIncludeFilterToolStripMenuItem.Click += new System.EventHandler(this.addAsIncludeFilterToolStripMenuItem_Click);
             // 
             // addAsExcludeFilterToolStripMenuItem
             // 
             this.addAsExcludeFilterToolStripMenuItem.Name = "addAsExcludeFilterToolStripMenuItem";
-            this.addAsExcludeFilterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addAsExcludeFilterToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.addAsExcludeFilterToolStripMenuItem.Text = "Add as Exclude filter";
             this.addAsExcludeFilterToolStripMenuItem.Click += new System.EventHandler(this.addAsExcludeFilterToolStripMenuItem_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(178, 6);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.copyToolStripMenuItem.Text = "Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.selectAllToolStripMenuItem.Text = "Select all";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
@@ -283,8 +283,9 @@
             this.mainPanel.Controls.Add(this.sqlFilterPanel);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 25);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1022, 644);
+            this.mainPanel.Size = new System.Drawing.Size(1192, 750);
             this.mainPanel.TabIndex = 0;
             // 
             // logViewPanel
@@ -295,9 +296,10 @@
             this.logViewPanel.Controls.Add(this.splitter1);
             this.logViewPanel.Controls.Add(this.logMessageEdit);
             this.logViewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logViewPanel.Location = new System.Drawing.Point(0, 86);
+            this.logViewPanel.Location = new System.Drawing.Point(0, 100);
+            this.logViewPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logViewPanel.Name = "logViewPanel";
-            this.logViewPanel.Size = new System.Drawing.Size(1022, 558);
+            this.logViewPanel.Size = new System.Drawing.Size(1192, 650);
             this.logViewPanel.TabIndex = 8;
             // 
             // logListView
@@ -308,9 +310,10 @@
             this.logListView.FullRowSelect = true;
             this.logListView.HideSelection = false;
             this.logListView.Location = new System.Drawing.Point(0, 0);
+            this.logListView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logListView.Name = "logListView";
             this.logListView.OwnerDraw = true;
-            this.logListView.Size = new System.Drawing.Size(1002, 429);
+            this.logListView.Size = new System.Drawing.Size(1168, 501);
             this.logListView.TabIndex = 0;
             this.logListView.UseCompatibleStateImageBehavior = false;
             this.logListView.View = System.Windows.Forms.View.Details;
@@ -324,10 +327,11 @@
             // 
             this.searchMarkersPanelParent.Controls.Add(this.searchMarkerPanel);
             this.searchMarkersPanelParent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.searchMarkersPanelParent.Location = new System.Drawing.Point(1002, 0);
+            this.searchMarkersPanelParent.Location = new System.Drawing.Point(1168, 0);
+            this.searchMarkersPanelParent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.searchMarkersPanelParent.Name = "searchMarkersPanelParent";
-            this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.searchMarkersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.searchMarkersPanelParent.Padding = new System.Windows.Forms.Padding(0, 12, 0, 12);
+            this.searchMarkersPanelParent.Size = new System.Drawing.Size(12, 501);
             this.searchMarkersPanelParent.TabIndex = 8;
             this.searchMarkersPanelParent.Visible = false;
             // 
@@ -337,11 +341,12 @@
             this.searchMarkerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.searchMarkerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.searchMarkerPanel.Horizontal = false;
-            this.searchMarkerPanel.Location = new System.Drawing.Point(0, 10);
+            this.searchMarkerPanel.Location = new System.Drawing.Point(0, 12);
+            this.searchMarkerPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.searchMarkerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.searchMarkerPanel.Name = "searchMarkerPanel";
-            this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.searchMarkerPanel.Size = new System.Drawing.Size(10, 409);
+            this.searchMarkerPanel.Padding = new System.Windows.Forms.Padding(0, 24, 0, 24);
+            this.searchMarkerPanel.Size = new System.Drawing.Size(12, 477);
             this.searchMarkerPanel.TabIndex = 6;
             this.searchMarkerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
@@ -349,10 +354,11 @@
             // 
             this.markersPanelParent.Controls.Add(this.markerPanel);
             this.markersPanelParent.Dock = System.Windows.Forms.DockStyle.Right;
-            this.markersPanelParent.Location = new System.Drawing.Point(1012, 0);
+            this.markersPanelParent.Location = new System.Drawing.Point(1180, 0);
+            this.markersPanelParent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.markersPanelParent.Name = "markersPanelParent";
-            this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.markersPanelParent.Size = new System.Drawing.Size(10, 429);
+            this.markersPanelParent.Padding = new System.Windows.Forms.Padding(0, 12, 0, 12);
+            this.markersPanelParent.Size = new System.Drawing.Size(12, 501);
             this.markersPanelParent.TabIndex = 6;
             // 
             // markerPanel
@@ -361,20 +367,22 @@
             this.markerPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.markerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.markerPanel.Horizontal = false;
-            this.markerPanel.Location = new System.Drawing.Point(0, 10);
+            this.markerPanel.Location = new System.Drawing.Point(0, 12);
+            this.markerPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.markerPanel.MinimumSize = new System.Drawing.Size(0, 1);
             this.markerPanel.Name = "markerPanel";
-            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 21, 0, 21);
-            this.markerPanel.Size = new System.Drawing.Size(10, 409);
+            this.markerPanel.Padding = new System.Windows.Forms.Padding(0, 24, 0, 24);
+            this.markerPanel.Size = new System.Drawing.Size(12, 477);
             this.markerPanel.TabIndex = 6;
             this.markerPanel.MarkClick += new Scarfsail.Common.UI.Controls.MarkPanelClickEventHandler(this.markerPanel_MarkClick);
             // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 429);
+            this.splitter1.Location = new System.Drawing.Point(0, 501);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1022, 4);
+            this.splitter1.Size = new System.Drawing.Size(1192, 5);
             this.splitter1.TabIndex = 4;
             this.splitter1.TabStop = false;
             // 
@@ -385,10 +393,11 @@
             this.logMessageEdit.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.logMessageEdit.Enabled = false;
             this.logMessageEdit.HideSelection = false;
-            this.logMessageEdit.Location = new System.Drawing.Point(0, 433);
+            this.logMessageEdit.Location = new System.Drawing.Point(0, 506);
+            this.logMessageEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logMessageEdit.Name = "logMessageEdit";
             this.logMessageEdit.ReadOnly = true;
-            this.logMessageEdit.Size = new System.Drawing.Size(1022, 125);
+            this.logMessageEdit.Size = new System.Drawing.Size(1192, 144);
             this.logMessageEdit.TabIndex = 7;
             this.logMessageEdit.Text = "Open some log first ...";
             this.logMessageEdit.WordWrap = false;
@@ -397,9 +406,10 @@
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter2.Location = new System.Drawing.Point(0, 82);
+            this.splitter2.Location = new System.Drawing.Point(0, 95);
+            this.splitter2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(1022, 4);
+            this.splitter2.Size = new System.Drawing.Size(1192, 5);
             this.splitter2.TabIndex = 8;
             this.splitter2.TabStop = false;
             this.splitter2.Visible = false;
@@ -409,8 +419,9 @@
             this.sqlFilterPanel.Controls.Add(this.sqlFilterControl);
             this.sqlFilterPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.sqlFilterPanel.Location = new System.Drawing.Point(0, 0);
+            this.sqlFilterPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.sqlFilterPanel.Name = "sqlFilterPanel";
-            this.sqlFilterPanel.Size = new System.Drawing.Size(1022, 82);
+            this.sqlFilterPanel.Size = new System.Drawing.Size(1192, 95);
             this.sqlFilterPanel.TabIndex = 8;
             this.sqlFilterPanel.Visible = false;
             // 
@@ -418,8 +429,9 @@
             // 
             this.sqlFilterControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sqlFilterControl.Location = new System.Drawing.Point(0, 0);
+            this.sqlFilterControl.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.sqlFilterControl.Name = "sqlFilterControl";
-            this.sqlFilterControl.Size = new System.Drawing.Size(1022, 82);
+            this.sqlFilterControl.Size = new System.Drawing.Size(1192, 95);
             this.sqlFilterControl.TabIndex = 0;
             this.sqlFilterControl.WhereClause = "";
             // 
@@ -473,7 +485,7 @@
             this.otherButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(1022, 25);
+            this.toolStrip.Size = new System.Drawing.Size(1192, 25);
             this.toolStrip.TabIndex = 5;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -483,7 +495,7 @@
             this.openFileButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeNonexistingRecentFilesToolStripMenuItem,
             this.toolStripMenuItem3});
-            this.openFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Open;
+            this.openFileButton.Image = ((System.Drawing.Image)(resources.GetObject("openFileButton.Image")));
             this.openFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openFileButton.Name = "openFileButton";
             this.openFileButton.Size = new System.Drawing.Size(32, 22);
@@ -494,14 +506,14 @@
             // removeNonexistingRecentFilesToolStripMenuItem
             // 
             this.removeNonexistingRecentFilesToolStripMenuItem.Name = "removeNonexistingRecentFilesToolStripMenuItem";
-            this.removeNonexistingRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.removeNonexistingRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.removeNonexistingRecentFilesToolStripMenuItem.Text = "Remove  nonexisting recent files";
             this.removeNonexistingRecentFilesToolStripMenuItem.Click += new System.EventHandler(this.removeNonexistingRecentFilesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(241, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(242, 6);
             // 
             // showLogBrowserButton
             // 
@@ -517,7 +529,7 @@
             // 
             this.exportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.exportButton.Enabled = false;
-            this.exportButton.Image = global::AdvancedLogViewer.Properties.Resources.Save;
+            this.exportButton.Image = ((System.Drawing.Image)(resources.GetObject("exportButton.Image")));
             this.exportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(23, 22);
@@ -528,7 +540,7 @@
             // 
             this.openOtherPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.openOtherPartsButton.Enabled = false;
-            this.openOtherPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.LogParts;
+            this.openOtherPartsButton.Image = ((System.Drawing.Image)(resources.GetObject("openOtherPartsButton.Image")));
             this.openOtherPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openOtherPartsButton.Name = "openOtherPartsButton";
             this.openOtherPartsButton.Size = new System.Drawing.Size(32, 22);
@@ -539,9 +551,10 @@
             // 
             // starFileButton
             // 
+            this.starFileButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.starFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.starFileButton.Enabled = false;
-            this.starFileButton.Image = global::AdvancedLogViewer.Properties.Resources.Star_Gray;
+            this.starFileButton.Image = ((System.Drawing.Image)(resources.GetObject("starFileButton.Image")));
             this.starFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.starFileButton.Name = "starFileButton";
             this.starFileButton.Size = new System.Drawing.Size(23, 22);
@@ -555,9 +568,10 @@
             // 
             // mergeLogPartsButton
             // 
+            this.mergeLogPartsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.mergeLogPartsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mergeLogPartsButton.Enabled = false;
-            this.mergeLogPartsButton.Image = global::AdvancedLogViewer.Properties.Resources.Merge;
+            this.mergeLogPartsButton.Image = ((System.Drawing.Image)(resources.GetObject("mergeLogPartsButton.Image")));
             this.mergeLogPartsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.mergeLogPartsButton.Name = "mergeLogPartsButton";
             this.mergeLogPartsButton.Size = new System.Drawing.Size(23, 22);
@@ -572,7 +586,7 @@
             // otherInstancesButton
             // 
             this.otherInstancesButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.otherInstancesButton.Image = global::AdvancedLogViewer.Properties.Resources.InstancesManager;
+            this.otherInstancesButton.Image = ((System.Drawing.Image)(resources.GetObject("otherInstancesButton.Image")));
             this.otherInstancesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.otherInstancesButton.Name = "otherInstancesButton";
             this.otherInstancesButton.Size = new System.Drawing.Size(29, 22);
@@ -589,7 +603,7 @@
             // 
             this.openInTextEditorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.openInTextEditorButton.Enabled = false;
-            this.openInTextEditorButton.Image = global::AdvancedLogViewer.Properties.Resources.Notepad1;
+            this.openInTextEditorButton.Image = ((System.Drawing.Image)(resources.GetObject("openInTextEditorButton.Image")));
             this.openInTextEditorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openInTextEditorButton.Name = "openInTextEditorButton";
             this.openInTextEditorButton.Size = new System.Drawing.Size(23, 22);
@@ -610,7 +624,7 @@
             this.editConfigFileDirectlyToolStripMenuItem,
             this.configureLogAdjusterForThisLogFileToolStripMenuItem});
             this.logAdjusterButton.Enabled = false;
-            this.logAdjusterButton.Image = global::AdvancedLogViewer.Properties.Resources.LogAdjust;
+            this.logAdjusterButton.Image = ((System.Drawing.Image)(resources.GetObject("logAdjusterButton.Image")));
             this.logAdjusterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.logAdjusterButton.Name = "logAdjusterButton";
             this.logAdjusterButton.Size = new System.Drawing.Size(29, 22);
@@ -644,7 +658,7 @@
             // 
             this.refreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.refreshButton.Enabled = false;
-            this.refreshButton.Image = global::AdvancedLogViewer.Properties.Resources.refresh16_transparent;
+            this.refreshButton.Image = ((System.Drawing.Image)(resources.GetObject("refreshButton.Image")));
             this.refreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(23, 22);
@@ -672,7 +686,7 @@
             // 
             this.bookmarkButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.bookmarkButton.Enabled = false;
-            this.bookmarkButton.Image = global::AdvancedLogViewer.Properties.Resources.Bookmark;
+            this.bookmarkButton.Image = ((System.Drawing.Image)(resources.GetObject("bookmarkButton.Image")));
             this.bookmarkButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bookmarkButton.Name = "bookmarkButton";
             this.bookmarkButton.Size = new System.Drawing.Size(32, 22);
@@ -690,7 +704,7 @@
             // 
             this.goToItemButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.goToItemButton.Enabled = false;
-            this.goToItemButton.Image = global::AdvancedLogViewer.Properties.Resources.Goto;
+            this.goToItemButton.Image = ((System.Drawing.Image)(resources.GetObject("goToItemButton.Image")));
             this.goToItemButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.goToItemButton.Name = "goToItemButton";
             this.goToItemButton.Size = new System.Drawing.Size(23, 22);
@@ -701,7 +715,7 @@
             // 
             this.findButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.findButton.Enabled = false;
-            this.findButton.Image = global::AdvancedLogViewer.Properties.Resources.Find;
+            this.findButton.Image = ((System.Drawing.Image)(resources.GetObject("findButton.Image")));
             this.findButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findButton.Name = "findButton";
             this.findButton.Size = new System.Drawing.Size(23, 22);
@@ -718,7 +732,7 @@
             // 
             this.showOnlyNewItemsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.showOnlyNewItemsButton.Enabled = false;
-            this.showOnlyNewItemsButton.Image = global::AdvancedLogViewer.Properties.Resources.Erase;
+            this.showOnlyNewItemsButton.Image = ((System.Drawing.Image)(resources.GetObject("showOnlyNewItemsButton.Image")));
             this.showOnlyNewItemsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showOnlyNewItemsButton.Name = "showOnlyNewItemsButton";
             this.showOnlyNewItemsButton.Size = new System.Drawing.Size(23, 22);
@@ -730,7 +744,7 @@
             // 
             this.sqlFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.sqlFilterButton.Enabled = false;
-            this.sqlFilterButton.Image = global::AdvancedLogViewer.Properties.Resources.SqlFilter;
+            this.sqlFilterButton.Image = ((System.Drawing.Image)(resources.GetObject("sqlFilterButton.Image")));
             this.sqlFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.sqlFilterButton.Name = "sqlFilterButton";
             this.sqlFilterButton.Size = new System.Drawing.Size(23, 22);
@@ -743,7 +757,7 @@
             this.enableFiltersButton.CheckOnClick = true;
             this.enableFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.enableFiltersButton.Enabled = false;
-            this.enableFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.Filter;
+            this.enableFiltersButton.Image = ((System.Drawing.Image)(resources.GetObject("enableFiltersButton.Image")));
             this.enableFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enableFiltersButton.Name = "enableFiltersButton";
             this.enableFiltersButton.Size = new System.Drawing.Size(23, 22);
@@ -754,7 +768,7 @@
             // 
             this.manageFiltersButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.manageFiltersButton.Enabled = false;
-            this.manageFiltersButton.Image = global::AdvancedLogViewer.Properties.Resources.FilterSettings;
+            this.manageFiltersButton.Image = ((System.Drawing.Image)(resources.GetObject("manageFiltersButton.Image")));
             this.manageFiltersButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manageFiltersButton.Name = "manageFiltersButton";
             this.manageFiltersButton.Size = new System.Drawing.Size(23, 22);
@@ -771,7 +785,7 @@
             this.enableHighlightsButton.CheckOnClick = true;
             this.enableHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.enableHighlightsButton.Enabled = false;
-            this.enableHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.Highlight;
+            this.enableHighlightsButton.Image = ((System.Drawing.Image)(resources.GetObject("enableHighlightsButton.Image")));
             this.enableHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.enableHighlightsButton.Name = "enableHighlightsButton";
             this.enableHighlightsButton.Size = new System.Drawing.Size(23, 22);
@@ -782,7 +796,7 @@
             // 
             this.manageHighlightsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.manageHighlightsButton.Enabled = false;
-            this.manageHighlightsButton.Image = global::AdvancedLogViewer.Properties.Resources.HighlightSettings;
+            this.manageHighlightsButton.Image = ((System.Drawing.Image)(resources.GetObject("manageHighlightsButton.Image")));
             this.manageHighlightsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manageHighlightsButton.Name = "manageHighlightsButton";
             this.manageHighlightsButton.Size = new System.Drawing.Size(23, 22);
@@ -798,7 +812,7 @@
             // 
             this.textDiffButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.textDiffButton.Enabled = false;
-            this.textDiffButton.Image = global::AdvancedLogViewer.Properties.Resources.TextDiff;
+            this.textDiffButton.Image = ((System.Drawing.Image)(resources.GetObject("textDiffButton.Image")));
             this.textDiffButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.textDiffButton.Name = "textDiffButton";
             this.textDiffButton.Size = new System.Drawing.Size(23, 22);
@@ -816,7 +830,7 @@
             this.showHideBottomPane.CheckOnClick = true;
             this.showHideBottomPane.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showHideBottomPane.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showHideBottomPane.Image = global::AdvancedLogViewer.Properties.Resources.ShowHideBottomPane;
+            this.showHideBottomPane.Image = ((System.Drawing.Image)(resources.GetObject("showHideBottomPane.Image")));
             this.showHideBottomPane.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.showHideBottomPane.Name = "showHideBottomPane";
             this.showHideBottomPane.Size = new System.Drawing.Size(23, 22);
@@ -925,12 +939,12 @@
             this.pluginsNotFoundToolStripMenuItem});
             this.pluginsContextMenu.Name = "pluginsContextMenu";
             this.pluginsContextMenu.OwnerItem = this.pluginsMenuItem;
-            this.pluginsContextMenu.Size = new System.Drawing.Size(205, 26);
+            this.pluginsContextMenu.Size = new System.Drawing.Size(204, 26);
             // 
             // pluginsNotFoundToolStripMenuItem
             // 
             this.pluginsNotFoundToolStripMenuItem.Name = "pluginsNotFoundToolStripMenuItem";
-            this.pluginsNotFoundToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.pluginsNotFoundToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.pluginsNotFoundToolStripMenuItem.Text = "There are no any plugins";
             this.pluginsNotFoundToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.pluginsNotFoundToolStripMenuItem.Click += new System.EventHandler(this.pluginsNotFoundToolStripMenuItem_Click);
@@ -1021,14 +1035,14 @@
             // 
             // timeSpanBetweenTwoItems
             // 
-            this.timeSpanBetweenTwoItems.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.timeSpanBetweenTwoItems.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.timeSpanBetweenTwoItems.Name = "timeSpanBetweenTwoItems";
             this.timeSpanBetweenTwoItems.Size = new System.Drawing.Size(10, 17);
             this.timeSpanBetweenTwoItems.Text = " ";
             // 
             // checkForUpdatesStatus
             // 
-            this.checkForUpdatesStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkForUpdatesStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkForUpdatesStatus.Name = "checkForUpdatesStatus";
             this.checkForUpdatesStatus.Size = new System.Drawing.Size(10, 17);
             this.checkForUpdatesStatus.Text = " ";
@@ -1049,10 +1063,11 @@
             this.logLoadingErrorsStatus,
             this.parserPatternToolStripStatus});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(0, 669);
+            this.statusStrip.Location = new System.Drawing.Point(0, 775);
             this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.statusStrip.ShowItemToolTips = true;
-            this.statusStrip.Size = new System.Drawing.Size(1022, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1192, 22);
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -1067,43 +1082,42 @@
             this.copyToClipboardToolStripMenuItem,
             this.saveToFileToolStripMenuItem});
             this.extractMessageContentButton.Enabled = false;
-            this.extractMessageContentButton.Image = global::AdvancedLogViewer.Properties.Resources.ExtractMessageContent;
             this.extractMessageContentButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.extractMessageContentButton.Name = "extractMessageContentButton";
-            this.extractMessageContentButton.Size = new System.Drawing.Size(32, 20);
+            this.extractMessageContentButton.Size = new System.Drawing.Size(16, 20);
             this.extractMessageContentButton.Text = "Extract message content";
             this.extractMessageContentButton.ButtonClick += new System.EventHandler(this.extractMessageContentButton_ButtonClick);
             // 
             // configureToolStripMenuItem
             // 
             this.configureToolStripMenuItem.Name = "configureToolStripMenuItem";
-            this.configureToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.configureToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.configureToolStripMenuItem.Text = "Configure";
             this.configureToolStripMenuItem.Click += new System.EventHandler(this.configureToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(219, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(220, 6);
             // 
             // openInDefaultApplicationToolStripMenuItem
             // 
             this.openInDefaultApplicationToolStripMenuItem.Name = "openInDefaultApplicationToolStripMenuItem";
-            this.openInDefaultApplicationToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.openInDefaultApplicationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.openInDefaultApplicationToolStripMenuItem.Text = "Open in external application";
             this.openInDefaultApplicationToolStripMenuItem.Click += new System.EventHandler(this.openInDefaultApplicationToolStripMenuItem_Click);
             // 
             // copyToClipboardToolStripMenuItem
             // 
             this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
-            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.copyToClipboardToolStripMenuItem.Text = "Copy to clipboard";
             this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
             // 
             // saveToFileToolStripMenuItem
             // 
             this.saveToFileToolStripMenuItem.Name = "saveToFileToolStripMenuItem";
-            this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.saveToFileToolStripMenuItem.Text = "Save to file";
             this.saveToFileToolStripMenuItem.Click += new System.EventHandler(this.saveToFileToolStripMenuItem_Click);
             // 
@@ -1122,13 +1136,14 @@
             // MainForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 691);
+            this.ClientSize = new System.Drawing.Size(1192, 797);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advanced Log Viewer";
