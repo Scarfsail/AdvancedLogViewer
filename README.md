@@ -3,9 +3,9 @@ Free Log Viewer for easy & powerful log viewing.
 
 ## Download
 <!--GENERATED LINKS BEGIN-->
-You can download the latest release **9.0.2**:
-* MSI Installer: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.msi) or [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.msi)
-* Portable ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.zip) or [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.zip)
+You can download the latest release **9.1.0**:
+* MSI Installer: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.msi) or [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.msi)
+* Portable ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.zip) or [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.zip)
 <!--GENERATED LINKS END-->
 **Note: Version 9.x is built in .NET 5 as [self-contained](https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained) application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries.**
 

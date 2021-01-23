@@ -1,3 +1,8 @@
+## 9.1.0 - 2021-01-23
+###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.zip)
+#### Features
+* Feature request #24: Added support for tabs beside spaces in custom patterns. It's a new keyword $Tabs$. Also both the existing $Spaces$ and new one $Tabs$ are shown in the help below the edit box.
+* Feature request #19: Ability to show / hide context menu "Browse for Logs" in Windows Explorer. Option is in Settings->System Integration
 ## 9.0.2 - 2021-01-21
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.0.2/AdvancedLogViewer_9.0.2_win-x64.zip)
 #### Big features
