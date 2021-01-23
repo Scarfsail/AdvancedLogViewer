@@ -58,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.extDiffPathEdit = new System.Windows.Forms.TextBox();
             this.associateWithAlvCheckBox = new System.Windows.Forms.CheckBox();
+            this.showBrowseWithAlvCheckBox = new System.Windows.Forms.CheckBox();
             this.totalCmdStatusLabel = new System.Windows.Forms.Label();
             this.integrateWithTotalCmdCheckBox = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -416,6 +417,19 @@
             this.associateWithAlvCheckBox.Text = "Associate *.LOG files with this Advanced Log Viewer application.";
             this.associateWithAlvCheckBox.UseVisualStyleBackColor = true;
             // 
+            // showBrowseWithAlvCheckBox
+            // 
+            this.showBrowseWithAlvCheckBox.AutoSize = true;
+            this.showBrowseWithAlvCheckBox.Location = new System.Drawing.Point(17, 80);
+            this.showBrowseWithAlvCheckBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.showBrowseWithAlvCheckBox.Name = "showBrowseWithAlvCheckBox";
+            this.showBrowseWithAlvCheckBox.Size = new System.Drawing.Size(364, 19);
+            this.showBrowseWithAlvCheckBox.TabIndex = 6;
+            this.showBrowseWithAlvCheckBox.Text = "Show \"Browse for Logs\" in Windows Explorer's context menu on each folder.";
+            this.showBrowseWithAlvCheckBox.UseVisualStyleBackColor = true;
+
+            
+            // 
             // totalCmdStatusLabel
             // 
             this.totalCmdStatusLabel.AutoSize = true;
@@ -652,6 +666,7 @@
             // totalCmdTab
             // 
             this.totalCmdTab.Controls.Add(this.associateWithAlvCheckBox);
+            this.totalCmdTab.Controls.Add(this.showBrowseWithAlvCheckBox);            
             this.totalCmdTab.Controls.Add(this.totalCmdStatusLabel);
             this.totalCmdTab.Controls.Add(this.integrateWithTotalCmdCheckBox);
             this.totalCmdTab.ImageIndex = 1;
@@ -817,6 +832,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox extTextEditPathEdit;
         private System.Windows.Forms.CheckBox associateWithAlvCheckBox;
+        private System.Windows.Forms.CheckBox showBrowseWithAlvCheckBox;        
         private System.Windows.Forms.CheckBox showLogIconsCheckBox;
         private System.Windows.Forms.CheckBox messageWordWrapCheckBox;
         private System.Windows.Forms.Button DefaultFontButton;

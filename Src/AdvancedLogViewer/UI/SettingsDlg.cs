@@ -15,6 +15,8 @@ using AdvancedLogViewer.BL.FindText;
 using AdvancedLogViewer.BL.LogBrowser;
 using Scarfsail.Common.BL;
 using System.Reflection;
+using Microsoft.Win32;
+using AdvancedLogViewer.Common;
 
 namespace AdvancedLogViewer.UI
 {
@@ -24,6 +26,7 @@ namespace AdvancedLogViewer.UI
         TotalCmdIntegration totalCmd;
         LogBrowserSettings logBrowser;
         bool alvWasAssociated;
+        bool explorerContextMenuWasPresent;
         private static Scarfsail.Logging.Log log = new Scarfsail.Logging.Log();
 
         public SettingsDlg(AlvSettings alvSettings, bool firstTimeShown)
@@ -84,6 +87,17 @@ namespace AdvancedLogViewer.UI
             {
                 MessageBox.Show("Can't get information about associated application with LOG extension. Run ALV as Administrator.", "Administration rights required", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 associateWithAlvCheckBox.Enabled = false;
+            }
+            try
+            {
+                explorerContextMenuWasPresent = Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Classes\Folder\Shell\Browse for Logs\command", null, null) != null;
+                showBrowseWithAlvCheckBox.Checked = explorerContextMenuWasPresent;
+
+            }
+            catch
+            {
+                MessageBox.Show("Can't get information about explorer context menu. Run ALV as Administrator.", "Administration rights required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                showBrowseWithAlvCheckBox.Enabled = false;
             }
             this.automaticUpdateEnabledCheckBox.Checked = this.settings.AutomaticUpdates.EnableAutomaticCheck;
             this.automaticUpdateCheckPeriodEdit.Value = this.settings.AutomaticUpdates.CheckInterval;
@@ -178,12 +192,31 @@ namespace AdvancedLogViewer.UI
                 }
                 catch
                 {
-                    var msg = "Can'setassociation for the LOG extension. Run ALV as Administrator.";
+                    var msg = "Can'set association for the LOG extension. Run ALV as Administrator.";
                     MessageBox.Show(msg, "Administration rights required", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     log.Error(msg);
                 }
-
-
+            }
+            if (this.showBrowseWithAlvCheckBox.Enabled && this.showBrowseWithAlvCheckBox.Checked != explorerContextMenuWasPresent)
+            {
+                try
+                {
+                    if (this.showBrowseWithAlvCheckBox.Checked)
+                    {
+                        //C:\Program Files (x86)\AdvancedLogViewer\AdvancedLogViewer.exe "%1\\"
+                        Registry.SetValue(@"HKEY_CURRENT_USER\SOFTWARE\Classes\Folder\Shell\Browse for Logs\command","", $"{System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName} \"%1\\\\\"");
+                    }
+                    else
+                    {
+                        Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\Classes\Folder\Shell\Browse for Logs");
+                    }
+                }
+                catch (System.Exception)
+                {
+                    var msg = "Can'set explorer's context menu. Run ALV as Administrator.";
+                    MessageBox.Show(msg, "Administration rights required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    log.Error(msg);
+                }
             }
         }
 
