@@ -274,7 +274,7 @@
             // dateFormatEdit
             // 
             this.dateFormatEdit.HideSelection = false;
-            this.dateFormatEdit.Location = new System.Drawing.Point(12, 275);
+            this.dateFormatEdit.Location = new System.Drawing.Point(12, 305);
             this.dateFormatEdit.Name = "dateFormatEdit";
             this.dateFormatEdit.Size = new System.Drawing.Size(425, 20);
             this.dateFormatEdit.TabIndex = 11;
@@ -283,7 +283,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 259);
+            this.label3.Location = new System.Drawing.Point(9, 289);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 13);
             this.label3.TabIndex = 10;
@@ -337,7 +337,7 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(102, 247);
+            this.label5.Location = new System.Drawing.Point(102, 277);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(347, 27);
             this.label5.TabIndex = 15;
@@ -361,10 +361,10 @@
             this.columnHeader4});
             this.dateFormatPatternsListView.FullRowSelect = true;
             this.dateFormatPatternsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.dateFormatPatternsListView.Location = new System.Drawing.Point(12, 295);
+            this.dateFormatPatternsListView.Location = new System.Drawing.Point(12, 325);
             this.dateFormatPatternsListView.MultiSelect = false;
             this.dateFormatPatternsListView.Name = "dateFormatPatternsListView";
-            this.dateFormatPatternsListView.Size = new System.Drawing.Size(425, 166);
+            this.dateFormatPatternsListView.Size = new System.Drawing.Size(425, 136);
             this.dateFormatPatternsListView.TabIndex = 14;
             this.dateFormatPatternsListView.UseCompatibleStateImageBehavior = false;
             this.dateFormatPatternsListView.View = System.Windows.Forms.View.Details;
@@ -390,7 +390,7 @@
             this.patternTextPatternsListView.Location = new System.Drawing.Point(12, 132);
             this.patternTextPatternsListView.MultiSelect = false;
             this.patternTextPatternsListView.Name = "patternTextPatternsListView";
-            this.patternTextPatternsListView.Size = new System.Drawing.Size(425, 107);
+            this.patternTextPatternsListView.Size = new System.Drawing.Size(425, 137);
             this.patternTextPatternsListView.TabIndex = 13;
             this.patternTextPatternsListView.UseCompatibleStateImageBehavior = false;
             this.patternTextPatternsListView.View = System.Windows.Forms.View.Details;

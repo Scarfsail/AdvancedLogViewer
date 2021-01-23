@@ -194,8 +194,10 @@ namespace AdvancedLogViewer.Common.Parser
 
                                     string value = line.Substring(prevPos, pos - prevPos);
 
-                                    if (patternItem.DoLTrim)
+                                    if (patternItem.DoLTrimSpaces)
                                         value = value.TrimStart(new char[] { ' ' });
+                                    if (patternItem.DoLTrimTabs)
+                                        value = value.TrimStart(new char[] { '\t' });
 
                                     bool valueSaved;
                                     if (patternItem.ItemType != PatternItemType.Custom)

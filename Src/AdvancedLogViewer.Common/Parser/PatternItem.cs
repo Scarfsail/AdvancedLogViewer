@@ -10,7 +10,8 @@ namespace AdvancedLogViewer.Common.Parser
         public PatternItemType ItemType;
         public string EndsWith;
         public string StartsWith;
-        public bool DoLTrim;
+        public bool DoLTrimSpaces;
+        public bool DoLTrimTabs;
         public string CustomFieldKey;
 
         public override string ToString()

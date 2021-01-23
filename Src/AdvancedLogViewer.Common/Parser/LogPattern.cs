@@ -63,7 +63,7 @@ namespace AdvancedLogViewer.Common.Parser
             this.PatternText = "{Date} {Time} {Message}";
             this.DateTimeFormat = "";
         }
-        
+
         public LogPattern(string fileMask, string patternText, string dateTimeFormat)
         {
             this.FileMask = fileMask;
@@ -155,6 +155,7 @@ namespace AdvancedLogViewer.Common.Parser
                 PatternItem patternEntry = null;
                 string text = String.Empty;
                 bool spaces = false;
+                bool tabs = false;
                 List<PatternItem> patternItemsList = new List<PatternItem>();
 
                 this.ContainsThread = false;
@@ -174,6 +175,12 @@ namespace AdvancedLogViewer.Common.Parser
                             text = " ";
                             spaces = true;
                         }
+                        else
+                        if (text == "$Tabs$")
+                        {
+                            text = "\t";
+                            tabs = true;
+                        }
 
                         PatternItem previousPatternEntry = patternEntry;
                         patternEntry = new PatternItem();
@@ -183,8 +190,10 @@ namespace AdvancedLogViewer.Common.Parser
                         else
                             patternEntry.StartsWith = text;
 
-                        patternEntry.DoLTrim = spaces;
+                        patternEntry.DoLTrimSpaces = spaces;
+                        patternEntry.DoLTrimTabs = tabs;
                         spaces = false;
+                        tabs = false;
 
                         text = String.Empty;
                         continue;
@@ -245,24 +254,24 @@ namespace AdvancedLogViewer.Common.Parser
                 formatString = formatString.Replace("{Time}", "{0}");
             else
                 if (timeIdx == -1)
-                    formatString = formatString.Replace("{Date}", "{0}");
+                formatString = formatString.Replace("{Date}", "{0}");
+            else
+            {
+                int idxA;
+                int idxB;
+                if (dateIdx < timeIdx)
+                {
+                    idxA = dateIdx;
+                    idxB = timeIdx + "{Time}".Length - 1;
+                }
                 else
                 {
-                    int idxA;
-                    int idxB;
-                    if (dateIdx < timeIdx)
-                    {
-                        idxA = dateIdx;
-                        idxB = timeIdx + "{Time}".Length - 1;
-                    }
-                    else
-                    {
-                        idxA = timeIdx;
-                        idxB = dateIdx + "{Date}".Length - 1;
-                    }
-                    formatString = formatString.Remove(idxA, (idxB - idxA + 1));
-                    formatString = formatString.Insert(idxA, "{0}");
+                    idxA = timeIdx;
+                    idxB = dateIdx + "{Date}".Length - 1;
                 }
+                formatString = formatString.Remove(idxA, (idxB - idxA + 1));
+                formatString = formatString.Insert(idxA, "{0}");
+            }
 
             wholeEntryFormat = formatString.Replace("{Thread}", "{1}").Replace("{Type}", "{2}").Replace("{Class}", "{3}").Replace("{Message}", "{4}");
             headerFormat = wholeEntryFormat.Replace("{4}", Environment.NewLine);
@@ -289,7 +298,7 @@ namespace AdvancedLogViewer.Common.Parser
                     {
                         string[] formats = value.TrimStart('{').TrimEnd('}').Split(new string[] { "};{" }, StringSplitOptions.RemoveEmptyEntries);
                         this.PrimaryDateTimeFormat = formats[0];
-                        this.AdditionalDateTimeFormats = formats.Skip(1).ToArray(); 
+                        this.AdditionalDateTimeFormats = formats.Skip(1).ToArray();
 
                     }
                     else

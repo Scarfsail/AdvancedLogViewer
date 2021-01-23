@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="9.1.0" date="2021-01-23">
+    <Feature>Based on feature request #24: Added support for tabs beside spaces in custom patterns. It's a new keyword $Tabs$. Also both the existing $Spaces$ and new one $Tabs$ are shown in the help below the edit box.</Feature>    
+  </Version>
   <Version version="9.0.2" date="2021-01-21">
     <BigFeature>This is the first version built in .NET 5 as self-contained application. Thus it doesn't need any .NET framework to be installed on the target machine. Because of that, the app is compiled for both x86 and x64 environments with appropriate embedded framework inside. This change increased installer size to ~20 MB but benefit of not requiring installed specific .NET framework won over the increased size of binaries. There is visible performance boost mainly on bigger logs thanks to improvements in .NET 5.</BigFeature>
     <Fix>Fixed various bugs related to enabled UAC causing crashes of ALV.</Fix>
-    <Change>All setting and log files are now in Users\{CurrentUser}\AppData\Roaming\AdvancedLogViewer instead of \ProgramData\AdvancedLogViewer. This allows to run ALV even with restricted UAC without need to run app as administrator.</Change>    
+    <Change>All setting and log files are now in Users\{CurrentUser}\AppData\Roaming\AdvancedLogViewer instead of \ProgramData\AdvancedLogViewer. This allows to run ALV even with restricted UAC without need to run app as administrator.</Change>
     <Change>Serilog is used for ALV internal logging instead of log4net. It brings slightly better performance during logging .</Change>
     <Change>Settings page is in standard WinForm instead of WPF which brings better performance and less 3rd party WPF libraries only because of that one page.</Change>
   </Version>

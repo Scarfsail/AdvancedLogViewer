@@ -80,7 +80,10 @@ namespace AdvancedLogViewer.UI
             {
                 this.patternTextPatternsListView.Items.Add(new ListViewItem(new string[] { item.Key, item.Value }));
             }
-            
+            this.patternTextPatternsListView.Items.Add(new ListViewItem(new string[] { "$Spaces$", "One or more spaces (0x20)" }));
+            this.patternTextPatternsListView.Items.Add(new ListViewItem(new string[] { "$Tabs$", "One or more tabs (0x09)" }));
+
+
             foreach (var item in this.dateFormatElements)
             {
                 this.dateFormatPatternsListView.Items.Add(new ListViewItem(new string[] { item.Key, item.Value }));
