@@ -1,0 +1,36 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+                 
+    - name: Restore dependencies
+      run: dotnet restore dirs.proj
+      
+    - name: Build
+      run: dotnet build --no-restore --configuration Release dirs.proj
+      
+    - name: Test
+      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults dirs.proj
+
+    - name: Capture Test Results
+      uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: TestResults
+        path: TestResults/
