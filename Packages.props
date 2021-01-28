@@ -12,6 +12,7 @@
     <PackageReference Update="Microsoft.Net.Test.SDK" Version="16.8.3" />
     <PackageReference Update="Microsoft.Build.Framework" Version="16.8.0" />
     <PackageReference Update="Microsoft.Build.Utilities.Core" Version="16.8.0" />
+    <PackageReference Update="GitHubActionsTestLogger" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup Label="System.* dependencies">

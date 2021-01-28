@@ -27,7 +27,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release dirs.proj
       
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults dirs.proj
+      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --logger GitHubActions --results-directory ./TestResults dirs.proj
 
     - name: Capture Test Results
       uses: actions/upload-artifact@v2
@@ -35,12 +35,3 @@ jobs:
       with:
         name: TestResults
         path: TestResults/
-        
-    - name: Unit tests report
-      uses: zyborg/dotnet-tests-report@v1
-      if: always()
-      with:
-         test_results_path: ./TestResults
-         report_name: alv_tests
-         report_title: ALV Tests
-         github_token: ${{ secrets.GITHUB_TOKEN }}
