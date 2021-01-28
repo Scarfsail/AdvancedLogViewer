@@ -27,7 +27,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release dirs.proj
       
     - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --logger GitHubActions --results-directory ./TestResults dirs.proj
+      run: dotnet test --logger GitHubActions dirs.proj
 
     - name: Capture Test Results
       uses: actions/upload-artifact@v2
