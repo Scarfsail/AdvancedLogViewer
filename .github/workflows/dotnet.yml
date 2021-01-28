@@ -34,3 +34,12 @@ jobs:
       with:
         name: TestResults
         path: TestResults/
+        
+    - name: Unit tests report
+      uses: zyborg/dotnet-tests-report@v1
+      if: always()
+      with:
+         test_results_path: ./TestResults
+         report_name: alv_tests
+         report_title: ALV Tests
+         github_token: ${{ secrets.GITHUB_TOKEN }}
