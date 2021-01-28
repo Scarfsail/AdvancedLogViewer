@@ -12,6 +12,7 @@ namespace Scarfsail.Common.Utils
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = url;
+            process.StartInfo.UseShellExecute = true;
             process.Start();
         }
 
