@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="GitHubActionsTestLogger" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LinqStatistics\LinqStatistics.csproj"/>
   </ItemGroup>
 </Project>
