@@ -4,7 +4,7 @@ using System.Globalization;
 using NUnit.Framework;
 
 namespace AdvancedLogViewer.Common.Tests
-{      
+{
     /// <summary>
     ///This is a test class for LogEntryTest and is intended
     ///to contain all LogEntryTest Unit Tests
@@ -12,6 +12,12 @@ namespace AdvancedLogViewer.Common.Tests
     [TestFixture]
     public class LogEntryTest
     {
+        [Test]
+        public void ThisWillBeFailingTest()
+        {
+            Assert.AreEqual(1, 2);
+        }
+
         /// <summary>
         ///A test for ParseDate
         ///</summary>
@@ -62,14 +68,14 @@ namespace AdvancedLogViewer.Common.Tests
             Assert.AreEqual(value, target.Class);
 
 
-            value = "30.10.1981";            
+            value = "30.10.1981";
             Assert.IsTrue(target.SaveValue(PatternItemType.Date, value));
             Assert.AreEqual(value, target.DateText);
-            
+
             string value2 = "10:11:12,123";
             Assert.IsTrue(target.SaveValue(PatternItemType.Time, value2));
             Assert.AreEqual(value + " " + value2, target.DateText);
-            
+
             string dateFormat = "dd.MM.yyyy HH:mm:ss,fff";
             Assert.IsTrue(target.ParseDate(dateFormat, null));
             Assert.AreEqual(DateTime.ParseExact(value + " " + value2, dateFormat, CultureInfo.InvariantCulture), target.Date);
@@ -78,7 +84,7 @@ namespace AdvancedLogViewer.Common.Tests
             value = "Some message";
             Assert.IsTrue(target.SaveValue(PatternItemType.Message, value));
             Assert.AreEqual(value, target.Message);
-            
+
             value2 = "Second part of message";
             Assert.IsTrue(target.SaveValue(PatternItemType.Message, value2));
             Assert.AreEqual(value + value2, target.Message);
@@ -100,7 +106,7 @@ namespace AdvancedLogViewer.Common.Tests
 
         [Test]
         [TestCase("WRN", LogType.WARN)]
-        [TestCase("INF",LogType.INFO)]
+        [TestCase("INF", LogType.INFO)]
         [TestCase("DBG", LogType.DEBUG)]
         [TestCase("FTL", LogType.FATAL)]
         [TestCase("TRC", LogType.TRACE)]
