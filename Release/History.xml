@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
+  <Version version="9.1.1" date="2021-01-28">
+    <Fix>Application icon disappered since version 9.0.2. Thanks martin-lacina-swi for fixing this bug in #27.</Fix>
+    <Fix>Clicking on url links inside the app raised unhandled exception since 9.0.2. Thanks 7rakir for fixing this bug in #26.</Fix>
+  </Version>
   <Version version="9.1.0" date="2021-01-23">
     <Feature>Feature request #24: Added support for tabs beside spaces in custom patterns. It's a new keyword $Tabs$. Also both the existing $Spaces$ and new one $Tabs$ are shown in the help below the edit box.</Feature>    
     <Feature>Feature request #19: Ability to show / hide context menu "Browse for Logs" in Windows Explorer. Option is in Settings->System Integration</Feature>

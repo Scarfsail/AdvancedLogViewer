@@ -1,3 +1,8 @@
+## 9.1.1 - 2021-01-28
+###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.zip)
+#### Fixes
+* Application icon disappered since version 9.0.2. Thanks martin-lacina-swi for fixing this bug in #27.
+* Clicking on url links inside the app raised unhandled exception since 9.0.2. Thanks 7rakir for fixing this bug in #26.
 ## 9.1.0 - 2021-01-23
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.0/AdvancedLogViewer_9.1.0_win-x64.zip)
 #### Features
