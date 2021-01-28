@@ -29,9 +29,5 @@
   <PropertyGroup Condition="'$(CI)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-  
-  <ItemGroup Condition="'$(IncludeJunitTestLogger)'=='true'">
-    <PackageReference Include="JunitXml.TestLogger"/>
-  </ItemGroup>
 
 </Project>
