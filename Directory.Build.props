@@ -29,9 +29,4 @@
   <PropertyGroup Condition="'$(CI)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="GitHubActionsTestLogger" />
-  </ItemGroup>
-
 </Project>
