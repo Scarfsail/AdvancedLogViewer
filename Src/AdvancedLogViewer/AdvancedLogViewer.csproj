@@ -8,6 +8,7 @@
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <TrimMode>link</TrimMode>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <ApplicationIcon>Resources\MainFile32.ico</ApplicationIcon>
     <!--
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>true</SelfContained>
