@@ -27,11 +27,19 @@ jobs:
       run: dotnet build --no-restore --configuration Release dirs.proj
       
     - name: Test
-      run: dotnet test --logger GitHubActions dirs.proj
+      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults dirs.proj
 
+    - name: Parse Trx files
+      uses: NasAmin/trx-parser@v0.0.5
+      id: trx-parser
+      with:
+          TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
+    
     - name: Capture Test Results
       uses: actions/upload-artifact@v2
       if: always()
       with:
         name: TestResults
         path: TestResults/
+        
