@@ -12,11 +12,6 @@ namespace AdvancedLogViewer.Common.Tests
     [TestFixture]
     public class PatternManagerTest
     {
-        [Test]
-        public void AnotherFailingTest()
-        {
-            Assert.AreEqual(5, 2);
-        }
         /// <summary>
         ///A test for ParseDate
         ///</summary>
