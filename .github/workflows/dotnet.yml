@@ -30,9 +30,13 @@ jobs:
       run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults dirs.proj
 
     - name: Parse Trx files
-      uses: NasAmin/trx-parser@v0.0.5
+      uses: OSalplachtaSW/trx-parser@0.0.10
       id: trx-parser
       if: always()
+      with:
+          TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT_ONLY_FAILED: true
       with:
           TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
