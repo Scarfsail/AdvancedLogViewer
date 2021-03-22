@@ -12,12 +12,6 @@ namespace AdvancedLogViewer.Common.Tests
     [TestFixture]
     public class LogEntryTest
     {
-        [Test]
-        public void ThisWillBeFailingTest()
-        {
-            Assert.AreEqual(1, 2); //
-        }
-
         /// <summary>
         ///A test for ParseDate
         ///</summary>
