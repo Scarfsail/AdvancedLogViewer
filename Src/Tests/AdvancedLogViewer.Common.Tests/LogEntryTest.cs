@@ -15,7 +15,7 @@ namespace AdvancedLogViewer.Common.Tests
         [Test]
         public void ThisWillBeFailingTest()
         {
-            Assert.AreEqual(1, 2);
+            Assert.AreEqual(1, 2); //
         }
 
         /// <summary>
