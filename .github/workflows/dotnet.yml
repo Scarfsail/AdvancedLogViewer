@@ -37,9 +37,6 @@ jobs:
           TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPORT_ONLY_FAILED: true
-      with:
-          TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
     
     - name: Capture Test Results
       uses: actions/upload-artifact@v2
