@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
   <Version version="10.0.1" date="2022-12-22">
-    <Feature>Application updated from .NET 5 to .NET 7. Also all dependencies updated to latest versions.</Feature>
+    <Feature>Application updated from .NET 5 to .NET 7. Besides all the good what .NET 7 brings, there is an issue with trimming (reducing final size of the app) of winform applications. This caused increase in the both installer and installed app.</Feature>
   </Version>
   <Version version="9.1.1" date="2021-01-28">
     <Fix>Application icon disappered since version 9.0.2. Thanks martin-lacina-swi for fixing this bug in #27.</Fix>
