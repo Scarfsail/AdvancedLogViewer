@@ -32,20 +32,22 @@ namespace ScarfSail.MSBuild.Tasks
                 var latestVersion = history.SelectNodes("History/Version").Item(0);
                 var readmeMd = File.ReadAllText(this.ReadmeMd);
                 string version = latestVersion.Attributes["version"].InnerText;
-                var pattern = "(?<=<!--GENERATED LINKS BEGIN-->\n)([\\s\\S]*)(?=\n<!--GENERATED LINKS END-->)";
+                var pattern = "(?s)<!--GENERATED LINKS BEGIN-->(.*?)<!--GENERATED LINKS END-->";
                 if (!Regex.Match(readmeMd, pattern).Success)
                 {
                     base.Log.LogError("The readme.md doesn't contain following regex pattern: " + pattern, null);
                     return false;
                 }
                 var versionText =
-                    $"You can download the latest release **{version}**:\n" +
+                    $"<!--GENERATED LINKS BEGIN-->" +
+                    "You can download the latest release **{version}**:\n" +
                     "* MSI Installer: " +
                     $"[x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x86.msi) or " +
                     $"[x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x64.msi)" +
                     "\n* Portable ZIP: " +
                     $"[x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x86.zip) or " +
-                    $"[x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x64.zip)";
+                    $"[x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/{version}/AdvancedLogViewer_{version}_win-x64.zip)" +
+                    "<!--GENERATED LINKS END-->";
 
                 readmeMd = Regex.Replace(readmeMd, pattern, versionText);
 

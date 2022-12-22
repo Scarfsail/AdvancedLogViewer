@@ -15,3 +15,4 @@ sql/
 /Src/Tests/AdvancedLogViewer.Common.Tests/bin/
 /Src/Tests/AdvancedLogViewer.Common.Tests/obj/
 /Build/Installer/out/**
+/**/.vs/

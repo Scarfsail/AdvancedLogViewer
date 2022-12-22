@@ -1,3 +1,7 @@
+## 10.0.1 - 2022-12-22
+###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.zip)
+#### Features
+* Application updated from .NET 5 to .NET 7. Also all dependencies updated to latest versions.
 ## 9.1.1 - 2021-01-28
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.zip)
 #### Fixes
