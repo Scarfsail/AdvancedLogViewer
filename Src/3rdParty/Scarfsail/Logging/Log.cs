@@ -44,7 +44,7 @@ namespace Scarfsail.Logging
 
         public Log()
         {
-            this.logger = Serilog.Log.Logger.ForContext("ClassName", GetCallerMethod()?.DeclaringType?.ToString() ?? "Caller method not found.");
+            this.logger = Serilog.Log.Logger.ForContext("ClassName", "");
         }
 
         public static string? LogFilePath { get; private set; }
@@ -103,13 +103,6 @@ namespace Scarfsail.Logging
 
         public bool IsVerboseEnabled => this.logger.IsEnabled(LogEventLevel.Verbose);
 
-
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static MethodBase? GetCallerMethod()
-        {
-            return new StackFrame(2, false).GetMethod();
-        }
 
         private static string ComposeMessage(string msg)
         {

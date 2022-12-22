@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Net.Test.SDK" />
-    <PackageReference Include="NUnit"/>
-    <PackageReference Include="NUnit3TestAdapter"/>
+    <PackageReference Include="Microsoft.Net.Test.SDK" Version="17.4.1" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AdvancedLogViewer.Common\AdvancedLogViewer.Common.csproj"/>
+    <ProjectReference Include="..\..\AdvancedLogViewer.Common\AdvancedLogViewer.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestData\Logs\AllColumns.log">

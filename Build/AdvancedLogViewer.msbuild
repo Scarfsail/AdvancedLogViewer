@@ -42,7 +42,7 @@
 
   <Target Name="BuildApplication">
     <Message Text="Building Application: %(AppProject.Filename)" />
-    <Exec Command="dotnet publish %(AppProject.FullPath) -p:Configuration=Release -p:SelfContained=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:CopyOutputSymbolsToOutputDirectory=false -p:CopyOutputSymbolsToPublishDirectory=false --runtime $(Runtime) --output $(PublishPath)" />
+    <Exec Command="dotnet publish %(AppProject.FullPath) -p:Configuration=Release -p:SelfContained=true -p:PublishSingleFile=true -p:PublishTrimmed=false -p:CopyOutputSymbolsToOutputDirectory=false -p:CopyOutputSymbolsToPublishDirectory=false --runtime $(Runtime) --output $(PublishPath)" />
   </Target>
 
   <Target Name="BuildMsi">
