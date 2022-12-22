@@ -850,21 +850,8 @@ namespace AdvancedLogViewer.UI
 
                             //Load file names of other parts of the log
                             this.openOtherPartsButton.DropDown.Items.Clear();
-                            foreach (string fileName in this.logParser.AllLogPartsFileNames)
-                            {
-                                string onlyFileName = Path.GetFileName(fileName);
-
-                                ToolStripMenuItem openItem = new ToolStripMenuItem(onlyFileName);
-                                openItem.Click += new EventHandler(openOtherLogsItem_Click);
-                                openItem.Tag = fileName;
-                                this.openOtherPartsButton.DropDown.Items.Add(openItem);
-
-                                if (fileName.Equals(this.logParser.LogFileName))
-                                {
-                                    openItem.Enabled = false;
-                                    openItem.Font = new Font(openItem.Font, FontStyle.Bold);
-                                }
-                            }
+                            var items = GetOtherPartNamesOfLog().ToArray();
+                            this.openOtherPartsButton.DropDown.Items.AddRange(items);
 
                             //Load Log Adjuster
                             this.LoadLogAdjuster();
@@ -1069,6 +1056,26 @@ namespace AdvancedLogViewer.UI
                         }
                     }
                 }
+            }
+        }
+
+        private IEnumerable<ToolStripItem> GetOtherPartNamesOfLog()
+        {
+            foreach (string fileName in logParser.AllLogPartsFileNames)
+            {
+                string onlyFileName = Path.GetFileName(fileName);
+
+                var openItem = new ToolStripMenuItem(onlyFileName);
+                openItem.Click += new EventHandler(openOtherLogsItem_Click);
+                openItem.Tag = fileName;
+
+                if (fileName.Equals(logParser.LogFileName))
+                {
+                    openItem.Enabled = false;
+                    openItem.Font = new Font(openItem.Font, FontStyle.Bold);
+                }
+
+                yield return openItem;
             }
         }
 
