@@ -1,7 +1,10 @@
 ## 10.0.1 - 2022-12-22
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.zip)
 #### Features
-* Application updated from .NET 5 to .NET 7. Also all dependencies updated to latest versions.
+* Application updated from .NET 5 to .NET 7. Besides all the good what .NET 7 brings, there is an issue with trimming (reducing final size of the app) of winform applications. This caused increase in the both installer and installed app.
+* When opening a log with many parts, all the parts are loaded for the 'Open another log part' icon. For around 400 items this could take about 6 seconds. Thanks 7rakir for significant performance improvement in #29. 
+#### Fixes
+* Crash after opening a log and then selecting More/plugins menu. Issue caused by publishing the app as single file executable. Issue #30
 ## 9.1.1 - 2021-01-28
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/9.1.1/AdvancedLogViewer_9.1.1_win-x64.zip)
 #### Fixes
