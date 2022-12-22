@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.102
+        dotnet-version: 7.0.101
                  
     - name: Restore dependencies
       run: dotnet restore dirs.proj
@@ -28,15 +28,6 @@ jobs:
       
     - name: Test
       run: dotnet test --no-build --configuration Release --verbosity normal --logger trx --results-directory ./TestResults dirs.proj
-
-    - name: Parse Trx files
-      uses: OSalplachtaSW/trx-parser@0.0.10
-      id: trx-parser
-      if: always()
-      with:
-          TRX_PATH: ${{ github.workspace }}/TestResults #This should be the path to your TRX files
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPORT_ONLY_FAILED: true
     
     - name: Capture Test Results
       uses: actions/upload-artifact@v2
