@@ -1889,18 +1889,28 @@ namespace AdvancedLogViewer.UI
         {
             if (this.plugins == null)
             {
+                var path = Path.GetDirectoryName(Environment.ProcessPath);
                 //Load plugins
-                this.plugins = PluginManager.GetPlugins<IAnalyseLogPlugin>(Application.StartupPath);
-                if (this.plugins.Count > 0)
+                try
                 {
-                    this.pluginsContextMenu.Items.Clear();
-                    foreach (IAnalyseLogPlugin plugin in this.plugins.Values)
+                    this.plugins = PluginManager.GetPlugins<IAnalyseLogPlugin>(path);
+                    if (this.plugins.Count > 0)
                     {
-                        ToolStripMenuItem item = new ToolStripMenuItem(plugin.PluginTitle);
-                        item.Tag = plugin.PluginGuid;
-                        item.Click += new EventHandler(pluginItem_Click);
-                        this.pluginsContextMenu.Items.Add(item);
+                        this.pluginsContextMenu.Items.Clear();
+                        foreach (IAnalyseLogPlugin plugin in this.plugins.Values)
+                        {
+                            var item = new ToolStripMenuItem(plugin.PluginTitle);
+                            item.Tag = plugin.PluginGuid;
+                            item.Click += new EventHandler(pluginItem_Click);
+                            this.pluginsContextMenu.Items.Add(item);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    var item = new ToolStripMenuItem($"Error while loading plugins: {ex.Message}. Path: {path}");
+                    item.Enabled = false;
+                    this.pluginsContextMenu.Items.Add(item);
                 }
             }
         }

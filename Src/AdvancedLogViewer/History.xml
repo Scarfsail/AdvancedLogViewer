@@ -3,6 +3,7 @@
   <Version version="10.0.1" date="2022-12-22">
     <Feature>Application updated from .NET 5 to .NET 7. Besides all the good what .NET 7 brings, there is an issue with trimming (reducing final size of the app) of winform applications. This caused increase in the both installer and installed app.</Feature>
     <Feature>When opening a log with many parts, all the parts are loaded for the 'Open another log part' icon. For around 400 items this could take about 6 seconds. Thanks 7rakir for significant performance improvement in #29. </Feature>
+    <Fix>Crash after opening a log and then selecting More/plugins menu. Issue caused by publishing the app as single file executable. Issue #30</Fix>
   </Version>
   <Version version="9.1.1" date="2021-01-28">
     <Fix>Application icon disappered since version 9.0.2. Thanks martin-lacina-swi for fixing this bug in #27.</Fix>
