@@ -48,7 +48,7 @@ namespace Scarfsail.Common.BL
             if (key == null)
                 return false;
 
-            return key.GetValue("").Equals(progID);
+            return key.GetValue("")?.Equals(progID) ?? false;
         }
 
         [DllImport("Kernel32.dll")]
