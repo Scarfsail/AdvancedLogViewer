@@ -251,8 +251,8 @@ namespace AdvancedLogViewer.UI
 
         private void DefaultFont_Click(object sender, EventArgs e)
         {
-            FontComboBox.SelectedItem = SystemFonts.DefaultFont.Name;
-            MessageFontSize.Value = (decimal)SystemFonts.DefaultFont.SizeInPoints;
+            FontComboBox.SelectedItem = SystemFonts.CaptionFont.Name;
+            MessageFontSize.Value = (decimal)SystemFonts.CaptionFont.SizeInPoints;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
