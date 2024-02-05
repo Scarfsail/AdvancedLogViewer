@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Compression;
 
 namespace AdvancedLogViewer.UI
 {
@@ -22,7 +23,20 @@ namespace AdvancedLogViewer.UI
             this.Text = fileName;
             using (FileStream fs = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                using (TextReader sr = new StreamReader(fs))
+                var isGzip = false;
+                if (fileName.Contains(".gz"))
+                {
+                    // Check for GZip file mark
+                    var firstByte = fs.ReadByte();
+                    var secondByte = fs.ReadByte();
+                    isGzip = firstByte == 0x1f && secondByte == 0x8b;
+                    // Rewind the stream
+                    fs.Seek(0, SeekOrigin.Begin);
+                }
+
+                Stream stream = isGzip ? new GZipStream(fs, CompressionMode.Decompress) : fs; // Not necessary to employ using block on GZipStream, StreamReader closes it
+
+                using (TextReader sr = new StreamReader(stream))
                 {
                     string line;
                     int lineNumber = 0;

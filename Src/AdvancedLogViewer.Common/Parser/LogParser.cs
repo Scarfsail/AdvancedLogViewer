@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Text.RegularExpressions;
 using AdvancedLogViewer.Common.Parser.LogPartsFileNameStrategies;
+using System.IO.Compression;
 
 namespace AdvancedLogViewer.Common.Parser
 {
@@ -95,7 +96,20 @@ namespace AdvancedLogViewer.Common.Parser
                     this.LogFileExists = true;
                     using (FileStream fs = File.Open(this.LogFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
-                        using (TextReader sr = new StreamReader(fs, true))
+                        var isGzip = false;
+                        if (LogFileName.Contains(".gz"))
+                        {
+                            // Check for GZip file mark
+                            var firstByte = fs.ReadByte();
+                            var secondByte = fs.ReadByte();
+                            isGzip = firstByte == 0x1f && secondByte == 0x8b;
+                            // Rewind the stream
+                            fs.Seek(0, SeekOrigin.Begin);
+                        }
+
+                        Stream stream = isGzip ? new GZipStream(fs, CompressionMode.Decompress) : fs; // Not necessary to employ using block on GZipStream, StreamReader closes it
+
+                        using (TextReader sr = new StreamReader(stream, true))
                         {
                             LogEntry tmpLogEntry = new LogEntry();
                             LogEntry currentLogEntry = null;
@@ -103,7 +117,7 @@ namespace AdvancedLogViewer.Common.Parser
 
                             StringBuilder messageBuilder = new StringBuilder(524288); //0.5 MB
 
-                            long fileSize = fs.Length;
+                            long fileSize = fs.Length; // Can't use stream here as GZipStream does not support Length
                             int readFromLine = 1;
                             DateTime nextProgressReportTime = DateTime.Now.AddMilliseconds(50);
                             int nextProgressReportLine = 200;
