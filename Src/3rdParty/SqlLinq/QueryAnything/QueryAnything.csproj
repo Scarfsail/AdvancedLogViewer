@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7</TargetFramework>
+    <TargetFramework>net8</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlLinq\SqlLinq.csproj"/>

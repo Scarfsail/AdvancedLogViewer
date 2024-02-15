@@ -34,6 +34,7 @@ using Scarfsail.Common.BL;
 using System.Text.RegularExpressions;
 using AdvancedLogViewer.UI.Controls;
 using AdvancedLogViewer.BL.FindText;
+using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace AdvancedLogViewer.UI
 {

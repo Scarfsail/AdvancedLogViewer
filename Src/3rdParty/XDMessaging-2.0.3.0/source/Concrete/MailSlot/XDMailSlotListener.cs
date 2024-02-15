@@ -170,7 +170,6 @@ namespace TheCodeKing.Net.Messaging.Concrete.MailSlot
         /// <param name="bytesRead"></param>
         private void ProcessMessage(byte[] buffer, uint bytesRead)
         {
-            BinaryFormatter b = new BinaryFormatter();
             string rawMessage = string.Empty;
             try
             {

@@ -3,7 +3,7 @@
 sql/
 *.suo
 /Bin/
-!/Release/Bin/
+/Release/Bin/
 /Src/AdvancedLogBrowser/obj/
 /Src/AdvancedLogViewer/obj/
 /Src/AdvancedLogViewer.BL/obj/

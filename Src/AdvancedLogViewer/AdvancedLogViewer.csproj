@@ -1,12 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <OutputType>WinExe</OutputType>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-    <TrimMode>link</TrimMode>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <ApplicationIcon>Resources\MainFile32.ico</ApplicationIcon>
     <_SuppressWinFormsTrimError>true</_SuppressWinFormsTrimError>
@@ -31,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="7.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
   </ItemGroup>
 
 
