@@ -2,6 +2,7 @@
 <History>
   <Version version="11.0.1" date="2024-02-15">
     <Feature>Application updated from .NET 7 to .NET 8. </Feature>
+    <Fix>Fixed issue with getting ProductVersion in .NET 8 - https://github.com/dotnet/sdk/issues/34568</Fix>
   </Version>
   <Version version="10.0.1" date="2022-12-22">
     <Feature>Application updated from .NET 5 to .NET 7. Besides all the good what .NET 7 brings, there is an issue with trimming (reducing final size of the app) of winform applications. This caused increase in the both installer and installed app.</Feature>

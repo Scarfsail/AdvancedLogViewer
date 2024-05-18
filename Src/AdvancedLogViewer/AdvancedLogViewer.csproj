@@ -10,6 +10,7 @@
     <ApplicationIcon>Resources\MainFile32.ico</ApplicationIcon>
     <_SuppressWinFormsTrimError>true</_SuppressWinFormsTrimError>
     <CustomResourceTypesSupport>true</CustomResourceTypesSupport>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>    
     <!--
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>true</SelfContained>
