@@ -6,8 +6,8 @@
     <Description>Application for advanced viewing log files.</Description>
     <Product>Advanced Log Viewer</Product>
     <Copyright>Copyright © Ondrej Salplachta 2021</Copyright>
-    <Version>11.0.1</Version>
-    <FileVersion>11.0.1</FileVersion>
+    <Version>11.0.2</Version>
+    <FileVersion>11.0.2</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <SupportedOSPlatform>windows</SupportedOSPlatform>

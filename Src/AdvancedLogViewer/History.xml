@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <History>
-  <Version version="11.0.1" date="2024-02-15">
+  <Version version="11.0.2" date="2024-05-18">
     <Feature>Application updated from .NET 7 to .NET 8. </Feature>
     <Fix>Fixed issue with getting ProductVersion in .NET 8 - https://github.com/dotnet/sdk/issues/34568</Fix>
   </Version>
