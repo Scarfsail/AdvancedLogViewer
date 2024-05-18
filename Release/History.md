@@ -1,7 +1,9 @@
-## 11.0.1 - 2024-02-15
-###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.1/AdvancedLogViewer_11.0.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.1/AdvancedLogViewer_11.0.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.1/AdvancedLogViewer_11.0.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.1/AdvancedLogViewer_11.0.1_win-x64.zip)
+## 11.0.2 - 2024-05-18
+###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.2/AdvancedLogViewer_11.0.2_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.2/AdvancedLogViewer_11.0.2_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.2/AdvancedLogViewer_11.0.2_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/11.0.2/AdvancedLogViewer_11.0.2_win-x64.zip)
 #### Features
 * Application updated from .NET 7 to .NET 8. 
+#### Fixes
+* Fixed issue with getting ProductVersion in .NET 8 - https://github.com/dotnet/sdk/issues/34568
 ## 10.0.1 - 2022-12-22
 ###### Download: MSI: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.msi)  [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.msi) or ZIP: [x86](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x86.zip) [x64](https://github.com/Scarfsail/AdvancedLogViewer/releases/download/10.0.1/AdvancedLogViewer_10.0.1_win-x64.zip)
 #### Features
